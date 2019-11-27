@@ -1,0 +1,34 @@
+PODS:
+  - Flutter (1.0.0)
+  - geolocator (3.0.1):
+    - Flutter
+  - google_api_availability (2.0.0):
+    - Flutter
+  - permission_handler (3.0.0):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `.symlinks/flutter/ios`)
+  - geolocator (from `.symlinks/plugins/geolocator/ios`)
+  - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  geolocator:
+    :path: ".symlinks/plugins/geolocator/ios"
+  google_api_availability:
+    :path: ".symlinks/plugins/google_api_availability/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  geolocator: e054ad14f577d282c418eb5e32c5f0a8a5e6c69d
+  google_api_availability: 80c105ad2c0ed01c18cf779653da2cb939518192
+  permission_handler: 03dcf3ade9d5f398b8854b366cb9de718d3daa76
+
+PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
+
+COCOAPODS: 1.5.3
