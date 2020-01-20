@@ -1,0 +1,1 @@
+{"_info":"// This is a generated file; do not edit or check into version control.","dependencyGraph":[{"name":"geolocator","dependencies":["permission_handler","google_api_availability"]},{"name":"google_api_availability","dependencies":[]},{"name":"permission_handler","dependencies":[]}]}
