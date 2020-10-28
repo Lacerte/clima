@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'location_screen.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:clima/services/weather.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+//TODO: add comments all over the project
+import 'location_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -17,10 +19,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getLocationData();
   }
 
-  void getLocationData() async {
-    var weatherData = await WeatherModel().getLocationWeather();
+// Changed getLocationData from void to Future<void>
+  Future<void> getLocationData() async {
+    final weatherData = await WeatherModel().getLocationWeather();
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return LocationScreen(
         locationWeather: weatherData,
       );
