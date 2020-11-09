@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 const TextStyle kTempTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 100.0,
+  fontSize: 50.0,
 );
 
 const TextStyle kMessageTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 60.0,
+  fontSize: 30.0,
 );
 
 const TextStyle kButtonTextStyle = TextStyle(
@@ -16,7 +16,7 @@ const TextStyle kButtonTextStyle = TextStyle(
 );
 
 const TextStyle kConditionTextStyle = TextStyle(
-  fontSize: 100.0,
+  fontSize: 50.0,
 );
 
 const InputDecoration kTextFieldInputDecoration = InputDecoration(
@@ -32,7 +32,7 @@ const InputDecoration kTextFieldInputDecoration = InputDecoration(
   ),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(
-      Radius.circular(10.0),
+      Radius.circular(8.0),
     ),
     borderSide: BorderSide.none,
   ),

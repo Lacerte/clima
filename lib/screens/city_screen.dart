@@ -13,25 +13,26 @@ class _CityScreenState extends State<CityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/city_background.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        //   decoration: const BoxDecoration(
+        //     image: DecorationImage(
+        //       image: AssetImage('images/city_background.jpg'),
+        //       fit: BoxFit.cover,
+        //     ),
+        //   ),
+        color: Colors.teal,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             children: <Widget>[
               Align(
                 alignment: Alignment.topLeft,
-                child: FlatButton(
+                child: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 50.0,
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    size: 40.0,
                   ),
                 ),
               ),
@@ -42,7 +43,7 @@ class _CityScreenState extends State<CityScreen> {
                     color: Colors.black,
                   ),
                   decoration: kTextFieldInputDecoration,
-                  // Changed to "value" to string instead of var
+                  // Changed "value" to string instead of var
                   onChanged: (String value) {
                     cityName = value;
                   },

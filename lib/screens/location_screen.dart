@@ -50,34 +50,38 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage('images/location_background.jpg'),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.8), BlendMode.dstATop),
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: const AssetImage('images/location_background.jpg'),
+        //     fit: BoxFit.cover,
+        //     colorFilter: ColorFilter.mode(
+        //         Colors.white.withOpacity(0.8), BlendMode.dstATop),
+        //   ),
+        // ),
+        color: Colors.teal,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Row(
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  FlatButton(
+                  IconButton(
+                    padding: EdgeInsets.all(3),
                     onPressed: () async {
                       final weatherData = await weather.getLocationWeather();
                       updateUI(weatherData);
                     },
-                    child: const Icon(
-                      Icons.near_me,
-                      size: 50.0,
+                    icon: const Icon(
+                      Icons.refresh,
+                      size: 40.0,
                     ),
                   ),
-                  FlatButton(
+                  IconButton(
+                    padding: EdgeInsets.all(3),
                     onPressed: () async {
                       final String typedName = await Navigator.push(
                         context,
@@ -93,34 +97,48 @@ class _LocationScreenState extends State<LocationScreen> {
                         updateUI(weatherData);
                       }
                     },
-                    child: const Icon(
-                      Icons.location_city,
-                      size: 50.0,
+                    icon: const Icon(
+                      Icons.search,
+                      size: 40.0,
                     ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      '$temperature°',
-                      style: kTempTextStyle,
-                    ),
-                    Text(
-                      weatherIcon,
-                      style: kConditionTextStyle,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: Text(
-                  '$weatherMessage in $cityName',
-                  textAlign: TextAlign.right,
-                  style: kMessageTextStyle,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(
+                              '$temperature°',
+                              style: kTempTextStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(
+                              weatherIcon,
+                              style: kConditionTextStyle,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Center(
+                        child: Text(
+                          '$weatherMessage.',
+                          textAlign: TextAlign.center,
+                          style: kMessageTextStyle,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
