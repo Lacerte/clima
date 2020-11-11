@@ -12,6 +12,9 @@ class _CityScreenState extends State<CityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
       body: Container(
         //   decoration: const BoxDecoration(
         //     image: DecorationImage(
@@ -19,23 +22,23 @@ class _CityScreenState extends State<CityScreen> {
         //       fit: BoxFit.cover,
         //     ),
         //   ),
-        color: Colors.teal,
+        color: Colors.black,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    size: 40.0,
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: IconButton(
+              //     onPressed: () {
+              //       Navigator.pop(context);
+              //     },
+              //     icon: const Icon(
+              //       Icons.arrow_back,
+              //       size: 40.0,
+              //     ),
+              //   ),
+              // ),
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(

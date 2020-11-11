@@ -61,7 +61,7 @@ class _LocationScreenState extends State<LocationScreen> {
             updateUI(weatherData);
           },
           icon: const Icon(
-            Icons.refresh,
+            Icons.location_on,
             //size: 40.0,
           ),
         ),
