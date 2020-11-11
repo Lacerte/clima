@@ -21,17 +21,18 @@ class _LocationScreenState extends State<LocationScreen> {
   String weatherIcon;
   String cityName;
   String weatherMessage;
+  String middleContainerText;
 
   @override
   void initState() {
     super.initState();
-
     updateUI(widget.locationWeather);
   }
 
   void updateUI(dynamic weatherData) {
     setState(() {
       if (weatherData == null) {
+        middleContainerText = 'Turn Location on';
         temperature = 0;
         weatherIcon = '🤷‍';
         weatherMessage = 'Unable to get weather data';
@@ -44,6 +45,7 @@ class _LocationScreenState extends State<LocationScreen> {
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
       cityName = weatherData['name'] as String;
+      middleContainerText = 'Still to be determined';
     });
   }
 
@@ -55,15 +57,14 @@ class _LocationScreenState extends State<LocationScreen> {
         title: Text('$cityName'),
         leading: IconButton(
           tooltip: 'Refresh',
-          //padding: EdgeInsets.all(3),
-          onPressed: () async {
-            final weatherData = await weather.getLocationWeather();
-            updateUI(weatherData);
-          },
-          icon: const Icon(
-            Icons.location_on,
-            //size: 40.0,
+          icon: Icon(
+            Icons.refresh,
+            color: Colors.white,
           ),
+          onPressed: () async {
+            final refreshedData = await weather.getCityWeather(cityName);
+            updateUI(refreshedData);
+          },
         ),
         actions: [
           IconButton(
@@ -86,6 +87,18 @@ class _LocationScreenState extends State<LocationScreen> {
             icon: const Icon(
               Icons.search,
               // size: 40.0,
+            ),
+          ),
+          IconButton(
+            tooltip: 'Get current geo location',
+            //padding: EdgeInsets.all(3),
+            onPressed: () async {
+              final weatherData = await weather.getLocationWeather();
+              updateUI(weatherData);
+            },
+            icon: const Icon(
+              Icons.location_on,
+              //size: 40.0,
             ),
           ),
         ],
@@ -134,9 +147,9 @@ class _LocationScreenState extends State<LocationScreen> {
                     color: const Color(0xFF171717),
                   ),
                   margin: const EdgeInsets.all(15),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      'Still to be determined',
+                      '$middleContainerText',
                       style: kMessageTextStyle,
                       textAlign: TextAlign.center,
                     ),

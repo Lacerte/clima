@@ -21,7 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
 // Changed getLocationData from void to Future<void>
   Future<void> getLocationData() async {
-    final weatherData = await WeatherModel().getLocationWeather();
+    final weatherData = await WeatherModel().getCityWeather('Riyadh');
 
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return LocationScreen(
