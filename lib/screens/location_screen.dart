@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clima/reusable_card.dart';
 import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
@@ -120,31 +121,31 @@ class _LocationScreenState extends State<LocationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
+                      child: AutoSizeText(
                         '$temperature°',
                         style: kTempTextStyle,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
+                      child: AutoSizeText(
                         weatherIcon,
-                        style: kTempTextStyle,
+                        style: kConditionTextStyle,
                       ),
                     ),
                   ],
                 ),
               ),
               ReusableCard(
-                cardChild: Text(
-                  middleContainerText,
+                cardChild: AutoSizeText(
+                  '$middleContainerText.',
                   style: kMessageTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ),
               ReusableCard(
-                cardChild: Text(
+                cardChild: AutoSizeText(
                   '$weatherMessage.',
                   textAlign: TextAlign.center,
                   style: kMessageTextStyle,

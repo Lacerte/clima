@@ -15,7 +15,10 @@ class ReusableCard extends StatelessWidget {
           color: const Color(0xFF171717),
         ),
         child: Center(
-          child: cardChild,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: cardChild,
+          ),
         ),
       ),
     );
