@@ -25,7 +25,7 @@ class _CityScreenState extends State<CityScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.grey,
                   ),
                   decoration: kTextFieldInputDecoration,
                   // Changed "value" to string instead of var
