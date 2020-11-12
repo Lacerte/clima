@@ -99,8 +99,8 @@ class _LocationScreenState extends State<LocationScreen> {
             tooltip: 'Get current geo location',
             //padding: EdgeInsets.all(3),
             onPressed: () async {
-              final weatherData = await weather.getLocationWeather();
-              updateUI(weatherData);
+              final currentWeatherData = await weather.getLocationWeather();
+              updateUI(currentWeatherData);
             },
             icon: const Icon(
               Icons.location_on,
