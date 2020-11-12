@@ -16,29 +16,11 @@ class _CityScreenState extends State<CityScreen> {
         backgroundColor: Colors.black,
       ),
       body: Container(
-        //   decoration: const BoxDecoration(
-        //     image: DecorationImage(
-        //       image: AssetImage('images/city_background.jpg'),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
         color: Colors.black,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              // Align(
-              //   alignment: Alignment.topLeft,
-              //   child: IconButton(
-              //     onPressed: () {
-              //       Navigator.pop(context);
-              //     },
-              //     icon: const Icon(
-              //       Icons.arrow_back,
-              //       size: 40.0,
-              //     ),
-              //   ),
-              // ),
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(

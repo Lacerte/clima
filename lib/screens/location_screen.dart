@@ -1,8 +1,8 @@
+import 'package:clima/reusable_card.dart';
 import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -29,6 +29,7 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
+  // This function updates the app ui with the weather data we got from the api
   void updateUI(dynamic weatherData) {
     setState(() {
       if (weatherData == null) {
@@ -54,10 +55,11 @@ class _LocationScreenState extends State<LocationScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('$cityName'),
+        title: Text(cityName),
+        //Refresh Button
         leading: IconButton(
           tooltip: 'Refresh',
-          icon: Icon(
+          icon: const Icon(
             Icons.refresh,
             color: Colors.white,
           ),
@@ -66,7 +68,8 @@ class _LocationScreenState extends State<LocationScreen> {
             updateUI(refreshedData);
           },
         ),
-        actions: [
+        actions: <Widget>[
+          //Search Button
           IconButton(
             tooltip: 'Search',
             //padding: EdgeInsets.all(3),
@@ -89,6 +92,7 @@ class _LocationScreenState extends State<LocationScreen> {
               // size: 40.0,
             ),
           ),
+          // Get current geo location button
           IconButton(
             tooltip: 'Get current geo location',
             //padding: EdgeInsets.all(3),
@@ -110,66 +114,39 @@ class _LocationScreenState extends State<LocationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFF171717),
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text(
-                            '$temperature°',
-                            style: kTempTextStyle,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text(
-                            weatherIcon,
-                            style: kTempTextStyle,
-                          ),
-                        ),
-                      ],
+              ReusableCard(
+                cardChild: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        '$temperature°',
+                        style: kTempTextStyle,
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        weatherIcon,
+                        style: kTempTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFF171717),
-                  ),
-                  margin: const EdgeInsets.all(15),
-                  child: Center(
-                    child: Text(
-                      '$middleContainerText',
-                      style: kMessageTextStyle,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+              ReusableCard(
+                cardChild: Text(
+                  middleContainerText,
+                  style: kMessageTextStyle,
+                  textAlign: TextAlign.center,
                 ),
               ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFF171717),
-                  ),
-                  margin: const EdgeInsets.all(15),
-                  child: Center(
-                    child: Text(
-                      '$weatherMessage.',
-                      textAlign: TextAlign.center,
-                      style: kMessageTextStyle,
-                    ),
-                  ),
+              ReusableCard(
+                cardChild: Text(
+                  '$weatherMessage.',
+                  textAlign: TextAlign.center,
+                  style: kMessageTextStyle,
                 ),
               ),
             ],

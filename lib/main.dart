@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(systemNavigationBarColor: Colors.black),
+      const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black),
     );
     return MaterialApp(
       theme: ThemeData.dark(),
