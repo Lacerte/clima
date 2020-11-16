@@ -17,6 +17,7 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   WeatherModel weather = WeatherModel();
   int temperature;
   int condition;
@@ -28,22 +29,47 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    updateUI(widget.locationWeather);
+    updateUI(
+        widget.locationWeather, 'Connection error', 'No network connection');
   }
 
   // This function updates the app ui with the weather data we got from the api
-  void updateUI(dynamic weatherData) {
+  void updateUI(
+      dynamic weatherData, String errorMessage, String networkErrorMessage) {
     setState(() {
       if (weatherData == null) {
-        middleContainerText = 'Location is off or CityName is incorrect';
-        temperature = 0;
-        weatherIcon = '🤷‍';
-        weatherMessage = 'Unable to get weather data';
-        cityName = '';
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            //backgroundColor: Color(0xFF171717),
+          ),
+        );
+
+        // middleContainerText = 'There is a network problem';
+        // temperature = 0;
+        // weatherIcon = '🤷‍';
+        // weatherMessage = 'Unable to get weather data';
+        // cityName = '';
         return;
+      } else if (weatherData == 0) {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(
+              networkErrorMessage,
+            ),
+            //backgroundColor: Color(0xFF171717),
+          ),
+        );
+      } else if (weatherData == 1) {
+        _scaffoldKey.currentState.showSnackBar(
+          const SnackBar(
+            content: Text('Location is turned off'),
+            //backgroundColor: Color(0xFF171717),
+          ),
+        );
       }
       final double temp = (weatherData['main']['temp'] as num).toDouble();
-      temperature = temp.toInt();
+      temperature = temp.round();
       condition = (weatherData['weather'][0]['id'] as num).toInt();
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
@@ -55,6 +81,7 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(cityName),
@@ -67,7 +94,8 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
           onPressed: () async {
             final refreshedData = await weather.getCityWeather(cityName);
-            updateUI(refreshedData);
+            updateUI(
+                refreshedData, 'Connection error', 'No network connection');
           },
         ),
         actions: <Widget>[
@@ -86,7 +114,8 @@ class _LocationScreenState extends State<LocationScreen> {
               );
               if (typedName != null) {
                 final weatherData = await weather.getCityWeather(typedName);
-                updateUI(weatherData);
+                updateUI(weatherData, 'Something went wrong',
+                    'No network connection');
               }
             },
             icon: const Icon(
@@ -100,7 +129,12 @@ class _LocationScreenState extends State<LocationScreen> {
             //padding: EdgeInsets.all(3),
             onPressed: () async {
               final currentWeatherData = await weather.getLocationWeather();
-              updateUI(currentWeatherData);
+              if (currentWeatherData == 3) {
+                updateUI(1, "Can't connect to server", 'No network connection');
+              } else if (currentWeatherData == null) {
+                updateUI(currentWeatherData, "Can't connect to server",
+                    'No network connection');
+              }
             },
             icon: const Icon(
               Icons.location_on,

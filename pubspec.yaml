@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
+  airplane_mode_detection: ^1.0.0
+  connectivity: ^2.0.1
   auto_size_text: ^2.1.0
   geolocator: ^3.0.1
   http: ^0.12.0+2
