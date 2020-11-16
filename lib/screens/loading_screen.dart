@@ -13,6 +13,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -22,17 +23,42 @@ class _LoadingScreenState extends State<LoadingScreen> {
 // Changed getLocationData from void to Future<void>
   Future<void> getLocationData() async {
     final weatherData = await WeatherModel().getCityWeather('Riyadh');
+    if (weatherData == null || weatherData == 0 || weatherData == 1) {
+      setState(() {
+        if (weatherData == null) {
+          _scaffoldKey.currentState.showSnackBar(
+            const SnackBar(
+              content: Text("Can't connect to server"),
+              //backgroundColor: Color(0xFF171717),
+            ),
+          );
 
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return LocationScreen(
-        locationWeather: weatherData,
-      );
-    }));
+          return;
+        } else if (weatherData == 0) {
+          _scaffoldKey.currentState.showSnackBar(
+            const SnackBar(
+              content: Text(
+                'No network connection',
+              ),
+              //backgroundColor: Color(0xFF171717),
+            ),
+          );
+        }
+      });
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext context) {
+        return LocationScreen(
+          locationWeather: weatherData,
+        );
+      }));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.black,
       body: Center(
         child: SpinKitDoubleBounce(

@@ -134,6 +134,9 @@ class _LocationScreenState extends State<LocationScreen> {
               } else if (currentWeatherData == null) {
                 updateUI(currentWeatherData, "Can't connect to server",
                     'No network connection');
+              } else {
+                updateUI(currentWeatherData, "Can't connect to server",
+                    'No network connection');
               }
             },
             icon: const Icon(

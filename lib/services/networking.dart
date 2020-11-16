@@ -8,7 +8,7 @@ class NetworkHelper {
 
   final String url;
 
-  Future getData() async {
+  Future<dynamic> getData() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
 
     //print(state);
