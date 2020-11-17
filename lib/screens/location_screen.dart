@@ -4,6 +4,7 @@ import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'city_screen.dart';
 
@@ -20,6 +21,9 @@ class _LocationScreenState extends State<LocationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   WeatherModel weather = WeatherModel();
   int temperature;
+  int tempFeel;
+  String sunrise;
+  String sunset;
   int condition;
   String weatherIcon;
   String cityName;
@@ -65,12 +69,28 @@ class _LocationScreenState extends State<LocationScreen> {
       }
       final double temp = (weatherData['main']['temp'] as num).toDouble();
       temperature = temp.round();
+      final double tempDoulbeFeel =
+          (weatherData['main']['feels_like'] as num).toDouble();
+      tempFeel = tempDoulbeFeel.round();
+
       condition = (weatherData['weather'][0]['id'] as num).toInt();
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
       cityName = weatherData['name'] as String;
       middleContainerText = 'Still to be determined';
+      final int sr = (weatherData['sys']['sunrise'] as num).toInt();
+      sunrise = timeConverter(sr);
+      final int ss = (weatherData['sys']['sunset'] as num).toInt();
+      sunset = timeConverter(ss);
     });
+  }
+
+  String timeConverter(int number) {
+    final int secondsSinceEpoch = number;
+    final int millisecondsSinceEpoch = secondsSinceEpoch * 1000;
+    final DateTime result =
+        DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+    return DateFormat.jm().format(result);
   }
 
   @override
@@ -153,31 +173,68 @@ class _LocationScreenState extends State<LocationScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               ReusableCard(
-                cardChild: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                cardChild: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
-                      child: AutoSizeText(
-                        '$temperature°',
-                        style: kTempTextStyle,
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
+                              child: AutoSizeText(
+                                '$temperature°',
+                                style: kTempTextStyle,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
+                              child: AutoSizeText(
+                                weatherIcon,
+                                style: kConditionTextStyle,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
-                      child: AutoSizeText(
-                        weatherIcon,
-                        style: kConditionTextStyle,
+                    Expanded(
+                      child: Center(
+                        child: AutoSizeText(
+                          'Feels like: $tempFeel°',
+                          style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               ReusableCard(
-                cardChild: AutoSizeText(
-                  '$middleContainerText.',
-                  style: kMessageTextStyle,
-                  textAlign: TextAlign.center,
+                cardChild: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  //crossAxisAlignment: MainAxisAlignment.space,
+                  children: <Widget>[
+                    Expanded(
+                      child: Center(
+                        child: AutoSizeText(
+                          'Sunrise: $sunrise',
+                          style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: AutoSizeText(
+                          'Sunset: $sunset',
+                          style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               ReusableCard(

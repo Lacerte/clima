@@ -19,9 +19,10 @@ const TextStyle kConditionTextStyle = TextStyle(
   fontSize: 50.0,
 );
 
-const InputDecoration kTextFieldInputDecoration = InputDecoration(
+InputDecoration kTextFieldInputDecoration = const InputDecoration(
   filled: true,
   fillColor: Color(0xFF171717),
+  //fillColor: Colors.grey[900],
   icon: Icon(
     Icons.location_city,
     color: Colors.white,
