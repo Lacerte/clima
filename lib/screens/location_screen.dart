@@ -10,14 +10,14 @@ import 'city_screen.dart';
 class LocationScreen extends StatefulWidget {
   const LocationScreen({this.locationWeather});
 
-  final locationWeather;
+  final dynamic locationWeather;
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   WeatherModel weather = WeatherModel();
   int temperature;
   int condition;
@@ -45,11 +45,6 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         );
 
-        // middleContainerText = 'There is a network problem';
-        // temperature = 0;
-        // weatherIcon = '🤷‍';
-        // weatherMessage = 'Unable to get weather data';
-        // cityName = '';
         return;
       } else if (weatherData == 0) {
         _scaffoldKey.currentState.showSnackBar(
@@ -93,7 +88,8 @@ class _LocationScreenState extends State<LocationScreen> {
             color: Colors.white,
           ),
           onPressed: () async {
-            final refreshedData = await weather.getCityWeather(cityName);
+            final dynamic refreshedData =
+                await weather.getCityWeather(cityName);
             updateUI(
                 refreshedData, 'Connection error', 'No network connection');
           },
@@ -107,19 +103,21 @@ class _LocationScreenState extends State<LocationScreen> {
               final String typedName = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
+                  builder: (BuildContext context) {
                     return CityScreen();
                   },
                 ),
               );
               if (typedName != null) {
-                final weatherData = await weather.getCityWeather(typedName);
+                final dynamic weatherData =
+                    await weather.getCityWeather(typedName);
                 updateUI(weatherData, 'Something went wrong',
                     'No network connection');
               }
             },
             icon: const Icon(
               Icons.search,
+
               // size: 40.0,
             ),
           ),
@@ -128,7 +126,8 @@ class _LocationScreenState extends State<LocationScreen> {
             tooltip: 'Get current geo location',
             //padding: EdgeInsets.all(3),
             onPressed: () async {
-              final currentWeatherData = await weather.getLocationWeather();
+              final dynamic currentWeatherData =
+                  await weather.getLocationWeather();
               if (currentWeatherData == 3) {
                 updateUI(1, "Can't connect to server", 'No network connection');
               } else if (currentWeatherData == null) {
@@ -140,7 +139,7 @@ class _LocationScreenState extends State<LocationScreen> {
               }
             },
             icon: const Icon(
-              Icons.location_on,
+              Icons.location_on_outlined,
               //size: 40.0,
             ),
           ),

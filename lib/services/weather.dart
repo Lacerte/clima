@@ -10,13 +10,13 @@ class WeatherModel {
     final NetworkHelper networkHelper = NetworkHelper(
         '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric');
 
-    final weatherData = await networkHelper.getData();
+    final dynamic weatherData = await networkHelper.getData();
     return weatherData;
   }
 
   Future<dynamic> getLocationWeather() async {
     final Location location = Location();
-    var currentLocation = await location.getCurrentLocation();
+    final dynamic currentLocation = await location.getCurrentLocation();
     if (currentLocation == 3) {
       return 3;
     } else {
@@ -24,7 +24,7 @@ class WeatherModel {
         '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
       );
 
-      final weatherData = await networkHelper.getData();
+      final dynamic weatherData = await networkHelper.getData();
       return weatherData;
     }
   }
