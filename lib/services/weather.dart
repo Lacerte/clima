@@ -19,6 +19,8 @@ class WeatherModel {
     final dynamic currentLocation = await location.getCurrentLocation();
     if (currentLocation == 3) {
       return 3;
+    } else if (currentLocation == 4) {
+      return 4;
     } else {
       final NetworkHelper networkHelper = NetworkHelper(
         '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
@@ -53,9 +55,9 @@ class WeatherModel {
     if (temp > 25) {
       return "It's 🍦 time";
     } else if (temp > 20) {
-      return 'Time for shorts and 👕';
+      return 'Time for shorts \n and 👕';
     } else if (temp < 10) {
-      return "You'll need 🧣 and 🧤";
+      return "You'll need 🧣 \n and 🧤";
     } else {
       return 'Bring a 🧥 just in case';
     }

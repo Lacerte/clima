@@ -1,10 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clima/reusable_card.dart';
 import 'package:clima/services/weather.dart';
+import 'package:clima/utilities/auto_size_text.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'city_screen.dart';
 
@@ -20,15 +19,8 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   WeatherModel weather = WeatherModel();
-  int temperature;
-  int tempFeel;
-  String sunrise;
-  String sunset;
-  int condition;
-  String weatherIcon;
-  String cityName;
-  String weatherMessage;
-  String middleContainerText;
+  int temperature, windSpeed, tempFeel, condition;
+  String weatherIcon, cityName, weatherMessage;
 
   @override
   void initState() {
@@ -45,52 +37,35 @@ class _LocationScreenState extends State<LocationScreen> {
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(errorMessage),
-            //backgroundColor: Color(0xFF171717),
           ),
         );
-
-        return;
       } else if (weatherData == 0) {
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(
               networkErrorMessage,
             ),
-            //backgroundColor: Color(0xFF171717),
           ),
         );
       } else if (weatherData == 1) {
         _scaffoldKey.currentState.showSnackBar(
           const SnackBar(
             content: Text('Location is turned off'),
-            //backgroundColor: Color(0xFF171717),
           ),
         );
       }
       final double temp = (weatherData['main']['temp'] as num).toDouble();
-      temperature = temp.round();
       final double tempDoulbeFeel =
           (weatherData['main']['feels_like'] as num).toDouble();
+      final double wind = (weatherData['wind']['speed'] as num).toDouble();
+      temperature = temp.round();
       tempFeel = tempDoulbeFeel.round();
-
+      windSpeed = (wind * 3.6).round();
       condition = (weatherData['weather'][0]['id'] as num).toInt();
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
       cityName = weatherData['name'] as String;
-      middleContainerText = 'Still to be determined';
-      final int sr = (weatherData['sys']['sunrise'] as num).toInt();
-      sunrise = timeConverter(sr);
-      final int ss = (weatherData['sys']['sunset'] as num).toInt();
-      sunset = timeConverter(ss);
     });
-  }
-
-  String timeConverter(int number) {
-    final int secondsSinceEpoch = number;
-    final int millisecondsSinceEpoch = secondsSinceEpoch * 1000;
-    final DateTime result =
-        DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
-    return DateFormat.jm().format(result);
   }
 
   @override
@@ -110,6 +85,7 @@ class _LocationScreenState extends State<LocationScreen> {
           onPressed: () async {
             final dynamic refreshedData =
                 await weather.getCityWeather(cityName);
+
             updateUI(
                 refreshedData, 'Connection error', 'No network connection');
           },
@@ -143,7 +119,7 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
           // Get current geo location button
           IconButton(
-            tooltip: 'Get current geo location',
+            tooltip: 'Get current geographic location',
             //padding: EdgeInsets.all(3),
             onPressed: () async {
               final dynamic currentWeatherData =
@@ -153,6 +129,8 @@ class _LocationScreenState extends State<LocationScreen> {
               } else if (currentWeatherData == null) {
                 updateUI(currentWeatherData, "Can't connect to server",
                     'No network connection');
+              } else if (currentWeatherData == 4) {
+                updateUI(null, "Permission denied", 'No network connection');
               } else {
                 updateUI(currentWeatherData, "Can't connect to server",
                     'No network connection');
@@ -177,70 +155,44 @@ class _LocationScreenState extends State<LocationScreen> {
                   children: <Widget>[
                     Expanded(
                       flex: 2,
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
-                              child: AutoSizeText(
-                                '$temperature°',
-                                style: kTempTextStyle,
-                              ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
+                            child: autoSizeText(
+                              text: '$temperature°',
+                              style: kTempTextStyle,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
-                              child: AutoSizeText(
-                                weatherIcon,
-                                style: kConditionTextStyle,
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
+                            child: autoSizeText(
+                              text: weatherIcon,
+                              style: kConditionTextStyle,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     Expanded(
-                      child: Center(
-                        child: AutoSizeText(
-                          'Feels like: $tempFeel°',
-                          style: kMessageTextStyle,
-                          textAlign: TextAlign.center,
-                        ),
+                      child: autoSizeText(
+                        text: 'Feels like: $tempFeel°',
+                        style: kMessageTextStyle,
                       ),
                     ),
                   ],
                 ),
               ),
               ReusableCard(
-                cardChild: Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  //crossAxisAlignment: MainAxisAlignment.space,
-                  children: <Widget>[
-                    Expanded(
-                      child: Center(
-                        child: AutoSizeText(
-                          'Sunrise: $sunrise',
-                          style: kMessageTextStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: AutoSizeText(
-                          'Sunset: $sunset',
-                          style: kMessageTextStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ],
+                cardChild: autoSizeText(
+                  text: 'The 💨 speed is \n $windSpeed km/h',
+                  style: kMessageTextStyle,
                 ),
               ),
               ReusableCard(
-                cardChild: AutoSizeText(
-                  '$weatherMessage.',
-                  textAlign: TextAlign.center,
+                cardChild: autoSizeText(
+                  text: weatherMessage,
                   style: kMessageTextStyle,
                 ),
               ),
