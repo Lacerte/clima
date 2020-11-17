@@ -18,21 +18,21 @@ class Location {
         latitude = position.latitude;
         longitude = position.longitude;
       } else if (permission == LocationPermission.denied) {
-        LocationPermission permission_2 = await Geolocator.requestPermission();
-        final LocationPermission permission_again =
+        await Geolocator.requestPermission();
+        final LocationPermission permissionAgain =
             await Geolocator.checkPermission();
-        if (permission_again == LocationPermission.denied ||
-            permission_again == LocationPermission.deniedForever) {
+        if (permissionAgain == LocationPermission.denied ||
+            permissionAgain == LocationPermission.deniedForever) {
           return 4;
         } else {
           await getCurrentLocation();
         }
       } else if (permission == LocationPermission.deniedForever) {
         await Geolocator.openAppSettings();
-        final LocationPermission permission_again_2 =
+        final LocationPermission permissionAgain2 =
             await Geolocator.checkPermission();
-        if (permission_again_2 == LocationPermission.denied ||
-            permission_again_2 == LocationPermission.deniedForever) {
+        if (permissionAgain2 == LocationPermission.denied ||
+            permissionAgain2 == LocationPermission.deniedForever) {
           return 4;
         } else {
           await getCurrentLocation();

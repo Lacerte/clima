@@ -130,7 +130,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 updateUI(currentWeatherData, "Can't connect to server",
                     'No network connection');
               } else if (currentWeatherData == 4) {
-                updateUI(null, "Permission denied", 'No network connection');
+                updateUI(null, 'Permission denied', 'No network connection');
               } else {
                 updateUI(currentWeatherData, "Can't connect to server",
                     'No network connection');
