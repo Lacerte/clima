@@ -32,3 +32,17 @@
 //   String result = 'task 3 data';
 //   print('Task 3 complete with $task2Data');
 // }
+
+// import 'package:intl/intl.dart';
+//
+// void main() {
+//   timeConverter(16029323);
+// }
+//
+// String timeConverter(int number) {
+//   final int secondsSinceEpoch = number;
+//   final int millisecondsSinceEpoch = secondsSinceEpoch * 1000;
+//   final DateTime result =
+//   DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+//   return DateFormat.jm().format(result);
+// }

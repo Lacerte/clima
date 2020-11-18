@@ -10,20 +10,25 @@ class WeatherModel {
     final NetworkHelper networkHelper = NetworkHelper(
         '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric');
 
-    final weatherData = await networkHelper.getData();
+    final dynamic weatherData = await networkHelper.getData();
     return weatherData;
   }
 
   Future<dynamic> getLocationWeather() async {
     final Location location = Location();
-    await location.getCurrentLocation();
+    final dynamic currentLocation = await location.getCurrentLocation();
+    if (currentLocation == 3) {
+      return 3;
+    } else if (currentLocation == 4) {
+      return 4;
+    } else {
+      final NetworkHelper networkHelper = NetworkHelper(
+        '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
+      );
 
-    final NetworkHelper networkHelper = NetworkHelper(
-      '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
-    );
-
-    final weatherData = await networkHelper.getData();
-    return weatherData;
+      final dynamic weatherData = await networkHelper.getData();
+      return weatherData;
+    }
   }
 
   String getWeatherIcon(int condition) {
@@ -50,9 +55,9 @@ class WeatherModel {
     if (temp > 25) {
       return "It's 🍦 time";
     } else if (temp > 20) {
-      return 'Time for shorts and 👕';
+      return 'Time for shorts \n and 👕';
     } else if (temp < 10) {
-      return "You'll need 🧣 and 🧤";
+      return "You'll need 🧣 \n and 🧤";
     } else {
       return 'Bring a 🧥 just in case';
     }

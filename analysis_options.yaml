@@ -34,4 +34,4 @@ linter:
     always_specify_types: true
 
     # Back to the 80s
-    lines_longer_than_80_chars: true
+    lines_longer_than_80_chars: false
