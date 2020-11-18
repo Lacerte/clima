@@ -59,7 +59,7 @@ class WeatherModel {
     } else if (temp < 10) {
       return "You'll need 🧣 \n and 🧤";
     } else {
-      return 'Bring a 🧥 just in case';
+      return 'Bring a 🧥 just in \n case';
     }
   }
 }
