@@ -119,7 +119,7 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
           // Get current geo location button
           IconButton(
-            tooltip: 'Get current geographic location',
+            tooltip: "Get current geographic location's weather",
             //padding: EdgeInsets.all(3),
             onPressed: () async {
               final dynamic currentWeatherData =
