@@ -35,6 +35,6 @@ InputDecoration kTextFieldInputDecoration = const InputDecoration(
     borderRadius: BorderRadius.all(
       Radius.circular(8.0),
     ),
-    borderSide: BorderSide.none,
+    borderSide: BorderSide(color: Colors.grey),
   ),
 );

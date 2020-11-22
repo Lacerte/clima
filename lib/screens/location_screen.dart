@@ -4,6 +4,7 @@ import 'package:clima/utilities/auto_size_text.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'city_screen.dart';
 
@@ -34,23 +35,43 @@ class _LocationScreenState extends State<LocationScreen> {
       dynamic weatherData, String errorMessage, String networkErrorMessage) {
     setState(() {
       if (weatherData == null) {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
+            backgroundColor: Colors.grey[600],
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
             content: Text(errorMessage),
           ),
         );
       } else if (weatherData == 0) {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
+            backgroundColor: Colors.grey[600],
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
             content: Text(
               networkErrorMessage,
             ),
           ),
         );
       } else if (weatherData == 1) {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
-          const SnackBar(
-            content: Text('Location is turned off'),
+          SnackBar(
+            backgroundColor: Colors.grey[600],
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 2),
+            content: Text(
+              'Location is turned off',
+            ),
+            action: SnackBarAction(
+              label: 'Turn on',
+              onPressed: () async {
+                await Geolocator.openLocationSettings();
+              },
+            ),
           ),
         );
       }

@@ -8,7 +8,6 @@ class Location {
     final bool isLocationServiceEnabled =
         await Geolocator.isLocationServiceEnabled();
     final LocationPermission permission = await Geolocator.checkPermission();
-    //print(permission);
     if (isLocationServiceEnabled == true) {
       if (permission == LocationPermission.whileInUse ||
           permission == LocationPermission.always) {
@@ -27,16 +26,9 @@ class Location {
         } else {
           await getCurrentLocation();
         }
-      } else if (permission == LocationPermission.deniedForever) {
+      } else {
         await Geolocator.openAppSettings();
-        final LocationPermission permissionAgain2 =
-            await Geolocator.checkPermission();
-        if (permissionAgain2 == LocationPermission.denied ||
-            permissionAgain2 == LocationPermission.deniedForever) {
-          return 4;
-        } else {
-          await getCurrentLocation();
-        }
+        return 4;
       }
     } else {
       return 3;

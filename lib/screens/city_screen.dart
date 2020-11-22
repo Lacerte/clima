@@ -8,6 +8,7 @@ class CityScreen extends StatefulWidget {
 
 class _CityScreenState extends State<CityScreen> {
   String cityName;
+  //final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,10 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
+                  //controller: controller,
+                  autofocus: true,
+                  //controller: controller,
+                  //onEditingComplete: ,
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -38,6 +43,10 @@ class _CityScreenState extends State<CityScreen> {
                 onPressed: () {
                   Navigator.pop(context, cityName);
                 },
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: const Text(
                   'Get Weather',
                   style: kButtonTextStyle,
