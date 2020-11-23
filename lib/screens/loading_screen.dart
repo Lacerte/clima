@@ -1,5 +1,7 @@
 import 'package:clima/screens/location_screen.dart';
+import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
+import 'package:clima/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -19,66 +21,52 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getLocationData();
   }
 
-  // bool isDone = false;
-  // dynamic weatherDataFinal;
   Future<void> getLocationData() async {
-    final dynamic weatherData = await WeatherModel().getCityWeather('Riyadh');
-    if (weatherData == null || weatherData == 0 || weatherData == 1) {
-      setState(() {
-        if (weatherData == null) {
-          //ScaffoldState().removeCurrentSnackBar;
-          _scaffoldKey.currentState.removeCurrentSnackBar();
-          _scaffoldKey.currentState.showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.grey[600],
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(seconds: 2),
-              content: Text("Can't connect to server"),
-              //backgroundColor: Color(0xFF171717),
-            ),
+    setState(() async {
+      try {
+        final dynamic weatherData =
+            await WeatherModel().getCityWeather('Riyadh');
+        Navigator.push(context,
+            MaterialPageRoute<dynamic>(builder: (BuildContext context) {
+          return LocationScreen(
+            locationWeather: weatherData,
           );
-
-          //return;
-        } else if (weatherData == 0) {
-          _scaffoldKey.currentState.removeCurrentSnackBar();
-          _scaffoldKey.currentState.showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.grey[600],
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(hours: 24),
-              content: Text(
-                'No network connection',
-              ),
-              action: SnackBarAction(
-                label: 'Retry',
-                onPressed: () async {
-                  await getLocationData();
-                },
-              ),
-              //backgroundColor: Color(0xFF171717),
+        }));
+      } on NoInternetConnection {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            backgroundColor: scaffoldBG,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(hours: 24),
+            content: const Text('No network connection'),
+            action: SnackBarAction(
+              label: 'Retry',
+              onPressed: () async {
+                await getLocationData();
+              },
             ),
-          );
-        }
-      });
-    } else {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) {
-        return LocationScreen(
-          locationWeather: weatherData,
+          ),
         );
-      }));
-    }
+      } on DataIsNull {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            backgroundColor: scaffoldBG,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(hours: 24),
+            content: const Text("Can't connect to server"),
+            action: SnackBarAction(
+              label: 'Retry',
+              onPressed: () async {
+                await getLocationData();
+              },
+            ),
+          ),
+        );
+      }
+    });
   }
-
-  // isDoneAction() {
-  //   if (isDone) {
-  //     return LocationScreen(
-  //       locationWeather: weatherDataFinal,
-  //     );
-  //   } else {
-  //     return LoadingScreen();
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,10 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 
+class NoInternetConnection implements Exception {}
+
+class DataIsNull implements Exception {}
+
 class NetworkHelper {
   NetworkHelper(this.url);
 
@@ -20,9 +24,12 @@ class NetworkHelper {
         final String data = response.body;
 
         return jsonDecode(data);
+      } else {
+        throw DataIsNull();
       }
     } else {
-      return 0;
+      //return 0;
+      throw NoInternetConnection();
     }
   }
 }
