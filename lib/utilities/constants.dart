@@ -5,6 +5,8 @@ const TextStyle kTempTextStyle = TextStyle(
   fontSize: 50.0,
 );
 
+Color scaffoldBG = Colors.grey[400];
+
 const TextStyle kMessageTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
   fontSize: 30.0,

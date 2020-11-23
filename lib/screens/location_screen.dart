@@ -1,4 +1,6 @@
 import 'package:clima/reusable_card.dart';
+import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/auto_size_text.dart';
 import 'package:clima/utilities/constants.dart';
@@ -26,44 +28,23 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    updateUI(
-        widget.locationWeather, 'Connection error', 'No network connection');
+    updateUI(widget.locationWeather);
   }
 
-  // This function updates the app ui with the weather data we got from the api
-  void updateUI(
-      dynamic weatherData, String errorMessage, String networkErrorMessage) {
-    setState(() {
-      if (weatherData == null) {
+  Future<dynamic> errorHandler(
+      {Future<dynamic> method, String errorMessage}) async {
+    setState(() async {
+      try {
+        final dynamic weatherData = await method;
+        updateUI(weatherData);
+      } on LocationServicesTurnedOff {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
-            backgroundColor: Colors.grey[600],
+            backgroundColor: scaffoldBG,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 2),
-            content: Text(errorMessage),
-          ),
-        );
-      } else if (weatherData == 0) {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-        _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.grey[600],
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-            content: Text(
-              networkErrorMessage,
-            ),
-          ),
-        );
-      } else if (weatherData == 1) {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-        _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.grey[600],
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-            content: Text(
+            content: const Text(
               'Location is turned off',
             ),
             action: SnackBarAction(
@@ -74,7 +55,46 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
           ),
         );
+      } on LocationPermissionDenied {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
+
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            backgroundColor: scaffoldBG,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
+            content: const Text('Permission denied'),
+          ),
+        );
+      } on NoInternetConnection {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
+
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            backgroundColor: scaffoldBG,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
+            content: const Text('No network connection'),
+          ),
+        );
+      } on DataIsNull {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
+
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            backgroundColor: scaffoldBG,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
+            content: Text(errorMessage),
+          ),
+        );
       }
+    });
+  }
+
+  // This function updates the app ui with the weather data we got from the api
+  void updateUI(dynamic weatherData) {
+    setState(() {
       final double temp = (weatherData['main']['temp'] as num).toDouble();
       final double tempDoulbeFeel =
           (weatherData['main']['feels_like'] as num).toDouble();
@@ -96,7 +116,6 @@ class _LocationScreenState extends State<LocationScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(cityName),
-        //Refresh Button
         leading: IconButton(
           tooltip: 'Refresh',
           icon: const Icon(
@@ -104,62 +123,42 @@ class _LocationScreenState extends State<LocationScreen> {
             color: Colors.white,
           ),
           onPressed: () async {
-            final dynamic refreshedData =
-                await weather.getCityWeather(cityName);
-
-            updateUI(
-                refreshedData, 'Connection error', 'No network connection');
+            errorHandler(
+                method: weather.getCityWeather(cityName),
+                errorMessage: 'Connection error');
           },
         ),
         actions: <Widget>[
-          //Search Button
           IconButton(
             tooltip: 'Search',
-            //padding: EdgeInsets.all(3),
             onPressed: () async {
               final String typedName = await Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<String>(
                   builder: (BuildContext context) {
                     return CityScreen();
                   },
                 ),
               );
               if (typedName != null) {
-                final dynamic weatherData =
-                    await weather.getCityWeather(typedName);
-                updateUI(weatherData, 'Something went wrong',
-                    'No network connection');
+                errorHandler(
+                    method: weather.getCityWeather(typedName),
+                    errorMessage: 'Something went wrong');
               }
             },
             icon: const Icon(
               Icons.search,
-
-              // size: 40.0,
             ),
           ),
-          // Get current geo location button
           IconButton(
             tooltip: "Get current geographic location's weather",
-            //padding: EdgeInsets.all(3),
             onPressed: () async {
-              final dynamic currentWeatherData =
-                  await weather.getLocationWeather();
-              if (currentWeatherData == 3) {
-                updateUI(1, "Can't connect to server", 'No network connection');
-              } else if (currentWeatherData == null) {
-                updateUI(currentWeatherData, "Can't connect to server",
-                    'No network connection');
-              } else if (currentWeatherData == 4) {
-                updateUI(null, 'Permission denied', 'No network connection');
-              } else {
-                updateUI(currentWeatherData, "Can't connect to server",
-                    'No network connection');
-              }
+              errorHandler(
+                  method: weather.getLocationWeather(),
+                  errorMessage: "Can't connect to server");
             },
             icon: const Icon(
               Icons.location_on_outlined,
-              //size: 40.0,
             ),
           ),
         ],

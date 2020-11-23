@@ -16,19 +16,14 @@ class WeatherModel {
 
   Future<dynamic> getLocationWeather() async {
     final Location location = Location();
-    final dynamic currentLocation = await location.getCurrentLocation();
-    if (currentLocation == 3) {
-      return 3;
-    } else if (currentLocation == 4) {
-      return 4;
-    } else {
-      final NetworkHelper networkHelper = NetworkHelper(
-        '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
-      );
+    await location.getCurrentLocation();
 
-      final dynamic weatherData = await networkHelper.getData();
-      return weatherData;
-    }
+    final NetworkHelper networkHelper = NetworkHelper(
+      '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
+    );
+
+    final dynamic weatherData = await networkHelper.getData();
+    return weatherData;
   }
 
   String getWeatherIcon(int condition) {

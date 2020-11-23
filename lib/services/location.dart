@@ -1,10 +1,14 @@
 import 'package:geolocator/geolocator.dart';
 
+class LocationServicesTurnedOff implements Exception {}
+
+class LocationPermissionDenied implements Exception {}
+
 class Location {
   double latitude;
   double longitude;
 
-  Future<dynamic> getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     final bool isLocationServiceEnabled =
         await Geolocator.isLocationServiceEnabled();
     final LocationPermission permission = await Geolocator.checkPermission();
@@ -22,16 +26,19 @@ class Location {
             await Geolocator.checkPermission();
         if (permissionAgain == LocationPermission.denied ||
             permissionAgain == LocationPermission.deniedForever) {
-          return 4;
+          //return 4;
+          throw LocationPermissionDenied();
         } else {
           await getCurrentLocation();
         }
       } else {
         await Geolocator.openAppSettings();
-        return 4;
+        throw LocationPermissionDenied();
+        //return 4;
       }
     } else {
-      return 3;
+      //return 3;
+      throw LocationServicesTurnedOff();
     }
   }
 }
