@@ -203,6 +203,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         child: AutoSizeText(
                           'Feels like: $tempFeel°',
                           style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -214,6 +215,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   child: AutoSizeText(
                     'The 💨 speed is \n $windSpeed km/h',
                     style: kMessageTextStyle,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -222,6 +224,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   child: AutoSizeText(
                     weatherMessage,
                     style: kMessageTextStyle,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
