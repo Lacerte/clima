@@ -1,7 +1,6 @@
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
-import 'package:clima/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -26,6 +25,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       try {
         final dynamic weatherData =
             await WeatherModel().getCityWeather('Riyadh');
+
         Navigator.push(context,
             MaterialPageRoute<dynamic>(builder: (BuildContext context) {
           return LocationScreen(
@@ -36,7 +36,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
-            backgroundColor: scaffoldBG,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(hours: 24),
             content: const Text('No network connection'),
@@ -52,7 +51,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
-            backgroundColor: scaffoldBG,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(hours: 24),
             content: const Text("Can't connect to server"),

@@ -1,8 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clima/reusable_card.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
-import 'package:clima/utilities/auto_size_text.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,6 @@ class _LocationScreenState extends State<LocationScreen> {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
-            backgroundColor: scaffoldBG,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 2),
             content: const Text(
@@ -59,22 +58,20 @@ class _LocationScreenState extends State<LocationScreen> {
         _scaffoldKey.currentState.removeCurrentSnackBar();
 
         _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            backgroundColor: scaffoldBG,
+          const SnackBar(
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-            content: const Text('Permission denied'),
+            duration: Duration(seconds: 2),
+            content: Text('Permission denied'),
           ),
         );
       } on NoInternetConnection {
         _scaffoldKey.currentState.removeCurrentSnackBar();
 
         _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            backgroundColor: scaffoldBG,
+          const SnackBar(
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-            content: const Text('No network connection'),
+            duration: Duration(seconds: 2),
+            content: Text('No network connection'),
           ),
         );
       } on DataIsNull {
@@ -82,7 +79,6 @@ class _LocationScreenState extends State<LocationScreen> {
 
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
-            backgroundColor: scaffoldBG,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 2),
             content: Text(errorMessage),
@@ -92,7 +88,8 @@ class _LocationScreenState extends State<LocationScreen> {
     });
   }
 
-  // This function updates the app ui with the weather data we got from the api
+  /// This function updates the app ui with the weather data we got from the api
+
   void updateUI(dynamic weatherData) {
     setState(() {
       final double temp = (weatherData['main']['temp'] as num).toDouble();
@@ -178,42 +175,54 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
-                            child: autoSizeText(
-                              text: '$temperature°',
-                              style: kTempTextStyle,
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
+                              child: AutoSizeText(
+                                '$temperature°',
+                                style: kTempTextStyle,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
-                            child: autoSizeText(
-                              text: weatherIcon,
-                              style: kConditionTextStyle,
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
+                              child: AutoSizeText(
+                                weatherIcon,
+                                style: kConditionTextStyle,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                     Expanded(
-                      child: autoSizeText(
-                        text: 'Feels like: $tempFeel°',
-                        style: kMessageTextStyle,
+                      child: Center(
+                        child: AutoSizeText(
+                          'Feels like: $tempFeel°',
+                          style: kMessageTextStyle,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               ReusableCard(
-                cardChild: autoSizeText(
-                  text: 'The 💨 speed is \n $windSpeed km/h',
-                  style: kMessageTextStyle,
+                cardChild: Center(
+                  child: AutoSizeText(
+                    'The 💨 speed is \n $windSpeed km/h',
+                    style: kMessageTextStyle,
+                  ),
                 ),
               ),
               ReusableCard(
-                cardChild: autoSizeText(
-                  text: weatherMessage,
-                  style: kMessageTextStyle,
+                cardChild: Center(
+                  child: AutoSizeText(
+                    weatherMessage,
+                    style: kMessageTextStyle,
+                  ),
                 ),
               ),
             ],
@@ -223,3 +232,6 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+/// flutter build apk --target-platform android-arm64 --split-per-abi
+/// https://github.com/flutter/flutter/wiki/Upgrading-pre-1.12-Android-projects
