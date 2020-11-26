@@ -31,7 +31,7 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
-  Future<dynamic> errorHandler(
+  Future<void> errorHandler(
       {Future<dynamic> method, String errorMessage}) async {
     setState(() async {
       try {
