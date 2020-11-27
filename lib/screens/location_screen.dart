@@ -24,6 +24,7 @@ class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weather = WeatherModel();
   int temperature, windSpeed, tempFeel, condition;
   String weatherIcon, cityName, weatherMessage;
+  bool visibilty = false;
 
   @override
   void initState() {
@@ -37,6 +38,9 @@ class _LocationScreenState extends State<LocationScreen> {
       try {
         final dynamic weatherData = await method;
         updateUI(weatherData);
+        setState(() {
+          visibilty = false;
+        });
       } on LocationServicesTurnedOff {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
@@ -44,7 +48,7 @@ class _LocationScreenState extends State<LocationScreen> {
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 2),
             content: const Text(
-              'Location is turned off',
+              'Location is turned off.',
             ),
             action: SnackBarAction(
               label: 'Turn on',
@@ -54,6 +58,9 @@ class _LocationScreenState extends State<LocationScreen> {
             ),
           ),
         );
+        setState(() {
+          visibilty = false;
+        });
       } on LocationPermissionDenied {
         _scaffoldKey.currentState.removeCurrentSnackBar();
 
@@ -61,9 +68,12 @@ class _LocationScreenState extends State<LocationScreen> {
           const SnackBar(
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 2),
-            content: Text('Permission denied'),
+            content: Text('Permission denied.'),
           ),
         );
+        setState(() {
+          visibilty = false;
+        });
       } on NoInternetConnection {
         _scaffoldKey.currentState.removeCurrentSnackBar();
 
@@ -71,9 +81,12 @@ class _LocationScreenState extends State<LocationScreen> {
           const SnackBar(
             behavior: SnackBarBehavior.floating,
             duration: Duration(seconds: 2),
-            content: Text('No network connection'),
+            content: Text('No network connection.'),
           ),
         );
+        setState(() {
+          visibilty = false;
+        });
       } on DataIsNull {
         _scaffoldKey.currentState.removeCurrentSnackBar();
 
@@ -84,6 +97,9 @@ class _LocationScreenState extends State<LocationScreen> {
             content: Text(errorMessage),
           ),
         );
+        setState(() {
+          visibilty = false;
+        });
       }
     });
   }
@@ -120,12 +136,27 @@ class _LocationScreenState extends State<LocationScreen> {
             color: Colors.white,
           ),
           onPressed: () async {
-            errorHandler(
+            setState(() {
+              visibilty = true;
+            });
+            await errorHandler(
                 method: weather.getCityWeather(cityName),
-                errorMessage: 'Connection error');
+                errorMessage: "Can't connect to server.");
           },
         ),
         actions: <Widget>[
+          Visibility(
+            visible: visibilty,
+            child: const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 1,
+                ),
+              ),
+            ),
+          ),
           IconButton(
             tooltip: 'Search',
             onPressed: () async {
@@ -138,9 +169,12 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               );
               if (typedName != null) {
+                setState(() {
+                  visibilty = true;
+                });
                 errorHandler(
                     method: weather.getCityWeather(typedName),
-                    errorMessage: 'Something went wrong');
+                    errorMessage: 'Something went wrong.');
               }
             },
             icon: const Icon(
@@ -150,9 +184,12 @@ class _LocationScreenState extends State<LocationScreen> {
           IconButton(
             tooltip: "Get current geographic location's weather",
             onPressed: () async {
+              setState(() {
+                visibilty = true;
+              });
               errorHandler(
                   method: weather.getLocationWeather(),
-                  errorMessage: "Can't connect to server");
+                  errorMessage: "Can't connect to server.");
             },
             icon: const Icon(
               Icons.location_on_outlined,

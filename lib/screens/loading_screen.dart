@@ -38,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           SnackBar(
             behavior: SnackBarBehavior.floating,
             duration: const Duration(hours: 24),
-            content: const Text('No network connection'),
+            content: const Text('No network connection.'),
             action: SnackBarAction(
               label: 'Retry',
               onPressed: () async {
@@ -53,7 +53,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           SnackBar(
             behavior: SnackBarBehavior.floating,
             duration: const Duration(hours: 24),
-            content: const Text("Can't connect to server"),
+            content: const Text("Can't connect to server."),
             action: SnackBarAction(
               label: 'Retry',
               onPressed: () async {
