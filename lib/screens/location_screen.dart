@@ -24,7 +24,7 @@ class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weather = WeatherModel();
   int temperature, windSpeed, tempFeel, condition;
   String weatherIcon, cityName, weatherMessage;
-  bool visibilty = false;
+  bool visibility = false;
 
   @override
   void initState() {
@@ -36,13 +36,13 @@ class _LocationScreenState extends State<LocationScreen> {
       {Future<dynamic> method, String errorMessage}) async {
     setState(() async {
       try {
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         final dynamic weatherData = await method;
         updateUI(weatherData);
         setState(() {
-          visibilty = false;
+          visibility = false;
         });
       } on LocationServicesTurnedOff {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
@@ -59,11 +59,9 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         );
         setState(() {
-          visibilty = false;
+          visibility = false;
         });
       } on LocationPermissionDenied {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-
         _scaffoldKey.currentState.showSnackBar(
           const SnackBar(
             behavior: SnackBarBehavior.floating,
@@ -72,11 +70,9 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         );
         setState(() {
-          visibilty = false;
+          visibility = false;
         });
       } on NoInternetConnection {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-
         _scaffoldKey.currentState.showSnackBar(
           const SnackBar(
             behavior: SnackBarBehavior.floating,
@@ -85,11 +81,9 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         );
         setState(() {
-          visibilty = false;
+          visibility = false;
         });
       } on DataIsNull {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
@@ -98,7 +92,7 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         );
         setState(() {
-          visibilty = false;
+          visibility = false;
         });
       }
     });
@@ -137,7 +131,7 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
           onPressed: () async {
             setState(() {
-              visibilty = true;
+              visibility = true;
             });
             await errorHandler(
                 method: weather.getCityWeather(cityName),
@@ -146,11 +140,11 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
         actions: <Widget>[
           Visibility(
-            visible: visibilty,
+            visible: visibility,
             child: const Center(
               child: SizedBox(
-                width: 20,
                 height: 20,
+                width: 20,
                 child: CircularProgressIndicator(
                   strokeWidth: 1,
                 ),
@@ -170,7 +164,7 @@ class _LocationScreenState extends State<LocationScreen> {
               );
               if (typedName != null) {
                 setState(() {
-                  visibilty = true;
+                  visibility = true;
                 });
                 errorHandler(
                     method: weather.getCityWeather(typedName),
@@ -185,7 +179,7 @@ class _LocationScreenState extends State<LocationScreen> {
             tooltip: "Get current geographic location's weather",
             onPressed: () async {
               setState(() {
-                visibilty = true;
+                visibility = true;
               });
               errorHandler(
                   method: weather.getLocationWeather(),

@@ -11,7 +11,9 @@ class MyApp extends StatelessWidget {
       const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black),
     );
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        accentColor: Colors.blue[500],
+      ),
       home: LoadingScreen(),
     );
   }
