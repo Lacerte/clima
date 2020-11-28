@@ -8,8 +8,8 @@ const String openWeatherMapURL =
 class WeatherModel {
   Future<dynamic> getCityWeather(String cityName) async {
     final NetworkHelper networkHelper = NetworkHelper(
-        '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric');
-
+      '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric',
+    );
     final dynamic weatherData = await networkHelper.getData();
     return weatherData;
   }

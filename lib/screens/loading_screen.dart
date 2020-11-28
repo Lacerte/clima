@@ -21,49 +21,48 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Future<void> getLocationData() async {
-    setState(() async {
-      try {
-        final dynamic weatherData =
-            await WeatherModel().getCityWeather('Riyadh');
+    try {
+      final dynamic weatherData = await WeatherModel().getCityWeather('Riyadh');
 
-        Navigator.push(context,
-            MaterialPageRoute<dynamic>(builder: (BuildContext context) {
-          return LocationScreen(
-            locationWeather: weatherData,
-          );
-        }));
-      } on NoInternetConnection {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-        _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(hours: 24),
-            content: const Text('No network connection.'),
-            action: SnackBarAction(
-              label: 'Retry',
-              onPressed: () async {
-                await getLocationData();
-              },
-            ),
+      Navigator.push(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) {
+            return LocationScreen(locationWeather: weatherData);
+          },
+        ),
+      );
+    } on NoInternetConnection {
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(hours: 24),
+          content: const Text('No network connection.'),
+          action: SnackBarAction(
+            label: 'Retry',
+            onPressed: () async {
+              await getLocationData();
+            },
           ),
-        );
-      } on DataIsNull {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-        _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(hours: 24),
-            content: const Text("Can't connect to server."),
-            action: SnackBarAction(
-              label: 'Retry',
-              onPressed: () async {
-                await getLocationData();
-              },
-            ),
+        ),
+      );
+    } on DataIsNull {
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(hours: 24),
+          content: const Text("Can't connect to server."),
+          action: SnackBarAction(
+            label: 'Retry',
+            onPressed: () async {
+              await getLocationData();
+            },
           ),
-        );
-      }
-    });
+        ),
+      );
+    }
   }
 
   @override

@@ -8,14 +8,11 @@ class CityScreen extends StatefulWidget {
 
 class _CityScreenState extends State<CityScreen> {
   String cityName;
-  //final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
+      appBar: AppBar(backgroundColor: Colors.black),
       body: Container(
         color: Colors.black,
         constraints: const BoxConstraints.expand(),
@@ -25,15 +22,9 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
-                  //controller: controller,
                   autofocus: true,
-                  //controller: controller,
-                  //onEditingComplete: ,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white),
                   decoration: kTextFieldInputDecoration,
-                  // Changed "value" to string instead of var
                   onChanged: (String value) {
                     cityName = value;
                   },

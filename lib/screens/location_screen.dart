@@ -6,6 +6,7 @@ import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'city_screen.dart';
@@ -32,70 +33,68 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
-  Future<void> errorHandler(
-      {Future<dynamic> method, String errorMessage}) async {
-    setState(() async {
-      try {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-        final dynamic weatherData = await method;
-        updateUI(weatherData);
-        setState(() {
-          visibility = false;
-        });
-      } on LocationServicesTurnedOff {
-        _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-            content: const Text(
-              'Location is turned off.',
-            ),
-            action: SnackBarAction(
-              label: 'Turn on',
-              onPressed: () async {
-                await Geolocator.openLocationSettings();
-              },
-            ),
+  Future<void> errorHandler({
+    Future<dynamic> method,
+    String errorMessage,
+  }) async {
+    try {
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+      final dynamic weatherData = await method;
+      updateUI(weatherData);
+      setState(() {
+        visibility = false;
+      });
+    } on LocationServicesTurnedOff {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          content: const Text('Location is turned off.'),
+          action: SnackBarAction(
+            label: 'Turn on',
+            onPressed: () async {
+              await Geolocator.openLocationSettings();
+            },
           ),
-        );
-        setState(() {
-          visibility = false;
-        });
-      } on LocationPermissionDenied {
-        _scaffoldKey.currentState.showSnackBar(
-          const SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-            content: Text('Permission denied.'),
-          ),
-        );
-        setState(() {
-          visibility = false;
-        });
-      } on NoInternetConnection {
-        _scaffoldKey.currentState.showSnackBar(
-          const SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-            content: Text('No network connection.'),
-          ),
-        );
-        setState(() {
-          visibility = false;
-        });
-      } on DataIsNull {
-        _scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 2),
-            content: Text(errorMessage),
-          ),
-        );
-        setState(() {
-          visibility = false;
-        });
-      }
-    });
+        ),
+      );
+      setState(() {
+        visibility = false;
+      });
+    } on LocationPermissionDenied {
+      _scaffoldKey.currentState.showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+          content: Text('Permission denied.'),
+        ),
+      );
+      setState(() {
+        visibility = false;
+      });
+    } on NoInternetConnection {
+      _scaffoldKey.currentState.showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+          content: Text('No network connection.'),
+        ),
+      );
+      setState(() {
+        visibility = false;
+      });
+    } on DataIsNull {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          content: Text(errorMessage),
+        ),
+      );
+      setState(() {
+        visibility = false;
+      });
+    }
   }
 
   /// This function updates the app ui with the weather data we got from the api
@@ -103,11 +102,11 @@ class _LocationScreenState extends State<LocationScreen> {
   void updateUI(dynamic weatherData) {
     setState(() {
       final double temp = (weatherData['main']['temp'] as num).toDouble();
-      final double tempDoulbeFeel =
+      final double tempDoubleFeel =
           (weatherData['main']['feels_like'] as num).toDouble();
       final double wind = (weatherData['wind']['speed'] as num).toDouble();
       temperature = temp.round();
-      tempFeel = tempDoulbeFeel.round();
+      tempFeel = tempDoubleFeel.round();
       windSpeed = (wind * 3.6).round();
       condition = (weatherData['weather'][0]['id'] as num).toInt();
       weatherIcon = weather.getWeatherIcon(condition);
@@ -122,20 +121,18 @@ class _LocationScreenState extends State<LocationScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(cityName),
+        title: Text('$cityName (C)'),
         leading: IconButton(
+          icon: const Icon(Icons.refresh),
           tooltip: 'Refresh',
-          icon: const Icon(
-            Icons.refresh,
-            color: Colors.white,
-          ),
-          onPressed: () async {
+          onPressed: () {
             setState(() {
               visibility = true;
             });
-            await errorHandler(
-                method: weather.getCityWeather(cityName),
-                errorMessage: "Can't connect to server.");
+            errorHandler(
+              method: weather.getCityWeather(cityName),
+              errorMessage: "Can't connect to server.",
+            );
           },
         ),
         actions: <Widget>[
@@ -145,13 +142,12 @@ class _LocationScreenState extends State<LocationScreen> {
               child: SizedBox(
                 height: 20,
                 width: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 1,
-                ),
+                child: CircularProgressIndicator(strokeWidth: 1),
               ),
             ),
           ),
           IconButton(
+            icon: const Icon(Icons.search),
             tooltip: 'Search',
             onPressed: () async {
               final String typedName = await Navigator.push(
@@ -167,27 +163,24 @@ class _LocationScreenState extends State<LocationScreen> {
                   visibility = true;
                 });
                 errorHandler(
-                    method: weather.getCityWeather(typedName),
-                    errorMessage: 'Something went wrong.');
+                  method: weather.getCityWeather(typedName),
+                  errorMessage: 'Something went wrong.',
+                );
               }
             },
-            icon: const Icon(
-              Icons.search,
-            ),
           ),
           IconButton(
+            icon: const Icon(Icons.location_on_outlined),
             tooltip: "Get current geographic location's weather",
             onPressed: () async {
               setState(() {
                 visibility = true;
               });
               errorHandler(
-                  method: weather.getLocationWeather(),
-                  errorMessage: "Can't connect to server.");
+                method: weather.getLocationWeather(),
+                errorMessage: "Can't connect to server.",
+              );
             },
-            icon: const Icon(
-              Icons.location_on_outlined,
-            ),
           ),
         ],
       ),
@@ -208,7 +201,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         children: <Widget>[
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 2, 0),
+                              padding: const EdgeInsets.only(right: 2),
                               child: AutoSizeText(
                                 '$temperature°',
                                 style: kTempTextStyle,
@@ -218,7 +211,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           ),
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
+                              padding: const EdgeInsets.only(left: 2),
                               child: AutoSizeText(
                                 weatherIcon,
                                 style: kConditionTextStyle,
