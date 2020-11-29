@@ -20,6 +20,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getLocationData();
   }
 
+  /// This function tries to get the weatherData from weather.dart and pass it to the location_screen.
   Future<void> getLocationData() async {
     try {
       final dynamic weatherData = await WeatherModel().getCityWeather('Riyadh');

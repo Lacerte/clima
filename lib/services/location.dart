@@ -8,6 +8,7 @@ class Location {
   double latitude;
   double longitude;
 
+  /// This function is responsible to get the latitude and longitude using the Geolocator package.
   Future<void> getCurrentLocation() async {
     final bool isLocationServiceEnabled =
         await Geolocator.isLocationServiceEnabled();
@@ -26,7 +27,6 @@ class Location {
             await Geolocator.checkPermission();
         if (permissionAgain == LocationPermission.denied ||
             permissionAgain == LocationPermission.deniedForever) {
-          //return 4;
           throw LocationPermissionDenied();
         } else {
           await getCurrentLocation();
@@ -34,10 +34,8 @@ class Location {
       } else {
         await Geolocator.openAppSettings();
         throw LocationPermissionDenied();
-        //return 4;
       }
     } else {
-      //return 3;
       throw LocationServicesTurnedOff();
     }
   }

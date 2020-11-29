@@ -24,7 +24,7 @@ class _LocationScreenState extends State<LocationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   WeatherModel weather = WeatherModel();
   int temperature, windSpeed, tempFeel, condition, tempMax, tempMin;
-  String weatherIcon, cityName, weatherMessage, description;
+  String weatherIcon, cityName, description;
   bool visibility = false;
 
   @override
@@ -33,6 +33,7 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
+  /// This function handles all the errors that might get thrown from the services file. If there are no errors, the work is passed to updateUI.
   Future<void> errorHandler({
     Future<dynamic> method,
     String errorMessage,
@@ -45,6 +46,9 @@ class _LocationScreenState extends State<LocationScreen> {
         visibility = false;
       });
     } on LocationServicesTurnedOff {
+      setState(() {
+        visibility = false;
+      });
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -58,10 +62,10 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         ),
       );
+    } on LocationPermissionDenied {
       setState(() {
         visibility = false;
       });
-    } on LocationPermissionDenied {
       _scaffoldKey.currentState.showSnackBar(
         const SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -69,10 +73,10 @@ class _LocationScreenState extends State<LocationScreen> {
           content: Text('Permission denied.'),
         ),
       );
+    } on NoInternetConnection {
       setState(() {
         visibility = false;
       });
-    } on NoInternetConnection {
       _scaffoldKey.currentState.showSnackBar(
         const SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -80,10 +84,10 @@ class _LocationScreenState extends State<LocationScreen> {
           content: Text('No network connection.'),
         ),
       );
+    } on DataIsNull {
       setState(() {
         visibility = false;
       });
-    } on DataIsNull {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -91,32 +95,21 @@ class _LocationScreenState extends State<LocationScreen> {
           content: Text(errorMessage),
         ),
       );
-      setState(() {
-        visibility = false;
-      });
     }
   }
 
-  /// This function updates the app ui with the weather data we got from the api
+  /// This function updates the app ui with the weather data we got from the api.
 
   void updateUI(dynamic weatherData) {
     setState(() {
-      final double temp = (weatherData['main']['temp'] as num).toDouble();
-      final double tempFeelInDouble =
-          (weatherData['main']['feels_like'] as num).toDouble();
-      final double tempMaxInDouble =
-          (weatherData['main']['temp_max'] as num).toDouble();
-      final double tempMinInDouble =
-          (weatherData['main']['temp_min'] as num).toDouble();
       final double wind = (weatherData['wind']['speed'] as num).toDouble();
-      temperature = temp.round();
-      tempMax = tempMaxInDouble.round();
-      tempMin = tempMinInDouble.round();
-      tempFeel = tempFeelInDouble.round();
+      temperature = (weatherData['main']['temp'] as num).round();
+      tempMax = (weatherData['main']['temp_max'] as num).round();
+      tempMin = (weatherData['main']['temp_min'] as num).round();
+      tempFeel = (weatherData['main']['feels_like'] as num).round();
       windSpeed = (wind * 3.6).round();
       condition = (weatherData['weather'][0]['id'] as num).toInt();
       weatherIcon = weather.getWeatherIcon(condition);
-      weatherMessage = weather.getMessage(temperature);
       cityName = weatherData['name'] as String;
       description = weatherData['weather'][0]['description'] as String;
     });
@@ -143,6 +136,7 @@ class _LocationScreenState extends State<LocationScreen> {
           },
         ),
         actions: <Widget>[
+          /// The loading indicator widget.
           Visibility(
             visible: visibility,
             child: const Center(
@@ -153,6 +147,8 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
             ),
           ),
+
+          /// The search button.
           IconButton(
             icon: const Icon(Icons.search),
             tooltip: 'Search',
@@ -176,10 +172,12 @@ class _LocationScreenState extends State<LocationScreen> {
               }
             },
           ),
+
+          /// The get current geographic location's weather button.
           IconButton(
             icon: const Icon(Icons.location_on_outlined),
             tooltip: "Get current geographic location's weather",
-            onPressed: () async {
+            onPressed: () {
               setState(() {
                 visibility = true;
               });
@@ -198,6 +196,7 @@ class _LocationScreenState extends State<LocationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              /// This card displays the temperature, the weather icon, and the weather description.
               ReusableCard(
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -205,6 +204,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        /// Temperature.
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(right: 2),
@@ -215,6 +215,8 @@ class _LocationScreenState extends State<LocationScreen> {
                             ),
                           ),
                         ),
+
+                        /// Weather icon.
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 2),
@@ -227,6 +229,8 @@ class _LocationScreenState extends State<LocationScreen> {
                         ),
                       ],
                     ),
+
+                    /// Weather description.
                     Center(
                       child: AutoSizeText(
                         '${description[0].toUpperCase()}${description.substring(1)}',
@@ -237,10 +241,13 @@ class _LocationScreenState extends State<LocationScreen> {
                   ],
                 ),
               ),
+
+              /// This card displays tempFeel, tempMax, and tempMin.
               ReusableCard(
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
+                    /// TempFeel.
                     Center(
                       child: AutoSizeText(
                         'It feels like $tempFeel°',
@@ -248,16 +255,20 @@ class _LocationScreenState extends State<LocationScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                     Center(
-                       child: AutoSizeText(
-                         '↑$tempMax°/↓$tempMin°',
-                         style: kMessageTextStyle,
-                         textAlign: TextAlign.center,
-                       ),
-                     ),
+
+                    /// TempMax and TempMin.
+                    Center(
+                      child: AutoSizeText(
+                        '↑$tempMax°/↓$tempMin°',
+                        style: kMessageTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                 ),
               ),
+
+              /// This card displays the wind speed.
               ReusableCard(
                 cardChild: Center(
                   child: AutoSizeText(

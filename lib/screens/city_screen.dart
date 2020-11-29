@@ -19,6 +19,7 @@ class _CityScreenState extends State<CityScreen> {
         child: SafeArea(
           child: Column(
             children: <Widget>[
+              /// The text field.
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
@@ -30,6 +31,8 @@ class _CityScreenState extends State<CityScreen> {
                   },
                 ),
               ),
+
+              /// The get weather button.
               FlatButton(
                 onPressed: () {
                   Navigator.pop(context, cityName);

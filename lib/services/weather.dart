@@ -6,6 +6,7 @@ const String openWeatherMapURL =
     'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {
+  /// This function gets the weatherData using city name.
   Future<dynamic> getCityWeather(String cityName) async {
     final NetworkHelper networkHelper = NetworkHelper(
       '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric',
@@ -14,6 +15,7 @@ class WeatherModel {
     return weatherData;
   }
 
+  /// This function gets the weatherData using geographic coordinates.
   Future<dynamic> getLocationWeather() async {
     final Location location = Location();
     await location.getCurrentLocation();
@@ -26,6 +28,7 @@ class WeatherModel {
     return weatherData;
   }
 
+  /// This function returns the right weather icon for the right condition.
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
@@ -43,18 +46,6 @@ class WeatherModel {
       return '☁';
     } else {
       return '🤷‍';
-    }
-  }
-
-  String getMessage(int temp) {
-    if (temp > 25) {
-      return "It's 🍦 time";
-    } else if (temp > 20) {
-      return 'Time for shorts \n and 👕';
-    } else if (temp < 10) {
-      return "You'll need 🧣 \n and 🧤";
-    } else {
-      return 'Bring a 🧥 just in \n case';
     }
   }
 }
