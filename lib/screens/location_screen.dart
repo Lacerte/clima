@@ -23,8 +23,8 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   WeatherModel weather = WeatherModel();
-  int temperature, windSpeed, tempFeel, condition;
-  String weatherIcon, cityName, weatherMessage;
+  int temperature, windSpeed, tempFeel, condition, tempMax, tempMin;
+  String weatherIcon, cityName, weatherMessage, description;
   bool visibility = false;
 
   @override
@@ -102,16 +102,23 @@ class _LocationScreenState extends State<LocationScreen> {
   void updateUI(dynamic weatherData) {
     setState(() {
       final double temp = (weatherData['main']['temp'] as num).toDouble();
-      final double tempDoubleFeel =
+      final double tempFeelInDouble =
           (weatherData['main']['feels_like'] as num).toDouble();
+      final double tempMaxInDouble =
+          (weatherData['main']['temp_max'] as num).toDouble();
+      final double tempMinInDouble =
+          (weatherData['main']['temp_min'] as num).toDouble();
       final double wind = (weatherData['wind']['speed'] as num).toDouble();
       temperature = temp.round();
-      tempFeel = tempDoubleFeel.round();
+      tempMax = tempMaxInDouble.round();
+      tempMin = tempMinInDouble.round();
+      tempFeel = tempFeelInDouble.round();
       windSpeed = (wind * 3.6).round();
       condition = (weatherData['weather'][0]['id'] as num).toInt();
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
       cityName = weatherData['name'] as String;
+      description = weatherData['weather'][0]['description'] as String;
     });
   }
 
@@ -121,7 +128,7 @@ class _LocationScreenState extends State<LocationScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('$cityName (C)'),
+        title: Text('$cityName (°C)'),
         leading: IconButton(
           icon: const Icon(Icons.refresh),
           tooltip: 'Refresh',
@@ -193,44 +200,61 @@ class _LocationScreenState extends State<LocationScreen> {
             children: <Widget>[
               ReusableCard(
                 cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 2),
-                              child: AutoSizeText(
-                                '$temperature°',
-                                style: kTempTextStyle,
-                                textAlign: TextAlign.center,
-                              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: AutoSizeText(
+                              '$temperature°',
+                              style: kTempTextStyle,
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: AutoSizeText(
-                                weatherIcon,
-                                style: kConditionTextStyle,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: AutoSizeText(
-                          'Feels like: $tempFeel°',
-                          style: kMessageTextStyle,
-                          textAlign: TextAlign.center,
                         ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 2),
+                            child: AutoSizeText(
+                              weatherIcon,
+                              style: kConditionTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Center(
+                      child: AutoSizeText(
+                        '${description[0].toUpperCase()}${description.substring(1)}',
+                        style: kMessageTextStyle,
+                        textAlign: TextAlign.center,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              ReusableCard(
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: AutoSizeText(
+                        'It feels like $tempFeel°',
+                        style: kMessageTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                     Center(
+                       child: AutoSizeText(
+                         '↑$tempMax°/↓$tempMin°',
+                         style: kMessageTextStyle,
+                         textAlign: TextAlign.center,
+                       ),
+                     ),
                   ],
                 ),
               ),
@@ -238,15 +262,6 @@ class _LocationScreenState extends State<LocationScreen> {
                 cardChild: Center(
                   child: AutoSizeText(
                     'The 💨 speed is \n $windSpeed km/h',
-                    style: kMessageTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              ReusableCard(
-                cardChild: Center(
-                  child: AutoSizeText(
-                    weatherMessage,
                     style: kMessageTextStyle,
                     textAlign: TextAlign.center,
                   ),
