@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:clima/reusable_card.dart';
+import 'package:clima/reusable_widgets.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
@@ -25,7 +25,7 @@ class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weather = WeatherModel();
   int temperature, windSpeed, tempFeel, condition, tempMax, tempMin;
   String weatherIcon, cityName, description;
-  bool visibility = false;
+  bool isVisible = false;
 
   @override
   void initState() {
@@ -35,25 +35,17 @@ class _LocationScreenState extends State<LocationScreen> {
 
   /// This function handles all the errors that might get thrown from the services file. If there are no errors, the work is passed to updateUI.
   Future<void> errorHandler({
-    Future<dynamic> method,
+    Future<dynamic> future,
     String errorMessage,
   }) async {
     try {
       _scaffoldKey.currentState.removeCurrentSnackBar();
-      final dynamic weatherData = await method;
+      final dynamic weatherData = await future;
       updateUI(weatherData);
-      setState(() {
-        visibility = false;
-      });
     } on LocationServicesTurnedOff {
-      setState(() {
-        visibility = false;
-      });
       _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 2),
-          content: const Text('Location is turned off.'),
+        await snackBar(
+          text: 'Location is turned off.',
           action: SnackBarAction(
             label: 'Turn on',
             onPressed: () async {
@@ -63,38 +55,21 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
       );
     } on LocationPermissionDenied {
-      setState(() {
-        visibility = false;
-      });
       _scaffoldKey.currentState.showSnackBar(
-        const SnackBar(
-          behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 2),
-          content: Text('Permission denied.'),
-        ),
+        await snackBar(text: 'Permission denied.'),
       );
     } on NoInternetConnection {
-      setState(() {
-        visibility = false;
-      });
       _scaffoldKey.currentState.showSnackBar(
-        const SnackBar(
-          behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 2),
-          content: Text('No network connection.'),
-        ),
+        await snackBar(text: 'No network connection.'),
       );
     } on DataIsNull {
-      setState(() {
-        visibility = false;
-      });
       _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 2),
-          content: Text(errorMessage),
-        ),
+        await snackBar(text: errorMessage),
       );
+    } finally {
+      setState(() {
+        isVisible = false;
+      });
     }
   }
 
@@ -127,10 +102,10 @@ class _LocationScreenState extends State<LocationScreen> {
           tooltip: 'Refresh',
           onPressed: () {
             setState(() {
-              visibility = true;
+              isVisible = true;
             });
             errorHandler(
-              method: weather.getCityWeather(cityName),
+              future: weather.getCityWeather(cityName),
               errorMessage: "Can't connect to server.",
             );
           },
@@ -138,7 +113,7 @@ class _LocationScreenState extends State<LocationScreen> {
         actions: <Widget>[
           /// The loading indicator widget.
           Visibility(
-            visible: visibility,
+            visible: isVisible,
             child: const Center(
               child: SizedBox(
                 height: 20,
@@ -163,10 +138,10 @@ class _LocationScreenState extends State<LocationScreen> {
               );
               if (typedName != null) {
                 setState(() {
-                  visibility = true;
+                  isVisible = true;
                 });
                 errorHandler(
-                  method: weather.getCityWeather(typedName),
+                  future: weather.getCityWeather(typedName),
                   errorMessage: 'Something went wrong.',
                 );
               }
@@ -179,10 +154,10 @@ class _LocationScreenState extends State<LocationScreen> {
             tooltip: "Get current geographic location's weather",
             onPressed: () {
               setState(() {
-                visibility = true;
+                isVisible = true;
               });
               errorHandler(
-                method: weather.getLocationWeather(),
+                future: weather.getLocationWeather(),
                 errorMessage: "Can't connect to server.",
               );
             },
@@ -197,7 +172,7 @@ class _LocationScreenState extends State<LocationScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               /// This card displays the temperature, the weather icon, and the weather description.
-              ReusableCard(
+              ReusableWidgets(
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -245,7 +220,7 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
 
               /// This card displays tempFeel, tempMax, and tempMin.
-              ReusableCard(
+              ReusableWidgets(
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -271,7 +246,7 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
 
               /// This card displays the wind speed.
-              ReusableCard(
+              ReusableWidgets(
                 cardChild: Center(
                   child: AutoSizeText(
                     'The 💨 speed is \n $windSpeed km/h',
@@ -289,4 +264,3 @@ class _LocationScreenState extends State<LocationScreen> {
 }
 
 /// flutter build apk --target-platform android-arm64 --split-per-abi
-/// https://github.com/flutter/flutter/wiki/Upgrading-pre-1.12-Android-projects

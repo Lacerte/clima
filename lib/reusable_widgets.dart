@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ReusableCard extends StatelessWidget {
-  const ReusableCard({this.cardChild});
+class ReusableWidgets extends StatelessWidget {
+  const ReusableWidgets({this.cardChild});
 
   final Widget cardChild;
 
@@ -24,4 +24,14 @@ class ReusableCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<SnackBar> snackBar(
+    {String text, SnackBarAction action, int duration = 2}) async {
+  return SnackBar(
+    behavior: SnackBarBehavior.floating,
+    duration: Duration(seconds: duration),
+    content: Text(text),
+    action: action,
+  );
 }

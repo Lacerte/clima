@@ -11,7 +11,7 @@ linter:
     always_put_required_named_parameters_first: true
 
     # Util classes are awesome!
-    avoid_classes_with_only_static_members: false
+    avoid_classes_with_only_static_members: true
 
 
     # ------ Enable individual rules ------ #
@@ -28,7 +28,7 @@ linter:
     prefer_double_quotes: false
 
     # Good packages document everything
-    public_member_api_docs: false
+    public_member_api_docs: fasle
 
     # Blindly follow the Flutter code style, which prefers types everywhere
     always_specify_types: true

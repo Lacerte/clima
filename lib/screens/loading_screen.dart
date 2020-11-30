@@ -1,3 +1,4 @@
+import 'package:clima/reusable_widgets.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
@@ -36,10 +37,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     } on NoInternetConnection {
       _scaffoldKey.currentState.removeCurrentSnackBar();
       _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(hours: 24),
-          content: const Text('No network connection.'),
+        await snackBar(
+          text: 'No network connection',
+          duration: 86400,
           action: SnackBarAction(
             label: 'Retry',
             onPressed: () async {
@@ -51,10 +51,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     } on DataIsNull {
       _scaffoldKey.currentState.removeCurrentSnackBar();
       _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(hours: 24),
-          content: const Text("Can't connect to server."),
+        await snackBar(
+          text: "Can't connect to server",
+          duration: 86400,
           action: SnackBarAction(
             label: 'Retry',
             onPressed: () async {
