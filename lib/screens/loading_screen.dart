@@ -25,7 +25,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     try {
       final dynamic weatherData = await WeatherModel().getCityWeather('Riyadh');
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute<dynamic>(
           builder: (BuildContext context) {
