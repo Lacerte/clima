@@ -8,6 +8,7 @@ class CityScreen extends StatefulWidget {
 
 class _CityScreenState extends State<CityScreen> {
   String cityName;
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,12 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
+                  focusNode: focusNode,
                   autofocus: true,
+                  onEditingComplete: () {
+                    focusNode.unfocus();
+                    Navigator.pop(context, cityName);
+                  },
                   style: const TextStyle(color: Colors.white),
                   decoration: kTextFieldInputDecoration,
                   onChanged: (String value) {
