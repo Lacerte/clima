@@ -235,7 +235,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: AutoSizeText(
                         '${description[0].toUpperCase()}${description.substring(1)}',
                         maxLines: 1,
-                        presetFontSizes: const <double>[30, 20, 10],
+                        presetFontSizes: const <double>[30, 25, 20, 15, 10],
                         style: kMessageTextStyle,
                         textAlign: TextAlign.center,
                       ),
