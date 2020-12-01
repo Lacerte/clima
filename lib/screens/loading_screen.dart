@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:clima/reusable_widgets.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
+import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,6 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getLocationData();
   }
 
+  /// This function gets the saved city name from shared preferences
   Future<String> getSavedCityName() async {
     String getRandomCityName =
         randomCityNames[Random().nextInt(randomCityNames.length)];

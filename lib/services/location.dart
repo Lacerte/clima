@@ -13,7 +13,7 @@ class Location {
     final bool isLocationServiceEnabled =
         await Geolocator.isLocationServiceEnabled();
     final LocationPermission permission = await Geolocator.checkPermission();
-    if (isLocationServiceEnabled == true) {
+    if (isLocationServiceEnabled) {
       if (permission == LocationPermission.whileInUse ||
           permission == LocationPermission.always) {
         final Position position = await Geolocator.getCurrentPosition(

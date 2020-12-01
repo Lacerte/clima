@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:clima/reusable_widgets.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
+import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -92,6 +92,7 @@ class _LocationScreenState extends State<LocationScreen> {
     saveCityName(cityName);
   }
 
+  /// This function save the city name to shared preferences
   Future<void> saveCityName(String city) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name', city);
