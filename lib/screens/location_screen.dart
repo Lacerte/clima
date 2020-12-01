@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'city_screen.dart';
 
@@ -88,6 +89,12 @@ class _LocationScreenState extends State<LocationScreen> {
       cityName = weatherData['name'] as String;
       description = weatherData['weather'][0]['description'] as String;
     });
+    saveCityName(cityName);
+  }
+
+  Future<void> saveCityName(String city) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', city);
   }
 
   @override

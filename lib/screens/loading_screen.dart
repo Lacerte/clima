@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:clima/reusable_widgets.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -14,6 +17,23 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<String> randomCityNames = <String>[
+    'Amsterdam',
+    'London',
+    'Paris',
+    'New York',
+    'Las Vegas',
+    'Texas',
+    'Ohio',
+    'Riyadh',
+    'Dubai',
+    'Istanbul',
+    'Berlin',
+    'Tokyo',
+    'Doha',
+    'Venice',
+    'Sydney',
+  ];
 
   @override
   void initState() {
@@ -21,10 +41,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
     getLocationData();
   }
 
+  Future<String> getSavedCityName() async {
+    String getRandomCityName =
+        randomCityNames[Random().nextInt(randomCityNames.length)];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String name = prefs.getString('name');
+    if (name == null) {
+      return name = getRandomCityName;
+    }
+    return name;
+  }
+
   /// This function tries to get the weatherData from weather.dart and pass it to the location_screen.
   Future<void> getLocationData() async {
+    String savedName = await getSavedCityName();
     try {
-      final dynamic weatherData = await WeatherModel().getCityWeather('Riyadh');
+      final dynamic weatherData =
+          await WeatherModel().getCityWeather(savedName);
 
       Navigator.pushReplacement(
         context,
