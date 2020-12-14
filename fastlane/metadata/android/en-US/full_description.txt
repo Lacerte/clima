@@ -1,0 +1,5 @@
+A simple and fast weather app that uses the OpenWeatherMap API.
+
+Features:
+    1. Get current location's weather.
+    2. Weather data for almost every city and town.
