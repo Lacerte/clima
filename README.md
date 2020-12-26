@@ -10,4 +10,4 @@ https://apt.izzysoft.de/fdroid/repo?fingerprint=3BF0D6ABFEAE2F401707B6D966BE743B
 ```
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">
 
-![IzzyOnDroid](https://user-images.githubusercontent.com/47897195/103149136-d0852880-4777-11eb-81cb-4e51e43944d7.png)
+<img src="https://user-images.githubusercontent.com/47897195/103149136-d0852880-4777-11eb-81cb-4e51e43944d7.png" height="75">
