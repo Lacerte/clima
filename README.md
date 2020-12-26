@@ -8,5 +8,3 @@ Or get it on F-droid by adding the following repository:
 ```
 https://apt.izzysoft.de/fdroid/repo?fingerprint=3BF0D6ABFEAE2F401707B6D966BE743BF0EEE49C2561B9BA39073711F628937A
 ```
-
-
