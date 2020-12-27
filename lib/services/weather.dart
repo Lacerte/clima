@@ -1,4 +1,3 @@
-import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 
 const String apiKey = '4bef3adf2fcb90307c2bf5feac75a2ba';
@@ -16,17 +15,17 @@ class WeatherModel {
   }
 
   /// This function gets the weatherData using geographic coordinates.
-  Future<dynamic> getLocationWeather() async {
-    final Location location = Location();
-    await location.getCurrentLocation();
-
-    final NetworkHelper networkHelper = NetworkHelper(
-      '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
-    );
-
-    final dynamic weatherData = await networkHelper.getData();
-    return weatherData;
-  }
+  // Future<dynamic> getLocationWeather() async {
+  //   final Location location = Location();
+  //   await location.getCurrentLocation();
+  //
+  //   final NetworkHelper networkHelper = NetworkHelper(
+  //     '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
+  //   );
+  //
+  //   final dynamic weatherData = await networkHelper.getData();
+  //   return weatherData;
+  // }
 
   /// This function returns the right weather icon for the right condition.
   String getWeatherIcon(int condition) {

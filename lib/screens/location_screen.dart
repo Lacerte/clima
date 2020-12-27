@@ -1,11 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'city_screen.dart';
@@ -41,22 +39,22 @@ class _LocationScreenState extends State<LocationScreen> {
       _scaffoldKey.currentState.removeCurrentSnackBar();
       final dynamic weatherData = await future;
       updateUI(weatherData);
-    } on LocationServicesTurnedOff {
-      _scaffoldKey.currentState.showSnackBar(
-        await snackBar(
-          text: 'Location is turned off.',
-          action: SnackBarAction(
-            label: 'Turn on',
-            onPressed: () async {
-              await Geolocator.openLocationSettings();
-            },
-          ),
-        ),
-      );
-    } on LocationPermissionDenied {
-      _scaffoldKey.currentState.showSnackBar(
-        await snackBar(text: 'Permission denied.'),
-      );
+      // } on LocationServicesTurnedOff {
+      //   _scaffoldKey.currentState.showSnackBar(
+      //     await snackBar(
+      //       text: 'Location is turned off.',
+      //       action: SnackBarAction(
+      //         label: 'Turn on',
+      //         onPressed: () async {
+      //           await Geolocator.openLocationSettings();
+      //         },
+      //       ),
+      //     ),
+      //   );
+      //  } on LocationPermissionDenied {
+      //   _scaffoldKey.currentState.showSnackBar(
+      //     await snackBar(text: 'Permission denied.'),
+      //   );
     } on NoInternetConnection {
       _scaffoldKey.currentState.showSnackBar(
         await snackBar(text: 'No network connection.'),
@@ -155,19 +153,19 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
 
           /// The get current geographic location's weather button.
-          IconButton(
-            icon: const Icon(Icons.location_on_outlined),
-            tooltip: "Get current geographic location's weather",
-            onPressed: () {
-              setState(() {
-                isVisible = true;
-              });
-              errorHandler(
-                future: weather.getLocationWeather(),
-                errorMessage: "Can't connect to server.",
-              );
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.location_on_outlined),
+          //   tooltip: "Get current geographic location's weather",
+          //   onPressed: () {
+          //     setState(() {
+          //       isVisible = true;
+          //     });
+          //     errorHandler(
+          //       future: weather.getLocationWeather(),
+          //       errorMessage: "Can't connect to server.",
+          //     );
+          //   },
+          // ),
         ],
       ),
       body: Container(
