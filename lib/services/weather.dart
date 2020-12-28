@@ -14,19 +14,6 @@ class WeatherModel {
     return weatherData;
   }
 
-  /// This function gets the weatherData using geographic coordinates.
-  // Future<dynamic> getLocationWeather() async {
-  //   final Location location = Location();
-  //   await location.getCurrentLocation();
-  //
-  //   final NetworkHelper networkHelper = NetworkHelper(
-  //     '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
-  //   );
-  //
-  //   final dynamic weatherData = await networkHelper.getData();
-  //   return weatherData;
-  // }
-
   /// This function returns the right weather icon for the right condition.
   String getWeatherIcon(int condition) {
     if (condition < 300) {
