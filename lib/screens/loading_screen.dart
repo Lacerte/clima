@@ -43,9 +43,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   /// This function gets the saved city name from shared preferences
   Future<String> getSavedCityName() async {
-    String getRandomCityName =
+    final String getRandomCityName =
         randomCityNames[Random().nextInt(randomCityNames.length)];
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     String name = prefs.getString('name');
     if (name == null) {
       return name = getRandomCityName;
@@ -55,7 +55,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   /// This function tries to get the weatherData from weather.dart and pass it to the location_screen.
   Future<void> getLocationData() async {
-    String savedName = await getSavedCityName();
+    final String savedName = await getSavedCityName();
     try {
       final dynamic weatherData =
           await WeatherModel().getCityWeather(savedName);
