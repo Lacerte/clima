@@ -16,9 +16,9 @@ dependencies:
   auto_size_text: ^2.1.0
   http: ^0.12.0+2
   flutter_spinkit: ^4.1.2+1
-  lint: ^1.4.0-dev.d210.1
 
 dev_dependencies:
+  lint: ^1.4.0-dev.d210.1
   flutter_test:
     sdk: flutter
 
