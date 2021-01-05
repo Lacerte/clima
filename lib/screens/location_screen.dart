@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clima/main.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
-import 'package:clima/themes/theme_model.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,6 @@ class _LocationScreenState extends State<LocationScreen> {
   int temperature, windSpeed, tempFeel, condition, tempMax, tempMin;
   String weatherIcon, cityName, description;
   bool isVisible = false;
-  bool _isDarkMode = false;
 
   @override
   void initState() {
@@ -154,15 +152,16 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: StatefulBuilder(
                     builder: (BuildContext context, StateSetter setState) {
                   return CheckboxListTile(
-                    checkColor: ThemeModel().checkMarkColor(_themeState),
+                    checkColor: _themeState.isDarkTheme
+                        ? Colors.grey.shade900
+                        : Colors.white,
                     title: const Text('Dark theme'),
-                    value: _isDarkMode,
+                    value: _themeState.isDarkTheme,
                     onChanged: (bool value) {
                       setState(() {
                         value
-                            ? _themeState.setBlackTheme()
+                            ? _themeState.setDarkTheme()
                             : _themeState.setLightTheme();
-                        _isDarkMode = value;
                         Navigator.pop(context);
                       });
                     },

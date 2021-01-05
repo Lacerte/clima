@@ -4,7 +4,6 @@ import 'package:clima/main.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
-import 'package:clima/themes/theme_model.dart';
 import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -110,7 +109,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: SpinKitDoubleBounce(
-          color: ThemeModel().spinkitColor(_themeState),
+          color: _themeState.isDarkTheme ? Colors.white : Colors.black,
           size: 100.0,
         ),
       ),

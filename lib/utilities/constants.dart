@@ -1,5 +1,9 @@
-import 'package:clima/themes/theme_model.dart';
+import 'package:clima/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final container = ProviderContainer();
+final _themeState = container.read(themeStateNotifier);
 
 const TextStyle kTempTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
@@ -22,7 +26,9 @@ const TextStyle kConditionTextStyle = TextStyle(
 
 InputDecoration kTextFieldInputDecoration = InputDecoration(
   filled: true,
-  fillColor: ThemeModel().textFieldFillColor(),
+  fillColor: _themeState.isDarkTheme
+      ? const Color(0xFF171717)
+      : const Color(0xFFFAFAFA),
   icon: const Icon(
     Icons.location_city,
     //color: Colors.white,

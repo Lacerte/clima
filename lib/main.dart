@@ -12,16 +12,16 @@ void main() {
       child: MyApp(),
     ),
   );
-  ThemeModel().barsColor();
 }
 
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _themeState = watch(themeStateNotifier);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: _themeState.currentTheme,
+      theme: _themeState.setTheme(),
       home: LoadingScreen(),
     );
   }
