@@ -1,19 +1,27 @@
 import 'package:clima/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() => runApp(MyApp());
+import 'themes/theme_model.dart';
 
-class MyApp extends StatelessWidget {
+final themeStateNotifier = ChangeNotifierProvider((ref) => ThemeModel());
+
+void main() {
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
+  ThemeModel().barsColor();
+}
+
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black),
-    );
+  Widget build(BuildContext context, ScopedReader watch) {
+    final _themeState = watch(themeStateNotifier);
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        accentColor: Colors.blue[500],
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: _themeState.currentTheme,
       home: LoadingScreen(),
     );
   }

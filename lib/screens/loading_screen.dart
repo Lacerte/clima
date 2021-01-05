@@ -1,10 +1,13 @@
 import 'dart:math';
 
+import 'package:clima/main.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
+import 'package:clima/themes/theme_model.dart';
 import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/all.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -101,12 +104,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _themeState = context.read(themeStateNotifier);
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: SpinKitDoubleBounce(
-          color: Colors.white,
+          color: ThemeModel().spinkitColor(_themeState),
           size: 100.0,
         ),
       ),

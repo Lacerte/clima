@@ -1,3 +1,4 @@
+import 'package:clima/themes/theme_model.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle kTempTextStyle = TextStyle(
@@ -19,18 +20,18 @@ const TextStyle kConditionTextStyle = TextStyle(
   fontSize: 50.0,
 );
 
-InputDecoration kTextFieldInputDecoration = const InputDecoration(
+InputDecoration kTextFieldInputDecoration = InputDecoration(
   filled: true,
-  fillColor: Color(0xFF171717),
-  icon: Icon(
+  fillColor: ThemeModel().textFieldFillColor(),
+  icon: const Icon(
     Icons.location_city,
-    color: Colors.white,
+    //color: Colors.white,
   ),
   hintText: 'Enter city name',
-  hintStyle: TextStyle(
-    color: Colors.grey,
-  ),
-  border: OutlineInputBorder(
+  hintStyle: const TextStyle(
+      //color: Colors.grey,
+      ),
+  border: const OutlineInputBorder(
     borderRadius: BorderRadius.all(
       Radius.circular(8.0),
     ),

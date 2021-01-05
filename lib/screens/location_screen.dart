@@ -1,12 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clima/main.dart';
 import 'package:clima/services/networking.dart';
 import 'package:clima/services/weather.dart';
+import 'package:clima/themes/theme_model.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'city_screen.dart';
+
+enum Menu { darkModeOn }
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({this.locationWeather});
@@ -23,6 +28,7 @@ class _LocationScreenState extends State<LocationScreen> {
   int temperature, windSpeed, tempFeel, condition, tempMax, tempMin;
   String weatherIcon, cityName, description;
   bool isVisible = false;
+  bool _isDarkMode = false;
 
   @override
   void initState() {
@@ -80,12 +86,16 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _themeState = context.read(themeStateNotifier);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('$cityName (°C)'),
+        title: Text(
+          '$cityName (°C)',
+          style: Theme.of(context).appBarTheme.textTheme.subtitle1,
+        ),
         leading: IconButton(
+          color: Theme.of(context).appBarTheme.actionsIconTheme.color,
           icon: const Icon(Icons.refresh),
           tooltip: 'Refresh',
           onPressed: () {
@@ -135,10 +145,35 @@ class _LocationScreenState extends State<LocationScreen> {
               }
             },
           ),
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert),
+            tooltip: 'More options',
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+              PopupMenuItem<Menu>(
+                value: Menu.darkModeOn,
+                child: StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return CheckboxListTile(
+                    checkColor: ThemeModel().checkMarkColor(_themeState),
+                    title: const Text('Dark theme'),
+                    value: _isDarkMode,
+                    onChanged: (bool value) {
+                      setState(() {
+                        value
+                            ? _themeState.setBlackTheme()
+                            : _themeState.setLightTheme();
+                        _isDarkMode = value;
+                        Navigator.pop(context);
+                      });
+                    },
+                  );
+                }),
+              ),
+            ],
+          ),
         ],
       ),
       body: Container(
-        color: Colors.black,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
