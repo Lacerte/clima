@@ -13,11 +13,8 @@ class _CityScreenState extends State<CityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          //backgroundColor: Colors.black,
-          ),
+      appBar: AppBar(),
       body: Container(
-        //color: Colors.black,
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
@@ -33,7 +30,20 @@ class _CityScreenState extends State<CityScreen> {
                     Navigator.pop(context, cityName);
                   },
                   style: Theme.of(context).appBarTheme.textTheme.subtitle1,
-                  decoration: kTextFieldInputDecoration,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    icon: Icon(
+                      Icons.location_city,
+                    ),
+                    hintText: 'Enter city name',
+                    hintStyle: TextStyle(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8.0),
+                      ),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
                   onChanged: (String value) {
                     cityName = value;
                   },

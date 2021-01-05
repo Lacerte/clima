@@ -144,6 +144,7 @@ class _LocationScreenState extends State<LocationScreen> {
             },
           ),
           PopupMenuButton(
+            offset: const Offset(8.0, 8.0),
             icon: const Icon(Icons.more_vert),
             tooltip: 'More options',
             itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[

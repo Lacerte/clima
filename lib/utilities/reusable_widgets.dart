@@ -32,12 +32,7 @@ class ReusableWidgets extends StatelessWidget {
 
 Future<SnackBar> snackBar(
     {String text, SnackBarAction action, int duration = 2}) async {
-  final container = ProviderContainer();
-  final _themeState = container.read(themeStateNotifier);
   return SnackBar(
-    backgroundColor: _themeState.isDarkTheme
-        ? const Color(0xFFE6E6E6)
-        : const Color(0xFF6F6F6F),
     behavior: SnackBarBehavior.floating,
     duration: Duration(seconds: duration),
     content: Text(text),
