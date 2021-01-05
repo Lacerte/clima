@@ -74,7 +74,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   /// This function save the city name to shared preferences
   Future<void> saveCityName(String city) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name', city);
   }
 
