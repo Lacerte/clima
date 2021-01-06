@@ -1,4 +1,6 @@
+import 'package:clima/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/all.dart';
 
 class ReusableWidgets extends StatelessWidget {
   const ReusableWidgets({this.cardChild});
@@ -7,13 +9,15 @@ class ReusableWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _themeState = context.read(themeStateNotifier);
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color(0xFF171717),
-          //color: Colors.grey[900],
+          color: _themeState.isDarkTheme
+              ? const Color(0xFF171717)
+              : const Color(0xFFFAFAFA),
         ),
         child: Center(
           child: Padding(
@@ -29,7 +33,6 @@ class ReusableWidgets extends StatelessWidget {
 Future<SnackBar> snackBar(
     {String text, SnackBarAction action, int duration = 2}) async {
   return SnackBar(
-    backgroundColor: const Color(0xFFE6E6E6),
     behavior: SnackBarBehavior.floating,
     duration: Duration(seconds: duration),
     content: Text(text),

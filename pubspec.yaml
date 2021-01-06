@@ -1,7 +1,7 @@
 name: clima
 description: A new Flutter application.
 
-version: 1.0+3
+version: 1.1+4
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -16,6 +16,8 @@ dependencies:
   auto_size_text: ^2.1.0
   http: ^0.12.0+2
   flutter_spinkit: ^4.1.2+1
+  riverpod: ^0.12.1
+  flutter_riverpod: ^0.12.1
 
 dev_dependencies:
   lint: ^1.4.0-dev.d210.1
