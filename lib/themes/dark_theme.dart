@@ -3,8 +3,15 @@ import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
   snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFFE6E6E6)),
-  inputDecorationTheme:
-      const InputDecorationTheme(fillColor: Color(0xFF171717)),
+  inputDecorationTheme: const InputDecorationTheme(
+    fillColor: Color(0xFF171717),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(8.0),
+      ),
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+  ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color(0xFF80D8FE),
   ),

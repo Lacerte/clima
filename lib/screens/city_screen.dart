@@ -32,17 +32,9 @@ class _CityScreenState extends State<CityScreen> {
                   style: Theme.of(context).appBarTheme.textTheme.subtitle1,
                   decoration: const InputDecoration(
                     filled: true,
-                    icon: Icon(
-                      Icons.location_city,
-                    ),
+                    icon: Icon(Icons.location_city),
                     hintText: 'Enter city name',
                     hintStyle: TextStyle(),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.0),
-                      ),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
                   ),
                   onChanged: (String value) {
                     cityName = value;
