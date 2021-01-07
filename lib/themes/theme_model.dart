@@ -72,7 +72,7 @@ class ThemeModel extends ChangeNotifier {
 
   Future<void> _loadFromPrefs() async {
     await _initPrefs();
-    _isDarkTheme = _prefs.getBool(key) ?? true;
+    _isDarkTheme = _prefs.getBool(key) ?? false;
     notifyListeners();
   }
 
