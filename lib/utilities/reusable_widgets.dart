@@ -17,7 +17,7 @@ class ReusableWidgets extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: _themeState.isDarkTheme
               ? const Color(0xFF171717)
-              : const Color(0xFFFAFAFA),
+              : const Color(0xFFFCFCFC),
         ),
         child: Center(
           child: Padding(
