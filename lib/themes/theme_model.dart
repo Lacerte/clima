@@ -18,7 +18,7 @@ class ThemeModel extends ChangeNotifier {
   bool get isDarkTheme => _isDarkTheme;
 
   ThemeData setTheme() {
-    barsColor();
+    setBarsColor();
     if (_isDarkTheme) {
       return darkTheme;
     } else {
@@ -27,32 +27,22 @@ class ThemeModel extends ChangeNotifier {
   }
 
   void setLightTheme() {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Color(0xFFF2F2F2),
-        statusBarColor: Color(0xFFF2F2F2),
-      ),
-    );
     _isDarkTheme = false;
+    setBarsColor();
     _saveToPrefs();
 
     notifyListeners();
   }
 
   void setDarkTheme() {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.black,
-        statusBarColor: Colors.black,
-      ),
-    );
     _isDarkTheme = true;
+    setBarsColor();
     _saveToPrefs();
 
     notifyListeners();
   }
 
-  void barsColor() {
+  void setBarsColor() {
     if (_isDarkTheme) {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.black,
