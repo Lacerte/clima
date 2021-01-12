@@ -29,10 +29,22 @@ jobs:
       - name: Get packages
         run: flutter pub get
         working-directory: ${{ matrix.package }}
+        if: "endsWith(matrix.package, 'ui')"
+
+      - name: Get packages
+        run: dart pub get
+        working-directory: ${{ matrix.package }}
+        if: "!endsWith(matrix.package, 'ui')"
 
       - name: Analyze source code
         run: flutter analyze
         working-directory: ${{ matrix.package }}
+        if: "endsWith(matrix.package, 'ui')"
+
+      - name: Analyze source code
+        run: dart analyze
+        working-directory: ${{ matrix.package }}
+        if: "!endsWith(matrix.package, 'ui')"
 
       - name: Run tests
         run: flutter test
