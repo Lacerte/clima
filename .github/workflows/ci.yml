@@ -37,3 +37,9 @@ jobs:
       - name: Run tests
         run: flutter test
         working-directory: ${{ matrix.package }}
+        if: endsWith(matrix.package, 'ui')
+
+      - name: Run tests
+        run: dart test
+        working-directory: ${{ matrix.package }}
+        if: !endsWith(matrix.package, 'ui')
