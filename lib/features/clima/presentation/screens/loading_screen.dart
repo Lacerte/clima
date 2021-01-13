@@ -1,10 +1,10 @@
 import 'dart:math';
 
+import 'package:clima/features/clima/presentation/screens/location_screen.dart';
+import 'package:clima/features/clima/presentation/services/networking.dart';
+import 'package:clima/features/clima/presentation/services/weather.dart';
+import 'package:clima/features/clima/presentation/utilities/reusable_widgets.dart';
 import 'package:clima/main.dart';
-import 'package:clima/screens/location_screen.dart';
-import 'package:clima/services/networking.dart';
-import 'package:clima/services/weather.dart';
-import 'package:clima/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

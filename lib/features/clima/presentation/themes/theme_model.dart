@@ -1,4 +1,4 @@
-import 'package:clima/themes/dark_theme.dart';
+import 'package:clima/features/main/presentation/themes/dark_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';

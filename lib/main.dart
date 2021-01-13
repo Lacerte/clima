@@ -1,8 +1,7 @@
-import 'package:clima/screens/loading_screen.dart';
+import 'package:clima/features/clima/presentation/screens/loading_screen.dart';
+import 'package:clima/features/clima/presentation/themes/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'themes/theme_model.dart';
 
 final themeStateNotifier = ChangeNotifierProvider((ref) => ThemeModel());
 
