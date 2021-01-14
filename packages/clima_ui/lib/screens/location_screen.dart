@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:clima/main.dart';
-import 'package:clima/services/networking.dart';
-import 'package:clima/services/weather.dart';
-import 'package:clima/utilities/constants.dart';
-import 'package:clima/utilities/reusable_widgets.dart';
+import 'package:clima_ui/main.dart';
+import 'package:clima_ui/services/networking.dart';
+import 'package:clima_ui/services/weather.dart';
+import 'package:clima_ui/utilities/constants.dart';
+import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';

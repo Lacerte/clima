@@ -1,14 +1,15 @@
 import 'dart:math';
 
-import 'package:clima/main.dart';
-import 'package:clima/screens/location_screen.dart';
-import 'package:clima/services/networking.dart';
-import 'package:clima/services/weather.dart';
-import 'package:clima/utilities/reusable_widgets.dart';
+import 'package:clima_ui/main.dart';
+import 'package:clima_ui/services/networking.dart';
+import 'package:clima_ui/services/weather.dart';
+import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'location_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
