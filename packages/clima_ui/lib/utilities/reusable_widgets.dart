@@ -1,4 +1,4 @@
-import 'package:clima/main.dart';
+import 'package:clima_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
