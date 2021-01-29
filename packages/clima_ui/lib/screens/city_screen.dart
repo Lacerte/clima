@@ -1,17 +1,24 @@
+import 'package:clima_domain/entities/city.dart';
+import 'package:clima_ui/state_notifiers/city_state_notifier.dart';
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CityScreen extends StatefulWidget {
+class CityScreen extends StatefulHookWidget {
   @override
   _CityScreenState createState() => _CityScreenState();
 }
 
 class _CityScreenState extends State<CityScreen> {
-  String cityName;
   final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+    final cityStateNotifier = useProvider(cityStateNotifierProvider);
+
+    final cityName = useState('');
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -27,7 +34,7 @@ class _CityScreenState extends State<CityScreen> {
                   autofocus: true,
                   onEditingComplete: () {
                     focusNode.unfocus();
-                    Navigator.pop(context, cityName);
+                    Navigator.pop(context, true);
                   },
                   style: Theme.of(context).appBarTheme.textTheme.subtitle1,
                   decoration: const InputDecoration(
@@ -37,15 +44,22 @@ class _CityScreenState extends State<CityScreen> {
                     hintStyle: TextStyle(),
                   ),
                   onChanged: (String value) {
-                    cityName = value;
+                    cityName.value = value;
                   },
                 ),
               ),
 
               /// The get weather button.
               FlatButton(
-                onPressed: () {
-                  Navigator.pop(context, cityName);
+                onPressed: () async {
+                  final state = context.read(cityStateNotifierProvider.state);
+
+                  final changed =
+                      !(state is Loaded && state.city.name == cityName.value);
+
+                  await cityStateNotifier.setCity(City(name: cityName.value));
+
+                  Navigator.pop(context, changed);
                 },
                 shape: RoundedRectangleBorder(
                   side: const BorderSide(color: Colors.grey),

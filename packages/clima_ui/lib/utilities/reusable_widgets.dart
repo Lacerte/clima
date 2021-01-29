@@ -30,8 +30,7 @@ class ReusableWidgets extends StatelessWidget {
   }
 }
 
-Future<SnackBar> snackBar(
-    {String text, SnackBarAction action, int duration = 2}) async {
+SnackBar snackBar({String text, SnackBarAction action, int duration = 2}) {
   return SnackBar(
     behavior: SnackBarBehavior.floating,
     duration: Duration(seconds: duration),
