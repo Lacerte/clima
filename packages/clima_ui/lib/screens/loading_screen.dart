@@ -29,7 +29,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     useEffect(
       () {
-        () async {
+        Future<void> load() async {
           await Future.microtask(weatherStateNotifier.loadWeather);
 
           final removeListener = weatherStateNotifier.addListener((state) {
@@ -42,7 +42,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     duration: 86400,
                     action: SnackBarAction(
                       label: 'Retry',
-                      onPressed: weatherStateNotifier.loadWeather,
+                      onPressed: load,
                     ),
                   ),
                 );
@@ -53,7 +53,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     duration: 86400,
                     action: SnackBarAction(
                       label: 'Retry',
-                      onPressed: weatherStateNotifier.loadWeather,
+                      onPressed: load,
                     ),
                   ),
                 );
@@ -71,7 +71,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
           });
 
           removeListener();
-        }();
+        }
+
+        load();
 
         return null;
       },
