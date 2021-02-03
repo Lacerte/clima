@@ -11,7 +11,6 @@ class CityScreen extends StatefulHookWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
-  final FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     final cityName = useState('');
@@ -44,12 +43,8 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
-                  focusNode: focusNode,
                   autofocus: true,
-                  onEditingComplete: () {
-                    focusNode.unfocus();
-                    _pop();
-                  },
+                  onEditingComplete: _pop,
                   style: Theme.of(context).appBarTheme.textTheme.subtitle1,
                   decoration: const InputDecoration(
                     filled: true,
