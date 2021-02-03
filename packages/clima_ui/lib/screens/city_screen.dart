@@ -12,12 +12,26 @@ class CityScreen extends StatefulHookWidget {
 
 class _CityScreenState extends State<CityScreen> {
   final FocusNode focusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
-    final cityStateNotifier = useProvider(cityStateNotifierProvider);
-
     final cityName = useState('');
+
+    /// Pops this screen from the navigator.
+    ///
+    /// If cityName is different from the current city name, it also changes cityStateNotifier's state.
+    Future<void> _pop() async {
+      final state = context.read(cityStateNotifierProvider.state);
+
+      final changed = !(state is Loaded && state.city.name == cityName.value);
+
+      if (changed) {
+        await context
+            .read(cityStateNotifierProvider)
+            .setCity(City(name: cityName.value));
+      }
+
+      Navigator.pop(context, changed);
+    }
 
     return Scaffold(
       appBar: AppBar(),
@@ -34,7 +48,7 @@ class _CityScreenState extends State<CityScreen> {
                   autofocus: true,
                   onEditingComplete: () {
                     focusNode.unfocus();
-                    Navigator.pop(context, true);
+                    _pop();
                   },
                   style: Theme.of(context).appBarTheme.textTheme.subtitle1,
                   decoration: const InputDecoration(
@@ -51,16 +65,7 @@ class _CityScreenState extends State<CityScreen> {
 
               /// The get weather button.
               FlatButton(
-                onPressed: () async {
-                  final state = context.read(cityStateNotifierProvider.state);
-
-                  final changed =
-                      !(state is Loaded && state.city.name == cityName.value);
-
-                  await cityStateNotifier.setCity(City(name: cityName.value));
-
-                  Navigator.pop(context, changed);
-                },
+                onPressed: _pop,
                 shape: RoundedRectangleBorder(
                   side: const BorderSide(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8),
