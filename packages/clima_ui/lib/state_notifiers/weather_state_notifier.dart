@@ -24,10 +24,12 @@ class Empty extends WeatherState {
 }
 
 class Loading extends WeatherState {
-  const Loading();
+  const Loading({this.previousWeather});
+
+  final Weather previousWeather;
 
   @override
-  List<Object> get props => const [];
+  List<Object> get props => [previousWeather];
 }
 
 class Loaded extends WeatherState {
@@ -68,7 +70,13 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
   }
 
   Future<void> loadWeather() async {
-    state = const Loading();
+    state = Loading(
+        previousWeather: state is Loaded
+            // We cast because technically `state` can be changed between the
+            // check and cast.
+            ? (state as Loaded).weather
+            : null);
+
     state = (await _loadWeather())
         .fold((failure) => Error(failure), (weather) => Loaded(weather));
   }

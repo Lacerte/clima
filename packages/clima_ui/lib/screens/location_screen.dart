@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_ui/main.dart';
 import 'package:clima_ui/screens/loading_screen.dart';
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
@@ -49,11 +50,15 @@ class _LocationScreenState extends State<LocationScreen> {
     final _themeState = context.read(themeStateNotifier);
     final weatherState = useProvider(weatherStateNotifierProvider.state);
 
-    if (weatherState is! Loaded) {
+    Weather weather;
+
+    if (weatherState is Loaded) {
+      weather = weatherState.weather;
+    } else if (weatherState is Loading) {
+      weather = weatherState.previousWeather;
+    } else {
       return Scaffold(key: _scaffoldKey, body: const SizedBox.shrink());
     }
-
-    final weather = (weatherState as Loaded).weather;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -67,12 +72,8 @@ class _LocationScreenState extends State<LocationScreen> {
           icon: const Icon(Icons.refresh),
           tooltip: 'Refresh',
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => LoadingScreen(),
-              ),
-            );
+            // TODO: handle errors.
+            context.read(weatherStateNotifierProvider).loadWeather();
           },
         ),
         actions: <Widget>[
@@ -103,12 +104,7 @@ class _LocationScreenState extends State<LocationScreen> {
               );
 
               if (changed ?? false) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => LoadingScreen(),
-                  ),
-                );
+                context.read(weatherStateNotifierProvider).loadWeather();
               }
             },
           ),
