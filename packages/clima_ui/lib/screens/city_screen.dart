@@ -14,7 +14,13 @@ class _CityScreenState extends State<CityScreen> {
 
     /// Pops this screen from the navigator.
     Future<void> _pop() async {
-      Navigator.pop(context, cityName.value);
+      var value = cityName.value.trim();
+
+      if (value.isEmpty) {
+        value = null;
+      }
+
+      Navigator.pop(context, value);
     }
 
     return Scaffold(
