@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clima_core/failure.dart';
+import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_ui/main.dart';
-import 'package:clima_ui/screens/loading_screen.dart';
-import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
+import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
+import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +50,60 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     final _themeState = context.read(themeStateNotifier);
-    final weatherState = useProvider(weatherStateNotifierProvider.state);
+    final weatherState = useProvider(w.weatherStateNotifierProvider.state);
+    final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
+
+    final isLoading = useState(weatherState is c.Loading);
+
+    final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
+
+    void showFailureSnackbar(
+        {@required Failure failure, VoidCallback onRetry, int duration}) {
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+      _scaffoldKey.currentState.showSnackBar(
+        failureSnackbar(
+          failure: failure,
+          onRetry: onRetry,
+          duration: duration,
+        ),
+      );
+    }
+
+    Future<void> loadWeather() async {
+      isLoading.value = true;
+      await weatherStateNotifier.loadWeather();
+      isLoading.value = false;
+    }
+
+    useEffect(
+      () => cityStateNotifier.addListener((state) {
+        if (state is c.Error) {
+          showFailureSnackbar(failure: state.failure, duration: 2);
+        }
+      }),
+      [cityStateNotifier],
+    );
+
+    useEffect(
+      () => weatherStateNotifier.addListener((state) {
+        if (state is w.Error) {
+          showFailureSnackbar(
+            failure: state.failure,
+            onRetry: loadWeather,
+          );
+        }
+      }),
+      [weatherStateNotifier],
+    );
 
     Weather weather;
 
-    if (weatherState is Loaded) {
+    if (weatherState is w.Loaded) {
       weather = weatherState.weather;
-    } else if (weatherState is Loading) {
-      weather = weatherState.previousWeather;
+    } else if (weatherState is w.Loading && weatherState.weather != null) {
+      weather = weatherState.weather;
+    } else if (weatherState is w.Error && weatherState.weather != null) {
+      weather = weatherState.weather;
     } else {
       return Scaffold(key: _scaffoldKey, body: const SizedBox.shrink());
     }
@@ -71,15 +119,12 @@ class _LocationScreenState extends State<LocationScreen> {
           color: Theme.of(context).appBarTheme.actionsIconTheme.color,
           icon: const Icon(Icons.refresh),
           tooltip: 'Refresh',
-          onPressed: () {
-            // TODO: handle errors.
-            context.read(weatherStateNotifierProvider).loadWeather();
-          },
+          onPressed: loadWeather,
         ),
         actions: <Widget>[
           /// The loading indicator widget.
           Visibility(
-            visible: weatherState is Loading,
+            visible: isLoading.value,
             child: const Center(
               child: SizedBox(
                 height: 20,
@@ -94,18 +139,25 @@ class _LocationScreenState extends State<LocationScreen> {
             icon: const Icon(Icons.search),
             tooltip: 'Search',
             onPressed: () async {
-              final changed = await Navigator.push(
+              final newCityName = await Navigator.push<String>(
                 context,
-                MaterialPageRoute<bool>(
+                MaterialPageRoute(
                   builder: (BuildContext context) {
                     return CityScreen();
                   },
                 ),
               );
 
-              if (changed ?? false) {
-                context.read(weatherStateNotifierProvider).loadWeather();
+              if (newCityName == null) return;
+
+              isLoading.value = true;
+
+              await cityStateNotifier.setCity(City(name: newCityName));
+              if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
+                await weatherStateNotifier.loadWeather();
               }
+
+              isLoading.value = false;
             },
           ),
           PopupMenuButton(

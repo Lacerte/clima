@@ -38,12 +38,14 @@ class Loaded extends CityState {
 }
 
 class Error extends CityState {
-  const Error(this.failure);
+  const Error(this.failure, {this.city});
 
   final Failure failure;
 
+  final City city;
+
   @override
-  List<Object> get props => [failure];
+  List<Object> get props => [failure, city];
 }
 
 class CityStateNotifier extends StateNotifier<CityState> {
@@ -53,6 +55,17 @@ class CityStateNotifier extends StateNotifier<CityState> {
 
   final SetCity setCityUseCase;
 
+  City get _currentCity {
+    final state = this.state;
+    if (state is Loaded) {
+      return state.city;
+    } else if (state is Error) {
+      return state.city;
+    } else {
+      return null;
+    }
+  }
+
   Future<void> loadCity() async {
     state = const Loading();
     final data = await getCity(const NoParams());
@@ -60,11 +73,11 @@ class CityStateNotifier extends StateNotifier<CityState> {
   }
 
   Future<void> setCity(City city) async {
-    final either = await setCityUseCase(SetCityParams(city));
-
-    either.fold((failure) {
-      state = Error(failure);
-    }, (_) {});
+    (await setCityUseCase(SetCityParams(city))).fold((failure) {
+      state = Error(failure, city: _currentCity);
+    }, (_) {
+      state = Loaded(city);
+    });
   }
 }
 

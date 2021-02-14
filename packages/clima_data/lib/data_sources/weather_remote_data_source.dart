@@ -26,8 +26,17 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     );
 
     if (response.statusCode >= 200 && response.statusCode <= 226) {
-      return Right(WeatherModel.fromJson(jsonDecode(response.body)));
+      try {
+        return Right(WeatherModel.fromJson(jsonDecode(response.body)));
+      } on FormatException {
+        return Left(FailedToParseResponse());
+      }
+    } else if (response.statusCode == 503) {
+      return Left(ServerDown());
+    } else if (response.statusCode == 404) {
+      return Left(InvalidCityName(city.name));
     } else {
+      // TODO: I don't think this failure is fit for this situation.
       return Left(FailedToParseResponse());
     }
   }

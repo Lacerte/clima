@@ -24,12 +24,12 @@ class Empty extends WeatherState {
 }
 
 class Loading extends WeatherState {
-  const Loading({this.previousWeather});
+  const Loading({this.weather});
 
-  final Weather previousWeather;
+  final Weather weather;
 
   @override
-  List<Object> get props => [previousWeather];
+  List<Object> get props => [weather];
 }
 
 class Loaded extends WeatherState {
@@ -42,12 +42,14 @@ class Loaded extends WeatherState {
 }
 
 class Error extends WeatherState {
-  const Error(this.failure);
+  const Error(this.failure, {@required this.weather});
 
   final Failure failure;
 
+  final Weather weather;
+
   @override
-  List<Object> get props => [failure];
+  List<Object> get props => [failure, weather];
 }
 
 class WeatherStateNotifier extends StateNotifier<WeatherState> {
@@ -56,6 +58,20 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
   final GetWeather getWeather;
 
   final GetCity getCity;
+
+  Weather get _currentWeather {
+    final state = this.state;
+
+    if (state is Loaded) {
+      return state.weather;
+    } else if (state is Loading) {
+      return state.weather;
+    } else if (state is Error) {
+      return state.weather;
+    } else {
+      return null;
+    }
+  }
 
   Future<Either<Failure, Weather>> _loadWeather() async {
     final cityEither = await getCity(const NoParams());
@@ -70,15 +86,14 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
   }
 
   Future<void> loadWeather() async {
-    state = Loading(
-        previousWeather: state is Loaded
-            // We cast because technically `state` can be changed between the
-            // check and cast.
-            ? (state as Loaded).weather
-            : null);
+    final weather = _currentWeather;
 
-    state = (await _loadWeather())
-        .fold((failure) => Error(failure), (weather) => Loaded(weather));
+    state = Loading(weather: weather);
+
+    state = (await _loadWeather()).fold(
+      (failure) => Error(failure, weather: weather),
+      (weather) => Loaded(weather),
+    );
   }
 
   Future<Either<Failure, void>> reloadWeather() async =>

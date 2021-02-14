@@ -1,9 +1,6 @@
-import 'package:clima_domain/entities/city.dart';
-import 'package:clima_ui/state_notifiers/city_state_notifier.dart';
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CityScreen extends StatefulHookWidget {
   @override
@@ -16,20 +13,8 @@ class _CityScreenState extends State<CityScreen> {
     final cityName = useState('');
 
     /// Pops this screen from the navigator.
-    ///
-    /// If cityName is different from the current city name, it also changes cityStateNotifier's state.
     Future<void> _pop() async {
-      final state = context.read(cityStateNotifierProvider.state);
-
-      final changed = !(state is Loaded && state.city.name == cityName.value);
-
-      if (changed) {
-        await context
-            .read(cityStateNotifierProvider)
-            .setCity(City(name: cityName.value));
-      }
-
-      Navigator.pop(context, changed);
+      Navigator.pop(context, cityName.value);
     }
 
     return Scaffold(
