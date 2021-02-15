@@ -1,17 +1,28 @@
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class CityScreen extends StatefulWidget {
+class CityScreen extends StatefulHookWidget {
   @override
   _CityScreenState createState() => _CityScreenState();
 }
 
 class _CityScreenState extends State<CityScreen> {
-  String cityName;
-  final FocusNode focusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
+    final cityName = useState('');
+
+    /// Pops this screen from the navigator.
+    Future<void> _pop() async {
+      var value = cityName.value.trim();
+
+      if (value.isEmpty) {
+        value = null;
+      }
+
+      Navigator.pop(context, value);
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -23,12 +34,8 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
-                  focusNode: focusNode,
                   autofocus: true,
-                  onEditingComplete: () {
-                    focusNode.unfocus();
-                    Navigator.pop(context, cityName);
-                  },
+                  onEditingComplete: _pop,
                   style: Theme.of(context).appBarTheme.textTheme.subtitle1,
                   decoration: const InputDecoration(
                     filled: true,
@@ -37,16 +44,14 @@ class _CityScreenState extends State<CityScreen> {
                     hintStyle: TextStyle(),
                   ),
                   onChanged: (String value) {
-                    cityName = value;
+                    cityName.value = value;
                   },
                 ),
               ),
 
               /// The get weather button.
               FlatButton(
-                onPressed: () {
-                  Navigator.pop(context, cityName);
-                },
+                onPressed: _pop,
                 shape: RoundedRectangleBorder(
                   side: const BorderSide(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8),

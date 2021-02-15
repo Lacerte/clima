@@ -1,21 +1,44 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clima_core/failure.dart';
+import 'package:clima_domain/entities/city.dart';
+import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_ui/main.dart';
-import 'package:clima_ui/services/networking.dart';
-import 'package:clima_ui/services/weather.dart';
+import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
+import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'city_screen.dart';
 
 enum Menu { darkModeOn }
 
-class LocationScreen extends StatefulWidget {
-  const LocationScreen({this.locationWeather});
+/// This function returns the right weather icon for the right condition.
+String _getWeatherIcon(int condition) {
+  if (condition < 300) {
+    return '🌩';
+  } else if (condition < 400) {
+    return '🌧';
+  } else if (condition < 600) {
+    return '☔️';
+  } else if (condition < 700) {
+    return '☃️';
+  } else if (condition < 800) {
+    return '🌫';
+  } else if (condition == 800) {
+    return '☀️';
+  } else if (condition <= 804) {
+    return '☁';
+  } else {
+    return '🤷‍';
+  }
+}
 
-  final dynamic locationWeather;
+class LocationScreen extends StatefulHookWidget {
+  const LocationScreen({Key key}) : super(key: key);
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -23,93 +46,85 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  WeatherModel weather = WeatherModel();
-  int temperature, windSpeed, tempFeel, condition, tempMax, tempMin;
-  String weatherIcon, cityName, description;
-  bool isVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    updateUI(widget.locationWeather);
-  }
-
-  /// This function handles all the errors that might get thrown from the services file. If there are no errors, the work is passed to updateUI.
-  Future<void> errorHandler({
-    Future<dynamic> future,
-    String errorMessage,
-  }) async {
-    try {
-      _scaffoldKey.currentState.removeCurrentSnackBar();
-      final dynamic weatherData = await future;
-      updateUI(weatherData);
-    } on NoInternetConnection {
-      _scaffoldKey.currentState.showSnackBar(
-        await snackBar(text: 'No network connection.'),
-      );
-    } on DataIsNull {
-      _scaffoldKey.currentState.showSnackBar(
-        await snackBar(text: errorMessage),
-      );
-    } finally {
-      setState(() {
-        isVisible = false;
-      });
-    }
-  }
-
-  /// This function updates the app ui with the weather data we got from the api.
-
-  void updateUI(dynamic weatherData) {
-    setState(() {
-      final double wind = (weatherData['wind']['speed'] as num).toDouble();
-      temperature = (weatherData['main']['temp'] as num).round();
-      tempMax = (weatherData['main']['temp_max'] as num).round();
-      tempMin = (weatherData['main']['temp_min'] as num).round();
-      tempFeel = (weatherData['main']['feels_like'] as num).round();
-      windSpeed = (wind * 3.6).round();
-      condition = (weatherData['weather'][0]['id'] as num).toInt();
-      weatherIcon = weather.getWeatherIcon(condition);
-      cityName = weatherData['name'] as String;
-      description = weatherData['weather'][0]['description'] as String;
-    });
-    saveCityName(cityName);
-  }
-
-  /// This function save the city name to shared preferences
-  Future<void> saveCityName(String city) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('name', city);
-  }
 
   @override
   Widget build(BuildContext context) {
     final _themeState = context.read(themeStateNotifier);
+    final weatherState = useProvider(w.weatherStateNotifierProvider.state);
+    final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
+
+    final isLoading = useState(weatherState is c.Loading);
+
+    final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
+
+    void showFailureSnackbar(
+        {@required Failure failure, VoidCallback onRetry, int duration}) {
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+      _scaffoldKey.currentState.showSnackBar(
+        failureSnackbar(
+          failure: failure,
+          onRetry: onRetry,
+          duration: duration,
+        ),
+      );
+    }
+
+    Future<void> loadWeather() async {
+      isLoading.value = true;
+      await weatherStateNotifier.loadWeather();
+      isLoading.value = false;
+    }
+
+    useEffect(
+      () => cityStateNotifier.addListener((state) {
+        if (state is c.Error) {
+          showFailureSnackbar(failure: state.failure, duration: 2);
+        }
+      }),
+      [cityStateNotifier],
+    );
+
+    useEffect(
+      () => weatherStateNotifier.addListener((state) {
+        if (state is w.Error) {
+          showFailureSnackbar(
+            failure: state.failure,
+            onRetry: loadWeather,
+          );
+        }
+      }),
+      [weatherStateNotifier],
+    );
+
+    Weather weather;
+
+    if (weatherState is w.Loaded) {
+      weather = weatherState.weather;
+    } else if (weatherState is w.Loading && weatherState.weather != null) {
+      weather = weatherState.weather;
+    } else if (weatherState is w.Error && weatherState.weather != null) {
+      weather = weatherState.weather;
+    } else {
+      return Scaffold(key: _scaffoldKey, body: const SizedBox.shrink());
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          '$cityName (°C)',
+          '${weather.cityName} (°C)',
           style: Theme.of(context).appBarTheme.textTheme.subtitle1,
         ),
         leading: IconButton(
           color: Theme.of(context).appBarTheme.actionsIconTheme.color,
           icon: const Icon(Icons.refresh),
           tooltip: 'Refresh',
-          onPressed: () {
-            setState(() {
-              isVisible = true;
-            });
-            errorHandler(
-              future: weather.getCityWeather(cityName),
-              errorMessage: "Can't connect to server.",
-            );
-          },
+          onPressed: loadWeather,
         ),
         actions: <Widget>[
           /// The loading indicator widget.
           Visibility(
-            visible: isVisible,
+            visible: isLoading.value,
             child: const Center(
               child: SizedBox(
                 height: 20,
@@ -124,23 +139,25 @@ class _LocationScreenState extends State<LocationScreen> {
             icon: const Icon(Icons.search),
             tooltip: 'Search',
             onPressed: () async {
-              final String typedName = await Navigator.push(
+              final newCityName = await Navigator.push<String>(
                 context,
-                MaterialPageRoute<String>(
+                MaterialPageRoute(
                   builder: (BuildContext context) {
                     return CityScreen();
                   },
                 ),
               );
-              if (typedName != null) {
-                setState(() {
-                  isVisible = true;
-                });
-                errorHandler(
-                  future: weather.getCityWeather(typedName),
-                  errorMessage: 'Something went wrong.',
-                );
+
+              if (newCityName == null) return;
+
+              isLoading.value = true;
+
+              await cityStateNotifier.setCity(City(name: newCityName));
+              if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
+                await weatherStateNotifier.loadWeather();
               }
+
+              isLoading.value = false;
             },
           ),
           PopupMenuButton(
@@ -192,7 +209,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 2),
                             child: AutoSizeText(
-                              '$temperature°',
+                              '${weather.temperature.round()}°',
                               style: kTempTextStyle,
                               textAlign: TextAlign.center,
                             ),
@@ -204,7 +221,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 2),
                             child: AutoSizeText(
-                              weatherIcon,
+                              _getWeatherIcon(weather.condition),
                               style: kConditionTextStyle,
                               textAlign: TextAlign.center,
                             ),
@@ -216,7 +233,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     /// Weather description.
                     Center(
                       child: AutoSizeText(
-                        '${description[0].toUpperCase()}${description.substring(1)}',
+                        '${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
                         maxLines: 1,
                         presetFontSizes: const <double>[30, 25, 20, 15, 10],
                         style: kMessageTextStyle,
@@ -235,7 +252,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     /// TempFeel.
                     Center(
                       child: AutoSizeText(
-                        'It feels like $tempFeel°',
+                        'It feels like ${weather.tempFeel.round()}°',
                         style: kMessageTextStyle,
                         textAlign: TextAlign.center,
                       ),
@@ -244,7 +261,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     /// TempMax and TempMin.
                     Center(
                       child: AutoSizeText(
-                        '↑$tempMax°/↓$tempMin°',
+                        '↑${weather.tempMax.round()}°/↓${weather.tempMin.round()}°',
                         style: kMessageTextStyle,
                         textAlign: TextAlign.center,
                       ),
@@ -257,7 +274,7 @@ class _LocationScreenState extends State<LocationScreen> {
               ReusableWidgets(
                 cardChild: Center(
                   child: AutoSizeText(
-                    'The 💨 speed is \n $windSpeed km/h',
+                    'The 💨 speed is \n ${weather.windSpeed.round()} km/h',
                     style: kMessageTextStyle,
                     textAlign: TextAlign.center,
                   ),
@@ -270,5 +287,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-
-/// flutter build apk --target-platform android-arm64 --split-per-abi
