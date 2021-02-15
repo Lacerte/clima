@@ -51,9 +51,9 @@ SnackBar failureSnackbar({
     } else if (failure is FailedToParseResponse) {
       return 'Could not parse response';
     } else if (failure is ServerDown) {
-      return 'Server is down';
+      return "Can't connect to server";
     } else if (failure is InvalidCityName) {
-      return 'Provided city name is invalid';
+      return 'Invalid city name';
     } else {
       throw ArgumentError('Did not expect $failure');
     }
