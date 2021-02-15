@@ -21,6 +21,7 @@ dependencies:
   flutter_hooks: 0.15.0
   hooks_riverpod: 0.12.2
   dartz: 0.9.2
+  flutter_weather_icons: ^1.0.2
 
   clima_core:
     path: ../clima_core
@@ -42,5 +43,8 @@ flutter:
   fonts:
   - family: Spartan MB
     fonts:
-    - asset: fonts/SpartanMB-Black.otf
-      weight: 900
+      - asset: fonts/SpartanMB-Black.otf
+        weight: 900
+  - family: WeatherIcons
+    fonts:
+      - asset: fonts/weathericons-regular.ttf    
