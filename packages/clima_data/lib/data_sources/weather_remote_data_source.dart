@@ -43,4 +43,4 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
 }
 
 final weatherRemoteDataSourceProvider =
-    Provider<WeatherRemoteDataSource>((ref) => WeatherRemoteDataSourceImpl());
+    Provider<WeatherRemoteDataSource>((ref) => WeatherRemoteDataSourceImpl(),);
