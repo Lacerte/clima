@@ -11,29 +11,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+//import 'package:clima_ui/utilities/weather_icon_mapper.dart';
+import 'package:flutter_weather_icons/flutter_weather_icons.dart';
 
 import 'city_screen.dart';
 
 enum Menu { darkModeOn }
 
 /// This function returns the right weather icon for the right condition.
-String _getWeatherIcon(int condition) {
-  if (condition < 300) {
-    return '🌩';
-  } else if (condition < 400) {
-    return '🌧';
-  } else if (condition < 600) {
-    return '☔️';
-  } else if (condition < 700) {
-    return '☃️';
-  } else if (condition < 800) {
-    return '🌫';
-  } else if (condition == 800) {
-    return '☀️';
-  } else if (condition <= 804) {
-    return '☁';
-  } else {
-    return '🤷‍';
+
+IconData _getIconData(String iconCode) {
+  switch (iconCode) {
+    case '01d':
+      return WeatherIcons.wiDaySunny;
+    case '01n':
+      return WeatherIcons.wiNightClear;
+    case '02d':
+      return WeatherIcons.wiDayCloudy;
+    case '02n':
+      return WeatherIcons.wiDayCloudy;
+    case '03d':
+    case '04d':
+      return WeatherIcons.wiDayCloudyHigh;
+    case '03n':
+    case '04n':
+      return WeatherIcons.wiNightClear;
+    case '09d':
+      return WeatherIcons.wiDayShowers;
+    case '09n':
+      return WeatherIcons.wiNightAltShowers;
+    case '10d':
+      return WeatherIcons.wiDayShowers;
+    case '10n':
+      return WeatherIcons.wiNightAltShowers;
+    case '11d':
+      return WeatherIcons.wiDayThunderstorm;
+    case '11n':
+      return WeatherIcons.wiNightThunderstorm;
+    case '13d':
+      return WeatherIcons.wiDaySnow;
+    case '13n':
+      return WeatherIcons.wiNightSnow;
+    case '50d':
+      return WeatherIcons.wiDayFog;
+    case '50n':
+      return WeatherIcons.wiNightFog;
+    default:
+      return WeatherIcons.wiDaySunny;
   }
 }
 
@@ -199,7 +223,7 @@ class _LocationScreenState extends State<LocationScreen> {
               /// This card displays the temperature, the weather icon, and the weather description.
               ReusableWidgets(
                 cardChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -218,12 +242,12 @@ class _LocationScreenState extends State<LocationScreen> {
 
                         /// Weather icon.
                         Center(
+                          //TODO: Fix alignment issues with Text and Icon
                           child: Padding(
                             padding: const EdgeInsets.only(left: 2),
-                            child: AutoSizeText(
-                              _getWeatherIcon(weather.condition),
-                              style: kConditionTextStyle,
-                              textAlign: TextAlign.center,
+                            child: Icon(
+                              _getIconData(weather.iconCode),
+                              size: 50.0,
                             ),
                           ),
                         ),
@@ -261,7 +285,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     /// TempMax and TempMin.
                     Center(
                       child: AutoSizeText(
-                        '↑${weather.tempMax.round()}°/↓${weather.tempMin.round()}°',
+                        '↑${weather.maxTemperature.round()}°/↓${weather.minTemperature.round()}°',
                         style: kMessageTextStyle,
                         textAlign: TextAlign.center,
                       ),
@@ -274,6 +298,8 @@ class _LocationScreenState extends State<LocationScreen> {
               ReusableWidgets(
                 cardChild: Center(
                   child: AutoSizeText(
+                    // TODO: Weather Icon instead of an Emoji
+                    //TODO: Add wind direction (icon)
                     'The 💨 speed is \n ${weather.windSpeed.round()} km/h',
                     style: kMessageTextStyle,
                     textAlign: TextAlign.center,

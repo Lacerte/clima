@@ -52,6 +52,11 @@ void main() {
           tempFeel: 5.98,
           windSpeed: 2.57 * 3.6,
           temperature: 8.4,
+          iconCode: '04d',
+          humidity: 93,
+          sunrise: 1611906189,
+          sunset: 1611938637,
+          time: 0,
         ),
       );
     });
