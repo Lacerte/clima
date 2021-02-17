@@ -1,10 +1,12 @@
+import 'dart:core';
+
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/weather_repo_impl.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 
 import 'screens/loading_screen.dart';
 import 'themes/theme_model.dart';

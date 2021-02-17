@@ -10,11 +10,9 @@ import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-//import 'package:clima_ui/utilities/weather_icon_mapper.dart';
 import 'package:flutter_weather_icons/flutter_weather_icons.dart';
-
-import 'city_screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 enum Menu { darkModeOn }
 
@@ -76,10 +74,25 @@ class _LocationScreenState extends State<LocationScreen> {
     final _themeState = context.read(themeStateNotifier);
     final weatherState = useProvider(w.weatherStateNotifierProvider.state);
     final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
+    final cityName = useState('');
+    final FloatingSearchBarController controller =
+        FloatingSearchBarController();
 
     final isLoading = useState(weatherState is c.Loading);
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
+
+    // @override
+    // void initState() {
+    //   super.initState();
+    //   controller = FloatingSearchBarController();
+    // }
+    //
+    // @override
+    // void dispose() {
+    //   controller.dispose();
+    //   super.dispose();
+    // }
 
     void showFailureSnackbar(
         {@required Failure failure, VoidCallback onRetry, int duration}) {
@@ -95,7 +108,9 @@ class _LocationScreenState extends State<LocationScreen> {
 
     Future<void> loadWeather() async {
       isLoading.value = true;
+
       await weatherStateNotifier.loadWeather();
+
       isLoading.value = false;
     }
 
@@ -133,180 +148,193 @@ class _LocationScreenState extends State<LocationScreen> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
-      appBar: AppBar(
+      body: FloatingSearchAppBar(
+        controller: controller,
+        progress: isLoading.value,
+        onQueryChanged: (String query) {
+          cityName.value = query;
+        },
+        onSubmitted: (String newCityName) async {
+          controller.close();
+
+          var value = cityName.value.trim();
+
+          if (value.isEmpty) {
+            value = null;
+
+            if (value == null) return;
+
+            isLoading.value = true;
+
+            await cityStateNotifier.setCity(City(name: value));
+            if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
+              await weatherStateNotifier.loadWeather();
+            }
+
+            isLoading.value = false;
+          }
+        },
         title: Text(
           '${weather.cityName} (°C)',
           style: Theme.of(context).appBarTheme.textTheme.subtitle1,
         ),
-        leading: IconButton(
-          color: Theme.of(context).appBarTheme.actionsIconTheme.color,
-          icon: const Icon(Icons.refresh),
-          tooltip: 'Refresh',
-          onPressed: loadWeather,
-        ),
-        actions: <Widget>[
-          /// The loading indicator widget.
-          Visibility(
-            visible: isLoading.value,
-            child: const Center(
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(strokeWidth: 1.5),
-              ),
+        hint: 'Enter city name',
+        color: _themeState.isDarkTheme ? Colors.black : const Color(0xFFF2F2F2),
+        transitionCurve: Curves.easeInOut,
+        leadingActions: [
+          FloatingSearchBarAction(
+            showIfOpened: false,
+            child: CircularButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Refresh',
+              onPressed: loadWeather,
             ),
           ),
-
-          /// The search button.
-          IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: () async {
-              final newCityName = await Navigator.push<String>(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return CityScreen();
-                  },
-                ),
-              );
-
-              if (newCityName == null) return;
-
-              isLoading.value = true;
-
-              await cityStateNotifier.setCity(City(name: newCityName));
-              if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
-                await weatherStateNotifier.loadWeather();
-              }
-
-              isLoading.value = false;
-            },
-          ),
-          PopupMenuButton(
-            offset: const Offset(8.0, 8.0),
-            icon: const Icon(Icons.more_vert),
-            tooltip: 'More options',
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-              PopupMenuItem<Menu>(
-                value: Menu.darkModeOn,
-                child: StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                  return CheckboxListTile(
-                    checkColor: _themeState.isDarkTheme
-                        ? Colors.grey.shade900
-                        : Colors.white,
-                    title: const Text('Dark theme'),
-                    value: _themeState.isDarkTheme,
-                    onChanged: (bool value) {
-                      setState(() {
-                        value
-                            ? _themeState.setDarkTheme()
-                            : _themeState.setLightTheme();
-                        Navigator.pop(context);
-                      });
-                    },
-                  );
-                }),
-              ),
-            ],
-          ),
         ],
-      ),
-      body: Container(
-        constraints: const BoxConstraints.expand(),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              /// This card displays the temperature, the weather icon, and the weather description.
-              ReusableWidgets(
-                cardChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+        actions: [
+          FloatingSearchBarAction(
+            showIfOpened: false,
+            child: CircularButton(
+              icon: const Icon(Icons.search),
+              tooltip: 'Search',
+              onPressed: () {
+                controller.open();
+              },
+            ),
+          ),
+          FloatingSearchBarAction(
+            showIfOpened: false,
+            child: PopupMenuButton(
+              offset: const Offset(8.0, 8.0),
+              icon: const Icon(Icons.more_vert),
+              tooltip: 'More options',
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                PopupMenuItem<Menu>(
+                  value: Menu.darkModeOn,
+                  child: StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState) {
+                    return CheckboxListTile(
+                      checkColor: _themeState.isDarkTheme
+                          ? Colors.grey.shade900
+                          : Colors.white,
+                      title: const Text('Dark theme'),
+                      value: _themeState.isDarkTheme,
+                      onChanged: (bool value) {
+                        setState(() {
+                          value
+                              ? _themeState.setDarkTheme()
+                              : _themeState.setLightTheme();
+                          Navigator.pop(context);
+                        });
+                      },
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ),
+          FloatingSearchBarAction.searchToClear(
+            showIfClosed: false,
+          )
+        ],
+        body: FloatingSearchBarScrollNotifier(
+          child: Container(
+            constraints: const BoxConstraints.expand(),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  /// This card displays the temperature, the weather icon, and the weather description.
+                  ReusableWidgets(
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        /// Temperature.
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 2),
-                            child: AutoSizeText(
-                              '${weather.temperature.round()}°',
-                              style: kTempTextStyle,
-                              textAlign: TextAlign.center,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            /// Temperature.
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 2),
+                                child: AutoSizeText(
+                                  '${weather.temperature.round()}°',
+                                  style: kTempTextStyle,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
-                          ),
+
+                            /// Weather icon.
+                            Center(
+                              //TODO: Fix alignment issues with Text and Icon
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 2),
+                                child: Icon(
+                                  _getIconData(weather.iconCode),
+                                  size: 50.0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
 
-                        /// Weather icon.
+                        /// Weather description.
                         Center(
-                          //TODO: Fix alignment issues with Text and Icon
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 2),
-                            child: Icon(
-                              _getIconData(weather.iconCode),
-                              size: 50.0,
-                            ),
+                          child: AutoSizeText(
+                            '${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
+                            maxLines: 1,
+                            presetFontSizes: const <double>[30, 25, 20, 15, 10],
+                            style: kMessageTextStyle,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
-
-                    /// Weather description.
-                    Center(
-                      child: AutoSizeText(
-                        '${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
-                        maxLines: 1,
-                        presetFontSizes: const <double>[30, 25, 20, 15, 10],
-                        style: kMessageTextStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              /// This card displays tempFeel, tempMax, and tempMin.
-              ReusableWidgets(
-                cardChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    /// TempFeel.
-                    Center(
-                      child: AutoSizeText(
-                        'It feels like ${weather.tempFeel.round()}°',
-                        style: kMessageTextStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-
-                    /// TempMax and TempMin.
-                    Center(
-                      child: AutoSizeText(
-                        '↑${weather.maxTemperature.round()}°/↓${weather.minTemperature.round()}°',
-                        style: kMessageTextStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              /// This card displays the wind speed.
-              ReusableWidgets(
-                cardChild: Center(
-                  child: AutoSizeText(
-                    // TODO: Weather Icon instead of an Emoji
-                    //TODO: Add wind direction (icon)
-                    'The 💨 speed is \n ${weather.windSpeed.round()} km/h',
-                    style: kMessageTextStyle,
-                    textAlign: TextAlign.center,
                   ),
-                ),
+
+                  /// This card displays tempFeel, tempMax, and tempMin.
+                  ReusableWidgets(
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        /// TempFeel.
+                        Center(
+                          child: AutoSizeText(
+                            'It feels like ${weather.tempFeel.round()}°',
+                            style: kMessageTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+
+                        /// TempMax and TempMin.
+                        Center(
+                          child: AutoSizeText(
+                            '↑${weather.maxTemperature.round()}°/↓${weather.minTemperature.round()}°',
+                            style: kMessageTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// This card displays the wind speed.
+                  ReusableWidgets(
+                    cardChild: Center(
+                      child: AutoSizeText(
+                        // TODO: Weather Icon instead of an Emoji
+                        //TODO: Add wind direction (icon)
+                        'The 💨 speed is \n ${weather.windSpeed.round()} km/h',
+                        style: kMessageTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
