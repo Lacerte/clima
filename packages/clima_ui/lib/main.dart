@@ -1,5 +1,3 @@
-import 'dart:core';
-
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/weather_repo_impl.dart';
 import 'package:clima_domain/repos/city_repo.dart';

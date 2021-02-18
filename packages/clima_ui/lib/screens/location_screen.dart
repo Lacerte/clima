@@ -74,25 +74,12 @@ class _LocationScreenState extends State<LocationScreen> {
     final _themeState = context.read(themeStateNotifier);
     final weatherState = useProvider(w.weatherStateNotifierProvider.state);
     final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
-    final cityName = useState('');
     final FloatingSearchBarController controller =
         FloatingSearchBarController();
 
     final isLoading = useState(weatherState is c.Loading);
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
-
-    // @override
-    // void initState() {
-    //   super.initState();
-    //   controller = FloatingSearchBarController();
-    // }
-    //
-    // @override
-    // void dispose() {
-    //   controller.dispose();
-    //   super.dispose();
-    // }
 
     void showFailureSnackbar(
         {@required Failure failure, VoidCallback onRetry, int duration}) {
@@ -153,28 +140,20 @@ class _LocationScreenState extends State<LocationScreen> {
       body: FloatingSearchAppBar(
         controller: controller,
         progress: isLoading.value,
-        onQueryChanged: (String query) {
-          cityName.value = query;
-        },
         onSubmitted: (String newCityName) async {
           controller.close();
 
-          var value = cityName.value.trim();
-
-          if (value.isEmpty) {
-            value = null;
-
-            if (value == null) return;
-
-            isLoading.value = true;
-
-            await cityStateNotifier.setCity(City(name: value));
-            if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
-              await weatherStateNotifier.loadWeather();
-            }
-
-            isLoading.value = false;
+          final trimmedCityName = newCityName.trim();
+          if (trimmedCityName.isEmpty) {
+            return;
           }
+
+          isLoading.value = true;
+          await cityStateNotifier.setCity(City(name: trimmedCityName));
+          if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
+            await weatherStateNotifier.loadWeather();
+          }
+          isLoading.value = false;
         },
         title: Text(
           '${weather.cityName} (°C)',
