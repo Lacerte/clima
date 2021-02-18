@@ -218,101 +218,99 @@ class _LocationScreenState extends State<LocationScreen> {
             showIfClosed: false,
           )
         ],
-        body: FloatingSearchBarScrollNotifier(
-          child: Container(
-            constraints: const BoxConstraints.expand(),
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  /// This card displays the temperature, the weather icon, and the weather description.
-                  ReusableWidgets(
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            /// Temperature.
-                            Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 2),
-                                child: AutoSizeText(
-                                  '${weather.temperature.round()}°',
-                                  style: kTempTextStyle,
-                                  textAlign: TextAlign.center,
-                                ),
+        body: Container(
+          constraints: const BoxConstraints.expand(),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                /// This card displays the temperature, the weather icon, and the weather description.
+                ReusableWidgets(
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          /// Temperature.
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 2),
+                              child: AutoSizeText(
+                                '${weather.temperature.round()}°',
+                                style: kTempTextStyle,
+                                textAlign: TextAlign.center,
                               ),
                             ),
+                          ),
 
-                            /// Weather icon.
-                            Center(
-                              //TODO: Fix alignment issues with Text and Icon
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 2),
-                                child: Icon(
-                                  _getIconData(weather.iconCode),
-                                  size: 50.0,
-                                ),
+                          /// Weather icon.
+                          Center(
+                            //TODO: Fix alignment issues with Text and Icon
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 2),
+                              child: Icon(
+                                _getIconData(weather.iconCode),
+                                size: 50.0,
                               ),
                             ),
-                          ],
-                        ),
-
-                        /// Weather description.
-                        Center(
-                          child: AutoSizeText(
-                            '${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
-                            maxLines: 1,
-                            presetFontSizes: const <double>[30, 25, 20, 15, 10],
-                            style: kMessageTextStyle,
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  /// This card displays tempFeel, tempMax, and tempMin.
-                  ReusableWidgets(
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        /// TempFeel.
-                        Center(
-                          child: AutoSizeText(
-                            'It feels like ${weather.tempFeel.round()}°',
-                            style: kMessageTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-
-                        /// TempMax and TempMin.
-                        Center(
-                          child: AutoSizeText(
-                            '↑${weather.maxTemperature.round()}°/↓${weather.minTemperature.round()}°',
-                            style: kMessageTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  /// This card displays the wind speed.
-                  ReusableWidgets(
-                    cardChild: Center(
-                      child: AutoSizeText(
-                        // TODO: Weather Icon instead of an Emoji
-                        //TODO: Add wind direction (icon)
-                        'The 💨 speed is \n ${weather.windSpeed.round()} km/h',
-                        style: kMessageTextStyle,
-                        textAlign: TextAlign.center,
+                        ],
                       ),
+
+                      /// Weather description.
+                      Center(
+                        child: AutoSizeText(
+                          '${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
+                          maxLines: 1,
+                          presetFontSizes: const <double>[30, 25, 20, 15, 10],
+                          style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                /// This card displays tempFeel, tempMax, and tempMin.
+                ReusableWidgets(
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /// TempFeel.
+                      Center(
+                        child: AutoSizeText(
+                          'It feels like ${weather.tempFeel.round()}°',
+                          style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+
+                      /// TempMax and TempMin.
+                      Center(
+                        child: AutoSizeText(
+                          '↑${weather.maxTemperature.round()}°/↓${weather.minTemperature.round()}°',
+                          style: kMessageTextStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                /// This card displays the wind speed.
+                ReusableWidgets(
+                  cardChild: Center(
+                    child: AutoSizeText(
+                      // TODO: Weather Icon instead of an Emoji
+                      //TODO: Add wind direction (icon)
+                      'The 💨 speed is \n ${weather.windSpeed.round()} km/h',
+                      style: kMessageTextStyle,
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
