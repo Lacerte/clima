@@ -9,9 +9,6 @@ import 'package:riverpod/riverpod.dart';
 
 const String apiKey = '4bef3adf2fcb90307c2bf5feac75a2ba';
 
-const String openWeatherMapURL =
-    'https://api.openweathermap.org/data/2.5/weather';
-
 abstract class WeatherRemoteDataSource {
   Future<Either<Failure, WeatherModel>> getWeather(City city);
 }
@@ -22,7 +19,16 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     // TODO: create a client as the docs recommend creating a client when
     // making multiple requests to the same server.
     final response = await http.get(
-      '$openWeatherMapURL?q=${city.name}&appid=$apiKey&units=metric',
+      Uri(
+        scheme: 'https',
+        host: 'api.openweathermap.org',
+        path: '/data/2.5/weather',
+        queryParameters: {
+          'q': city.name,
+          'appid': apiKey,
+          'units': 'metric',
+        },
+      ),
     );
 
     if (response.statusCode >= 200 && response.statusCode <= 226) {
