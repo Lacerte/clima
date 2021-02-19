@@ -95,9 +95,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
     Future<void> loadWeather() async {
       isLoading.value = true;
-
       await weatherStateNotifier.loadWeather();
-
       isLoading.value = false;
     }
 
