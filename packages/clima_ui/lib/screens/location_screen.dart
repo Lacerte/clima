@@ -6,6 +6,7 @@ import 'package:clima_ui/main.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
+import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -74,8 +75,7 @@ class _LocationScreenState extends State<LocationScreen> {
     final _themeState = context.read(themeStateNotifier);
     final weatherState = useProvider(w.weatherStateNotifierProvider.state);
     final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
-    final FloatingSearchBarController controller =
-        FloatingSearchBarController();
+    final controller = useFloatingSearchBarController();
 
     final isLoading = useState(weatherState is c.Loading);
 
