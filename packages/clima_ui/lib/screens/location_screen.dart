@@ -60,20 +60,17 @@ IconData _getIconData(String iconCode) {
   }
 }
 
-class LocationScreen extends StatefulHookWidget {
+class LocationScreen extends HookWidget {
   const LocationScreen({Key key}) : super(key: key);
-
-  @override
-  _LocationScreenState createState() => _LocationScreenState();
-}
-
-class _LocationScreenState extends State<LocationScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final _themeState = context.read(themeStateNotifier);
+
+    final scaffoldKey = useGlobalKey<ScaffoldState>();
+
     final weatherState = useProvider(w.weatherStateNotifierProvider.state);
+
     final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
     final controller = useFloatingSearchBarController();
 
@@ -83,8 +80,8 @@ class _LocationScreenState extends State<LocationScreen> {
 
     void showFailureSnackbar(
         {@required Failure failure, VoidCallback onRetry, int duration}) {
-      _scaffoldKey.currentState.removeCurrentSnackBar();
-      _scaffoldKey.currentState.showSnackBar(
+      scaffoldKey.currentState.removeCurrentSnackBar();
+      scaffoldKey.currentState.showSnackBar(
         failureSnackbar(
           failure: failure,
           onRetry: onRetry,
@@ -129,12 +126,12 @@ class _LocationScreenState extends State<LocationScreen> {
     } else if (weatherState is w.Error && weatherState.weather != null) {
       weather = weatherState.weather;
     } else {
-      return Scaffold(key: _scaffoldKey, body: const SizedBox.shrink());
+      return Scaffold(key: scaffoldKey, body: const SizedBox.shrink());
     }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      key: _scaffoldKey,
+      key: scaffoldKey,
       body: FloatingSearchAppBar(
         controller: controller,
         progress: isLoading.value,

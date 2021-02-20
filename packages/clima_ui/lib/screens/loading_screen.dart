@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:clima_ui/main.dart';
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
+import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,19 +12,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'location_screen.dart';
 
-class LoadingScreen extends StatefulHookWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _LoadingScreenState();
-  }
-}
-
-class _LoadingScreenState extends State<LoadingScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class LoadingScreen extends HookWidget {
+  const LoadingScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _themeState = context.read(themeStateNotifier);
+    final scaffoldKey = useGlobalKey<ScaffoldState>();
     final weatherStateNotifier = useProvider(weatherStateNotifierProvider);
 
     useEffect(
@@ -33,8 +28,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           final removeListener = weatherStateNotifier.addListener((state) {
             if (state is Error) {
-              _scaffoldKey.currentState.removeCurrentSnackBar();
-              _scaffoldKey.currentState.showSnackBar(
+              scaffoldKey.currentState.removeCurrentSnackBar();
+              scaffoldKey.currentState.showSnackBar(
                 failureSnackbar(
                   failure: state.failure,
                   onRetry: load,
@@ -63,7 +58,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     );
 
     return Scaffold(
-      key: _scaffoldKey,
+      key: scaffoldKey,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: SpinKitDoubleBounce(
