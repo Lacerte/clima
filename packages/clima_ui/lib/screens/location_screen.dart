@@ -182,6 +182,9 @@ class LocationScreen extends HookWidget {
           FloatingSearchBarAction(
             showIfOpened: false,
             child: PopupMenuButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
               offset: const Offset(8.0, 8.0),
               icon: const Icon(Icons.more_vert),
               tooltip: 'More options',
