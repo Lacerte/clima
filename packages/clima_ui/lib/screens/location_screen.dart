@@ -14,8 +14,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_weather_icons/flutter_weather_icons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:package_info/package_info.dart';
 
-enum Menu { darkModeOn }
+enum Menu { darkModeOn, licenses }
 
 /// This function returns the right weather icon for the right condition.
 
@@ -188,23 +189,39 @@ class LocationScreen extends HookWidget {
                 PopupMenuItem<Menu>(
                   value: Menu.darkModeOn,
                   child: StatefulBuilder(
-                      builder: (BuildContext context, StateSetter setState) {
-                    return CheckboxListTile(
-                      checkColor: _themeState.isDarkTheme
-                          ? Colors.grey.shade900
-                          : Colors.white,
-                      title: const Text('Dark theme'),
-                      value: _themeState.isDarkTheme,
-                      onChanged: (bool value) {
-                        setState(() {
-                          value
-                              ? _themeState.setDarkTheme()
-                              : _themeState.setLightTheme();
-                          Navigator.pop(context);
-                        });
-                      },
-                    );
-                  }),
+                    builder: (BuildContext context, StateSetter setState) {
+                      return CheckboxListTile(
+                        checkColor: _themeState.isDarkTheme
+                            ? Colors.grey.shade900
+                            : Colors.white,
+                        title: const Text('Dark theme'),
+                        value: _themeState.isDarkTheme,
+                        onChanged: (bool value) {
+                          setState(() {
+                            value
+                                ? _themeState.setDarkTheme()
+                                : _themeState.setLightTheme();
+                            Navigator.pop(context);
+                          });
+                        },
+                      );
+                    },
+                  ),
+                ),
+                PopupMenuItem<Menu>(
+                  value: Menu.licenses,
+                  child: ListTile(
+                    title: const Text('Licenses'),
+                    onTap: () async {
+                      final PackageInfo packageInfo =
+                          await PackageInfo.fromPlatform();
+                      showLicensePage(
+                        context: context,
+                        applicationName: packageInfo.appName,
+                        applicationVersion: packageInfo.version,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

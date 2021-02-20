@@ -23,6 +23,7 @@ dependencies:
   dartz: 0.9.2
   flutter_weather_icons: ^1.0.2
   material_floating_search_bar: ^0.2.6
+  package_info: ^0.4.3+4
 
   clima_core:
     path: ../clima_core
@@ -38,6 +39,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
 
 
 
