@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: _themeState.setTheme(),
-      home: LoadingScreen(),
+      home: const LoadingScreen(),
     );
   }
 }
