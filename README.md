@@ -13,5 +13,5 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 
 ## Credits
 
-* The app logo is owned by [Anthony Hartnell](https://github.com/WebAssembler) under a [GPLv3](https://github.com/WebAssembler/weatherpress-dashboard/blob/master/LICENSE)
+* The app logo is owned by [Anthony Hartnell](https://github.com/WebAssembler) and licensed under the [GPLv3](https://github.com/WebAssembler/weatherpress-dashboard/blob/master/LICENSE)
 * All the packages in `packages` except for `clima_ui` were created from templates made available by Stagehand under a BSD-style [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
