@@ -1,3 +1,5 @@
+![weatherpress dashboard logo](https://raw.githubusercontent.com/WebAssembler/weatherpress-dashboard/master/weatherpress_dashboard.jpg)
+
 # Clima ☁
 
 A simple and fast weather app. (Requires Android 6.0 or later)
@@ -11,5 +13,5 @@ A simple and fast weather app. (Requires Android 6.0 or later)
 
 ## Credits
 
-* The app logo is owned by [Anthony Hartnell](https://github.com/WebAssembler) under a GPL-style [license](https://github.com/WebAssembler/weatherpress-dashboard/blob/master/LICENSE)
+* The app logo is owned by [Anthony Hartnell](https://github.com/WebAssembler) under a GPLv3 [license](https://github.com/WebAssembler/weatherpress-dashboard/blob/master/LICENSE)
 * All the packages in `packages` except for `clima_ui` were created from templates made available by Stagehand under a BSD-style [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
