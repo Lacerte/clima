@@ -6,7 +6,7 @@ A simple and fast weather app. (Requires Android 6.0 or later)
 
 ## Download
 
-* Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-droid`
+Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-droid`
 
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">
 
