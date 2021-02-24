@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/47897195/108967549-b93bbc00-7690-11eb-9175-b28baafca459.png" width="666">
+![AppLogo](https://user-images.githubusercontent.com/47897195/108967549-b93bbc00-7690-11eb-9175-b28baafca459.png)
 
 # Clima ☁
 
