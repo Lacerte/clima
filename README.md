@@ -1,4 +1,5 @@
 ![AppLogo](https://user-images.githubusercontent.com/47897195/108964770-f736e100-768c-11eb-9566-f69af701c4d0.png)
+
 # Clima ☁
 
 A simple and fast weather app. (Requires Android 6.0 or later)
