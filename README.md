@@ -1,4 +1,4 @@
-![AppLogo](https://user-images.githubusercontent.com/47897195/108966714-91982400-768f-11eb-94e0-6ec891dce84c.png)
+<img src="https://user-images.githubusercontent.com/47897195/108966714-91982400-768f-11eb-94e0-6ec891dce84c.png" height="1108" width="666">
 
 # Clima ☁
 
