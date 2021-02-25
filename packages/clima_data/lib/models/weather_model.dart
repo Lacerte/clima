@@ -2,7 +2,7 @@ import 'package:clima_domain/entities/weather.dart';
 import 'package:meta/meta.dart';
 
 class WeatherModel extends Weather {
-  const WeatherModel({
+  WeatherModel({
     @required double temperature,
     @required double windSpeed,
     @required double tempFeel,
