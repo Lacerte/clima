@@ -31,7 +31,7 @@ class Weather with Equatable<Weather> {
   final int sunset;
   final int humidity;
 
-  const Weather({
+  Weather({
     @required this.temperature,
     @required this.windSpeed,
     @required this.tempFeel,
