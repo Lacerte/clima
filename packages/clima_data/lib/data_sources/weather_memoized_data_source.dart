@@ -28,7 +28,7 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
 
     // Minor delay so that users won't think the fetching is broken or
     // something.
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(Duration(milliseconds: 800));
 
     return Right(_weather);
   }
