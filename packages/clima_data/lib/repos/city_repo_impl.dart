@@ -44,7 +44,7 @@ class CityRepoImpl implements CityRepo {
 
     return weather.fold(
       (failure) async => Left(failure),
-      (_) => localDataSource.setCity(city),
+      (weather) => localDataSource.setCity(City(name: weather.cityName)),
     );
   }
 }
