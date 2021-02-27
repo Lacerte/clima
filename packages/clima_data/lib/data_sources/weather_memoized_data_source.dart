@@ -1,7 +1,14 @@
+import 'dart:math';
+
 import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
+
+int random(min, max) {
+  var rn = Random();
+  return min + rn.nextInt(max - min);
+}
 
 abstract class WeatherMemoizedDataSource {
   Future<Either<Failure, void>> setWeather(Weather weather);
@@ -28,7 +35,11 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
 
     // Minor delay so that users won't think the fetching is broken or
     // something.
-    await Future.delayed(Duration(milliseconds: 800));
+    await Future.delayed(
+      Duration(
+        milliseconds: random(200, 800),
+      ),
+    );
 
     return Right(_weather);
   }
