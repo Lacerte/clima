@@ -134,6 +134,7 @@ class LocationScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       body: FloatingSearchAppBar(
+        automaticallyImplyBackButton: false,
         controller: controller,
         progress: isLoading.value,
         onSubmitted: (String newCityName) async {
@@ -167,6 +168,7 @@ class LocationScreen extends HookWidget {
               onPressed: loadWeather,
             ),
           ),
+          FloatingSearchBarAction.back(),
         ],
         actions: [
           FloatingSearchBarAction(
