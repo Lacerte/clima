@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:dartz/dartz.dart';
@@ -28,7 +30,11 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
 
     // Minor delay so that users won't think the fetching is broken or
     // something.
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(
+      Duration(
+        milliseconds: 200 + Random().nextInt(800 - 200),
+      ),
+    );
 
     return Right(_weather);
   }
