@@ -5,11 +5,6 @@ import 'package:clima_domain/entities/weather.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
-int random(min, max) {
-  var rn = Random();
-  return min + rn.nextInt(max - min);
-}
-
 abstract class WeatherMemoizedDataSource {
   Future<Either<Failure, void>> setWeather(Weather weather);
 
