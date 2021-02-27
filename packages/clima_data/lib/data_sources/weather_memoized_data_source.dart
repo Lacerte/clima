@@ -37,7 +37,7 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
     // something.
     await Future.delayed(
       Duration(
-        milliseconds: random(200, 800),
+        milliseconds: 200 + Random().nextInt(800 - 200),
       ),
     );
 
