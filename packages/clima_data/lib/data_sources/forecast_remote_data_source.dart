@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:clima_core/failure.dart';
-import 'package:clima_data/models/forecast_model.dart';
+import 'package:clima_data/models/forcasts_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -9,13 +9,13 @@ import 'package:riverpod/riverpod.dart';
 
 const String apiKey = '4bef3adf2fcb90307c2bf5feac75a2ba';
 
-abstract class ForecastRemoteDataSource {
-  Future<Either<Failure, ForecastModel>> getWeather(City city);
+abstract class ForecastsRemoteDataSource {
+  Future<Either<Failure, ForecastsModel>> getWeather(City city);
 }
 
-class ForecastRemoteDataSourceImpl implements ForecastRemoteDataSource {
+class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
   @override
-  Future<Either<Failure, ForecastModel>> getWeather(City city) async {
+  Future<Either<Failure, ForecastsModel>> getWeather(City city) async {
     // TODO: create a client as the docs recommend creating a client when
     // making multiple requests to the same server.
     final response = await http.get(
@@ -32,7 +32,7 @@ class ForecastRemoteDataSourceImpl implements ForecastRemoteDataSource {
     );
     if (response.statusCode >= 200 && response.statusCode <= 226) {
       try {
-        return Right(ForecastModel.fromJson(jsonDecode(response.body)));
+        return Right(ForecastsModel.fromJson(jsonDecode(response.body)));
       } on FormatException {
         return Left(FailedToParseResponse());
       }
@@ -47,5 +47,5 @@ class ForecastRemoteDataSourceImpl implements ForecastRemoteDataSource {
   }
 }
 
-final forecastRemoteDataSourceProvider =
-    Provider<ForecastRemoteDataSource>((ref) => ForecastRemoteDataSourceImpl());
+final forecastRemoteDataSourceProvider = Provider<ForecastsRemoteDataSource>(
+    (ref) => ForecastsRemoteDataSourceImpl());
