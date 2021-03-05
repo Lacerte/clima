@@ -1,7 +1,8 @@
-import 'package:clima_data/models/weather_model.dart';
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:meta/meta.dart';
+
+import 'forecast_model.dart';
 
 class ForecastsModel extends Forecasts {
   ForecastsModel({
@@ -12,7 +13,7 @@ class ForecastsModel extends Forecasts {
   factory ForecastsModel.fromJson(Map<String, dynamic> json) {
     final list = json['list'] as List<dynamic>;
     return ForecastsModel(
-      forecasts: list.map((e) => WeatherModel.fromJson(e)).toList(),
+      forecasts: list.map((e) => ForecastModel.fromJson(e)).toList(),
     );
   }
 }

@@ -23,7 +23,7 @@ class ForecastsRepoImpl implements ForecastsRepo {
   });
 
   @override
-  Future<Either<Failure, Forecasts>> getWeather(City city) async {
+  Future<Either<Failure, Forecasts>> getForecasts(City city) async {
     if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
       return Left(const NoConnection());
     } else {

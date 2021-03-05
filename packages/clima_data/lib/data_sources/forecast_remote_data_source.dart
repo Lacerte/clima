@@ -16,8 +16,6 @@ abstract class ForecastsRemoteDataSource {
 class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
   @override
   Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
-    // TODO: create a client as the docs recommend creating a client when
-    // making multiple requests to the same server.
     final response = await http.get(
       Uri(
         scheme: 'https',
