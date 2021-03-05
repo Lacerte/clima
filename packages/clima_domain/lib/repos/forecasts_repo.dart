@@ -4,9 +4,9 @@ import 'package:clima_domain/entities/forecasts.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
-abstract class ForcastsRepo {
-  Future<Either<Failure, Forecasts>> getForcasts(City city);
+abstract class ForecastsRepo {
+  Future<Either<Failure, Forecasts>> getForecasts(City city);
 }
 
 final weatherRepoProvider =
-    Provider<ForcastsRepo>((ref) => throw UnimplementedError());
+    Provider<ForecastsRepo>((ref) => throw UnimplementedError());

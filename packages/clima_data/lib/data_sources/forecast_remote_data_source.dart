@@ -10,12 +10,12 @@ import 'package:riverpod/riverpod.dart';
 const String apiKey = '4bef3adf2fcb90307c2bf5feac75a2ba';
 
 abstract class ForecastsRemoteDataSource {
-  Future<Either<Failure, ForecastsModel>> getWeather(City city);
+  Future<Either<Failure, ForecastsModel>> getForecasts(City city);
 }
 
 class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
   @override
-  Future<Either<Failure, ForecastsModel>> getWeather(City city) async {
+  Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
     // TODO: create a client as the docs recommend creating a client when
     // making multiple requests to the same server.
     final response = await http.get(

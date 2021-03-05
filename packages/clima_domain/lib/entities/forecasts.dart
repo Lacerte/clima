@@ -5,8 +5,10 @@ import 'package:meta/meta.dart';
 class Forecasts with Equatable<Forecasts> {
   Forecasts({
     @required this.forecasts,
+    @required this.cityName,
   });
   final List<Weather> forecasts;
+  final String cityName;
   @override
   // TODO: implement checkRuntimeType
   bool get checkRuntimeType => false;

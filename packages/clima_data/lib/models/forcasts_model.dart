@@ -6,7 +6,8 @@ import 'package:meta/meta.dart';
 class ForecastsModel extends Forecasts {
   ForecastsModel({
     @required List<Weather> forecasts,
-  }) : super(forecasts: forecasts);
+    @required String cityName,
+  }) : super(forecasts: forecasts, cityName: cityName);
 
   factory ForecastsModel.fromJson(Map<String, dynamic> json) {
     final list = json['list'] as List<dynamic>;
