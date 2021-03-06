@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:clima_core/failure.dart';
+import 'package:clima_data/constants.dart';
 import 'package:clima_data/models/weather_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
-
-const String apiKey = '4bef3adf2fcb90307c2bf5feac75a2ba';
 
 abstract class WeatherRemoteDataSource {
   Future<Either<Failure, WeatherModel>> getWeather(City city);
