@@ -12,8 +12,11 @@ class ForecastsModel extends Forecasts {
 
   factory ForecastsModel.fromJson(Map<String, dynamic> json) {
     final list = json['list'] as List<dynamic>;
+    final cityName = json['city']['name'] as String;
+
     return ForecastsModel(
-      forecasts: list.map((e) => ForecastModel.fromJson(e)).toList(),
+      cityName: cityName,
+      forecasts: list.map((e) => ForecastModel.fromJson(e, cityName: cityName)).toList(),
     );
   }
 }
