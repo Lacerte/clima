@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/constants.dart';
-import 'package:clima_data/models/forcasts_model.dart';
+import 'package:clima_data/models/forecasts_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
