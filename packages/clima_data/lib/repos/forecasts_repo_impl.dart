@@ -31,7 +31,7 @@ class ForecastsRepoImpl implements ForecastsRepo {
 
       if (memoizedForecasts.isLeft() ||
           memoizedForecasts.all(
-              (weather) => weather != null && weather.cityName == city.name)) {
+              (forecasts) => forecasts != null && forecasts.cityName == city.name)) {
         return memoizedForecasts;
       }
 
