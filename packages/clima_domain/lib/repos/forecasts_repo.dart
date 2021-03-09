@@ -8,5 +8,5 @@ abstract class ForecastsRepo {
   Future<Either<Failure, Forecasts>> getForecasts(City city);
 }
 
-final weatherRepoProvider =
+final forecastsRepoProvider =
     Provider<ForecastsRepo>((ref) => throw UnimplementedError());

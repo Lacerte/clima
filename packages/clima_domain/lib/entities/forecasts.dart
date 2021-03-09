@@ -10,11 +10,9 @@ class Forecasts with Equatable<Forecasts> {
   final List<Weather> forecasts;
   final String cityName;
   @override
-  // TODO: implement checkRuntimeType
   bool get checkRuntimeType => false;
 
   @override
-  // TODO: implement props
   List<Object> get props => [
         forecasts,
       ];

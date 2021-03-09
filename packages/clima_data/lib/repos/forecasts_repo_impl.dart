@@ -44,12 +44,12 @@ class ForecastsRepoImpl implements ForecastsRepo {
       return forecasts;
     }
   }
-
-  final forecastsRepoImplProvider = Provider(
-    (ref) => ForecastsRepoImpl(
-      remoteDataSource: ref.watch(forecastRemoteDataSourceProvider),
-      memoizedDataSource: ref.watch(forecastsMemoizedDataSourceProvider),
-      connectivity: Connectivity(),
-    ),
-  );
 }
+
+final forecastsRepoImplProvider = Provider(
+  (ref) => ForecastsRepoImpl(
+    remoteDataSource: ref.watch(forecastRemoteDataSourceProvider),
+    memoizedDataSource: ref.watch(forecastsMemoizedDataSourceProvider),
+    connectivity: Connectivity(),
+  ),
+);
