@@ -27,7 +27,7 @@ mixin Equatable<T extends Equatable<T>> {
   bool operator ==(Object that) =>
       identical(this, that) ||
       (that is T &&
-          (checkRuntimeType ? runtimeType == that.runtimeType : true) &&
+          (!checkRuntimeType || runtimeType == that.runtimeType) &&
           _propsEquality.equals(props, that.props));
 
   @override

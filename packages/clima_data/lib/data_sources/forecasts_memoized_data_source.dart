@@ -20,12 +20,12 @@ class ForecastsMemoizedDataSourceImpl implements ForecastsMemoizedDataSource {
 
   @override
   Future<Either<Failure, Forecasts>> getMemoizedForecasts() async {
-    if (_forecasts == null) return Right(null);
+    if (_forecasts == null) return const Right(null);
 
     if (DateTime.now().difference(_fetchingTime) >= _invalidationDuration) {
       _forecasts = null;
       _fetchingTime = null;
-      return Right(null);
+      return const Right(null);
     }
 
     // Minor delay so that users won't think the fetching is broken or
@@ -43,7 +43,7 @@ class ForecastsMemoizedDataSourceImpl implements ForecastsMemoizedDataSource {
   Future<Either<Failure, void>> setForecasts(Forecasts forecasts) async {
     _fetchingTime = DateTime.now();
     _forecasts = forecasts;
-    return Right(null);
+    return const Right(null);
   }
 }
 
