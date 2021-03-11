@@ -2,26 +2,24 @@ import 'dart:convert';
 
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/constants.dart';
-import 'package:clima_data/models/weather_model.dart';
+import 'package:clima_data/models/forecasts_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-abstract class WeatherRemoteDataSource {
-  Future<Either<Failure, WeatherModel>> getWeather(City city);
+abstract class ForecastsRemoteDataSource {
+  Future<Either<Failure, ForecastsModel>> getForecasts(City city);
 }
 
-class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
+class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
   @override
-  Future<Either<Failure, WeatherModel>> getWeather(City city) async {
-    // TODO: create a client as the docs recommend creating a client when
-    // making multiple requests to the same server.
+  Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
     final response = await http.get(
       Uri(
         scheme: 'https',
         host: 'api.openweathermap.org',
-        path: '/data/2.5/weather',
+        path: '/data/2.5/forecast',
         queryParameters: {
           'q': city.name,
           'appid': apiKey,
@@ -29,10 +27,9 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
         },
       ),
     );
-
     if (response.statusCode >= 200 && response.statusCode <= 226) {
       try {
-        return Right(WeatherModel.fromJson(jsonDecode(response.body)));
+        return Right(ForecastsModel.fromJson(jsonDecode(response.body)));
       } on FormatException {
         return Left(FailedToParseResponse());
       }
@@ -47,5 +44,5 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   }
 }
 
-final weatherRemoteDataSourceProvider =
-    Provider<WeatherRemoteDataSource>((ref) => WeatherRemoteDataSourceImpl());
+final forecastRemoteDataSourceProvider = Provider<ForecastsRemoteDataSource>(
+    (ref) => ForecastsRemoteDataSourceImpl());

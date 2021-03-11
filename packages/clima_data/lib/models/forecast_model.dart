@@ -1,8 +1,8 @@
 import 'package:clima_domain/entities/weather.dart';
 import 'package:meta/meta.dart';
 
-class WeatherModel extends Weather {
-  WeatherModel({
+class ForecastModel extends Weather {
+  ForecastModel({
     @required double temperature,
     @required double windSpeed,
     @required double tempFeel,
@@ -32,7 +32,7 @@ class WeatherModel extends Weather {
           iconCode: iconCode,
         );
 
-  factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
+  factory ForecastModel.fromJson(Map<String, dynamic> json, {@required String cityName}) => ForecastModel(
       temperature: (json['main']['temp'] as num).toDouble(),
       tempMax: (json['main']['temp_max'] as num).toDouble(),
       tempMin: (json['main']['temp_min'] as num).toDouble(),
@@ -40,7 +40,7 @@ class WeatherModel extends Weather {
       // We multiply by 3.6 to convert from m/s to km/h.
       windSpeed: (json['wind']['speed'] as num).toDouble() * 3.6,
       condition: json['weather'][0]['id'] as int,
-      cityName: json['name'] as String,
+      cityName: cityName,
       description: json['weather'][0]['description'] as String,
       time: (json['timezone'] as num).toInt(),
       iconCode: json['weather'][0]['icon'] as String,
