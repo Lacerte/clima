@@ -30,7 +30,8 @@ class WeatherRepoImpl implements WeatherRepo {
       final memoizedWeather = await memoizedDataSource.getMemoizedWeather();
 
       if (memoizedWeather.isLeft() ||
-          memoizedWeather.all((weather) => weather != null && weather.cityName == city.name)) {
+          memoizedWeather.all(
+              (weather) => weather != null && weather.cityName == city.name)) {
         return memoizedWeather;
       }
 

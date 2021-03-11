@@ -16,7 +16,10 @@ class ForecastsModel extends Forecasts {
 
     return ForecastsModel(
       cityName: cityName,
-      forecasts: list.map((e) => ForecastModel.fromJson(e as Map<String, dynamic>, cityName: cityName)).toList(),
+      forecasts: list
+          .map((e) => ForecastModel.fromJson(e as Map<String, dynamic>,
+              cityName: cityName))
+          .toList(),
     );
   }
 }
