@@ -29,7 +29,8 @@ class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
     );
     if (response.statusCode >= 200 && response.statusCode <= 226) {
       try {
-        return Right(ForecastsModel.fromJson(jsonDecode(response.body) as Map<String, dynamic>));
+        return Right(ForecastsModel.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>));
       } on FormatException {
         return const Left(FailedToParseResponse());
       }

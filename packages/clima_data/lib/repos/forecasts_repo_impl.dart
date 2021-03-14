@@ -30,8 +30,8 @@ class ForecastsRepoImpl implements ForecastsRepo {
       final memoizedForecasts = await memoizedDataSource.getMemoizedForecasts();
 
       if (memoizedForecasts.isLeft() ||
-          memoizedForecasts.all(
-              (forecasts) => forecasts != null && forecasts.cityName == city.name)) {
+          memoizedForecasts.all((forecasts) =>
+              forecasts != null && forecasts.cityName == city.name)) {
         return memoizedForecasts;
       }
 

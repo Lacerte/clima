@@ -32,7 +32,8 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
 
     if (response.statusCode >= 200 && response.statusCode <= 226) {
       try {
-        return Right(WeatherModel.fromJson(jsonDecode(response.body) as Map<String, dynamic>));
+        return Right(WeatherModel.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>));
       } on FormatException {
         return const Left(FailedToParseResponse());
       }
