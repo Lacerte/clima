@@ -161,7 +161,6 @@ class LocationScreen extends HookWidget {
         transitionCurve: Curves.easeInOut,
         leadingActions: [
           FloatingSearchBarAction(
-            showIfOpened: false,
             child: CircularButton(
               icon: const Icon(Icons.refresh),
               tooltip: 'Refresh',
@@ -172,7 +171,6 @@ class LocationScreen extends HookWidget {
         ],
         actions: [
           FloatingSearchBarAction(
-            showIfOpened: false,
             child: CircularButton(
               icon: const Icon(Icons.search),
               tooltip: 'Search',
@@ -182,7 +180,6 @@ class LocationScreen extends HookWidget {
             ),
           ),
           FloatingSearchBarAction(
-            showIfOpened: false,
             child: PopupMenuButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),

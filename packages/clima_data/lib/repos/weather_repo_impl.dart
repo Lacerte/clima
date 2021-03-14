@@ -25,12 +25,13 @@ class WeatherRepoImpl implements WeatherRepo {
   @override
   Future<Either<Failure, Weather>> getWeather(City city) async {
     if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
-      return Left(const NoConnection());
+      return const Left(NoConnection());
     } else {
       final memoizedWeather = await memoizedDataSource.getMemoizedWeather();
 
       if (memoizedWeather.isLeft() ||
-          memoizedWeather.all((weather) => weather != null && weather.cityName == city.name)) {
+          memoizedWeather.all(
+              (weather) => weather != null && weather.cityName == city.name)) {
         return memoizedWeather;
       }
 

@@ -20,12 +20,12 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
 
   @override
   Future<Either<Failure, Weather>> getMemoizedWeather() async {
-    if (_weather == null) return Right(null);
+    if (_weather == null) return const Right(null);
 
     if (DateTime.now().difference(_fetchingTime) >= _invalidationDuration) {
       _weather = null;
       _fetchingTime = null;
-      return Right(null);
+      return const Right(null);
     }
 
     // Minor delay so that users won't think the fetching is broken or
@@ -43,7 +43,7 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
   Future<Either<Failure, void>> setWeather(Weather weather) async {
     _fetchingTime = DateTime.now();
     _weather = weather;
-    return Right(null);
+    return const Right(null);
   }
 }
 

@@ -17,7 +17,7 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
     final prefs = await SharedPreferences.getInstance();
 
     final cityName = prefs.getString('name');
-    if (cityName == null) return Right(null);
+    if (cityName == null) return const Right(null);
 
     return Right(CityModel(name: cityName));
   }
@@ -28,7 +28,7 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
 
     await prefs.setString('name', city.name);
 
-    return Right(null);
+    return const Right(null);
   }
 }
 

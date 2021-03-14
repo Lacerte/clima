@@ -25,13 +25,13 @@ class ForecastsRepoImpl implements ForecastsRepo {
   @override
   Future<Either<Failure, Forecasts>> getForecasts(City city) async {
     if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
-      return Left(const NoConnection());
+      return const Left(NoConnection());
     } else {
       final memoizedForecasts = await memoizedDataSource.getMemoizedForecasts();
 
       if (memoizedForecasts.isLeft() ||
-          memoizedForecasts.all(
-              (forecasts) => forecasts != null && forecasts.cityName == city.name)) {
+          memoizedForecasts.all((forecasts) =>
+              forecasts != null && forecasts.cityName == city.name)) {
         return memoizedForecasts;
       }
 
