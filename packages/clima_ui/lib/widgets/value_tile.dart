@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clima_domain/entities/weather.dart';
+
 import 'empty_widget.dart';
 
 /// General utility widget used to render a cell divided into three rows
@@ -7,12 +7,11 @@ import 'empty_widget.dart';
 /// second row displays [iconData]
 /// third row displays [value]
 class ValueTile extends StatelessWidget {
-  ValueTile(this.label, this.value, {this.iconData});
+  const ValueTile(this.label, this.value, {this.iconData});
 
   final String label;
   final String value;
   final IconData iconData;
-  Weather weather;
 
   @override
   Widget build(BuildContext context) {

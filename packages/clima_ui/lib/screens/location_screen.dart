@@ -20,7 +20,7 @@ enum Menu { darkModeOn, licenses }
 
 /// This function returns the right weather icon for the right condition.
 
-IconData _getIconData(String iconCode) {
+IconData getIconData(String iconCode) {
   switch (iconCode) {
     case '01d':
       return WeatherIcons.wiDaySunny;
@@ -264,7 +264,7 @@ class LocationScreen extends HookWidget {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 2),
                               child: Icon(
-                                _getIconData(weather.iconCode),
+                                getIconData(weather.iconCode),
                                 size: 50.0,
                               ),
                             ),

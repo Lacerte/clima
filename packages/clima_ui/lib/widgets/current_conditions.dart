@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_ui/screens/location_screen.dart';
+import 'package:flutter/material.dart';
 
 import 'value_tile.dart';
 
 /// Renders Weather Icon, current, min and max temperatures
 class CurrentConditions extends StatelessWidget {
-  Weather weather;
+  const CurrentConditions(this.weather);
+
+  final Weather weather;
 
   @override
   Widget build(BuildContext context) {
