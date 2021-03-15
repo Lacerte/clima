@@ -37,7 +37,9 @@ class WeatherWidget extends StatelessWidget {
                 fontSize: 15,
                 color: Theme.of(context).accentColor),
           ),
-          CurrentConditions(weather),
+          CurrentConditions(
+            weather: weather,
+          ),
           Padding(
             padding: const EdgeInsets.all(10),
             child: Divider(
