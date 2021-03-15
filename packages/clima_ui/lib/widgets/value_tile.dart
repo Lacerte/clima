@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'empty_widget.dart';
-
 /// General utility widget used to render a cell divided into three rows
 /// First row displays [label]
 /// second row displays [iconData]
 /// third row displays [value]
 class ValueTile extends StatelessWidget {
-  const ValueTile(this.label, this.value, {Key key, this.iconData}) : super(key: key);
+  const ValueTile(this.label, this.value, {Key key, this.iconData})
+      : super(key: key);
 
   final String label;
   final String value;
@@ -26,11 +25,11 @@ class ValueTile extends StatelessWidget {
           height: 5,
         ),
         if (iconData != null)
-            Icon(
-                iconData,
-                color: Theme.of(context).accentColor,
-                size: 20,
-            ),
+          Icon(
+            iconData,
+            color: Theme.of(context).accentColor,
+            size: 20,
+          ),
         const SizedBox(
           height: 10,
         ),

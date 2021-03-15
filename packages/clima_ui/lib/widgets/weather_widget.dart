@@ -8,7 +8,8 @@ import 'forecast_horizontal_widget.dart';
 import 'value_tile.dart';
 
 class WeatherWidget extends StatelessWidget {
-  const WeatherWidget(this.weather, this.forecasts, {Key key}) : super(key: key);
+  const WeatherWidget(this.weather, this.forecasts, {Key key})
+      : super(key: key);
   final Weather weather;
   final Forecasts forecasts;
 
@@ -41,14 +42,14 @@ class WeatherWidget extends StatelessWidget {
             weather: weather,
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
             child: Divider(
               color: Theme.of(context).accentColor.withAlpha(50),
             ),
           ),
           ForecastHorizontal(forecast: forecasts.forecasts),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
             child: Divider(
               color: Theme.of(context).accentColor.withAlpha(50),
             ),
@@ -56,7 +57,7 @@ class WeatherWidget extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             ValueTile('wind speed', '${weather.windSpeed} m/s'),
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: Center(
                   child: Container(
                 width: 1,
@@ -71,7 +72,7 @@ class WeatherWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               child: Center(
                   child: Container(
                 width: 1,
