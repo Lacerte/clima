@@ -7,7 +7,7 @@ import 'empty_widget.dart';
 /// second row displays [iconData]
 /// third row displays [value]
 class ValueTile extends StatelessWidget {
-  const ValueTile(this.label, this.value, {this.iconData});
+  const ValueTile(this.label, this.value, {Key key, this.iconData}) : super(key: key);
 
   final String label;
   final String value;
