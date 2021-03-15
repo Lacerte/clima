@@ -8,7 +8,7 @@ import 'forecast_horizontal_widget.dart';
 import 'value_tile.dart';
 
 class WeatherWidget extends StatelessWidget {
-  const WeatherWidget(this.weather, this.forecasts);
+  const WeatherWidget(this.weather, this.forecasts, {Key key}) : super(key: key);
   final Weather weather;
   final Forecasts forecasts;
 
