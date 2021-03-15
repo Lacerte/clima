@@ -25,13 +25,12 @@ class ValueTile extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        iconData != null
-            ? Icon(
+        if (iconData != null)
+            Icon(
                 iconData,
                 color: Theme.of(context).accentColor,
                 size: 20,
-              )
-            : EmptyWidget(),
+            ),
         const SizedBox(
           height: 10,
         ),
