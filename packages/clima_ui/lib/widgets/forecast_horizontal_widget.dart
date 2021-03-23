@@ -24,7 +24,7 @@ class ForecastHorizontal extends StatelessWidget {
           height: 100,
           color: Colors.white,
         ),
-        padding: const EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         itemBuilder: (context, index) {
           final item = forecast[index];
           return Padding(
