@@ -28,7 +28,7 @@ class ForecastHorizontal extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = forecast[index];
           return Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Center(
               child: ValueTile(
                 DateFormat('E, ha').format(
