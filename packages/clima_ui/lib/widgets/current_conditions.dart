@@ -35,7 +35,7 @@ class CurrentConditions extends StatelessWidget {
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           ValueTile('max', '${weather.maxTemperature.round()}°'),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
                 child: Container(
               width: 1,
