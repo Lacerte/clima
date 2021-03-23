@@ -47,7 +47,7 @@ class WeatherWidget extends StatelessWidget {
               color: Theme.of(context).accentColor.withAlpha(50),
             ),
           ),
-          ForecastHorizontal(forecast: forecasts.forecasts),
+          ForecastHorizontal(forecasts.forecasts),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Divider(
@@ -55,7 +55,7 @@ class WeatherWidget extends StatelessWidget {
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            ValueTile('wind speed', '${weather.windSpeed} m/s'),
+            ValueTile('wind speed', '${weather.windSpeed.round()} m/s'),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Center(
@@ -67,7 +67,7 @@ class WeatherWidget extends StatelessWidget {
             ),
             ValueTile(
               'sunrise',
-              DateFormat('h:m a').format(
+              DateFormat('hh:mm a').format(
                 DateTime.fromMillisecondsSinceEpoch(weather.sunrise * 1000),
               ),
             ),
@@ -82,7 +82,7 @@ class WeatherWidget extends StatelessWidget {
             ),
             ValueTile(
               'sunset',
-              DateFormat('h:m a').format(
+              DateFormat('hh:mm a').format(
                 DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000),
               ),
             ),

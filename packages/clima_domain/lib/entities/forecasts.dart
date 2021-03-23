@@ -15,5 +15,6 @@ class Forecasts with Equatable<Forecasts> {
   @override
   List<Object> get props => [
         forecasts,
+        cityName,
       ];
 }

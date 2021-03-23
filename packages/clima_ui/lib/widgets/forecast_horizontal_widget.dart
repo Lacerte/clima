@@ -9,8 +9,7 @@ import 'value_tile.dart';
 /// Used to show forecast
 /// Shows DateTime, Weather Condition icon and Temperature
 class ForecastHorizontal extends StatelessWidget {
-  const ForecastHorizontal({Key key, @required this.forecast})
-      : super(key: key);
+  const ForecastHorizontal(this.forecast, {Key key}) : super(key: key);
   final List<Weather> forecast;
 
   @override

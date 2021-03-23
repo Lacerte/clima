@@ -23,12 +23,14 @@ class CurrentConditions extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Text(
-          '${weather.temperature.round()}°',
-          style: TextStyle(
-              fontSize: 100,
-              fontWeight: FontWeight.w100,
-              color: Theme.of(context).accentColor),
+        Center(
+          child: Text(
+            '${weather.temperature.round()}°',
+            style: TextStyle(
+                fontSize: 100,
+                fontWeight: FontWeight.w100,
+                color: Theme.of(context).accentColor),
+          ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           ValueTile('max', '${weather.maxTemperature.round()}°'),
