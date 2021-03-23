@@ -87,7 +87,7 @@ class WeatherWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Center(
                   child: Container(
                 width: 1,
