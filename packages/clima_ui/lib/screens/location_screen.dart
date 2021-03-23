@@ -120,7 +120,6 @@ class LocationScreen extends HookWidget {
     );
 
     Weather weather;
-    Forecasts forecasts;
 
     if (weatherState is w.Loaded) {
       weather = weatherState.weather;
@@ -235,7 +234,7 @@ class LocationScreen extends HookWidget {
             showIfClosed: false,
           )
         ],
-        body: WeatherWidget(weather, forecasts),
+        body: WeatherWidget(weather),
         // body: Container(
         //   constraints: const BoxConstraints.expand(),
         //   child: SafeArea(
