@@ -6,7 +6,7 @@ import 'value_tile.dart';
 
 /// Renders Weather Icon, current, min and max temperatures
 class CurrentConditions extends StatelessWidget {
-  const CurrentConditions({Key key, this.weather}) : super(key: key);
+  const CurrentConditions({Key key, @required this.weather}) : super(key: key);
 
   final Weather weather;
 
