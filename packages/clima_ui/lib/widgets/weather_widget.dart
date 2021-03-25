@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'current_conditions.dart';
+import 'forecast_horizontal_widget.dart';
 import 'value_tile.dart';
 
 class WeatherWidget extends StatelessWidget {
@@ -20,7 +21,7 @@ class WeatherWidget extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w900,
                 letterSpacing: 5,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).textTheme.subtitle1.color,
                 fontSize: 25),
           ),
           const SizedBox(
@@ -29,10 +30,11 @@ class WeatherWidget extends StatelessWidget {
           Text(
             weather.description.toUpperCase(),
             style: TextStyle(
-                fontWeight: FontWeight.w100,
-                letterSpacing: 5,
-                fontSize: 15,
-                color: Theme.of(context).accentColor),
+              fontWeight: FontWeight.w100,
+              letterSpacing: 5,
+              fontSize: 15,
+              color: Theme.of(context).textTheme.subtitle1.color,
+            ),
           ),
           CurrentConditions(
             weather: weather,
@@ -40,15 +42,14 @@ class WeatherWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8),
             child: Divider(
-              color: Theme.of(context).accentColor.withAlpha(50),
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
             ),
           ),
-
-          ///ForecastHorizontal(forecasts.forecasts),
+          ForecastHorizontal(),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Divider(
-              color: Theme.of(context).accentColor.withAlpha(50),
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -59,7 +60,8 @@ class WeatherWidget extends StatelessWidget {
                   child: Container(
                 width: 1,
                 height: 30,
-                color: Theme.of(context).accentColor.withAlpha(50),
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
               )),
             ),
             ValueTile(
@@ -74,7 +76,8 @@ class WeatherWidget extends StatelessWidget {
                   child: Container(
                 width: 1,
                 height: 30,
-                color: Theme.of(context).accentColor.withAlpha(50),
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
               )),
             ),
             ValueTile(
@@ -89,7 +92,8 @@ class WeatherWidget extends StatelessWidget {
                   child: Container(
                 width: 1,
                 height: 30,
-                color: Theme.of(context).accentColor.withAlpha(50),
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
               )),
             ),
             ValueTile('humidity', '${weather.humidity}%'),

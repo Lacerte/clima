@@ -19,7 +19,7 @@ class ValueTile extends StatelessWidget {
       children: <Widget>[
         Text(
           label,
-          style: TextStyle(color: Theme.of(context).accentColor.withAlpha(80)),
+          style: TextStyle(color: Theme.of(context).textTheme.subtitle1.color.withAlpha(80)),
         ),
         const SizedBox(
           height: 5,
@@ -27,7 +27,7 @@ class ValueTile extends StatelessWidget {
         if (iconData != null)
           Icon(
             iconData,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).textTheme.subtitle1.color,
             size: 20,
           ),
         const SizedBox(
@@ -35,7 +35,7 @@ class ValueTile extends StatelessWidget {
         ),
         Text(
           value,
-          style: TextStyle(color: Theme.of(context).accentColor),
+          style: TextStyle(color: Theme.of(context).textTheme.subtitle1.color),
         ),
       ],
     );

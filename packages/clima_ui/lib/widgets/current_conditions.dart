@@ -17,7 +17,7 @@ class CurrentConditions extends StatelessWidget {
       children: <Widget>[
         Icon(
           getIconData(weather.iconCode),
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).textTheme.subtitle1.color,
           size: 70,
         ),
         const SizedBox(
@@ -27,9 +27,10 @@ class CurrentConditions extends StatelessWidget {
           child: Text(
             '${weather.temperature.round()}°',
             style: TextStyle(
-                fontSize: 100,
-                fontWeight: FontWeight.w100,
-                color: Theme.of(context).accentColor),
+              fontSize: 100,
+              fontWeight: FontWeight.w100,
+              color: Theme.of(context).textTheme.subtitle1.color,
+            ),
           ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -40,7 +41,7 @@ class CurrentConditions extends StatelessWidget {
                 child: Container(
               width: 1,
               height: 30,
-              color: Theme.of(context).accentColor.withAlpha(50),
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
             )),
           ),
           ValueTile('min', '${weather.minTemperature.round()}°'),
