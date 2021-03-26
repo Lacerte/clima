@@ -26,7 +26,7 @@ class Weather with Equatable<Weather> {
   final String description;
   final String iconCode;
 
-  final int time;
+  final DateTime date;
   final int sunrise;
   final int sunset;
   final int humidity;
@@ -41,7 +41,7 @@ class Weather with Equatable<Weather> {
     @required this.cityName,
     @required this.description,
     @required this.iconCode,
-    @required this.time,
+    @required this.date,
     @required this.sunrise,
     @required this.sunset,
     @required this.humidity,

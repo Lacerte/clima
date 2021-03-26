@@ -1,6 +1,5 @@
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_ui/screens/location_screen.dart';
-import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,11 +15,6 @@ class ForecastHorizontal extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final forecastsState = useProvider(f.forecastsStateNotifierProvider.state);
-
-    final forecastsStateNotifier =
-        useProvider(f.forecastsStateNotifierProvider);
-
-    final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
 
     Forecasts forecasts;
 
@@ -52,8 +46,9 @@ class ForecastHorizontal extends HookWidget {
             child: Center(
               child: ValueTile(
                 DateFormat('E, ha').format(
-                    DateTime.fromMillisecondsSinceEpoch(item.time * 1000)),
-                '${item.temperature}°', //.as(AppStateContainer.of(context).temperatureUnit).round()}°',
+                  item.date,
+                ),
+                '${item.temperature.round()}°',
                 iconData: getIconData(item.iconCode),
               ),
             ),
