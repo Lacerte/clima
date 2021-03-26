@@ -56,7 +56,7 @@ void main() {
           humidity: 93,
           sunrise: 1611906189,
           sunset: 1611938637,
-          time: 0,
+          date: 0,
         ),
       );
     });
