@@ -42,7 +42,7 @@ class WeatherModel extends Weather {
       condition: json['weather'][0]['id'] as int,
       cityName: json['name'] as String,
       description: json['weather'][0]['description'] as String,
-      date: DateTime.fromMillisecondsSinceEpoch(json['dt'] as int),
+      date: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
       iconCode: json['weather'][0]['icon'] as String,
       sunrise: json['sys']['sunrise'] as int,
       sunset: json['sys']['sunset'] as int,

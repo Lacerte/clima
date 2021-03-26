@@ -56,7 +56,8 @@ void main() {
           humidity: 93,
           sunrise: 1611906189,
           sunset: 1611938637,
-          date: 0,
+          //  date: 1611919888,
+          date: DateTime.fromMillisecondsSinceEpoch(1611919888 * 1000),
         ),
       );
     });
