@@ -37,6 +37,7 @@ void main() {
         ForecastModel(
           temperature: 5.29,
           windSpeed: 1.37,
+          timeZoneOffset: const Duration(),
           tempFeel: 1.94,
           condition: 2643743,
           tempMin: 5.29,
