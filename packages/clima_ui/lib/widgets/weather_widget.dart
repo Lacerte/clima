@@ -2,9 +2,9 @@ import 'package:clima_domain/entities/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'current_conditions.dart';
 import 'forecast_horizontal_widget.dart';
 import 'value_tile.dart';
+import 'weather_swipe_pager.dart';
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget(this.weather, {Key key}) : super(key: key);
@@ -36,7 +36,7 @@ class WeatherWidget extends StatelessWidget {
               color: Theme.of(context).textTheme.subtitle1.color,
             ),
           ),
-          CurrentConditions(
+          WeatherSwipePager(
             weather: weather,
           ),
           Padding(

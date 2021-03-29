@@ -63,5 +63,6 @@ class Weather with Equatable<Weather> {
         cityName,
         description,
         timeZoneOffset,
+        date,
       ];
 }
