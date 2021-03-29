@@ -46,6 +46,7 @@ void main() {
         WeatherModel(
           cityName: 'London',
           condition: 803,
+          timeZoneOffset: const Duration(),
           tempMax: 8.89,
           description: 'broken clouds',
           tempMin: 7.78,

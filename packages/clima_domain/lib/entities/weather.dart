@@ -30,6 +30,7 @@ class Weather with Equatable<Weather> {
   final int sunrise;
   final int sunset;
   final int humidity;
+  final Duration timeZoneOffset;
 
   Weather({
     @required this.temperature,
@@ -45,6 +46,7 @@ class Weather with Equatable<Weather> {
     @required this.sunrise,
     @required this.sunset,
     @required this.humidity,
+    @required this.timeZoneOffset,
   });
 
   @override
@@ -60,5 +62,6 @@ class Weather with Equatable<Weather> {
         minTemperature,
         cityName,
         description,
+        timeZoneOffset,
       ];
 }

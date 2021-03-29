@@ -16,6 +16,7 @@ class WeatherModel extends Weather {
     @required int sunset,
     @required int humidity,
     @required String iconCode,
+    @required Duration timeZoneOffset,
   }) : super(
           temperature: temperature,
           windSpeed: windSpeed,
@@ -30,6 +31,7 @@ class WeatherModel extends Weather {
           sunset: sunset,
           humidity: humidity,
           iconCode: iconCode,
+          timeZoneOffset: timeZoneOffset,
         );
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
@@ -43,6 +45,7 @@ class WeatherModel extends Weather {
       cityName: json['name'] as String,
       description: json['weather'][0]['description'] as String,
       date: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
+      timeZoneOffset: Duration(seconds: json['timezone'] as int),
       iconCode: json['weather'][0]['icon'] as String,
       sunrise: json['sys']['sunrise'] as int,
       sunset: json['sys']['sunset'] as int,

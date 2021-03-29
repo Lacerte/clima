@@ -67,7 +67,11 @@ class WeatherWidget extends StatelessWidget {
             ValueTile(
               'sunrise',
               DateFormat('h:mm a').format(
-                DateTime.fromMillisecondsSinceEpoch(weather.sunrise * 1000),
+                DateTime.fromMillisecondsSinceEpoch(weather.sunrise * 1000)
+                    .toUtc()
+                    .add(
+                      weather.timeZoneOffset,
+                    ),
               ),
             ),
             Padding(
@@ -83,7 +87,11 @@ class WeatherWidget extends StatelessWidget {
             ValueTile(
               'sunset',
               DateFormat('h:mm a').format(
-                DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000),
+                DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000)
+                    .toUtc()
+                    .add(
+                      weather.timeZoneOffset,
+                    ),
               ),
             ),
             Padding(

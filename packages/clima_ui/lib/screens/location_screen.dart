@@ -19,7 +19,7 @@ import 'package:package_info/package_info.dart';
 
 enum Menu { darkModeOn, licenses }
 
-/// This function returns the right weather icon for the right condition.
+//returns the right weather icon for the right condition.
 
 IconData getIconData(String iconCode) {
   switch (iconCode) {

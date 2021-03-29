@@ -1160,6 +1160,7 @@ void main() {
             forecasts: [
               ForecastModel(
                 temperature: 5.29,
+                timeZoneOffset: const Duration(),
                 windSpeed: 1.37,
                 tempFeel: 1.94,
                 condition: 2643743,

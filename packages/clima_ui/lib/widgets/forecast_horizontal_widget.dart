@@ -40,16 +40,16 @@ class ForecastHorizontal extends HookWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 8),
         itemBuilder: (context, index) {
-          final item = forecasts.forecasts[index];
+          final forecast = forecasts.forecasts[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Center(
               child: ValueTile(
                 DateFormat('E, ha').format(
-                  item.date,
+                  forecast.date.toUtc().add(forecast.timeZoneOffset),
                 ),
-                '${item.temperature.round()}°',
-                iconData: getIconData(item.iconCode),
+                '${forecast.temperature.round()}°',
+                iconData: getIconData(forecast.iconCode),
               ),
             ),
           );
