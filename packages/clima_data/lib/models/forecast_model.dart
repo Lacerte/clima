@@ -11,11 +11,12 @@ class ForecastModel extends Weather {
     @required double tempMax,
     @required String cityName,
     @required String description,
-    @required int time,
+    @required DateTime date,
     @required int sunrise,
     @required int sunset,
     @required int humidity,
     @required String iconCode,
+    @required Duration timeZoneOffset,
   }) : super(
           temperature: temperature,
           windSpeed: windSpeed,
@@ -25,15 +26,19 @@ class ForecastModel extends Weather {
           maxTemperature: tempMax,
           cityName: cityName,
           description: description,
-          time: time,
+          date: date,
           sunrise: sunrise,
           sunset: sunset,
           humidity: humidity,
           iconCode: iconCode,
+          timeZoneOffset: timeZoneOffset,
         );
 
-  factory ForecastModel.fromJson(Map<String, dynamic> json,
-          {@required String cityName}) =>
+  factory ForecastModel.fromJson(
+    Map<String, dynamic> json, {
+    @required String cityName,
+    @required Duration timeZoneOffset,
+  }) =>
       ForecastModel(
           temperature: (json['main']['temp'] as num).toDouble(),
           tempMax: (json['main']['temp_max'] as num).toDouble(),
@@ -44,8 +49,9 @@ class ForecastModel extends Weather {
           condition: json['weather'][0]['id'] as int,
           cityName: cityName,
           description: json['weather'][0]['description'] as String,
-          time: (json['timezone'] as num).toInt(),
+          date: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
           iconCode: json['weather'][0]['icon'] as String,
+          timeZoneOffset: timeZoneOffset,
           sunrise: json['sys']['sunrise'] as int,
           sunset: json['sys']['sunset'] as int,
           humidity: json['main']['humidity'] as int);

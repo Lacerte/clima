@@ -1,0 +1,119 @@
+import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:riverpod/riverpod.dart';
+
+import 'forecast_horizontal_widget.dart';
+import 'value_tile.dart';
+import 'weather_swipe_pager.dart';
+
+class WeatherWidget extends HookWidget {
+  const WeatherWidget({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final weather = useProvider(weatherStateNotifierProvider.state).weather;
+
+    if (weather == null) {
+      return const SizedBox.shrink();
+    }
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            weather.cityName.toUpperCase(),
+            style: TextStyle(
+                fontWeight: FontWeight.w900,
+                letterSpacing: 5,
+                color: Theme.of(context).textTheme.subtitle1.color,
+                fontSize: 25),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            weather.description.toUpperCase(),
+            style: TextStyle(
+              fontWeight: FontWeight.w100,
+              letterSpacing: 5,
+              fontSize: 15,
+              color: Theme.of(context).textTheme.subtitle1.color,
+            ),
+          ),
+          const WeatherSwipePager(),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Divider(
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+            ),
+          ),
+          ForecastHorizontal(),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Divider(
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+            ),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            ValueTile('wind speed', '${weather.windSpeed.round()} m/s'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Center(
+                  child: Container(
+                width: 1,
+                height: 30,
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+              )),
+            ),
+            ValueTile(
+              'sunrise',
+              DateFormat('h:mm a').format(
+                DateTime.fromMillisecondsSinceEpoch(weather.sunrise * 1000)
+                    .toUtc()
+                    .add(
+                      weather.timeZoneOffset,
+                    ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Center(
+                  child: Container(
+                width: 1,
+                height: 30,
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+              )),
+            ),
+            ValueTile(
+              'sunset',
+              DateFormat('h:mm a').format(
+                DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000)
+                    .toUtc()
+                    .add(
+                      weather.timeZoneOffset,
+                    ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Center(
+                  child: Container(
+                width: 1,
+                height: 30,
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+              )),
+            ),
+            ValueTile('humidity', '${weather.humidity}%'),
+          ]),
+        ],
+      ),
+    );
+  }
+}

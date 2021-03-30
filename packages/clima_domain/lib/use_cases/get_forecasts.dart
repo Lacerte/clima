@@ -8,18 +8,18 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
 
-class GetWeather implements UseCase<Forecasts, GetWeatherParams> {
+class GetForecasts implements UseCase<Forecasts, GetForecastsParams> {
   final ForecastsRepo repo;
 
-  const GetWeather(this.repo);
+  const GetForecasts(this.repo);
 
   @override
-  Future<Either<Failure, Forecasts>> call(GetWeatherParams params) =>
+  Future<Either<Failure, Forecasts>> call(GetForecastsParams params) =>
       repo.getForecasts(params.city);
 }
 
-class GetWeatherParams extends Equatable {
-  const GetWeatherParams({@required this.city});
+class GetForecastsParams extends Equatable {
+  const GetForecastsParams({@required this.city});
 
   final City city;
 
@@ -27,5 +27,5 @@ class GetWeatherParams extends Equatable {
   List<Object> get props => [city];
 }
 
-final getWeatherProvider =
-    Provider((ref) => GetWeather(ref.watch(forecastsRepoProvider)));
+final getForecastsProvider =
+    Provider((ref) => GetForecasts(ref.watch(forecastsRepoProvider)));

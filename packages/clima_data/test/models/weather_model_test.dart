@@ -46,6 +46,7 @@ void main() {
         WeatherModel(
           cityName: 'London',
           condition: 803,
+          timeZoneOffset: const Duration(),
           tempMax: 8.89,
           description: 'broken clouds',
           tempMin: 7.78,
@@ -56,7 +57,8 @@ void main() {
           humidity: 93,
           sunrise: 1611906189,
           sunset: 1611938637,
-          time: 0,
+          //  date: 1611919888,
+          date: DateTime.fromMillisecondsSinceEpoch(1611919888 * 1000),
         ),
       );
     });

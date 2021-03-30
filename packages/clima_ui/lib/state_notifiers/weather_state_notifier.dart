@@ -14,10 +14,15 @@ import 'package:state_notifier/state_notifier.dart';
 @immutable
 abstract class WeatherState extends Equatable {
   const WeatherState();
+
+  Weather get weather;
 }
 
 class Empty extends WeatherState {
   const Empty();
+
+  @override
+  Weather get weather => null;
 
   @override
   List<Object> get props => const [];
@@ -26,6 +31,7 @@ class Empty extends WeatherState {
 class Loading extends WeatherState {
   const Loading({this.weather});
 
+  @override
   final Weather weather;
 
   @override
@@ -35,6 +41,7 @@ class Loading extends WeatherState {
 class Loaded extends WeatherState {
   const Loaded(this.weather);
 
+  @override
   final Weather weather;
 
   @override
@@ -46,6 +53,7 @@ class Error extends WeatherState {
 
   final Failure failure;
 
+  @override
   final Weather weather;
 
   @override
@@ -58,20 +66,6 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
   final GetWeather getWeather;
 
   final GetCity getCity;
-
-  Weather get _currentWeather {
-    final state = this.state;
-
-    if (state is Loaded) {
-      return state.weather;
-    } else if (state is Loading) {
-      return state.weather;
-    } else if (state is Error) {
-      return state.weather;
-    } else {
-      return null;
-    }
-  }
 
   Future<Either<Failure, Weather>> _loadWeather() async {
     final cityEither = await getCity(const NoParams());
@@ -86,18 +80,13 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
   }
 
   Future<void> loadWeather() async {
-    final weather = _currentWeather;
-
-    state = Loading(weather: weather);
+    state = Loading(weather: state.weather);
 
     state = (await _loadWeather()).fold(
-      (failure) => Error(failure, weather: weather),
+      (failure) => Error(failure, weather: state.weather),
       (weather) => Loaded(weather),
     );
   }
-
-  Future<Either<Failure, void>> reloadWeather() async =>
-      (await _loadWeather()).map((weather) => state = Loaded(weather));
 }
 
 final weatherStateNotifierProvider =

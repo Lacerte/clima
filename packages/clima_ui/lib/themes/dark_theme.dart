@@ -15,6 +15,9 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color(0xFF80D8FE),
   ),
+  textTheme: const TextTheme(
+    subtitle1: TextStyle(color: Colors.white),
+  ),
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF202125)),
   dialogBackgroundColor: const Color(0xFF202125),
   toggleableActiveColor: const Color(0xFF80D8FE),

@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
 
   auto_size_text: ^2.1.0
+  charts_flutter: ^0.6.0
+  flutter_swiper: ^1.1.6
 
   clima_core:
     path: ../clima_core

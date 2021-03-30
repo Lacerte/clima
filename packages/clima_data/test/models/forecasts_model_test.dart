@@ -1160,6 +1160,7 @@ void main() {
             forecasts: [
               ForecastModel(
                 temperature: 5.29,
+                timeZoneOffset: const Duration(),
                 windSpeed: 1.37,
                 tempFeel: 1.94,
                 condition: 2643743,
@@ -1167,7 +1168,7 @@ void main() {
                 tempMax: 6.05,
                 cityName: 'London',
                 description: 'scattered clouds',
-                time: 0,
+                date: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
                 sunrise: 1615098752,
                 sunset: 1615139446,
                 humidity: 55,
