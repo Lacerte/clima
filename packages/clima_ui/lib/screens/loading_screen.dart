@@ -48,12 +48,29 @@ class LoadingScreen extends HookWidget {
             }
 
             if (state is Loaded) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const LocationScreen(),
-                ),
-              );
+              final removeListener =
+                  forecastsStateNotifier.addListener((state) {
+                if (state is f.Error) {
+                  scaffoldKey.currentState.removeCurrentSnackBar();
+                  scaffoldKey.currentState.showSnackBar(
+                    failureSnackbar(
+                      failure: state.failure,
+                      onRetry: load,
+                    ),
+                  );
+                }
+
+                if (state is f.Loaded) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const LocationScreen(),
+                    ),
+                  );
+                }
+              });
+
+              removeListener();
             }
           });
 
@@ -64,7 +81,7 @@ class LoadingScreen extends HookWidget {
 
         return null;
       },
-      [weatherStateNotifier],
+      [weatherStateNotifier, forecastsStateNotifier],
     );
 
     return Scaffold(

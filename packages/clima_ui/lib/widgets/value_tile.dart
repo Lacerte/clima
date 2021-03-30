@@ -19,7 +19,8 @@ class ValueTile extends StatelessWidget {
       children: <Widget>[
         Text(
           label,
-          style: TextStyle(color: Theme.of(context).textTheme.subtitle1.color.withAlpha(80)),
+          style: TextStyle(
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(80)),
         ),
         const SizedBox(
           height: 5,

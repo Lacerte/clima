@@ -33,7 +33,8 @@ void main() {
         "dt_txt": "2021-03-07 12:00:00"
       };
       expect(
-        ForecastModel.fromJson(json, cityName: 'London'),
+        ForecastModel.fromJson(json,
+            cityName: 'London', timeZoneOffset: const Duration()),
         ForecastModel(
           temperature: 5.29,
           windSpeed: 1.37,

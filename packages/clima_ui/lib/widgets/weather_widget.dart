@@ -1,17 +1,25 @@
-import 'package:clima_domain/entities/weather.dart';
+import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:riverpod/riverpod.dart';
 
 import 'forecast_horizontal_widget.dart';
 import 'value_tile.dart';
 import 'weather_swipe_pager.dart';
 
-class WeatherWidget extends StatelessWidget {
-  const WeatherWidget(this.weather, {Key key}) : super(key: key);
-  final Weather weather;
+class WeatherWidget extends HookWidget {
+  const WeatherWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final weather = useProvider(weatherStateNotifierProvider.state).weather;
+
+    if (weather == null) {
+      return const SizedBox.shrink();
+    }
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,9 +44,7 @@ class WeatherWidget extends StatelessWidget {
               color: Theme.of(context).textTheme.subtitle1.color,
             ),
           ),
-          WeatherSwipePager(
-            weather: weather,
-          ),
+          const WeatherSwipePager(),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Divider(

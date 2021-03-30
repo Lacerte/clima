@@ -34,8 +34,11 @@ class ForecastModel extends Weather {
           timeZoneOffset: timeZoneOffset,
         );
 
-  factory ForecastModel.fromJson(Map<String, dynamic> json,
-          {@required String cityName}) =>
+  factory ForecastModel.fromJson(
+    Map<String, dynamic> json, {
+    @required String cityName,
+    @required Duration timeZoneOffset,
+  }) =>
       ForecastModel(
           temperature: (json['main']['temp'] as num).toDouble(),
           tempMax: (json['main']['temp_max'] as num).toDouble(),
@@ -48,7 +51,7 @@ class ForecastModel extends Weather {
           description: json['weather'][0]['description'] as String,
           date: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
           iconCode: json['weather'][0]['icon'] as String,
-          timeZoneOffset: Duration(seconds: json['city']['timezone'] as int),
+          timeZoneOffset: timeZoneOffset,
           sunrise: json['sys']['sunrise'] as int,
           sunset: json['sys']['sunset'] as int,
           humidity: json['main']['humidity'] as int);

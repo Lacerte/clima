@@ -13,12 +13,16 @@ class ForecastsModel extends Forecasts {
   factory ForecastsModel.fromJson(Map<String, dynamic> json) {
     final list = json['list'] as List<dynamic>;
     final cityName = json['city']['name'] as String;
+    final timeZoneOffset = Duration(seconds: json['city']['timezone'] as int);
 
     return ForecastsModel(
       cityName: cityName,
       forecasts: list
-          .map((e) => ForecastModel.fromJson(e as Map<String, dynamic>,
-              cityName: cityName))
+          .map((e) => ForecastModel.fromJson(
+                e as Map<String, dynamic>,
+                cityName: cityName,
+                timeZoneOffset: timeZoneOffset,
+              ))
           .toList(),
     );
   }

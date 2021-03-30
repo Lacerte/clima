@@ -1,6 +1,5 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/city.dart';
-import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_ui/main.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
@@ -95,7 +94,7 @@ class LocationScreen extends HookWidget {
       );
     }
 
-    Future<void> loadWeather() async {
+    Future<void> load() async {
       isLoading.value = true;
       //await weatherStateNotifier.loadWeather();
       await Future.wait(
@@ -121,24 +120,24 @@ class LocationScreen extends HookWidget {
         if (state is w.Error) {
           showFailureSnackbar(
             failure: state.failure,
-            onRetry: loadWeather,
+            onRetry: load,
           );
         }
       }),
       [weatherStateNotifier],
     );
 
-    Weather weather;
-
-    if (weatherState is w.Loaded) {
-      weather = weatherState.weather;
-    } else if (weatherState is w.Loading && weatherState.weather != null) {
-      weather = weatherState.weather;
-    } else if (weatherState is w.Error && weatherState.weather != null) {
-      weather = weatherState.weather;
-    } else {
-      return Scaffold(key: scaffoldKey, body: const SizedBox.shrink());
-    }
+    useEffect(
+      () => forecastsStateNotifier.addListener((state) {
+        if (state is f.Error) {
+          showFailureSnackbar(
+            failure: state.failure,
+            onRetry: load,
+          );
+        }
+      }),
+      [forecastsStateNotifier],
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -158,7 +157,10 @@ class LocationScreen extends HookWidget {
           isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
-            await weatherStateNotifier.loadWeather();
+            await Future.wait([
+              weatherStateNotifier.loadWeather(),
+              forecastsStateNotifier.loadForecasts(),
+            ]);
           }
           isLoading.value = false;
         },
@@ -177,7 +179,7 @@ class LocationScreen extends HookWidget {
             child: CircularButton(
               icon: const Icon(Icons.refresh),
               tooltip: 'Refresh',
-              onPressed: loadWeather,
+              onPressed: load,
             ),
           ),
           FloatingSearchBarAction.back(),
@@ -245,7 +247,7 @@ class LocationScreen extends HookWidget {
             showIfClosed: false,
           )
         ],
-        body: WeatherWidget(weather),
+        body: const WeatherWidget(),
       ),
     );
   }

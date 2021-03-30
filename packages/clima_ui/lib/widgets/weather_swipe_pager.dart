@@ -1,22 +1,20 @@
-import 'package:clima_domain/entities/forecasts.dart';
-import 'package:clima_domain/entities/weather.dart';
+import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'current_conditions.dart';
 import 'temperature_line_chart.dart';
 
-class WeatherSwipePager extends StatelessWidget {
-  WeatherSwipePager({
-    @required this.weather,
-    Key key,
-  }) : super(key: key);
-
-  Forecasts forecasts;
-  final Weather weather;
+class WeatherSwipePager extends HookWidget {
+  const WeatherSwipePager({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final forecasts =
+        useProvider(forecastsStateNotifierProvider.state).forecasts;
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 300,
@@ -25,10 +23,11 @@ class WeatherSwipePager extends StatelessWidget {
         index: 0,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return CurrentConditions(weather: weather);
+            return const CurrentConditions();
           } else if (index == 1) {
+            // TODO: show a proper error or something.
             return TemperatureLineChart(
-              forecasts.forecasts,
+              forecasts?.forecasts ?? const [],
               animate: true,
             );
           }

@@ -14,10 +14,15 @@ import 'package:state_notifier/state_notifier.dart';
 @immutable
 abstract class ForecastsState extends Equatable {
   const ForecastsState();
+
+  Forecasts get forecasts;
 }
 
 class Empty extends ForecastsState {
   const Empty();
+
+  @override
+  Forecasts get forecasts => null;
 
   @override
   List<Object> get props => const [];
@@ -26,6 +31,7 @@ class Empty extends ForecastsState {
 class Loading extends ForecastsState {
   const Loading({this.forecasts});
 
+  @override
   final Forecasts forecasts;
 
   @override
@@ -35,6 +41,7 @@ class Loading extends ForecastsState {
 class Loaded extends ForecastsState {
   const Loaded(this.forecasts);
 
+  @override
   final Forecasts forecasts;
 
   @override
@@ -46,6 +53,7 @@ class Error extends ForecastsState {
 
   final Failure failure;
 
+  @override
   final Forecasts forecasts;
 
   @override
@@ -60,20 +68,6 @@ class ForecastsStateNotifier extends StateNotifier<ForecastsState> {
 
   final GetCity getCity;
 
-  Forecasts get _currentForecasts {
-    final state = this.state;
-
-    if (state is Loaded) {
-      return state.forecasts;
-    } else if (state is Loading) {
-      return state.forecasts;
-    } else if (state is Error) {
-      return state.forecasts;
-    } else {
-      return null;
-    }
-  }
-
   Future<Either<Failure, Forecasts>> _loadForecasts() async {
     final cityEither = await getCity(const NoParams());
 
@@ -87,18 +81,13 @@ class ForecastsStateNotifier extends StateNotifier<ForecastsState> {
   }
 
   Future<void> loadForecasts() async {
-    final forecasts = _currentForecasts;
-
-    state = Loading(forecasts: forecasts);
+    state = Loading(forecasts: state.forecasts);
 
     state = (await _loadForecasts()).fold(
-      (failure) => Error(failure, forecasts: forecasts),
+      (failure) => Error(failure, forecasts: state.forecasts),
       (weather) => Loaded(weather),
     );
   }
-
-  Future<Either<Failure, void>> reloadForecasts() async =>
-      (await _loadForecasts()).map((weather) => state = Loaded(weather));
 }
 
 final forecastsStateNotifierProvider =
