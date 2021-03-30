@@ -44,7 +44,7 @@ void main() {
           tempMax: 6.05,
           cityName: 'London',
           description: 'scattered clouds',
-          data: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
+          date: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
           sunrise: 1615098752,
           sunset: 1615139446,
           humidity: 55,
