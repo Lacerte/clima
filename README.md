@@ -4,6 +4,16 @@
 
 A simple and fast weather app. (Requires Android 6.0 or later)
 
+![android](./screenshots/android.png?raw=true 'android')
+![ios](./screenshots/ios_chart.gif?raw=true 'ios')
+
+## Features
+- :white_check_mark: Beautiful minimal UI
+- :white_check_mark: Dark and Light themes
+- :white_check_mark: 5 day forecast
+- :white_check_mark: Beautifully animated transitions
+- :white_check_mark: Line graph to show temperature variance
+
 ## Download
 
 Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-droid`
