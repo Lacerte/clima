@@ -1,4 +1,5 @@
 import 'package:clima_data/models/forecast_model.dart';
+import 'package:clima_domain/entities/weather.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -36,20 +37,22 @@ void main() {
         ForecastModel.fromJson(json,
             cityName: 'London', timeZoneOffset: const Duration()),
         ForecastModel(
-          temperature: 5.29,
-          windSpeed: 1.37,
-          timeZoneOffset: const Duration(),
-          tempFeel: 1.94,
-          condition: 2643743,
-          tempMin: 5.29,
-          tempMax: 6.05,
-          cityName: 'London',
-          description: 'scattered clouds',
-          date: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
-          sunrise: 1615098752,
-          sunset: 1615139446,
-          humidity: 55,
-          iconCode: '03d',
+          Weather(
+            temperature: 5.29,
+            windSpeed: 1.37,
+            timeZoneOffset: const Duration(),
+            tempFeel: 1.94,
+            condition: 2643743,
+            minTemperature: 5.29,
+            maxTemperature: 6.05,
+            cityName: 'London',
+            description: 'scattered clouds',
+            date: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
+            sunrise: 1615098752,
+            sunset: 1615139446,
+            humidity: 55,
+            iconCode: '03d',
+          ),
         ),
       );
     });

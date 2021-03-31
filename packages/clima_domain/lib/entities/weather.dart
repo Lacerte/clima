@@ -1,7 +1,7 @@
-import 'package:clima_core/equatable.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class Weather with Equatable<Weather> {
+class Weather extends Equatable {
   /// In degrees Celsius (for now).
   final double temperature;
 
@@ -32,7 +32,7 @@ class Weather with Equatable<Weather> {
   final int humidity;
   final Duration timeZoneOffset;
 
-  Weather({
+  const Weather({
     @required this.temperature,
     @required this.windSpeed,
     @required this.tempFeel,
@@ -50,19 +50,20 @@ class Weather with Equatable<Weather> {
   });
 
   @override
-  bool get checkRuntimeType => false;
-
-  @override
   List<Object> get props => [
         temperature,
         windSpeed,
         tempFeel,
         condition,
-        maxTemperature,
         minTemperature,
+        maxTemperature,
         cityName,
         description,
-        timeZoneOffset,
+        iconCode,
         date,
+        sunrise,
+        sunset,
+        humidity,
+        timeZoneOffset,
       ];
 }

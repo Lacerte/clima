@@ -1,5 +1,7 @@
 import 'package:clima_data/models/forecast_model.dart';
 import 'package:clima_data/models/forecasts_model.dart';
+import 'package:clima_domain/entities/forecasts.dart';
+import 'package:clima_domain/entities/weather.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -1155,17 +1157,18 @@ void main() {
         },
       };
       expect(
-          ForecastsModel.fromJson(json),
-          ForecastsModel(
+        ForecastsModel.fromJson(json),
+        ForecastsModel(
+          Forecasts(
             forecasts: [
-              ForecastModel(
+              Weather(
                 temperature: 5.29,
                 timeZoneOffset: const Duration(),
                 windSpeed: 1.37,
                 tempFeel: 1.94,
                 condition: 2643743,
-                tempMin: 5.29,
-                tempMax: 6.05,
+                minTemperature: 5.29,
+                maxTemperature: 6.05,
                 cityName: 'London',
                 description: 'scattered clouds',
                 date: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
@@ -1176,7 +1179,9 @@ void main() {
               ),
             ],
             cityName: 'London',
-          ));
+          ),
+        ),
+      );
     });
   });
 }

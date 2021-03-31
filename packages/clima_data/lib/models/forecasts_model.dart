@@ -1,14 +1,12 @@
 import 'package:clima_domain/entities/forecasts.dart';
-import 'package:clima_domain/entities/weather.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
 import 'forecast_model.dart';
 
-class ForecastsModel extends Forecasts {
-  ForecastsModel({
-    @required List<Weather> forecasts,
-    @required String cityName,
-  }) : super(forecasts: forecasts, cityName: cityName);
+class ForecastsModel extends Equatable {
+  const ForecastsModel(this.forecasts);
+
+  final Forecasts forecasts;
 
   factory ForecastsModel.fromJson(Map<String, dynamic> json) {
     final list = json['list'] as List<dynamic>;
@@ -16,14 +14,21 @@ class ForecastsModel extends Forecasts {
     final timeZoneOffset = Duration(seconds: json['city']['timezone'] as int);
 
     return ForecastsModel(
-      cityName: cityName,
-      forecasts: list
-          .map((e) => ForecastModel.fromJson(
-                e as Map<String, dynamic>,
+      Forecasts(
+        cityName: cityName,
+        forecasts: list
+            .map(
+              (json) => ForecastModel.fromJson(
+                json as Map<String, dynamic>,
                 cityName: cityName,
                 timeZoneOffset: timeZoneOffset,
-              ))
-          .toList(),
+              ).forecast,
+            )
+            .toList(),
+      ),
     );
   }
+
+  @override
+  List<Object> get props => [forecasts];
 }
