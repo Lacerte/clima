@@ -1,6 +1,7 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/city_local_data_source.dart';
 import 'package:clima_data/data_sources/city_random_data_source.dart';
+import 'package:clima_data/models/city_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
@@ -26,16 +27,16 @@ class CityRepoImpl implements CityRepo {
     final cityEither = await localDataSource.getCity();
 
     if (cityEither.isLeft()) {
-      return cityEither;
+      return cityEither.map((model) => model.city);
     }
 
-    final city = (cityEither as Right<Failure, City>).value;
+    final cityModel = (cityEither as Right<Failure, CityModel>).value;
 
-    if (city == null) {
-      return randomDataSource.getCity();
+    if (cityModel == null) {
+      return (await randomDataSource.getCity()).map((model) => model.city);
     }
 
-    return Right(city);
+    return Right(cityModel.city);
   }
 
   @override

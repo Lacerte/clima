@@ -35,7 +35,8 @@ class ForecastsRepoImpl implements ForecastsRepo {
         return memoizedForecasts;
       }
 
-      final forecasts = await remoteDataSource.getForecasts(city);
+      final forecasts = (await remoteDataSource.getForecasts(city))
+          .map((model) => model.forecasts);
 
       await forecasts
           .map(memoizedDataSource.setForecasts)

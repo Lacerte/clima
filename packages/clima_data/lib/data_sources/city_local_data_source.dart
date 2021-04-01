@@ -19,7 +19,7 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
     final cityName = prefs.getString('name');
     if (cityName == null) return const Right(null);
 
-    return Right(CityModel(name: cityName));
+    return Right(CityModel(City(name: cityName)));
   }
 
   @override

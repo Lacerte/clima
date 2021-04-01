@@ -35,7 +35,8 @@ class WeatherRepoImpl implements WeatherRepo {
         return memoizedWeather;
       }
 
-      final weather = await remoteDataSource.getWeather(city);
+      final weather = (await remoteDataSource.getWeather(city))
+          .map((model) => model.weather);
 
       await weather.map(memoizedDataSource.setWeather).getOrElse(() => null);
 

@@ -1,6 +1,11 @@
 import 'package:clima_domain/entities/city.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
-class CityModel extends City {
-  CityModel({@required String name}) : super(name: name);
+class CityModel extends Equatable {
+  const CityModel(this.city);
+
+  final City city;
+
+  @override
+  List<Object> get props => [city];
 }
