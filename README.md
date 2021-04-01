@@ -4,9 +4,6 @@
 
 A simple and fast weather app. (Requires Android 6.0 or later)
 
-![android](./screenshots/android.png?raw=true 'android')
-![ios](./screenshots/ios_chart.gif?raw=true 'ios')
-
 ## Features
 - :white_check_mark: Beautiful minimal UI
 - :white_check_mark: Dark and Light themes
