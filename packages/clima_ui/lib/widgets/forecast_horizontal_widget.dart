@@ -29,13 +29,11 @@ class ForecastHorizontal extends HookWidget {
       return const SizedBox.shrink();
     }
     return SizedBox(
-      height: 70,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: forecasts.forecasts.length,
         separatorBuilder: (context, index) => const Divider(
-          height: 100,
           color: Colors.white,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 8),
