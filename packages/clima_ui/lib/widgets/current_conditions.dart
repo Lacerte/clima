@@ -21,20 +21,23 @@ class CurrentConditions extends HookWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          getIconData(weather.iconCode),
-          color: Theme.of(context).textTheme.subtitle1.color,
-          size: 70,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          '${weather.temperature.round()}°',
-          style: TextStyle(
-            fontSize: 100,
-            fontWeight: FontWeight.w100,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Icon(
+            getIconData(weather.iconCode),
             color: Theme.of(context).textTheme.subtitle1.color,
+            size: 70,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            '${weather.temperature.round()}°',
+            style: TextStyle(
+              fontSize: 100,
+              fontWeight: FontWeight.w100,
+              color: Theme.of(context).textTheme.subtitle1.color,
+            ),
           ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -44,7 +47,7 @@ class CurrentConditions extends HookWidget {
             child: Center(
                 child: Container(
               width: 1,
-              height: 30,
+              height: 32,
               color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
             )),
           ),

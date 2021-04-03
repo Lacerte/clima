@@ -6,8 +6,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import 'value_tile.dart';
-
 /// Renders a horizontal scrolling list of weather conditions
 /// Used to show forecast
 /// Shows DateTime, Weather Condition icon and Temperature
@@ -40,14 +38,47 @@ class ForecastHorizontal extends HookWidget {
         itemBuilder: (context, index) {
           final forecast = forecasts.forecasts[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.all(8),
             child: Center(
-              child: ValueTile(
-                DateFormat('E, ha').format(
-                  forecast.date.toUtc().add(forecast.timeZoneOffset),
-                ),
-                '${forecast.temperature.round()}°',
-                iconData: getIconData(forecast.iconCode),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      DateFormat('E, ha').format(
+                        forecast.date.toUtc().add(forecast.timeZoneOffset),
+                      ),
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            .color
+                            .withAlpha(80),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Expanded(
+                    flex: 2,
+                    child: Icon(
+                      getIconData(forecast.iconCode),
+                      color: Theme.of(context).textTheme.subtitle1.color,
+                      size: 20,
+                    ),
+                  ),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      '${forecast.temperature.round()}°',
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.subtitle1.color),
+                    ),
+                  ),
+                ],
               ),
             ),
           );
