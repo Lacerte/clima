@@ -29,14 +29,12 @@ class CurrentConditions extends HookWidget {
         const SizedBox(
           height: 20,
         ),
-        Center(
-          child: Text(
-            '${weather.temperature.round()}°',
-            style: TextStyle(
-              fontSize: 100,
-              fontWeight: FontWeight.w100,
-              color: Theme.of(context).textTheme.subtitle1.color,
-            ),
+        Text(
+          '${weather.temperature.round()}°',
+          style: TextStyle(
+            fontSize: 100,
+            fontWeight: FontWeight.w100,
+            color: Theme.of(context).textTheme.subtitle1.color,
           ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[

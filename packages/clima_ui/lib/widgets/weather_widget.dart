@@ -24,94 +24,120 @@ class WeatherWidget extends HookWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            weather.cityName.toUpperCase(),
-            style: TextStyle(
-                fontWeight: FontWeight.w900,
-                letterSpacing: 5,
-                color: Theme.of(context).textTheme.subtitle1.color,
-                fontSize: 25),
+          const Expanded(
+            child: SizedBox.shrink(),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            weather.description.toUpperCase(),
-            style: TextStyle(
-              fontWeight: FontWeight.w100,
-              letterSpacing: 5,
-              fontSize: 15,
-              color: Theme.of(context).textTheme.subtitle1.color,
-            ),
-          ),
-          const WeatherSwipePager(),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Divider(
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
-            ),
-          ),
-          ForecastHorizontal(),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Divider(
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+          Expanded(
+            flex: 10,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  weather.cityName.toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 5,
+                      color: Theme.of(context).textTheme.subtitle1.color,
+                      fontSize: 25),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  weather.description.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w100,
+                    letterSpacing: 5,
+                    fontSize: 15,
+                    color: Theme.of(context).textTheme.subtitle1.color,
+                  ),
+                ),
+                const WeatherSwipePager(),
+              ],
             ),
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            ValueTile('wind speed', '${weather.windSpeed.round()} m/s'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Center(
-                  child: Container(
-                width: 1,
-                height: 30,
-                color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
-              )),
+          Divider(
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+          ),
+          Expanded(
+            flex: 2,
+            child: ForecastHorizontal(),
+          ),
+          Divider(
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+          ),
+          Expanded(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ValueTile('wind speed', '${weather.windSpeed.round()} m/s'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                      child: Container(
+                    width: 1,
+                    height: 30,
+                    color: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .color
+                        .withAlpha(50),
+                  )),
+                ),
+                ValueTile(
+                  'sunrise',
+                  DateFormat('h:mm a').format(
+                    DateTime.fromMillisecondsSinceEpoch(weather.sunrise * 1000)
+                        .toUtc()
+                        .add(
+                          weather.timeZoneOffset,
+                        ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                      child: Container(
+                    width: 1,
+                    height: 30,
+                    color: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .color
+                        .withAlpha(50),
+                  )),
+                ),
+                ValueTile(
+                  'sunset',
+                  DateFormat('h:mm a').format(
+                    DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000)
+                        .toUtc()
+                        .add(
+                          weather.timeZoneOffset,
+                        ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                      child: Container(
+                    width: 1,
+                    height: 30,
+                    color: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .color
+                        .withAlpha(50),
+                  )),
+                ),
+                ValueTile('humidity', '${weather.humidity}%'),
+              ],
             ),
-            ValueTile(
-              'sunrise',
-              DateFormat('h:mm a').format(
-                DateTime.fromMillisecondsSinceEpoch(weather.sunrise * 1000)
-                    .toUtc()
-                    .add(
-                      weather.timeZoneOffset,
-                    ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Center(
-                  child: Container(
-                width: 1,
-                height: 30,
-                color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
-              )),
-            ),
-            ValueTile(
-              'sunset',
-              DateFormat('h:mm a').format(
-                DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000)
-                    .toUtc()
-                    .add(
-                      weather.timeZoneOffset,
-                    ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Center(
-                  child: Container(
-                width: 1,
-                height: 30,
-                color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
-              )),
-            ),
-            ValueTile('humidity', '${weather.humidity}%'),
-          ]),
+          ),
+          const Expanded(
+            child: SizedBox.shrink(),
+          ),
         ],
       ),
     );
