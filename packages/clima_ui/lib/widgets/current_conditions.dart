@@ -44,7 +44,7 @@ class CurrentConditions extends HookWidget {
             child: Center(
               child: Container(
                 width: 1,
-                height: 32,
+                height: 35,
                 color:
                     Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
               ),

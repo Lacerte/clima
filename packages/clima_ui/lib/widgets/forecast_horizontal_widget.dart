@@ -54,7 +54,7 @@ class ForecastHorizontal extends HookWidget {
                             .textTheme
                             .subtitle1
                             .color
-                            .withAlpha(80),
+                            .withAlpha(120),
                       ),
                     ),
                   ),
@@ -68,14 +68,16 @@ class ForecastHorizontal extends HookWidget {
                     ),
                   ),
                   const Spacer(
-                    flex: 2,
+                    flex: 3,
                   ),
                   Expanded(
                     flex: 2,
-                    child: Text(
-                      '${forecast.temperature.round()}°',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.subtitle1.color,
+                    child: Center(
+                      child: Text(
+                        '${forecast.temperature.round()}°',
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.subtitle1.color,
+                        ),
                       ),
                     ),
                   ),

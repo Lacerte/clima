@@ -37,10 +37,11 @@ class WeatherWidget extends HookWidget {
                   child: Text(
                     weather.cityName.toUpperCase(),
                     style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 5,
-                        color: Theme.of(context).textTheme.subtitle1.color,
-                        fontSize: 25),
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 5,
+                      color: Theme.of(context).textTheme.subtitle1.color,
+                      fontSize: 25,
+                    ),
                   ),
                 ),
                 Text(
@@ -57,14 +58,14 @@ class WeatherWidget extends HookWidget {
             ),
           ),
           Divider(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(60),
           ),
           Expanded(
             flex: 2,
             child: ForecastHorizontal(),
           ),
           Divider(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(60),
           ),
           Expanded(
             flex: 2,
@@ -77,12 +78,12 @@ class WeatherWidget extends HookWidget {
                   child: Center(
                     child: Container(
                       width: 1,
-                      height: 32,
+                      height: 35,
                       color: Theme.of(context)
                           .textTheme
                           .subtitle1
                           .color
-                          .withAlpha(50),
+                          .withAlpha(60),
                     ),
                   ),
                 ),
@@ -101,12 +102,12 @@ class WeatherWidget extends HookWidget {
                   child: Center(
                     child: Container(
                       width: 1,
-                      height: 32,
+                      height: 35,
                       color: Theme.of(context)
                           .textTheme
                           .subtitle1
                           .color
-                          .withAlpha(50),
+                          .withAlpha(60),
                     ),
                   ),
                 ),
@@ -125,12 +126,12 @@ class WeatherWidget extends HookWidget {
                   child: Center(
                     child: Container(
                       width: 1,
-                      height: 32,
+                      height: 35,
                       color: Theme.of(context)
                           .textTheme
                           .subtitle1
                           .color
-                          .withAlpha(50),
+                          .withAlpha(60),
                     ),
                   ),
                 ),
