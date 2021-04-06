@@ -20,13 +20,15 @@ class ValueTile extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(80),
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(120),
             ),
           ),
         ),
         Text(
           value,
-          style: TextStyle(color: Theme.of(context).textTheme.subtitle1.color),
+          style: TextStyle(
+            color: Theme.of(context).textTheme.subtitle1.color,
+          ),
         ),
       ],
     );
