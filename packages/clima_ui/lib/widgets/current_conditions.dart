@@ -21,13 +21,13 @@ class CurrentConditions extends HookWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          getIconData(weather.iconCode),
-          color: Theme.of(context).textTheme.subtitle1.color,
-          size: 70,
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Icon(
+            getIconData(weather.iconCode),
+            color: Theme.of(context).textTheme.subtitle1.color,
+            size: 70,
+          ),
         ),
         Text(
           '${weather.temperature.round()}°',
@@ -42,11 +42,13 @@ class CurrentConditions extends HookWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
-                child: Container(
-              width: 1,
-              height: 32,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
-            )),
+              child: Container(
+                width: 1,
+                height: 32,
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(50),
+              ),
+            ),
           ),
           ValueTile('min', '${weather.minTemperature.round()}°'),
         ]),

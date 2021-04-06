@@ -32,16 +32,16 @@ class WeatherWidget extends HookWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  weather.cityName.toUpperCase(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 5,
-                      color: Theme.of(context).textTheme.subtitle1.color,
-                      fontSize: 25),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    weather.cityName.toUpperCase(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 5,
+                        color: Theme.of(context).textTheme.subtitle1.color,
+                        fontSize: 25),
+                  ),
                 ),
                 Text(
                   weather.description.toUpperCase(),
@@ -75,15 +75,16 @@ class WeatherWidget extends HookWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
-                      child: Container(
-                    width: 1,
-                    height: 32,
-                    color: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .color
-                        .withAlpha(50),
-                  )),
+                    child: Container(
+                      width: 1,
+                      height: 32,
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .color
+                          .withAlpha(50),
+                    ),
+                  ),
                 ),
                 ValueTile(
                   'sunrise',
@@ -98,15 +99,16 @@ class WeatherWidget extends HookWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
-                      child: Container(
-                    width: 1,
-                    height: 32,
-                    color: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .color
-                        .withAlpha(50),
-                  )),
+                    child: Container(
+                      width: 1,
+                      height: 32,
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .color
+                          .withAlpha(50),
+                    ),
+                  ),
                 ),
                 ValueTile(
                   'sunset',
@@ -121,15 +123,16 @@ class WeatherWidget extends HookWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
-                      child: Container(
-                    width: 1,
-                    height: 32,
-                    color: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .color
-                        .withAlpha(50),
-                  )),
+                    child: Container(
+                      width: 1,
+                      height: 32,
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .color
+                          .withAlpha(50),
+                    ),
+                  ),
                 ),
                 ValueTile('humidity', '${weather.humidity}%'),
               ],
