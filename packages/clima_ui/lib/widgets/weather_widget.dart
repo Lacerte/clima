@@ -32,27 +32,24 @@ class WeatherWidget extends HookWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    weather.cityName.toUpperCase(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 5,
-                        color: Theme.of(context).textTheme.subtitle1.color,
-                        fontSize: 25),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    weather.description.toUpperCase(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w100,
+                Text(
+                  weather.cityName.toUpperCase(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
                       letterSpacing: 5,
-                      fontSize: 15,
                       color: Theme.of(context).textTheme.subtitle1.color,
-                    ),
+                      fontSize: 25),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                ),
+                Text(
+                  weather.description.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w100,
+                    letterSpacing: 5,
+                    fontSize: 15,
+                    color: Theme.of(context).textTheme.subtitle1.color,
                   ),
                 ),
                 const WeatherSwipePager(),

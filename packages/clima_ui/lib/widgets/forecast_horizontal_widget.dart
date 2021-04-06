@@ -75,7 +75,8 @@ class ForecastHorizontal extends HookWidget {
                     child: Text(
                       '${forecast.temperature.round()}°',
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.subtitle1.color),
+                        color: Theme.of(context).textTheme.subtitle1.color,
+                      ),
                     ),
                   ),
                 ],
