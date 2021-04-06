@@ -15,14 +15,14 @@ class ValueTile extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          label,
-          style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(80),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(80),
+            ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
         ),
         Text(
           value,
