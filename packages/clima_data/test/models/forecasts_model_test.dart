@@ -1,4 +1,3 @@
-import 'package:clima_data/models/forecast_model.dart';
 import 'package:clima_data/models/forecasts_model.dart';
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_domain/entities/weather.dart';
