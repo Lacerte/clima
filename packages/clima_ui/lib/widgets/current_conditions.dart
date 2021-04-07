@@ -1,4 +1,4 @@
-import 'package:clima_ui/screens/location_screen.dart';
+import 'package:clima_ui/screens/weather_screen.dart';
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

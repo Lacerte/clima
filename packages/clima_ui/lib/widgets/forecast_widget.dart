@@ -1,5 +1,5 @@
 import 'package:clima_domain/entities/forecasts.dart';
-import 'package:clima_ui/screens/location_screen.dart';
+import 'package:clima_ui/screens/weather_screen.dart';
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -41,12 +41,11 @@ class ForecastHorizontal extends HookWidget {
             padding: const EdgeInsets.all(8),
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     flex: 2,
                     child: Text(
-                      DateFormat('E, ha').format(
+                      DateFormat('E, h a').format(
                         forecast.date.toUtc().add(forecast.timeZoneOffset),
                       ),
                       style: TextStyle(
@@ -54,13 +53,13 @@ class ForecastHorizontal extends HookWidget {
                             .textTheme
                             .subtitle1
                             .color
-                            .withAlpha(120),
+                            .withAlpha(130),
                       ),
                     ),
                   ),
                   const Spacer(),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Icon(
                       getIconData(forecast.iconCode),
                       color: Theme.of(context).textTheme.subtitle1.color,
@@ -68,16 +67,14 @@ class ForecastHorizontal extends HookWidget {
                     ),
                   ),
                   const Spacer(
-                    flex: 3,
+                    flex: 2,
                   ),
                   Expanded(
                     flex: 2,
-                    child: Center(
-                      child: Text(
-                        '${forecast.temperature.round()}°',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.subtitle1.color,
-                        ),
+                    child: Text(
+                      '${forecast.temperature.round()}°',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.subtitle1.color,
                       ),
                     ),
                   ),

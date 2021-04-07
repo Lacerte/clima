@@ -167,7 +167,7 @@ class LocationScreen extends HookWidget {
         title: Text(
           DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
           style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(120),
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
             fontSize: 14,
           ),
         ),

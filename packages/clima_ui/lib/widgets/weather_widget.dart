@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod/riverpod.dart';
 
-import 'forecast_horizontal_widget.dart';
+import 'forecast_widget.dart';
 import 'value_tile.dart';
 import 'weather_swipe_pager.dart';
 
@@ -58,14 +58,14 @@ class WeatherWidget extends HookWidget {
             ),
           ),
           Divider(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(60),
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
           ),
           Expanded(
             flex: 2,
             child: ForecastHorizontal(),
           ),
           Divider(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(60),
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
           ),
           Expanded(
             flex: 2,
@@ -83,7 +83,7 @@ class WeatherWidget extends HookWidget {
                           .textTheme
                           .subtitle1
                           .color
-                          .withAlpha(60),
+                          .withAlpha(65),
                     ),
                   ),
                 ),
@@ -107,7 +107,7 @@ class WeatherWidget extends HookWidget {
                           .textTheme
                           .subtitle1
                           .color
-                          .withAlpha(60),
+                          .withAlpha(65),
                     ),
                   ),
                 ),
@@ -131,7 +131,7 @@ class WeatherWidget extends HookWidget {
                           .textTheme
                           .subtitle1
                           .color
-                          .withAlpha(60),
+                          .withAlpha(65),
                     ),
                   ),
                 ),
