@@ -15,33 +15,33 @@ class WeatherSwipePager extends HookWidget {
     final forecasts =
         useProvider(forecastsStateNotifierProvider.state).forecasts;
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 300,
-      child: Swiper(
-        itemCount: 2,
-        index: 0,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return const CurrentConditions();
-          } else if (index == 1) {
-            // TODO: show a proper error or something.
-            return TemperatureLineChart(
-              forecasts?.forecasts ?? const [],
-              animate: true,
-            );
-          }
-          return const SizedBox.shrink();
-        },
-        pagination: SwiperPagination(
-          margin: const EdgeInsets.all(5.0),
-          builder: DotSwiperPaginationBuilder(
-              size: 5,
-              activeSize: 5,
-              color: Theme.of(context).accentColor.withOpacity(0.4),
-              activeColor: Theme.of(context).accentColor),
+    return Swiper(
+      itemCount: 2,
+      index: 0,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return const CurrentConditions();
+        } else if (index == 1) {
+          // TODO: show a proper error or something.
+          return TemperatureLineChart(
+            forecasts?.forecasts ?? const [],
+            animate: true,
+          );
+        }
+        return const SizedBox.shrink();
+      },
+      pagination: SwiperPagination(
+        margin: const EdgeInsets.all(5.0),
+        builder: DotSwiperPaginationBuilder(
+          size: 5,
+          activeSize: 5,
+          color: Theme.of(context).accentColor.withOpacity(0.4),
+          activeColor: Theme.of(context).accentColor,
         ),
       ),
     );
   }
 }
+
+// width: MediaQuery.of(context).size.width,
+// height: MediaQuery.of(context).size.height / 2.6,

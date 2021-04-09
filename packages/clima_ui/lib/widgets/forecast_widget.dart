@@ -41,41 +41,32 @@ class ForecastHorizontal extends HookWidget {
             padding: const EdgeInsets.all(8),
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      DateFormat('E, h a').format(
-                        forecast.date.toUtc().add(forecast.timeZoneOffset),
-                      ),
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            .color
-                            .withAlpha(130),
-                      ),
+                  Text(
+                    DateFormat('E, h a').format(
+                      forecast.date.toUtc().add(forecast.timeZoneOffset),
+                    ),
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .color
+                          .withAlpha(130),
                     ),
                   ),
-                  const Spacer(),
-                  Expanded(
-                    flex: 3,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Icon(
                       getIconData(forecast.iconCode),
                       color: Theme.of(context).textTheme.subtitle1.color,
                       size: 20,
                     ),
                   ),
-                  const Spacer(
-                    flex: 2,
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      '${forecast.temperature.round()}°',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.subtitle1.color,
-                      ),
+                  Text(
+                    '${forecast.temperature.round()}°',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.subtitle1.color,
                     ),
                   ),
                 ],
