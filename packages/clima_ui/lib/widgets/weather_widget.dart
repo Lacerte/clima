@@ -19,13 +19,54 @@ class WeatherWidget extends HookWidget {
     if (weather == null) {
       return const SizedBox.shrink();
     }
+    print(MediaQuery.of(context).size.aspectRatio);
+
+    Widget emptySpace() {
+      if (MediaQuery.of(context).size.aspectRatio < 0.4736842105) {
+        return const Spacer(
+          flex: 2,
+        );
+      } else if (MediaQuery.of(context).size.height < 0.5294117647) {
+        return const Spacer();
+      } else if (MediaQuery.of(context).size.height < 0.5625) {
+        return const SizedBox.shrink();
+      }
+      return const SizedBox.shrink();
+    }
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          emptySpace(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Text(
+                  weather.cityName.toUpperCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 5,
+                    color: Theme.of(context).textTheme.subtitle1.color,
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              Text(
+                weather.description.toUpperCase(),
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  letterSpacing: 5,
+                  fontSize: 15,
+                  color: Theme.of(context).textTheme.subtitle1.color,
+                ),
+              ),
+            ],
+          ),
           const Flexible(
-            flex: 10,
+            flex: 8,
             child: WeatherSwipePager(),
           ),
           Divider(
