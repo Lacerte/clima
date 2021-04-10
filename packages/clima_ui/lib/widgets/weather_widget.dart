@@ -19,16 +19,15 @@ class WeatherWidget extends HookWidget {
     if (weather == null) {
       return const SizedBox.shrink();
     }
-    print(MediaQuery.of(context).size.aspectRatio);
 
     Widget emptySpace() {
       if (MediaQuery.of(context).size.aspectRatio < 0.4736842105) {
         return const Spacer(
           flex: 2,
         );
-      } else if (MediaQuery.of(context).size.height < 0.5294117647) {
+      } else if (MediaQuery.of(context).size.aspectRatio < 0.5294117647) {
         return const Spacer();
-      } else if (MediaQuery.of(context).size.height < 0.5625) {
+      } else if (MediaQuery.of(context).size.aspectRatio < 0.5625) {
         return const SizedBox.shrink();
       }
       return const SizedBox.shrink();
