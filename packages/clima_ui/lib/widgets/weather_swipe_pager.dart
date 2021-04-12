@@ -31,7 +31,7 @@ class WeatherSwipePager extends HookWidget {
         return const SizedBox.shrink();
       },
       pagination: SwiperPagination(
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(4.0),
         builder: DotSwiperPaginationBuilder(
           size: 5,
           activeSize: 5,
@@ -42,6 +42,3 @@ class WeatherSwipePager extends HookWidget {
     );
   }
 }
-
-// width: MediaQuery.of(context).size.width,
-// height: MediaQuery.of(context).size.height / 2.6,

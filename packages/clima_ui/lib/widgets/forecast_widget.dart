@@ -26,55 +26,61 @@ class ForecastHorizontal extends HookWidget {
     } else {
       return const SizedBox.shrink();
     }
-    return SizedBox(
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: forecasts.forecasts.length,
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.white,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        itemBuilder: (context, index) {
-          final forecast = forecasts.forecasts[index];
-          return Padding(
-            padding: const EdgeInsets.all(8),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    DateFormat('E, h a').format(
-                      forecast.date.toUtc().add(forecast.timeZoneOffset),
-                    ),
-                    style: TextStyle(
-                      color: Theme.of(context)
-                          .textTheme
-                          .subtitle1
-                          .color
-                          .withAlpha(130),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Icon(
-                      getIconData(forecast.iconCode),
-                      color: Theme.of(context).textTheme.subtitle1.color,
-                      size: 20,
-                    ),
-                  ),
-                  Text(
-                    '${forecast.temperature.round()}°',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.subtitle1.color,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemCount: forecasts.forecasts.length,
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.white,
       ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      itemBuilder: (context, index) {
+        final forecast = forecasts.forecasts[index];
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: () {
+              if (MediaQuery.of(context).size.height <= 610) {
+                return 4.0;
+              }
+              return 8.0;
+            }(),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  DateFormat('E, h a').format(
+                    forecast.date.toUtc().add(forecast.timeZoneOffset),
+                  ),
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .color
+                        .withAlpha(130),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Icon(
+                    getIconData(forecast.iconCode),
+                    color: Theme.of(context).textTheme.subtitle1.color,
+                    size: 20,
+                  ),
+                ),
+                Text(
+                  '${forecast.temperature.round()}°',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.subtitle1.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
