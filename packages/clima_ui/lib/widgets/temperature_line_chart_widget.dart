@@ -19,11 +19,13 @@ class TemperatureLineChart extends StatelessWidget {
         [
           charts.Series<Weather, DateTime>(
             id: 'Temperature',
-            colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+            colorFn: (_, __) => charts.ColorUtil.fromDartColor(
+              Theme.of(context).accentColor,
+            ),
             domainFn: (Weather weather, _) => weather.date,
             measureFn: (Weather weather, _) => weather.temperature,
             data: weathers,
-          )
+          ),
         ],
         animate: animate,
         animationDuration: const Duration(milliseconds: 500),

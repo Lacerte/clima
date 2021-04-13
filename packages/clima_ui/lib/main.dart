@@ -35,7 +35,6 @@ class MyApp extends ConsumerWidget {
     final _themeState = watch(themeStateNotifier);
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       theme: _themeState.setTheme(),
       home: const LoadingScreen(),
     );
