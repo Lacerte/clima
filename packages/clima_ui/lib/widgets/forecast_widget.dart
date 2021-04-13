@@ -40,7 +40,7 @@ class ForecastHorizontal extends HookWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 8,
             vertical: () {
-              if (MediaQuery.of(context).size.height <= 610) {
+              if (MediaQuery.of(context).size.height <= 650) {
                 return 4.0;
               }
               return 8.0;

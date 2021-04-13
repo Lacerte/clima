@@ -23,18 +23,37 @@ class CurrentConditions extends HookWidget {
         Padding(
           padding: EdgeInsets.only(
             bottom: () {
-              if (MediaQuery.of(context).size.aspectRatio <= 9 / 19) {
+              if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
                 return 32.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 19) {
+                return 32.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
+                return 24.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 16) {
+                return 24.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 3 / 4) {
+                return 24.0;
               }
               return 24.0;
             }(),
             top: () {
-              if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
-                return 16.0;
-              } else if (MediaQuery.of(context).size.height <= 610) {
+              if (MediaQuery.of(context).size.height <= 650) {
                 return 0.0;
+              } else {
+                if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
+                  return 16.0;
+                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 19) {
+                  return 16.0;
+                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
+                  return 16.0;
+                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 16) {
+                  return 24.0;
+                } else if (MediaQuery.of(context).size.aspectRatio <= 3 / 4) {
+                  return 24.0;
+                } else {
+                  return 24.0;
+                }
               }
-              return 24.0;
             }(),
           ),
           child: Icon(
@@ -46,8 +65,16 @@ class CurrentConditions extends HookWidget {
         Padding(
           padding: EdgeInsets.only(
             bottom: () {
-              if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
+              if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
                 return 8.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 19) {
+                return 8.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
+                return 8.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 16) {
+                return 0.0;
+              } else if (MediaQuery.of(context).size.aspectRatio <= 3 / 4) {
+                return 0.0;
               }
               return 0.0;
             }(),

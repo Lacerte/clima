@@ -6,7 +6,9 @@ import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/reusable_widgets.dart';
-import 'package:clima_ui/widgets/weather_widget.dart';
+import 'package:clima_ui/widgets/forecast_widget.dart';
+import 'package:clima_ui/widgets/value_tile.dart';
+import 'package:clima_ui/widgets/weather_swipe_pager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +17,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:package_info/package_info.dart';
+import 'package:riverpod/riverpod.dart';
 
 enum Menu { darkModeOn, licenses }
 
@@ -82,7 +85,9 @@ class LocationScreen extends HookWidget {
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
 
-    void showFailureSnackbar(
+    final weather = useProvider(w.weatherStateNotifierProvider.state).weather;
+
+    void showFailureSnackBar(
         {@required Failure failure, VoidCallback onRetry, int duration}) {
       scaffoldKey.currentState.removeCurrentSnackBar();
       scaffoldKey.currentState.showSnackBar(
@@ -96,7 +101,6 @@ class LocationScreen extends HookWidget {
 
     Future<void> load() async {
       isLoading.value = true;
-      //await weatherStateNotifier.loadWeather();
       await Future.wait(
         [
           weatherStateNotifier.loadWeather(),
@@ -109,7 +113,7 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => cityStateNotifier.addListener((state) {
         if (state is c.Error) {
-          showFailureSnackbar(failure: state.failure, duration: 2);
+          showFailureSnackBar(failure: state.failure, duration: 2);
         }
       }),
       [cityStateNotifier],
@@ -118,7 +122,7 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => weatherStateNotifier.addListener((state) {
         if (state is w.Error) {
-          showFailureSnackbar(
+          showFailureSnackBar(
             failure: state.failure,
             onRetry: load,
           );
@@ -130,7 +134,7 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => forecastsStateNotifier.addListener((state) {
         if (state is f.Error) {
-          showFailureSnackbar(
+          showFailureSnackBar(
             failure: state.failure,
             onRetry: load,
           );
@@ -247,7 +251,195 @@ class LocationScreen extends HookWidget {
             showIfClosed: false,
           )
         ],
-        body: const WeatherWidget(),
+        body: () {
+          if (weather == null) {
+            return const SizedBox.shrink();
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              (() {
+                if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
+                  return const Spacer(flex: 2);
+                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 19) {
+                  return const Spacer(flex: 2);
+                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
+                  return const Spacer();
+                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 16) {
+                  return const SizedBox.shrink();
+                } else if (MediaQuery.of(context).size.aspectRatio <= 3 / 4) {
+                  return const Spacer();
+                }
+                return const SizedBox.shrink();
+              }()),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 16,
+                      top: () {
+                        if (MediaQuery.of(context).size.height <= 650) {
+                          return 8.0;
+                        } else {
+                          if (MediaQuery.of(context).size.aspectRatio <=
+                              9 / 20) {
+                            return 0.0;
+                          } else if (MediaQuery.of(context).size.aspectRatio <=
+                              9 / 19) {
+                            return 0.0;
+                          } else if (MediaQuery.of(context).size.aspectRatio <=
+                              9 / 18) {
+                            return 24.0;
+                          } else if (MediaQuery.of(context).size.aspectRatio <=
+                              9 / 16) {
+                            return 16.0;
+                          } else if (MediaQuery.of(context).size.aspectRatio <=
+                              3 / 4) {
+                            return 16.0;
+                          } else {
+                            return 16.0;
+                          }
+                        }
+                      }(),
+                    ),
+                    child: Text(
+                      weather.cityName.toUpperCase(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 5,
+                        color: Theme.of(context).textTheme.subtitle1.color,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    weather.description.toUpperCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w100,
+                      letterSpacing: 5,
+                      fontSize: 15,
+                      color: Theme.of(context).textTheme.subtitle1.color,
+                    ),
+                  ),
+                ],
+              ),
+              Flexible(
+                flex: 8,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: () {
+                      if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
+                        return 16.0;
+                      } else if (MediaQuery.of(context).size.aspectRatio <=
+                          9 / 19) {
+                        return 16.0;
+                      } else if (MediaQuery.of(context).size.aspectRatio <=
+                          9 / 18) {
+                        return 8.0;
+                      } else if (MediaQuery.of(context).size.aspectRatio <=
+                          9 / 16) {
+                        return 0.0;
+                      } else if (MediaQuery.of(context).size.aspectRatio <=
+                          3 / 4) {
+                        return 16.0;
+                      }
+                      return 0.0;
+                    }(),
+                  ),
+                  child: const WeatherSwipePager(),
+                ),
+              ),
+              Divider(
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+              ),
+              Flexible(
+                flex: 2,
+                child: ForecastHorizontal(),
+              ),
+              Divider(
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+              ),
+              Flexible(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ValueTile(
+                          'wind speed', '${weather.windSpeed.round()} m/s'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Center(
+                          child: Container(
+                            width: 1,
+                            height: 35,
+                            color: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .color
+                                .withAlpha(65),
+                          ),
+                        ),
+                      ),
+                      ValueTile(
+                        'sunrise',
+                        DateFormat('h:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                            weather.sunrise * 1000,
+                          ).toUtc().add(
+                                weather.timeZoneOffset,
+                              ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Center(
+                          child: Container(
+                            width: 1,
+                            height: 35,
+                            color: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .color
+                                .withAlpha(65),
+                          ),
+                        ),
+                      ),
+                      ValueTile(
+                        'sunset',
+                        DateFormat('h:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                                  weather.sunset * 1000)
+                              .toUtc()
+                              .add(weather.timeZoneOffset),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Center(
+                          child: Container(
+                            width: 1,
+                            height: 35,
+                            color: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .color
+                                .withAlpha(65),
+                          ),
+                        ),
+                      ),
+                      ValueTile('humidity', '${weather.humidity}%'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        }(),
       ),
     );
   }
