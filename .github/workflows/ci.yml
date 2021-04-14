@@ -40,7 +40,7 @@ jobs:
 
       - name: Run tests
         run: |
-          if [ ! -d "test" ]; then
+          if [ -d "test" ]; then
             ${{ format('{0} test', env.COMMAND) }}
           else
             echo "test directory is empty"
