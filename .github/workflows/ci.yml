@@ -38,5 +38,10 @@ jobs:
         working-directory: ${{ matrix.package }}
 
       - name: Run tests
-        run: ${{ format('{0} test', env.COMMAND) }}
+        run: |
+          if [ ! -d "test" ]; then
+            ${{ format('{0} test', env.COMMAND) }}
+          else
+            echo "test directory is empty"
+          fi
         working-directory: ${{ matrix.package }}
