@@ -20,5 +20,7 @@ dependencies:
     path: ../clima_domain
 
 dev_dependencies:
-  test: ^1.14.4
   lint: ^1.4.0-dev.d210.1
+  test: ^1.14.4
+  flutter_test:
+    sdk: flutter
