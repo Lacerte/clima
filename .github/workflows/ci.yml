@@ -14,6 +14,9 @@ jobs:
           - packages/clima_data
           - packages/clima_ui
 
+    env:
+      COMMAND: ${{ (endsWith(matrix.package, 'core') || endsWith(matrix.package, 'domain')) && 'dart' || 'flutter' }}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -21,37 +24,25 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: stable
+          flutter-version: '1.22'
 
       - name: Check formatting
         run: flutter format --set-exit-if-changed --dry-run .
         working-directory: ${{ matrix.package }}
 
       - name: Get packages
-        run: flutter pub get
+        run: ${{ format('{0} pub get', env.COMMAND) }}
         working-directory: ${{ matrix.package }}
-        if: "endsWith(matrix.package, 'ui')"
-
-      - name: Get packages
-        run: dart pub get
-        working-directory: ${{ matrix.package }}
-        if: "!endsWith(matrix.package, 'ui')"
 
       - name: Analyze source code
-        run: flutter analyze
+        run: ${{ format('{0} analyze', env.COMMAND) }}
         working-directory: ${{ matrix.package }}
-        if: "endsWith(matrix.package, 'ui')"
-
-      - name: Analyze source code
-        run: dart analyze
-        working-directory: ${{ matrix.package }}
-        if: "!endsWith(matrix.package, 'ui')"
 
       - name: Run tests
-        run: flutter test
+        run: |
+          if [ -d "test" ]; then
+            ${{ format('{0} test', env.COMMAND) }}
+          else
+            echo "test directory is empty"
+          fi
         working-directory: ${{ matrix.package }}
-        if: "endsWith(matrix.package, 'ui')"
-
-      - name: Run tests
-        run: dart test
-        working-directory: ${{ matrix.package }}
-        if: "!endsWith(matrix.package, 'ui')"
