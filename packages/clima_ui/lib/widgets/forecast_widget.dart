@@ -37,15 +37,7 @@ class ForecastHorizontal extends HookWidget {
       itemBuilder: (context, index) {
         final forecast = forecasts.forecasts[index];
         return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: () {
-              if (MediaQuery.of(context).size.height <= 650) {
-                return 4.0;
-              }
-              return 8.0;
-            }(),
-          ),
+          padding: const EdgeInsets.all(8),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +59,6 @@ class ForecastHorizontal extends HookWidget {
                   child: Icon(
                     getIconData(forecast.iconCode),
                     color: Theme.of(context).textTheme.subtitle1.color,
-                    size: 20,
                   ),
                 ),
                 Text(

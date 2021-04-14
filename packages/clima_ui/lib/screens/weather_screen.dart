@@ -6,9 +6,9 @@ import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/reusable_widgets.dart';
+import 'package:clima_ui/widgets/current_conditions_widgets.dart';
 import 'package:clima_ui/widgets/forecast_widget.dart';
 import 'package:clima_ui/widgets/value_tile.dart';
-import 'package:clima_ui/widgets/weather_swipe_pager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -258,96 +258,34 @@ class LocationScreen extends HookWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              (() {
-                if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
-                  return const Spacer(flex: 2);
-                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 19) {
-                  return const Spacer(flex: 2);
-                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 18) {
-                  return const Spacer();
-                } else if (MediaQuery.of(context).size.aspectRatio <= 9 / 16) {
-                  return const SizedBox.shrink();
-                } else if (MediaQuery.of(context).size.aspectRatio <= 3 / 4) {
-                  return const Spacer();
-                }
-                return const SizedBox.shrink();
-              }()),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 16,
-                      top: () {
-                        if (MediaQuery.of(context).size.height <= 650) {
-                          return 8.0;
-                        } else {
-                          if (MediaQuery.of(context).size.aspectRatio <=
-                              9 / 20) {
-                            return 0.0;
-                          } else if (MediaQuery.of(context).size.aspectRatio <=
-                              9 / 19) {
-                            return 0.0;
-                          } else if (MediaQuery.of(context).size.aspectRatio <=
-                              9 / 18) {
-                            return 24.0;
-                          } else if (MediaQuery.of(context).size.aspectRatio <=
-                              9 / 16) {
-                            return 16.0;
-                          } else if (MediaQuery.of(context).size.aspectRatio <=
-                              3 / 4) {
-                            return 16.0;
-                          } else {
-                            return 16.0;
-                          }
-                        }
-                      }(),
-                    ),
-                    child: Text(
-                      weather.cityName.toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 5,
-                        color: Theme.of(context).textTheme.subtitle1.color,
-                        fontSize: 25,
+              Flexible(
+                flex: 9,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Text(
+                        weather.cityName.toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 5,
+                          color: Theme.of(context).textTheme.subtitle1.color,
+                          fontSize: 25,
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    weather.description.toUpperCase(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w100,
-                      letterSpacing: 5,
-                      fontSize: 15,
-                      color: Theme.of(context).textTheme.subtitle1.color,
+                    Text(
+                      weather.description.toUpperCase(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w100,
+                        letterSpacing: 5,
+                        fontSize: 15,
+                        color: Theme.of(context).textTheme.subtitle1.color,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Flexible(
-                flex: 8,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: () {
-                      if (MediaQuery.of(context).size.aspectRatio <= 9 / 20) {
-                        return 16.0;
-                      } else if (MediaQuery.of(context).size.aspectRatio <=
-                          9 / 19) {
-                        return 16.0;
-                      } else if (MediaQuery.of(context).size.aspectRatio <=
-                          9 / 18) {
-                        return 8.0;
-                      } else if (MediaQuery.of(context).size.aspectRatio <=
-                          9 / 16) {
-                        return 0.0;
-                      } else if (MediaQuery.of(context).size.aspectRatio <=
-                          3 / 4) {
-                        return 16.0;
-                      }
-                      return 0.0;
-                    }(),
-                  ),
-                  child: const WeatherSwipePager(),
+                    const CurrentConditions(),
+                  ],
                 ),
               ),
               Divider(
