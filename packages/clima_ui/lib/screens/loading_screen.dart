@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/all.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'location_screen.dart';
+import 'weather_screen.dart';
 
 class LoadingScreen extends HookWidget {
   const LoadingScreen({Key key}) : super(key: key);
