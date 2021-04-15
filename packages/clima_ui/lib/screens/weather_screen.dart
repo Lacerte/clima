@@ -259,7 +259,7 @@ class LocationScreen extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Flexible(
-                flex: 9,
+                flex: 10,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
