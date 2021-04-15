@@ -59,6 +59,7 @@ class ForecastHorizontal extends HookWidget {
                   child: Icon(
                     getIconData(forecast.iconCode),
                     color: Theme.of(context).textTheme.subtitle1.color,
+                    size: 20,
                   ),
                 ),
                 Text(
