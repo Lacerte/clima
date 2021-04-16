@@ -32,9 +32,7 @@ class CurrentConditions extends HookWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            bottom: 8.0,
-          ),
+          padding: const EdgeInsets.only(bottom: 8),
           child: Text(
             '${weather.temperature.round()}°',
             style: TextStyle(
