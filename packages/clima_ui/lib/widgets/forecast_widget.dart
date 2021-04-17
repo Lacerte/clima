@@ -40,7 +40,7 @@ class ForecastHorizontal extends HookWidget {
           padding: EdgeInsets.symmetric(
               horizontal: 8,
               vertical: () {
-                // It's bounded between 9/16 and 9/14 to account for MediaQuery's error margin.
+                // It's bounded between 9/16 and 9/14 to account for MediaQuery's margin of error.
                 if (MediaQuery.of(context).size.aspectRatio >= 9 / 16 &&
                     MediaQuery.of(context).size.aspectRatio <= 9 / 14) {
                   return 4.0;
