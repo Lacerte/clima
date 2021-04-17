@@ -41,7 +41,7 @@ class LoadingScreen extends HookWidget {
             if (state is Error) {
               scaffoldKey.currentState.removeCurrentSnackBar();
               scaffoldKey.currentState.showSnackBar(
-                failureSnackbar(
+                failureSnackBar(
                   failure: state.failure,
                   onRetry: load,
                 ),
@@ -54,7 +54,7 @@ class LoadingScreen extends HookWidget {
                 if (state is f.Error) {
                   scaffoldKey.currentState.removeCurrentSnackBar();
                   scaffoldKey.currentState.showSnackBar(
-                    failureSnackbar(
+                    failureSnackBar(
                       failure: state.failure,
                       onRetry: load,
                     ),

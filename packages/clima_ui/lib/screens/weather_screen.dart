@@ -44,7 +44,7 @@ class LocationScreen extends HookWidget {
         {@required Failure failure, VoidCallback onRetry, int duration}) {
       scaffoldKey.currentState.removeCurrentSnackBar();
       scaffoldKey.currentState.showSnackBar(
-        failureSnackbar(
+        failureSnackBar(
           failure: failure,
           onRetry: onRetry,
           duration: duration,
@@ -77,7 +77,7 @@ class LocationScreen extends HookWidget {
         if (state is w.Error) {
           showFailureSnackBar(
             failure: state.failure,
-            onRetry: load,
+            duration: 2,
           );
         }
       }),
@@ -89,7 +89,7 @@ class LocationScreen extends HookWidget {
         if (state is f.Error) {
           showFailureSnackBar(
             failure: state.failure,
-            onRetry: load,
+            duration: 2,
           );
         }
       }),

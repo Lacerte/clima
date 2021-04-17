@@ -1,16 +1,7 @@
 import 'package:clima_core/failure.dart';
 import 'package:flutter/material.dart';
 
-SnackBar snackBar({String text, SnackBarAction action, int duration}) {
-  return SnackBar(
-    behavior: SnackBarBehavior.floating,
-    duration: Duration(seconds: duration ?? 2),
-    content: Text(text),
-    action: action,
-  );
-}
-
-SnackBar failureSnackbar({
+SnackBar failureSnackBar({
   @required Failure failure,
   VoidCallback onRetry,
   int duration,
@@ -29,9 +20,10 @@ SnackBar failureSnackbar({
     }
   }();
 
-  return snackBar(
-    text: text,
-    duration: duration ?? 86400,
+  return SnackBar(
+    behavior: SnackBarBehavior.floating,
+    content: Text(text),
+    duration: Duration(seconds: duration ?? 86400),
     action: onRetry != null
         ? SnackBarAction(label: 'Retry', onPressed: onRetry)
         : null,
