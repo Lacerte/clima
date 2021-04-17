@@ -69,7 +69,6 @@ class LocationScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.aspectRatio);
     final _themeState = context.read(themeStateNotifier);
 
     final scaffoldKey = useGlobalKey<ScaffoldState>();
