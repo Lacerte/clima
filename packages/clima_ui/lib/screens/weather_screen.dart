@@ -1,4 +1,3 @@
-import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/main.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
@@ -40,18 +39,6 @@ class LocationScreen extends HookWidget {
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
-    void showFailureSnackBar(
-        {@required Failure failure, VoidCallback onRetry, int duration}) {
-      scaffoldKey.currentState.removeCurrentSnackBar();
-      scaffoldKey.currentState.showSnackBar(
-        failureSnackBar(
-          failure: failure,
-          onRetry: onRetry,
-          duration: duration,
-        ),
-      );
-    }
-
     Future<void> load() async {
       isLoading.value = true;
       await Future.wait(
@@ -66,7 +53,8 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => cityStateNotifier.addListener((state) {
         if (state is c.Error) {
-          showFailureSnackBar(failure: state.failure, duration: 2);
+          showFailureSnackBar(
+              scaffoldKey: scaffoldKey, failure: state.failure, duration: 2);
         }
       }),
       [cityStateNotifier],
@@ -76,6 +64,7 @@ class LocationScreen extends HookWidget {
       () => weatherStateNotifier.addListener((state) {
         if (state is w.Error) {
           showFailureSnackBar(
+            scaffoldKey: scaffoldKey,
             failure: state.failure,
             duration: 2,
           );
@@ -88,6 +77,7 @@ class LocationScreen extends HookWidget {
       () => forecastsStateNotifier.addListener((state) {
         if (state is f.Error) {
           showFailureSnackBar(
+            scaffoldKey: scaffoldKey,
             failure: state.failure,
             duration: 2,
           );
