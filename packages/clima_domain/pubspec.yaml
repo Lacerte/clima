@@ -8,10 +8,10 @@ environment:
 
 dependencies:
   dartz: 0.9.2
-  riverpod: 0.12.2
+  riverpod: 0.12.4
   clima_core:
     path: ../clima_core
 
 dev_dependencies:
-  test: ^1.14.4
+  test: ^1.16.0-nullsafety.5
   lint: ^1.4.0-dev.d210.1
