@@ -5,7 +5,7 @@ import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/utilities/reusable_widgets.dart';
+import 'package:clima_ui/widgets/failure_snack_bar.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/weather_widget.dart';
 import 'package:flutter/material.dart';
