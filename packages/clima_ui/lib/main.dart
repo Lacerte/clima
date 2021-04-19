@@ -33,6 +33,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _themeState = watch(themeStateNotifier);
+    _themeState.setBarsColor();
 
     return MaterialApp(
       theme: _themeState.setTheme(),
