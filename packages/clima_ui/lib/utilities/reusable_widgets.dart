@@ -1,7 +1,6 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_ui/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/all.dart';
 
 class ReusableWidgets extends StatelessWidget {
   const ReusableWidgets({this.cardChild});
