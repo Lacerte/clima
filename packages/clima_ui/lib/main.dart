@@ -4,11 +4,11 @@ import 'package:clima_data/repos/weather_repo_impl.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/forecasts_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
+import 'package:clima_ui/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-import 'screens/loading_screen.dart';
 import 'themes/theme_model.dart';
 
 final themeStateNotifier = ChangeNotifierProvider((ref) => ThemeModel());

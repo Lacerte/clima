@@ -13,8 +13,9 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     ),
   ),
   toggleableActiveColor: ThemeData.light().accentColor,
-  textTheme: const TextTheme(
-    subtitle1: TextStyle(color: Colors.black),
+  textTheme: TextTheme(
+    subtitle1: TextStyle(color: Colors.grey.shade900),
+    subtitle2: TextStyle(color: Colors.grey.shade600),
   ),
   scaffoldBackgroundColor: const Color(0xFFF2F2F2),
   appBarTheme: AppBarTheme(
