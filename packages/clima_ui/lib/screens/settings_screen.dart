@@ -1,8 +1,7 @@
-import 'package:clima_ui/main.dart';
+import 'package:clima_ui/widgets/theme_dialog.dart';
+import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info/package_info.dart';
 
 enum Settings { theme, unit }
@@ -10,8 +9,6 @@ enum Settings { theme, unit }
 class SettingScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final _themeState = context.read(themeStateNotifier);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -29,6 +26,25 @@ class SettingScreen extends HookWidget {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 72.0),
+            title: Text(
+              "What's New",
+              style: TextStyle(
+                color: Theme.of(context).textTheme.subtitle1.color,
+              ),
+            ),
+            subtitle: Text(
+              'Version 1.2',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.subtitle2.color,
+              ),
+            ),
+          ),
+          Divider(
+            height: 1,
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 24),
             child: Container(
@@ -59,59 +75,7 @@ class SettingScreen extends HookWidget {
             ),
             onTap: () => showDialog(
               context: context,
-              builder: (context) => SimpleDialog(
-                title: Text(
-                  'Theme',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.subtitle1.color,
-                  ),
-                ),
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      RadioListTile(
-                        title: Text(
-                          'System default',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.subtitle1.color,
-                          ),
-                        ),
-                        value: ThemeMode.system,
-                        groupValue: Settings.theme,
-                      ),
-                      RadioListTile(
-                        title: Text(
-                          'Dark mode',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.subtitle1.color,
-                          ),
-                        ),
-                        value: ThemeMode.dark,
-                        groupValue: Settings.theme,
-                        onChanged: (value) {
-                          _themeState.setDarkTheme();
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      RadioListTile(
-                        title: Text(
-                          'Light theme',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.subtitle1.color,
-                          ),
-                        ),
-                        value: ThemeMode.light,
-                        groupValue: Settings.theme,
-                        onChanged: (value) {
-                          _themeState.setLightTheme();
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              builder: (context) => ThemeDialog(),
             ),
           ),
           ListTile(
@@ -130,43 +94,7 @@ class SettingScreen extends HookWidget {
             ),
             onTap: () => showDialog(
               context: context,
-              builder: (context) => SimpleDialog(
-                title: Text(
-                  'Unit',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.subtitle1.color,
-                  ),
-                ),
-                children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        RadioListTile(
-                          title: Text(
-                            'Imperial',
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.subtitle1.color,
-                            ),
-                          ),
-                          groupValue: Settings.unit,
-                        ),
-                        RadioListTile(
-                          title: Text(
-                            'Metric',
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.subtitle1.color,
-                            ),
-                          ),
-                          groupValue: Settings.unit,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              builder: (context) => UnitDialog(),
             ),
           ),
           Divider(
@@ -248,6 +176,10 @@ class SettingScreen extends HookWidget {
                 applicationVersion: packageInfo.version,
               );
             },
+          ),
+          Divider(
+            height: 1,
+            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
           ),
         ],
       ),

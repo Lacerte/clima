@@ -16,8 +16,8 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     backgroundColor: Color(0xFF80D8FE),
   ),
   textTheme: TextTheme(
-    subtitle1: const TextStyle(color: Colors.white),
-    subtitle2: TextStyle(color: Colors.grey.shade400),
+    subtitle1: TextStyle(color: Colors.grey.shade300),
+    subtitle2: TextStyle(color: Colors.grey.shade500),
   ),
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF202125)),
   dialogBackgroundColor: const Color(0xFF202125),
