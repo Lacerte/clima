@@ -1,7 +1,11 @@
-import 'package:clima_domain/entities/theme.dart';
 import 'package:clima_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
+
+enum AppTheme { dark, light }
+
+final themeProvider = StateProvider((ref) => AppTheme.light);
 
 class ThemeDialog extends ConsumerWidget {
   static const _dialogOptions = {
