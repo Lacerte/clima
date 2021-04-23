@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
+  iconTheme: const IconThemeData(color: Colors.white),
   snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFFE6E6E6)),
   inputDecorationTheme: const InputDecorationTheme(
     fillColor: Color(0xFF171717),
