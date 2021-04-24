@@ -79,7 +79,7 @@ class SettingScreen extends HookWidget {
             ),
             SettingsTile(
               title: 'Libraries',
-              subtitle: 'Open-sourced libraries used in the app',
+              subtitle: 'Open-source libraries used in the app',
               icon: const Icon(Icons.source_outlined),
               onTap: () async {
                 final PackageInfo packageInfo =
@@ -95,6 +95,7 @@ class SettingScreen extends HookWidget {
               title: 'Source code',
               subtitle: 'Clima is free software licensed under the GPLv3',
               icon: Icon(FontAwesomeIcons.github),
+              isThreeLine: true,
             ),
           ],
         ),

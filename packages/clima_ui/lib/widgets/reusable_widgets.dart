@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 
 class SettingsTile extends StatelessWidget {
   const SettingsTile(
-      {this.title, this.subtitle, this.icon, this.onTap, this.padding});
+      {this.title,
+      this.subtitle,
+      this.icon,
+      this.onTap,
+      this.padding,
+      this.isThreeLine});
 
   final String title;
   final String subtitle;
   final Icon icon;
   final VoidCallback onTap;
   final double padding;
+  final bool isThreeLine;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      isThreeLine: isThreeLine ?? false,
       contentPadding: EdgeInsets.symmetric(horizontal: padding ?? 24.0),
       leading: icon,
       title: Text(
@@ -21,12 +28,14 @@ class SettingsTile extends StatelessWidget {
           color: Theme.of(context).textTheme.subtitle1.color,
         ),
       ),
-      subtitle: Text(
-        subtitle,
-        style: TextStyle(
-          color: Theme.of(context).textTheme.subtitle2.color,
-        ),
-      ),
+      subtitle: subtitle != null
+          ? Text(
+              subtitle,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.subtitle2.color,
+              ),
+            )
+          : null,
       onTap: onTap,
     );
   }
