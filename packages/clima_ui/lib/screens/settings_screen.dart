@@ -1,9 +1,11 @@
-import 'package:clima_ui/screens/appearance_screen.dart';
+import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
+
+import 'appearance_screen.dart';
 
 class SettingScreen extends HookWidget {
   @override
@@ -25,35 +27,13 @@ class SettingScreen extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: Container(
-                height: 30.0,
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'General',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context).accentColor,
-                      ),
-                ),
-              ),
+            const SettingsHeader(
+              title: 'General',
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(Icons.format_paint_outlined),
-              title: Text(
-                'Appearance',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Customization of appearance',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
+            SettingsTile(
+              title: 'Appearance',
+              subtitle: 'Customization of appearance',
+              icon: const Icon(Icons.format_paint_outlined),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -61,21 +41,10 @@ class SettingScreen extends HookWidget {
                 ),
               ),
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(Icons.straighten_outlined),
-              title: Text(
-                'Unit',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Metric',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
+            SettingsTile(
+              title: 'Unit',
+              subtitle: 'Metric',
+              icon: const Icon(Icons.straighten_outlined),
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => UnitDialog(),
@@ -85,91 +54,33 @@ class SettingScreen extends HookWidget {
               height: 1,
               color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: Container(
-                height: 30.0,
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Support',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context).accentColor,
-                      ),
-                ),
-              ),
+            const SettingsHeader(
+              title: 'Support',
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(Icons.bug_report_outlined),
-              title: Text(
-                'Issue tracker',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
+            const SettingsTile(
+              title: 'Issue tracker',
+              icon: Icon(Icons.bug_report_outlined),
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(Icons.email_outlined),
-              title: Text(
-                'Contact developer',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
+            const SettingsTile(
+              title: 'Contact developer',
+              icon: Icon(Icons.email_outlined),
             ),
             Divider(
               height: 1,
               color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: Container(
-                height: 30.0,
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Information',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context).accentColor,
-                      ),
-                ),
-              ),
+            const SettingsHeader(
+              title: 'Information',
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-              leading: const Icon(
-                Icons.new_releases_outlined,
-              ),
-              title: Text(
-                'Changelog',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Version 2.0',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
+            const SettingsTile(
+              title: 'Changelog',
+              subtitle: 'Version 2.0',
+              icon: Icon(Icons.new_releases_outlined),
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(Icons.source_outlined),
-              title: Text(
-                'Libraries',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Open-sourced libraries used in the app',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
+            SettingsTile(
+              title: 'Libraries',
+              subtitle: 'Open-sourced libraries used in the app',
+              icon: const Icon(Icons.source_outlined),
               onTap: () async {
                 final PackageInfo packageInfo =
                     await PackageInfo.fromPlatform();
@@ -180,21 +91,10 @@ class SettingScreen extends HookWidget {
                 );
               },
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(FontAwesomeIcons.github),
-              title: Text(
-                'Source code',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Clima is free software licensed under the GPLv3',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
+            const SettingsTile(
+              title: 'Source code',
+              subtitle: 'Clima is free software licensed under the GPLv3',
+              icon: Icon(FontAwesomeIcons.github),
             ),
           ],
         ),
