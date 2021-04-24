@@ -32,7 +32,7 @@ class SettingScreen extends HookWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 80),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Common settings',
+                  'General',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).accentColor,
                       ),
@@ -149,7 +149,7 @@ class SettingScreen extends HookWidget {
                 ),
               ),
               subtitle: Text(
-                'List of changes made in the latest updates',
+                'Version 2.0',
                 style: TextStyle(
                   color: Theme.of(context).textTheme.subtitle2.color,
                 ),
@@ -181,42 +181,6 @@ class SettingScreen extends HookWidget {
               },
             ),
             ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-              leading: const Icon(
-                Icons.local_library_outlined,
-              ),
-              title: Text(
-                'Donate',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Support the development of Clima',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-              leading: const Icon(
-                Icons.translate_outlined,
-              ),
-              title: Text(
-                'Help with localization',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              subtitle: Text(
-                'Help Clima speak your language',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
-            ),
-            ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
               leading: const Icon(FontAwesomeIcons.github),
               title: Text(
@@ -226,19 +190,9 @@ class SettingScreen extends HookWidget {
                 ),
               ),
               subtitle: Text(
-                'Clima is libre open-source software, licensed under the GNU General Public License v3.0',
+                'Clima is free software licensed under the GPLv3',
                 style: TextStyle(
                   color: Theme.of(context).textTheme.subtitle2.color,
-                ),
-              ),
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-              leading: const Icon(Icons.star_border_outlined),
-              title: Text(
-                'Rate on Google Play',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle1.color,
                 ),
               ),
             ),
