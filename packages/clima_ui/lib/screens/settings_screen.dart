@@ -1,9 +1,8 @@
+import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info/package_info.dart';
 
 import 'appearance_screen.dart';
 
@@ -70,32 +69,17 @@ class SettingScreen extends HookWidget {
               color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
             ),
             const SettingsHeader(
-              title: 'Information',
-            ),
-            const SettingsTile(
-              title: 'Changelog',
-              subtitle: 'Version 2.0',
-              icon: Icon(Icons.new_releases_outlined),
+              title: 'More',
             ),
             SettingsTile(
-              title: 'Libraries',
-              subtitle: 'Open-source libraries used in the app',
-              icon: const Icon(Icons.source_outlined),
-              onTap: () async {
-                final PackageInfo packageInfo =
-                    await PackageInfo.fromPlatform();
-                showLicensePage(
-                  context: context,
-                  applicationName: packageInfo.appName,
-                  applicationVersion: packageInfo.version,
-                );
-              },
-            ),
-            const SettingsTile(
-              title: 'Source code',
-              subtitle: 'Clima is free software licensed under the GPLv3',
-              icon: Icon(FontAwesomeIcons.github),
-              isThreeLine: true,
+              title: 'About Clima',
+              icon: const Icon(Icons.info_outline),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => AboutScreen(),
+                ),
+              ),
             ),
           ],
         ),
