@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'current_conditions_widgets.dart';
-import 'temperature_line_chart_widget.dart';
+import 'current_conditions.dart';
+import 'temperature_line_chart.dart';
 
 class WeatherSwipePager extends HookWidget {
   const WeatherSwipePager({Key key}) : super(key: key);
