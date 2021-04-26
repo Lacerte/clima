@@ -1,6 +1,7 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/main.dart';
+import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
@@ -16,7 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:riverpod/riverpod.dart';
 
-enum Menu { settings }
+enum Menu { settings, help }
 
 class LocationScreen extends HookWidget {
   const LocationScreen({Key key}) : super(key: key);
@@ -169,6 +170,22 @@ class LocationScreen extends HookWidget {
                         context,
                         MaterialPageRoute(
                           builder: (BuildContext context) => SettingScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                PopupMenuItem<Menu>(
+                  value: Menu.help,
+                  child: ListTile(
+                    title: const Text('Help & feedback'),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const AboutScreen(title: 'Help & feedback'),
                         ),
                       );
                     },

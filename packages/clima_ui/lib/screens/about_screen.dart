@@ -5,6 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
 
 class AboutScreen extends HookWidget {
+  const AboutScreen({this.title});
+
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +19,7 @@ class AboutScreen extends HookWidget {
               Navigator.of(context).pop();
             }),
         title: Text(
-          'About Clima',
+          title ?? 'About Clima',
           style: Theme.of(context).appBarTheme.textTheme.subtitle1,
         ),
       ),
@@ -24,6 +27,21 @@ class AboutScreen extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            const SettingsHeader(
+              title: 'Support',
+            ),
+            const SettingsTile(
+              title: 'Issue tracker',
+              icon: Icon(Icons.bug_report_outlined),
+            ),
+            const SettingsTile(
+              title: 'Contact developer',
+              icon: Icon(Icons.email_outlined),
+            ),
+            Divider(
+              height: 1,
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+            ),
             const SettingsHeader(
               title: 'Information',
             ),

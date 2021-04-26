@@ -54,21 +54,6 @@ class SettingScreen extends HookWidget {
               color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
             ),
             const SettingsHeader(
-              title: 'Support',
-            ),
-            const SettingsTile(
-              title: 'Issue tracker',
-              icon: Icon(Icons.bug_report_outlined),
-            ),
-            const SettingsTile(
-              title: 'Contact developer',
-              icon: Icon(Icons.email_outlined),
-            ),
-            Divider(
-              height: 1,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
-            ),
-            const SettingsHeader(
               title: 'More',
             ),
             SettingsTile(
@@ -77,9 +62,13 @@ class SettingScreen extends HookWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => AboutScreen(),
+                  builder: (BuildContext context) => const AboutScreen(),
                 ),
               ),
+            ),
+            Divider(
+              height: 1,
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
             ),
           ],
         ),
