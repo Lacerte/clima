@@ -49,10 +49,7 @@ class SettingScreen extends HookWidget {
                 builder: (context) => UnitDialog(),
               ),
             ),
-            Divider(
-              height: 1,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
-            ),
+            const SettingsDivider(),
             const SettingsHeader(
               title: 'More',
             ),
@@ -66,10 +63,7 @@ class SettingScreen extends HookWidget {
                 ),
               ),
             ),
-            Divider(
-              height: 1,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
-            ),
+            const SettingsDivider(),
           ],
         ),
       ),

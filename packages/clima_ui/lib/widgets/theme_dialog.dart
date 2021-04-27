@@ -31,12 +31,15 @@ class ThemeDialog extends ConsumerWidget {
           groupValue: theme.state,
           onChanged: (newValue) {
             theme.state = newValue;
-            if (entry.value == AppTheme.dark) {
-              _themeState.setDarkTheme();
-            } else if (entry.value == AppTheme.light) {
-              _themeState.setLightTheme();
-            }
             Navigator.pop(context);
+            switch (entry.value) {
+              case AppTheme.dark:
+                return _themeState.setDarkTheme();
+              case AppTheme.light:
+                return _themeState.setLightTheme();
+              default:
+                return _themeState.setLightTheme();
+            }
           },
         )
     ];

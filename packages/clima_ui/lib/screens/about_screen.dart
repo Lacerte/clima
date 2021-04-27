@@ -28,7 +28,7 @@ class AboutScreen extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const SettingsHeader(
-              title: 'Support',
+              title: 'Help & feedback',
             ),
             const SettingsTile(
               title: 'Issue tracker',
@@ -38,10 +38,7 @@ class AboutScreen extends HookWidget {
               title: 'Contact developer',
               icon: Icon(Icons.email_outlined),
             ),
-            Divider(
-              height: 1,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
-            ),
+            const SettingsDivider(),
             const SettingsHeader(
               title: 'Information',
             ),
@@ -70,10 +67,7 @@ class AboutScreen extends HookWidget {
               icon: Icon(FontAwesomeIcons.github),
               isThreeLine: true,
             ),
-            Divider(
-              height: 1,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
-            ),
+            const SettingsDivider(),
           ],
         ),
       ),
