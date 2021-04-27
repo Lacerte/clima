@@ -5,9 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
 
 class AboutScreen extends HookWidget {
-  const AboutScreen({this.title});
-
-  final String title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +16,7 @@ class AboutScreen extends HookWidget {
               Navigator.of(context).pop();
             }),
         title: Text(
-          title ?? 'About Clima',
+          'About Clima',
           style: Theme.of(context).appBarTheme.textTheme.subtitle1,
         ),
       ),

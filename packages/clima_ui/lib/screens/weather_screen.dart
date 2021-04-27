@@ -184,8 +184,7 @@ class LocationScreen extends HookWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const AboutScreen(title: 'Help & feedback'),
+                          builder: (BuildContext context) => AboutScreen(),
                         ),
                       );
                     },

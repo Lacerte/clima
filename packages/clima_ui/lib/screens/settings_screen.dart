@@ -1,10 +1,10 @@
 import 'package:clima_ui/screens/about_screen.dart';
+import 'package:clima_ui/widgets/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
+import 'package:clima_ui/widgets/theme_dialog.dart';
 import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-import 'appearance_screen.dart';
 
 class SettingScreen extends HookWidget {
   @override
@@ -30,23 +30,34 @@ class SettingScreen extends HookWidget {
               title: 'General',
             ),
             SettingsTile(
-              title: 'Appearance',
-              subtitle: 'Customization of appearance',
-              icon: const Icon(Icons.format_paint_outlined),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => AppearanceScreen(),
-                ),
-              ),
-            ),
-            SettingsTile(
               title: 'Unit',
               subtitle: 'Metric',
               icon: const Icon(Icons.straighten_outlined),
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => UnitDialog(),
+              ),
+            ),
+            const SettingsDivider(),
+            const SettingsHeader(
+              title: 'Interface',
+            ),
+            SettingsTile(
+              title: 'Theme',
+              subtitle: 'System default',
+              padding: 80.0,
+              onTap: () => showDialog(
+                context: context,
+                builder: (context) => ThemeDialog(),
+              ),
+            ),
+            SettingsTile(
+              title: 'Dark theme',
+              subtitle: 'Default',
+              padding: 80.0,
+              onTap: () => showDialog(
+                context: context,
+                builder: (context) => DarkThemeDialog(),
               ),
             ),
             const SettingsDivider(),
@@ -59,7 +70,7 @@ class SettingScreen extends HookWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => const AboutScreen(),
+                  builder: (BuildContext context) => AboutScreen(),
                 ),
               ),
             ),
