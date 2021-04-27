@@ -62,7 +62,7 @@ class SettingScreen extends HookWidget {
             ),
             const SettingsDivider(),
             const SettingsHeader(
-              title: 'More',
+              title: 'About',
             ),
             SettingsTile(
               title: 'About Clima',

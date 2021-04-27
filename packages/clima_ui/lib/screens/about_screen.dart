@@ -25,18 +25,6 @@ class AboutScreen extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const SettingsHeader(
-              title: 'Help & feedback',
-            ),
-            const SettingsTile(
-              title: 'Issue tracker',
-              icon: Icon(Icons.bug_report_outlined),
-            ),
-            const SettingsTile(
-              title: 'Contact developer',
-              icon: Icon(Icons.email_outlined),
-            ),
-            const SettingsDivider(),
-            const SettingsHeader(
               title: 'Information',
             ),
             const SettingsTile(
@@ -55,6 +43,30 @@ class AboutScreen extends HookWidget {
                   context: context,
                   applicationName: packageInfo.appName,
                   applicationVersion: packageInfo.version,
+                );
+              },
+            ),
+            SettingsTile(
+              title: 'Feedback',
+              subtitle: 'Bugs and feature requests',
+              icon: const Icon(Icons.help_outline),
+              onTap: () {
+                generalSheet(
+                  context,
+                  title: 'Feedback',
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SettingsTile(
+                        icon: Icon(Icons.bug_report_outlined),
+                        title: 'Submit issue',
+                      ),
+                      SettingsTile(
+                        icon: Icon(Icons.email_outlined),
+                        title: 'Contact developer',
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
