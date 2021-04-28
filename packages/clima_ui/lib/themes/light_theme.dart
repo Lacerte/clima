@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData.light().copyWith(
-  iconTheme: IconThemeData(color: Colors.grey.shade900),
+  iconTheme: const IconThemeData(color: Color(0xFF757575)),
   snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFF6F6F6F)),
   inputDecorationTheme: const InputDecorationTheme(
     fillColor: Color(0xFFFAFAFA),
@@ -13,18 +13,20 @@ ThemeData lightTheme = ThemeData.light().copyWith(
       borderSide: BorderSide(color: Colors.grey),
     ),
   ),
-  toggleableActiveColor: ThemeData.light().accentColor,
-  textTheme: TextTheme(
-    subtitle1: TextStyle(color: Colors.grey.shade900),
-    subtitle2: TextStyle(color: Colors.grey.shade600),
+  toggleableActiveColor: const Color(0xFF1A73E9),
+  accentColor: const Color(0xFF1A73E9),
+  primaryColor: const Color(0xFFFFFFFF),
+  scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+  textTheme: const TextTheme(
+    subtitle1: TextStyle(color: Color(0xFF212121)),
+    subtitle2: TextStyle(color: Color(0xFF757575)),
   ),
-  scaffoldBackgroundColor: const Color(0xFFF2F2F2),
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     elevation: 0.0,
-    textTheme: TextTheme(subtitle1: TextStyle(color: Colors.grey.shade900)),
-    color: const Color(0xFFF2F2F2),
-    actionsIconTheme: IconThemeData(color: Colors.grey.shade900),
-    iconTheme: IconThemeData(color: Colors.grey.shade900),
+    textTheme: TextTheme(subtitle1: TextStyle(color: Color(0xFF212121))),
+    color: Color(0xFFFFFFFF),
+    actionsIconTheme: IconThemeData(color: Color(0xFF000000)),
+    iconTheme: IconThemeData(color: Color(0xFF000000)),
     brightness: Brightness.light,
   ),
 );

@@ -2,7 +2,6 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
-import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
@@ -22,8 +21,6 @@ class LocationScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read(t.themeProvider);
-
     final weatherState = useProvider(w.weatherStateNotifierProvider);
 
     final forecastsStateNotifier =
@@ -102,28 +99,35 @@ class LocationScreen extends HookWidget {
         title: Text(
           DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
           style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
+            color: Theme.of(context).textTheme.subtitle2.color,
             fontSize: 14,
           ),
         ),
         hint: 'Enter city name',
-        color:
-            theme != t.AppTheme.light ? Colors.black : const Color(0xFFF2F2F2),
+        color: Theme.of(context).appBarTheme.color,
         transitionCurve: Curves.easeInOut,
         leadingActions: [
           FloatingSearchBarAction(
             child: CircularButton(
-              icon: const Icon(Icons.refresh),
+              icon: Icon(
+                Icons.refresh,
+                color: Theme.of(context).appBarTheme.iconTheme.color,
+              ),
               tooltip: 'Refresh',
               onPressed: load,
             ),
           ),
-          FloatingSearchBarAction.back(),
+          FloatingSearchBarAction.back(
+            color: Theme.of(context).appBarTheme.iconTheme.color,
+          ),
         ],
         actions: [
           FloatingSearchBarAction(
             child: CircularButton(
-              icon: const Icon(Icons.search),
+              icon: Icon(
+                Icons.search,
+                color: Theme.of(context).appBarTheme.iconTheme.color,
+              ),
               tooltip: 'Search',
               onPressed: () {
                 controller.open();
@@ -136,7 +140,10 @@ class LocationScreen extends HookWidget {
                 borderRadius: BorderRadius.circular(5.0),
               ),
               offset: const Offset(8.0, 8.0),
-              icon: const Icon(Icons.more_vert),
+              icon: Icon(
+                Icons.more_vert,
+                color: Theme.of(context).appBarTheme.iconTheme.color,
+              ),
               tooltip: 'More options',
               itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
                 PopupMenuItem<Menu>(
@@ -184,6 +191,7 @@ class LocationScreen extends HookWidget {
             ),
           ),
           FloatingSearchBarAction.searchToClear(
+            color: Theme.of(context).appBarTheme.iconTheme.color,
             showIfClosed: false,
           )
         ],
