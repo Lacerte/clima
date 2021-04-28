@@ -13,7 +13,7 @@ class AboutScreen extends HookWidget {
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             }),
         title: Text(
           'About Clima',
