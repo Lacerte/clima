@@ -181,7 +181,7 @@ class LocationScreen extends HookWidget {
                     title: const Text('Help & feedback'),
                     onTap: () {
                       Navigator.of(context).pop();
-                      generalSheet(
+                      showGeneralSheet(
                         context,
                         title: 'Help & feedback',
                         child: Column(

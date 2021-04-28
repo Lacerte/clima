@@ -51,7 +51,7 @@ class AboutScreen extends HookWidget {
               subtitle: 'Bugs and feature requests',
               icon: const Icon(Icons.help_outline),
               onTap: () {
-                generalSheet(
+                showGeneralSheet(
                   context,
                   title: 'Feedback',
                   child: Column(
