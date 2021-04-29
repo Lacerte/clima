@@ -12,6 +12,7 @@ import 'screens/loading_screen.dart';
 import 'themes/theme_model.dart';
 
 final themeStateNotifier = ChangeNotifierProvider((ref) => ThemeModel());
+
 void main() {
   runApp(
     ProviderScope(
@@ -32,6 +33,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _themeState = watch(themeStateNotifier);
+
     return MaterialApp(
       theme: _themeState.setTheme(),
       home: const LoadingScreen(),
