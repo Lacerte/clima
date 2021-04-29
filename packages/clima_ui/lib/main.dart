@@ -12,7 +12,6 @@ import 'screens/loading_screen.dart';
 import 'themes/theme_model.dart';
 
 final themeStateNotifier = ChangeNotifierProvider((ref) => ThemeModel());
-
 void main() {
   runApp(
     ProviderScope(
