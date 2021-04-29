@@ -23,35 +23,9 @@ class WeatherWidget extends HookWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Flexible(
+        const Flexible(
           flex: 10,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Text(
-                  weather.cityName.toUpperCase(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 5,
-                    color: Theme.of(context).textTheme.subtitle1.color,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-              Text(
-                weather.description.toUpperCase(),
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  letterSpacing: 5,
-                  fontSize: 15,
-                  color: Theme.of(context).textTheme.subtitle1.color,
-                ),
-              ),
-              const CurrentConditions(),
-            ],
-          ),
+          child: CurrentConditions(),
         ),
         Divider(
           color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
