@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
 import 'package:clima_ui/utilities/weather_icons.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +7,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'value_tile.dart';
 
 /// Renders Weather Icon, current, min and max temperatures
-
 class CurrentConditions extends HookWidget {
   const CurrentConditions({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final weather = useProvider(weatherStateNotifierProvider.state).weather;
-
     if (weather == null) {
       return const SizedBox.shrink();
     }
