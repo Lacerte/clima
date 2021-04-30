@@ -30,5 +30,5 @@ class ForecastsModel extends Equatable {
   }
 
   @override
-  List<Object> get props => [forecasts];
+  List<Object?> get props => [forecasts];
 }

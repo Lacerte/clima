@@ -12,7 +12,7 @@ class CurrentConditions extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weather = useProvider(weatherStateNotifierProvider.state).weather;
+    final weather = useProvider(weatherStateNotifierProvider).weather;
 
     if (weather == null) {
       return const SizedBox.shrink();

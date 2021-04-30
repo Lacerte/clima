@@ -22,7 +22,7 @@ class SetCityParams extends Equatable {
   final City city;
 
   @override
-  List<Object> get props => [city];
+  List<Object?> get props => [city];
 }
 
 final setCityProvider = Provider((ref) => SetCity(ref.watch(cityRepoProvider)));

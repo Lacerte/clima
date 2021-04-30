@@ -1,1 +1,6 @@
 include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    # Very infuriating and unnecessary
+    sort_pub_dependencies: false

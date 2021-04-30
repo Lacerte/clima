@@ -35,3 +35,6 @@ linter:
 
     # Back to the 80s
     lines_longer_than_80_chars: false
+
+    # Very infuriating and unnecessary
+    sort_pub_dependencies: false

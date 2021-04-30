@@ -27,5 +27,5 @@ class WeatherModel extends Equatable {
       );
 
   @override
-  List<Object> get props => [weather];
+  List<Object?> get props => [weather];
 }

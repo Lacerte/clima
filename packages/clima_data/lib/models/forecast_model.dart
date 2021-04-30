@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:clima_domain/entities/weather.dart';
-import 'package:meta/meta.dart';
 
 class ForecastModel extends Equatable {
   const ForecastModel(this.forecast);
@@ -9,8 +8,8 @@ class ForecastModel extends Equatable {
 
   factory ForecastModel.fromJson(
     Map<String, dynamic> json, {
-    @required String cityName,
-    @required Duration timeZoneOffset,
+    required String cityName,
+    required Duration timeZoneOffset,
   }) =>
       ForecastModel(
         Weather(
@@ -33,5 +32,5 @@ class ForecastModel extends Equatable {
       );
 
   @override
-  List<Object> get props => [forecast];
+  List<Object?> get props => [forecast];
 }
