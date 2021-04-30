@@ -4,9 +4,8 @@ import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/theme_dialog.dart';
 import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-class SettingScreen extends HookWidget {
+class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
