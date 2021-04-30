@@ -36,6 +36,7 @@ dependencies:
   package_info: ^0.4.3+4
   riverpod: ^0.12.1
   shared_preferences: ^0.5.12+4
+  font_awesome_flutter: ^8.12.0
 
 dev_dependencies:
   lint: ^1.4.0-dev.d210.1
