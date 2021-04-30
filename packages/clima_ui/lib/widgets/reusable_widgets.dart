@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class SettingsTile extends StatelessWidget {
   const SettingsTile(
-      {this.title,
+      {this.padding,
       this.subtitle,
       this.icon,
-      this.onTap,
-      this.padding,
-      this.isThreeLine});
+      this.isThreeLine,
+      @required this.title,
+      @required this.onTap});
 
   final String title;
   final String subtitle;
@@ -42,7 +42,7 @@ class SettingsTile extends StatelessWidget {
 }
 
 class SettingsHeader extends StatelessWidget {
-  const SettingsHeader({this.title});
+  const SettingsHeader({@required this.title});
   final String title;
 
   @override
