@@ -172,13 +172,19 @@ class LocationScreen extends HookWidget {
                         title: 'Help & feedback',
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             SettingsTile(
-                              leading: Icon(Icons.bug_report_outlined),
+                              leading: Icon(
+                                Icons.bug_report_outlined,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                               title: 'Submit issue',
                             ),
                             SettingsTile(
-                              leading: Icon(Icons.email_outlined),
+                              leading: Icon(
+                                Icons.email_outlined,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                               title: 'Contact developer',
                             ),
                           ],

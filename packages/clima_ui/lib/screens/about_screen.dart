@@ -26,15 +26,21 @@ class AboutScreen extends StatelessWidget {
             const SettingsHeader(
               title: 'Information',
             ),
-            const SettingsTile(
+            SettingsTile(
               title: 'Changelog',
               subtitle: 'Version 2.0',
-              leading: Icon(Icons.new_releases_outlined),
+              leading: Icon(
+                Icons.new_releases_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
             ),
             SettingsTile(
               title: 'Libraries',
               subtitle: 'Open-source libraries used in the app',
-              leading: const Icon(Icons.source_outlined),
+              leading: Icon(
+                Icons.source_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () async {
                 final PackageInfo packageInfo =
                     await PackageInfo.fromPlatform();
@@ -48,20 +54,29 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Feedback',
               subtitle: 'Bugs and feature requests',
-              leading: const Icon(Icons.help_outline),
+              leading: Icon(
+                Icons.help_outline,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () {
                 showGeneralSheet(
                   context,
                   title: 'Feedback',
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       SettingsTile(
-                        leading: Icon(Icons.bug_report_outlined),
+                        leading: Icon(
+                          Icons.bug_report_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                         title: 'Submit issue',
                       ),
                       SettingsTile(
-                        leading: Icon(Icons.email_outlined),
+                        leading: Icon(
+                          Icons.email_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                         title: 'Contact developer',
                       ),
                     ],
@@ -69,10 +84,13 @@ class AboutScreen extends StatelessWidget {
                 );
               },
             ),
-            const SettingsTile(
+            SettingsTile(
               title: 'Source code',
               subtitle: 'Clima is free software licensed under the GPLv3',
-              leading: FaIcon(FontAwesomeIcons.github),
+              leading: Icon(
+                FontAwesomeIcons.github,
+                color: Theme.of(context).iconTheme.color,
+              ),
               isThreeLine: true,
             ),
             const SettingsDivider(),

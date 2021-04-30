@@ -102,7 +102,8 @@ Future<void> showGeneralSheet(BuildContext context,
               margin: const EdgeInsets.only(top: 8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.0),
-                color: Theme.of(context).snackBarTheme.backgroundColor,
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
               ),
             ),
             Padding(
