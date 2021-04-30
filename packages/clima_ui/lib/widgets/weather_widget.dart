@@ -69,7 +69,7 @@ class WeatherWidget extends HookWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ValueTile('wind speed', '${weather.windSpeed.round()} m/s'),
+                ValueTile('wind speed', '${weather.windSpeed.round()} km/h'),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
