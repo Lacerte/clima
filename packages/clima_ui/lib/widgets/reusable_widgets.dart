@@ -42,7 +42,7 @@ class SettingsTile extends StatelessWidget {
 }
 
 class SettingsHeader extends StatelessWidget {
-  const SettingsHeader({this.title});
+  const SettingsHeader({@required this.title});
   final String title;
 
   @override
