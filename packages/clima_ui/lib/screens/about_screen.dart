@@ -29,12 +29,12 @@ class AboutScreen extends StatelessWidget {
             const SettingsTile(
               title: 'Changelog',
               subtitle: 'Version 2.0',
-              icon: Icon(Icons.new_releases_outlined),
+              leading: Icon(Icons.new_releases_outlined),
             ),
             SettingsTile(
               title: 'Libraries',
               subtitle: 'Open-source libraries used in the app',
-              icon: const Icon(Icons.source_outlined),
+              leading: const Icon(Icons.source_outlined),
               onTap: () async {
                 final PackageInfo packageInfo =
                     await PackageInfo.fromPlatform();
@@ -48,7 +48,7 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Feedback',
               subtitle: 'Bugs and feature requests',
-              icon: const Icon(Icons.help_outline),
+              leading: const Icon(Icons.help_outline),
               onTap: () {
                 showGeneralSheet(
                   context,
@@ -57,11 +57,11 @@ class AboutScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       SettingsTile(
-                        icon: Icon(Icons.bug_report_outlined),
+                        leading: Icon(Icons.bug_report_outlined),
                         title: 'Submit issue',
                       ),
                       SettingsTile(
-                        icon: Icon(Icons.email_outlined),
+                        leading: Icon(Icons.email_outlined),
                         title: 'Contact developer',
                       ),
                     ],
@@ -72,7 +72,7 @@ class AboutScreen extends StatelessWidget {
             const SettingsTile(
               title: 'Source code',
               subtitle: 'Clima is free software licensed under the GPLv3',
-              icon: Icon(FontAwesomeIcons.github),
+              leading: FaIcon(FontAwesomeIcons.github),
               isThreeLine: true,
             ),
             const SettingsDivider(),

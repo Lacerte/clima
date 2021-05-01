@@ -5,13 +5,13 @@ class SettingsTile extends StatelessWidget {
       {@required this.title,
       this.padding,
       this.subtitle,
-      this.icon,
+      this.leading,
       this.isThreeLine,
       this.onTap});
 
   final String title;
   final String subtitle;
-  final Icon icon;
+  final Widget leading;
   final VoidCallback onTap;
   final double padding;
   final bool isThreeLine;
@@ -21,7 +21,7 @@ class SettingsTile extends StatelessWidget {
     return ListTile(
       isThreeLine: isThreeLine ?? false,
       contentPadding: EdgeInsets.symmetric(horizontal: padding ?? 24.0),
-      leading: icon,
+      leading: leading,
       title: Text(
         title,
         style: TextStyle(

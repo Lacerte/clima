@@ -188,11 +188,11 @@ class LocationScreen extends HookWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: const [
                             SettingsTile(
-                              icon: Icon(Icons.bug_report_outlined),
+                              leading: Icon(Icons.bug_report_outlined),
                               title: 'Submit issue',
                             ),
                             SettingsTile(
-                              icon: Icon(Icons.email_outlined),
+                              leading: Icon(Icons.email_outlined),
                               title: 'Contact developer',
                             ),
                           ],

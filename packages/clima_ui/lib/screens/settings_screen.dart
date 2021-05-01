@@ -31,7 +31,7 @@ class SettingScreen extends StatelessWidget {
             SettingsTile(
               title: 'Unit',
               subtitle: 'Metric',
-              icon: const Icon(Icons.straighten_outlined),
+              leading: const Icon(Icons.straighten_outlined),
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => UnitDialog(),
@@ -65,7 +65,7 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: 'About Clima',
-              icon: const Icon(Icons.info_outline),
+              leading: const Icon(Icons.info_outline),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
