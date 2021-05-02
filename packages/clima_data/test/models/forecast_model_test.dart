@@ -1,4 +1,5 @@
 import 'package:clima_data/models/forecast_model.dart';
+import 'package:clima_data/utils/date_time.dart' as date_time_utils;
 import 'package:clima_domain/entities/weather.dart';
 import 'package:test/test.dart';
 
@@ -33,23 +34,32 @@ void main() {
         "sys": {"pod": "d"},
         "dt_txt": "2021-03-07 12:00:00"
       };
+
+      final sunrise = date_time_utils.fromUtcUnixTime(1615098752);
+      final sunset = date_time_utils.fromUtcUnixTime(1615139446);
+
       expect(
-        ForecastModel.fromJson(json,
-            cityName: 'London', timeZoneOffset: const Duration()),
+        ForecastModel.fromJson(
+          json,
+          cityName: 'London',
+          timeZoneOffset: const Duration(),
+          sunrise: sunrise,
+          sunset: sunset,
+        ),
         ForecastModel(
           Weather(
             temperature: 5.29,
-            windSpeed: 1.37,
+            windSpeed: 1.37 * 3.6,
             timeZoneOffset: const Duration(),
             tempFeel: 1.94,
-            condition: 2643743,
+            condition: 802,
             minTemperature: 5.29,
             maxTemperature: 6.05,
             cityName: 'London',
             description: 'scattered clouds',
-            date: DateTime.fromMillisecondsSinceEpoch(1615118400 * 1000),
-            sunrise: 1615098752,
-            sunset: 1615139446,
+            date: date_time_utils.fromUtcUnixTime(1615118400),
+            sunrise: sunrise,
+            sunset: sunset,
             humidity: 55,
             iconCode: '03d',
           ),

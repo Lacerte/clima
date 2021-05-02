@@ -26,8 +26,8 @@ class Weather extends Equatable {
   final String iconCode;
 
   final DateTime date;
-  final int sunrise;
-  final int sunset;
+  final DateTime sunrise;
+  final DateTime sunset;
   final int humidity;
   final Duration timeZoneOffset;
 
