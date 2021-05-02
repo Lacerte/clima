@@ -5,7 +5,7 @@ import 'package:clima_domain/use_cases/get_city.dart';
 import 'package:clima_domain/use_cases/set_city.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:riverpod/all.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 @sealed
@@ -81,7 +81,8 @@ class CityStateNotifier extends StateNotifier<CityState> {
   }
 }
 
-final cityStateNotifierProvider = StateNotifierProvider(
+final cityStateNotifierProvider =
+    StateNotifierProvider<CityStateNotifier, CityState>(
   (ref) =>
       CityStateNotifier(ref.watch(getCityProvider), ref.watch(setCityProvider)),
 );

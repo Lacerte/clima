@@ -10,21 +10,21 @@ class NoConnection extends Failure {
   const NoConnection();
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class ServerDown extends Failure {
   const ServerDown();
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class FailedToParseResponse extends Failure {
   const FailedToParseResponse();
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class InvalidCityName extends Failure {
@@ -33,5 +33,5 @@ class InvalidCityName extends Failure {
   final String cityName;
 
   @override
-  List<Object> get props => [cityName];
+  List<Object?> get props => [cityName];
 }

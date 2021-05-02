@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:riverpod/riverpod.dart';
 
 import 'current_conditions_widgets.dart';
 import 'forecast_widget.dart';
@@ -14,7 +13,7 @@ class WeatherWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weather = useProvider(weatherStateNotifierProvider.state).weather;
+    final weather = useProvider(weatherStateNotifierProvider).weather;
 
     if (weather == null) {
       return const SizedBox.shrink();
@@ -44,7 +43,7 @@ class WeatherWidget extends HookWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ValueTile('wind speed', '${weather.windSpeed.round()} m/s'),
+                ValueTile('wind speed', '${weather.windSpeed.round()} km/h'),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(

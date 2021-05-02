@@ -8,21 +8,21 @@ import 'package:riverpod/riverpod.dart';
 abstract class ForecastsMemoizedDataSource {
   Future<Either<Failure, void>> setForecasts(Forecasts forecasts);
 
-  Future<Either<Failure, Forecasts>> getMemoizedForecasts();
+  Future<Either<Failure, Forecasts?>> getMemoizedForecasts();
 }
 
 class ForecastsMemoizedDataSourceImpl implements ForecastsMemoizedDataSource {
-  Forecasts _forecasts;
+  Forecasts? _forecasts;
 
-  DateTime _fetchingTime;
+  DateTime? _fetchingTime;
 
   static const _invalidationDuration = Duration(minutes: 1);
 
   @override
-  Future<Either<Failure, Forecasts>> getMemoizedForecasts() async {
+  Future<Either<Failure, Forecasts?>> getMemoizedForecasts() async {
     if (_forecasts == null) return const Right(null);
 
-    if (DateTime.now().difference(_fetchingTime) >= _invalidationDuration) {
+    if (DateTime.now().difference(_fetchingTime!) >= _invalidationDuration) {
       _forecasts = null;
       _fetchingTime = null;
       return const Right(null);

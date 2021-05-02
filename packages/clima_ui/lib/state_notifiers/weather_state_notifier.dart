@@ -7,7 +7,7 @@ import 'package:clima_domain/use_cases/get_weather.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:riverpod/all.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 @sealed
@@ -90,7 +90,8 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
 }
 
 final weatherStateNotifierProvider =
-    StateNotifierProvider((ref) => WeatherStateNotifier(
-          ref.watch(getWeatherProvider),
-          ref.watch(getCityProvider),
-        ));
+    StateNotifierProvider<WeatherStateNotifier, WeatherState>(
+        (ref) => WeatherStateNotifier(
+              ref.watch(getWeatherProvider),
+              ref.watch(getCityProvider),
+            ));

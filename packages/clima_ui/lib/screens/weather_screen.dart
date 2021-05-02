@@ -15,7 +15,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:riverpod/riverpod.dart';
 
 enum Menu { settings, help }
 
@@ -28,17 +27,18 @@ class LocationScreen extends HookWidget {
 
     final scaffoldKey = useGlobalKey<ScaffoldState>();
 
-    final weatherState = useProvider(w.weatherStateNotifierProvider.state);
+    final weatherState = useProvider(w.weatherStateNotifierProvider);
 
     final forecastsStateNotifier =
-        useProvider(f.forecastsStateNotifierProvider);
+        useProvider(f.forecastsStateNotifierProvider.notifier);
 
-    final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
+    final weatherStateNotifier =
+        useProvider(w.weatherStateNotifierProvider.notifier);
     final controller = useFloatingSearchBarController();
 
     final isLoading = useState(weatherState is c.Loading);
 
-    final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
+    final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
     void showFailureSnackBar(
         {@required Failure failure, VoidCallback onRetry, int duration}) {
@@ -113,7 +113,7 @@ class LocationScreen extends HookWidget {
 
           isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
-          if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
+          if (context.read(c.cityStateNotifierProvider) is! c.Error) {
             await Future.wait([
               weatherStateNotifier.loadWeather(),
               forecastsStateNotifier.loadForecasts(),
@@ -188,11 +188,11 @@ class LocationScreen extends HookWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: const [
                             SettingsTile(
-                              icon: Icon(Icons.bug_report_outlined),
+                              leading: Icon(Icons.bug_report_outlined),
                               title: 'Submit issue',
                             ),
                             SettingsTile(
-                              icon: Icon(Icons.email_outlined),
+                              leading: Icon(Icons.email_outlined),
                               title: 'Contact developer',
                             ),
                           ],

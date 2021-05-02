@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 class Weather extends Equatable {
   /// In degrees Celsius (for now).
@@ -33,24 +32,24 @@ class Weather extends Equatable {
   final Duration timeZoneOffset;
 
   const Weather({
-    @required this.temperature,
-    @required this.windSpeed,
-    @required this.tempFeel,
-    @required this.condition,
-    @required this.minTemperature,
-    @required this.maxTemperature,
-    @required this.cityName,
-    @required this.description,
-    @required this.iconCode,
-    @required this.date,
-    @required this.sunrise,
-    @required this.sunset,
-    @required this.humidity,
-    @required this.timeZoneOffset,
+    required this.temperature,
+    required this.windSpeed,
+    required this.tempFeel,
+    required this.condition,
+    required this.minTemperature,
+    required this.maxTemperature,
+    required this.cityName,
+    required this.description,
+    required this.iconCode,
+    required this.date,
+    required this.sunrise,
+    required this.sunset,
+    required this.humidity,
+    required this.timeZoneOffset,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         temperature,
         windSpeed,
         tempFeel,

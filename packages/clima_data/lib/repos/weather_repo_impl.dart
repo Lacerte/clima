@@ -6,7 +6,6 @@ import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
-import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
 
 class WeatherRepoImpl implements WeatherRepo {
@@ -17,9 +16,9 @@ class WeatherRepoImpl implements WeatherRepo {
   final Connectivity connectivity;
 
   WeatherRepoImpl({
-    @required this.remoteDataSource,
-    @required this.memoizedDataSource,
-    @required this.connectivity,
+    required this.remoteDataSource,
+    required this.memoizedDataSource,
+    required this.connectivity,
   });
 
   @override
@@ -32,13 +31,15 @@ class WeatherRepoImpl implements WeatherRepo {
       if (memoizedWeather.isLeft() ||
           memoizedWeather.all(
               (weather) => weather != null && weather.cityName == city.name)) {
-        return memoizedWeather;
+        return memoizedWeather.map((weather) => weather!);
       }
 
       final weather = (await remoteDataSource.getWeather(city))
           .map((model) => model.weather);
 
-      await weather.map(memoizedDataSource.setWeather).getOrElse(() => null);
+      await weather
+          .map(memoizedDataSource.setWeather)
+          .getOrElse(() async => throw Error());
 
       return weather;
     }
