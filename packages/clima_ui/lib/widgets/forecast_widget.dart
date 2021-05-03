@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 
 /// Renders a horizontal scrolling list of weather conditions
 /// Used to show forecast
@@ -55,6 +56,7 @@ class ForecastHorizontal extends HookWidget {
                   forecast.date.toUtc().add(forecast.timeZoneOffset),
                 ),
                 style: TextStyle(
+                  fontSize: 11.sp,
                   color: Theme.of(context)
                       .textTheme
                       .subtitle1
@@ -85,6 +87,7 @@ class ForecastHorizontal extends HookWidget {
               Text(
                 '${forecast.temperature.round()}°',
                 style: TextStyle(
+                  fontSize: 11.sp,
                   color: Theme.of(context).textTheme.subtitle1.color,
                 ),
               ),

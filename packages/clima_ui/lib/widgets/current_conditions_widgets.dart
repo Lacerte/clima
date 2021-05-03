@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
 import 'package:clima_ui/utilities/weather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sizer/sizer.dart';
 
 import 'value_tile.dart';
 
@@ -26,13 +28,14 @@ class CurrentConditions extends HookWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: Text(
+              child: AutoSizeText(
                 weather.cityName.toUpperCase(),
+                maxLines: 1,
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   letterSpacing: 5,
                   color: Theme.of(context).textTheme.subtitle1.color,
-                  fontSize: 25,
+                  fontSize: 20.sp,
                 ),
               ),
             ),
@@ -41,12 +44,13 @@ class CurrentConditions extends HookWidget {
         Expanded(
           child: Container(
             alignment: Alignment.topCenter,
-            child: Text(
+            child: AutoSizeText(
               weather.description.toUpperCase(),
+              maxLines: 1,
               style: TextStyle(
                 fontWeight: FontWeight.w100,
                 letterSpacing: 5,
-                fontSize: 15,
+                fontSize: 12.sp,
                 color: Theme.of(context).textTheme.subtitle1.color,
               ),
             ),
@@ -57,22 +61,16 @@ class CurrentConditions extends HookWidget {
           child: Icon(
             getIconData(weather.iconCode),
             color: Theme.of(context).textTheme.subtitle1.color,
-            size: 70,
+            size: 60.sp,
           ),
         ),
         Expanded(
-          flex: () {
-            // It's bounded between 9/16 and 9/14 to account for MediaQuery's margin of error.
-            if (MediaQuery.of(context).size.aspectRatio >= 9 / 18 &&
-                MediaQuery.of(context).size.aspectRatio <= 9 / 14) {
-              return 4;
-            }
-            return 3;
-          }(),
-          child: Text(
+          flex: 3,
+          child: AutoSizeText(
             '${weather.temperature.round()}°',
+            maxLines: 1,
             style: TextStyle(
-              fontSize: 100,
+              fontSize: 1000,
               fontWeight: FontWeight.w100,
               color: Theme.of(context).textTheme.subtitle1.color,
             ),
@@ -89,7 +87,7 @@ class CurrentConditions extends HookWidget {
                 child: Center(
                   child: Container(
                     width: 1,
-                    height: 35,
+                    height: 4.5.h,
                     color: Theme.of(context)
                         .textTheme
                         .subtitle1

@@ -1,45 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_icons/flutter_weather_icons.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 //returns the right weather icon for the right condition.
 
 IconData getIconData(String iconCode) {
   switch (iconCode) {
     case '01d':
-      return WeatherIcons.wiDaySunny;
+      return WeatherIcons.day_sunny;
     case '01n':
-      return WeatherIcons.wiNightClear;
+      return WeatherIcons.night_clear;
     case '02d':
-      return WeatherIcons.wiDayCloudy;
+      return WeatherIcons.day_cloudy;
     case '02n':
-      return WeatherIcons.wiDayCloudy;
+      return WeatherIcons.day_cloudy;
     case '03d':
     case '04d':
-      return WeatherIcons.wiDayCloudyHigh;
+      return WeatherIcons.day_cloudy_high;
     case '03n':
     case '04n':
-      return WeatherIcons.wiNightClear;
+      return WeatherIcons.night_clear;
     case '09d':
-      return WeatherIcons.wiDayShowers;
+      return WeatherIcons.day_showers;
     case '09n':
-      return WeatherIcons.wiNightAltShowers;
+      return WeatherIcons.night_alt_showers;
     case '10d':
-      return WeatherIcons.wiDayShowers;
+      return WeatherIcons.day_showers;
     case '10n':
-      return WeatherIcons.wiNightAltShowers;
+      return WeatherIcons.night_alt_showers;
     case '11d':
-      return WeatherIcons.wiDayThunderstorm;
+      return WeatherIcons.day_thunderstorm;
     case '11n':
-      return WeatherIcons.wiNightThunderstorm;
+      return WeatherIcons.night_thunderstorm;
     case '13d':
-      return WeatherIcons.wiDaySnow;
+      return WeatherIcons.day_snow;
     case '13n':
-      return WeatherIcons.wiNightSnow;
+      return WeatherIcons.night_snow;
     case '50d':
-      return WeatherIcons.wiDayFog;
+      return WeatherIcons.day_fog;
     case '50n':
-      return WeatherIcons.wiNightFog;
+      return WeatherIcons.night_fog;
     default:
-      return WeatherIcons.wiDaySunny;
+      return WeatherIcons.day_sunny;
   }
 }

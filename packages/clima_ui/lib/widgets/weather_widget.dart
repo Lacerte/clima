@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 
 import 'current_conditions_widgets.dart';
 import 'forecast_widget.dart';
@@ -49,7 +50,7 @@ class WeatherWidget extends HookWidget {
                   child: Center(
                     child: Container(
                       width: 1,
-                      height: 35,
+                      height: 4.5.h,
                       color: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -73,7 +74,7 @@ class WeatherWidget extends HookWidget {
                   child: Center(
                     child: Container(
                       width: 1,
-                      height: 35,
+                      height: 4.5.h,
                       color: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -95,7 +96,7 @@ class WeatherWidget extends HookWidget {
                   child: Center(
                     child: Container(
                       width: 1,
-                      height: 35,
+                      height: 4.5.h,
                       color: Theme.of(context)
                           .textTheme
                           .subtitle1
