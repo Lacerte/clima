@@ -1,4 +1,5 @@
 import 'package:clima_data/models/weather_model.dart';
+import 'package:clima_data/utils/date_time.dart' as date_time_utils;
 import 'package:clima_domain/entities/weather.dart';
 import 'package:test/test.dart';
 
@@ -57,9 +58,9 @@ void main() {
             temperature: 8.4,
             iconCode: '04d',
             humidity: 93,
-            sunrise: 1611906189,
-            sunset: 1611938637,
-            date: DateTime.fromMillisecondsSinceEpoch(1611919888 * 1000),
+            sunrise: date_time_utils.fromUtcUnixTime(1611906189),
+            sunset: date_time_utils.fromUtcUnixTime(1611938637),
+            date: date_time_utils.fromUtcUnixTime(1611919888),
           ),
         ),
       );

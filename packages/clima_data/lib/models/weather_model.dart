@@ -1,3 +1,4 @@
+import 'package:clima_data/utils/date_time.dart' as date_time_utils;
 import 'package:clima_domain/entities/weather.dart';
 import 'package:equatable/equatable.dart';
 
@@ -17,15 +18,16 @@ class WeatherModel extends Equatable {
           condition: json['weather'][0]['id'] as int,
           cityName: json['name'] as String,
           description: json['weather'][0]['description'] as String,
-          date: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
+          date: date_time_utils.fromUtcUnixTime(json['dt'] as int),
           timeZoneOffset: Duration(seconds: json['timezone'] as int),
           iconCode: json['weather'][0]['icon'] as String,
-          sunrise: json['sys']['sunrise'] as int,
-          sunset: json['sys']['sunset'] as int,
+          sunrise:
+              date_time_utils.fromUtcUnixTime(json['sys']['sunrise'] as int),
+          sunset: date_time_utils.fromUtcUnixTime(json['sys']['sunset'] as int),
           humidity: json['main']['humidity'] as int,
         ),
       );
 
   @override
-  List<Object> get props => [weather];
+  List<Object?> get props => [weather];
 }

@@ -1,3 +1,4 @@
+import 'package:clima_data/utils/date_time.dart' as date_time_utils;
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:equatable/equatable.dart';
 
@@ -12,6 +13,10 @@ class ForecastsModel extends Equatable {
     final list = json['list'] as List<dynamic>;
     final cityName = json['city']['name'] as String;
     final timeZoneOffset = Duration(seconds: json['city']['timezone'] as int);
+    final sunrise =
+        date_time_utils.fromUtcUnixTime(json['city']['sunrise'] as int);
+    final sunset =
+        date_time_utils.fromUtcUnixTime(json['city']['sunset'] as int);
 
     return ForecastsModel(
       Forecasts(
@@ -22,6 +27,8 @@ class ForecastsModel extends Equatable {
                 json as Map<String, dynamic>,
                 cityName: cityName,
                 timeZoneOffset: timeZoneOffset,
+                sunrise: sunrise,
+                sunset: sunset,
               ).forecast,
             )
             .toList(),
@@ -30,5 +37,5 @@ class ForecastsModel extends Equatable {
   }
 
   @override
-  List<Object> get props => [forecasts];
+  List<Object?> get props => [forecasts];
 }

@@ -2,18 +2,18 @@ import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/city_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
-import 'package:riverpod/all.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CityLocalDataSource {
-  Future<Either<Failure, CityModel>> getCity();
+  Future<Either<Failure, CityModel?>> getCity();
 
   Future<Either<Failure, void>> setCity(City city);
 }
 
 class CityLocalDataSourceImpl implements CityLocalDataSource {
   @override
-  Future<Either<Failure, CityModel>> getCity() async {
+  Future<Either<Failure, CityModel?>> getCity() async {
     final prefs = await SharedPreferences.getInstance();
 
     final cityName = prefs.getString('name');

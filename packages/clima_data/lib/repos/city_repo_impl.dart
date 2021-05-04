@@ -6,7 +6,6 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
 import 'package:dartz/dartz.dart';
-import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
 
 class CityRepoImpl implements CityRepo {
@@ -17,9 +16,9 @@ class CityRepoImpl implements CityRepo {
   final WeatherRepo weatherRepo;
 
   CityRepoImpl({
-    @required this.localDataSource,
-    @required this.randomDataSource,
-    @required this.weatherRepo,
+    required this.localDataSource,
+    required this.randomDataSource,
+    required this.weatherRepo,
   });
 
   @override
@@ -27,10 +26,10 @@ class CityRepoImpl implements CityRepo {
     final cityEither = await localDataSource.getCity();
 
     if (cityEither.isLeft()) {
-      return cityEither.map((model) => model.city);
+      return cityEither.map((model) => model!.city);
     }
 
-    final cityModel = (cityEither as Right<Failure, CityModel>).value;
+    final cityModel = (cityEither as Right<Failure, CityModel?>).value;
 
     if (cityModel == null) {
       return (await randomDataSource.getCity()).map((model) => model.city);

@@ -1,7 +1,6 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:clima_core/use_case.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
@@ -19,12 +18,12 @@ class GetWeather implements UseCase<Weather, GetWeatherParams> {
 }
 
 class GetWeatherParams extends Equatable {
-  const GetWeatherParams({@required this.city});
+  const GetWeatherParams({required this.city});
 
   final City city;
 
   @override
-  List<Object> get props => [city];
+  List<Object?> get props => [city];
 }
 
 final getWeatherProvider =

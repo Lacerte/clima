@@ -12,8 +12,7 @@ class WeatherSwipePager extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final forecasts =
-        useProvider(forecastsStateNotifierProvider.state).forecasts;
+    final forecasts = useProvider(forecastsStateNotifierProvider).forecasts;
 
     return Swiper(
       itemCount: 2,

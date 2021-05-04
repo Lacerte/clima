@@ -1,11 +1,12 @@
-import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/main.dart';
+import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
+import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/utilities/reusable_widgets.dart';
+import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/weather_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,10 +14,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:package_info/package_info.dart';
-import 'package:riverpod/riverpod.dart';
 
-enum Menu { darkModeOn, licenses }
+enum Menu { settings, help }
 
 class LocationScreen extends HookWidget {
   const LocationScreen({Key key}) : super(key: key);
@@ -27,29 +26,18 @@ class LocationScreen extends HookWidget {
 
     final scaffoldKey = useGlobalKey<ScaffoldState>();
 
-    final weatherState = useProvider(w.weatherStateNotifierProvider.state);
+    final weatherState = useProvider(w.weatherStateNotifierProvider);
 
     final forecastsStateNotifier =
-        useProvider(f.forecastsStateNotifierProvider);
+        useProvider(f.forecastsStateNotifierProvider.notifier);
 
-    final weatherStateNotifier = useProvider(w.weatherStateNotifierProvider);
+    final weatherStateNotifier =
+        useProvider(w.weatherStateNotifierProvider.notifier);
     final controller = useFloatingSearchBarController();
 
     final isLoading = useState(weatherState is c.Loading);
 
-    final cityStateNotifier = useProvider(c.cityStateNotifierProvider);
-
-    void showFailureSnackBar(
-        {@required Failure failure, VoidCallback onRetry, int duration}) {
-      scaffoldKey.currentState.removeCurrentSnackBar();
-      scaffoldKey.currentState.showSnackBar(
-        failureSnackbar(
-          failure: failure,
-          onRetry: onRetry,
-          duration: duration,
-        ),
-      );
-    }
+    final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
     Future<void> load() async {
       isLoading.value = true;
@@ -65,7 +53,8 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => cityStateNotifier.addListener((state) {
         if (state is c.Error) {
-          showFailureSnackBar(failure: state.failure, duration: 2);
+          showFailureSnackBar(
+              scaffoldKey: scaffoldKey, failure: state.failure, duration: 2);
         }
       }),
       [cityStateNotifier],
@@ -75,8 +64,9 @@ class LocationScreen extends HookWidget {
       () => weatherStateNotifier.addListener((state) {
         if (state is w.Error) {
           showFailureSnackBar(
+            scaffoldKey: scaffoldKey,
             failure: state.failure,
-            onRetry: load,
+            duration: 2,
           );
         }
       }),
@@ -87,8 +77,9 @@ class LocationScreen extends HookWidget {
       () => forecastsStateNotifier.addListener((state) {
         if (state is f.Error) {
           showFailureSnackBar(
+            scaffoldKey: scaffoldKey,
             failure: state.failure,
-            onRetry: load,
+            duration: 2,
           );
         }
       }),
@@ -112,7 +103,7 @@ class LocationScreen extends HookWidget {
 
           isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
-          if (context.read(c.cityStateNotifierProvider.state) is! c.Error) {
+          if (context.read(c.cityStateNotifierProvider) is! c.Error) {
             await Future.wait([
               weatherStateNotifier.loadWeather(),
               forecastsStateNotifier.loadForecasts(),
@@ -160,38 +151,42 @@ class LocationScreen extends HookWidget {
               tooltip: 'More options',
               itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
                 PopupMenuItem<Menu>(
-                  value: Menu.darkModeOn,
-                  child: StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                      return CheckboxListTile(
-                        checkColor: _themeState.isDarkTheme
-                            ? Colors.grey.shade900
-                            : Colors.white,
-                        title: const Text('Dark theme'),
-                        value: _themeState.isDarkTheme,
-                        onChanged: (bool value) {
-                          setState(() {
-                            value
-                                ? _themeState.setDarkTheme()
-                                : _themeState.setLightTheme();
-                            Navigator.pop(context);
-                          });
-                        },
+                  value: Menu.settings,
+                  child: ListTile(
+                    title: const Text('Settings'),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => SettingScreen(),
+                        ),
                       );
                     },
                   ),
                 ),
                 PopupMenuItem<Menu>(
-                  value: Menu.licenses,
+                  value: Menu.help,
                   child: ListTile(
-                    title: const Text('Licenses'),
-                    onTap: () async {
-                      final PackageInfo packageInfo =
-                          await PackageInfo.fromPlatform();
-                      showLicensePage(
-                        context: context,
-                        applicationName: packageInfo.appName,
-                        applicationVersion: packageInfo.version,
+                    title: const Text('Help & feedback'),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      showGeneralSheet(
+                        context,
+                        title: 'Help & feedback',
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            SettingsTile(
+                              leading: Icon(Icons.bug_report_outlined),
+                              title: 'Submit issue',
+                            ),
+                            SettingsTile(
+                              leading: Icon(Icons.email_outlined),
+                              title: 'Contact developer',
+                            ),
+                          ],
+                        ),
                       );
                     },
                   ),

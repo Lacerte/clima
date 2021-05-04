@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 class ForecastHorizontal extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final forecastsState = useProvider(f.forecastsStateNotifierProvider.state);
+    final forecastsState = useProvider(f.forecastsStateNotifierProvider);
 
     Forecasts forecasts;
 
