@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import 'current_conditions_widgets.dart';
+import 'current_conditions.dart';
 import 'forecast_widget.dart';
 import 'value_tile.dart';
 
