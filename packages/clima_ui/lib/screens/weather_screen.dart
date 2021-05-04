@@ -1,12 +1,11 @@
-import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/main.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
+import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/utilities/reusable_widgets.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/weather_widget.dart';
 import 'package:flutter/material.dart';
@@ -40,18 +39,6 @@ class LocationScreen extends HookWidget {
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
-    void showFailureSnackBar(
-        {@required Failure failure, VoidCallback onRetry, int duration}) {
-      scaffoldKey.currentState.removeCurrentSnackBar();
-      scaffoldKey.currentState.showSnackBar(
-        failureSnackbar(
-          failure: failure,
-          onRetry: onRetry,
-          duration: duration,
-        ),
-      );
-    }
-
     Future<void> load() async {
       isLoading.value = true;
       await Future.wait(
@@ -66,7 +53,8 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => cityStateNotifier.addListener((state) {
         if (state is c.Error) {
-          showFailureSnackBar(failure: state.failure, duration: 2);
+          showFailureSnackBar(
+              scaffoldKey: scaffoldKey, failure: state.failure, duration: 2);
         }
       }),
       [cityStateNotifier],
@@ -76,8 +64,9 @@ class LocationScreen extends HookWidget {
       () => weatherStateNotifier.addListener((state) {
         if (state is w.Error) {
           showFailureSnackBar(
+            scaffoldKey: scaffoldKey,
             failure: state.failure,
-            onRetry: load,
+            duration: 2,
           );
         }
       }),
@@ -88,8 +77,9 @@ class LocationScreen extends HookWidget {
       () => forecastsStateNotifier.addListener((state) {
         if (state is f.Error) {
           showFailureSnackBar(
+            scaffoldKey: scaffoldKey,
             failure: state.failure,
-            onRetry: load,
+            duration: 2,
           );
         }
       }),

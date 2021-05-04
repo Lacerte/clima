@@ -62,11 +62,7 @@ class WeatherWidget extends HookWidget {
                 ValueTile(
                   'sunrise',
                   DateFormat('h:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                      weather.sunrise * 1000,
-                    ).toUtc().add(
-                          weather.timeZoneOffset,
-                        ),
+                    weather.sunrise.toUtc().add(weather.timeZoneOffset),
                   ),
                 ),
                 Padding(
@@ -86,9 +82,7 @@ class WeatherWidget extends HookWidget {
                 ValueTile(
                   'sunset',
                   DateFormat('h:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(weather.sunset * 1000)
-                        .toUtc()
-                        .add(weather.timeZoneOffset),
+                    weather.sunset.toUtc().add(weather.timeZoneOffset),
                   ),
                 ),
                 Padding(
