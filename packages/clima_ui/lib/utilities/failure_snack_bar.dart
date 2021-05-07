@@ -1,11 +1,11 @@
 import 'package:clima_core/failure.dart';
 import 'package:flutter/material.dart';
 
-void showFailureSnackBar({
+void showFailureSnackBar(
+  BuildContext context, {
   @required Failure failure,
   VoidCallback onRetry,
   int duration,
-  GlobalKey<ScaffoldState> scaffoldKey,
 }) {
   final text = () {
     if (failure is NoConnection) {
@@ -20,8 +20,9 @@ void showFailureSnackBar({
       throw ArgumentError('Did not expect $failure');
     }
   }();
-  scaffoldKey.currentState.removeCurrentSnackBar();
-  scaffoldKey.currentState.showSnackBar(
+  final messenger = ScaffoldMessenger.of(context);
+  messenger.removeCurrentSnackBar();
+  messenger.showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
       content: Text(text),
