@@ -45,11 +45,15 @@ class ThemeModel extends ChangeNotifier {
   void setBarsColor() {
     if (_isDarkTheme) {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: Colors.black,
         statusBarColor: Colors.black,
       ));
     } else {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Color(0xFFF2F2F2),
         statusBarColor: Color(0xFFF2F2F2),
       ));
