@@ -24,8 +24,6 @@ class LocationScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _themeState = context.read(themeStateNotifier);
 
-    final scaffoldKey = useGlobalKey<ScaffoldState>();
-
     final weatherState = useProvider(w.weatherStateNotifierProvider);
 
     final forecastsStateNotifier =
@@ -53,8 +51,7 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => cityStateNotifier.addListener((state) {
         if (state is c.Error) {
-          showFailureSnackBar(
-              scaffoldKey: scaffoldKey, failure: state.failure, duration: 2);
+          showFailureSnackBar(context, failure: state.failure, duration: 2);
         }
       }),
       [cityStateNotifier],
@@ -63,11 +60,7 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => weatherStateNotifier.addListener((state) {
         if (state is w.Error) {
-          showFailureSnackBar(
-            scaffoldKey: scaffoldKey,
-            failure: state.failure,
-            duration: 2,
-          );
+          showFailureSnackBar(context, failure: state.failure, duration: 2);
         }
       }),
       [weatherStateNotifier],
@@ -76,11 +69,7 @@ class LocationScreen extends HookWidget {
     useEffect(
       () => forecastsStateNotifier.addListener((state) {
         if (state is f.Error) {
-          showFailureSnackBar(
-            scaffoldKey: scaffoldKey,
-            failure: state.failure,
-            duration: 2,
-          );
+          showFailureSnackBar(context, failure: state.failure, duration: 2);
         }
       }),
       [forecastsStateNotifier],
@@ -88,7 +77,6 @@ class LocationScreen extends HookWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      key: scaffoldKey,
       body: FloatingSearchAppBar(
         automaticallyImplyBackButton: false,
         controller: controller,
