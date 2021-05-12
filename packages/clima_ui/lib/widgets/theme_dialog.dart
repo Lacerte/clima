@@ -1,26 +1,24 @@
-import 'package:clima_ui/main.dart';
+import 'package:clima_data/models/theme_model.dart';
+import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
-enum AppTheme { dark, light }
-
-final themeProvider = StateProvider((ref) => AppTheme.light);
-
 class ThemeDialog extends ConsumerWidget {
   static const _dialogOptions = {
-    'Dark': AppTheme.dark,
-    'Light': AppTheme.light,
+    'Dark': ThemeModel.dark,
+    'Light': ThemeModel.light,
   };
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final themeStateNotifier = watch(themeStateNotifierProvider.notifier);
+
     final theme = watch(themeProvider);
-    final _themeState = watch(themeStateNotifier);
 
     final radios = [
       for (final entry in _dialogOptions.entries)
-        RadioListTile<AppTheme>(
+        RadioListTile<ThemeModel>(
           title: Text(
             entry.key.toString(),
             style: TextStyle(
@@ -28,18 +26,10 @@ class ThemeDialog extends ConsumerWidget {
             ),
           ),
           value: entry.value,
-          groupValue: theme.state,
-          onChanged: (newValue) {
-            theme.state = newValue;
+          groupValue: theme,
+          onChanged: (newValue) async {
+            await themeStateNotifier.setTheme(newValue);
             Navigator.pop(context);
-            switch (entry.value) {
-              case AppTheme.dark:
-                return _themeState.setDarkTheme();
-              case AppTheme.light:
-                return _themeState.setLightTheme();
-              default:
-                return _themeState.setLightTheme();
-            }
           },
         )
     ];

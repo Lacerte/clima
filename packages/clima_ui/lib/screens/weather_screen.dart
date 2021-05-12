@@ -1,8 +1,9 @@
+import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_domain/entities/city.dart';
-import 'package:clima_ui/main.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
+import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
@@ -22,7 +23,7 @@ class LocationScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _themeState = context.read(themeStateNotifier);
+    final theme = context.read(t.themeProvider);
 
     final weatherState = useProvider(w.weatherStateNotifierProvider);
 
@@ -107,7 +108,8 @@ class LocationScreen extends HookWidget {
           ),
         ),
         hint: 'Enter city name',
-        color: _themeState.isDarkTheme ? Colors.black : const Color(0xFFF2F2F2),
+        color:
+            theme != ThemeModel.light ? Colors.black : const Color(0xFFF2F2F2),
         transitionCurve: Curves.easeInOut,
         leadingActions: [
           FloatingSearchBarAction(
