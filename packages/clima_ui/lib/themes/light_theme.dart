@@ -14,8 +14,8 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     ),
   ),
   toggleableActiveColor: const Color(0xFF1A73E9),
-  accentColor: const Color(0xFF1A73E9),
-  primaryColor: const Color(0xFFFFFFFF),
+  accentColor: const Color(0xFF2396F1),
+  primaryColor: const Color(0xFF2396F1),
   scaffoldBackgroundColor: const Color(0xFFFFFFFF),
   textTheme: const TextTheme(
     subtitle1: TextStyle(color: Color(0xFF212121)),

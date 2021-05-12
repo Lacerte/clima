@@ -18,7 +18,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF202125)),
   dialogBackgroundColor: const Color(0xFF202125),
   toggleableActiveColor: const Color(0xFF80D8FE),
-  accentColor: const Color(0xFF89B4F8),
+  accentColor: const Color(0xFF80D8FE),
   primaryColor: const Color(0xFF000000),
   scaffoldBackgroundColor: const Color(0xFF000000),
   textTheme: const TextTheme(
