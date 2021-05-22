@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache pub cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-checks-${{ matrix.package }}-${{ hashFiles(format('{0}/pubspec.lock', matrix.package)) }}
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
         with:
