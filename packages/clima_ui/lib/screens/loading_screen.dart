@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
@@ -77,7 +76,7 @@ class LoadingScreen extends HookWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: SpinKitDoubleBounce(
-          color: theme != ThemeModel.light ? Colors.white : Colors.black,
+          color: theme != t.AppTheme.light ? Colors.white : Colors.black,
           size: 100.0,
         ),
       ),

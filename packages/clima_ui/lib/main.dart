@@ -1,4 +1,3 @@
-import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/forecasts_repo_impl.dart';
 import 'package:clima_data/repos/weather_repo_impl.dart';
@@ -6,7 +5,7 @@ import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/forecasts_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
-    show themeStateNotifierProvider, themeProvider;
+    show themeStateNotifierProvider, themeProvider, AppTheme;
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,8 @@ class MyApp extends HookWidget {
 
     useEffect(() {
       switch (theme) {
-        case ThemeModel.dark:
+        case AppTheme.darkGrey:
+        case AppTheme.black:
           SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
             systemNavigationBarIconBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.light,
@@ -58,7 +58,7 @@ class MyApp extends HookWidget {
           ));
           break;
 
-        case ThemeModel.light:
+        case AppTheme.light:
           SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
@@ -66,9 +66,6 @@ class MyApp extends HookWidget {
             statusBarColor: Color(0xFFF2F2F2),
           ));
           break;
-
-        default:
-          return;
       }
 
       return null;
@@ -79,13 +76,13 @@ class MyApp extends HookWidget {
     return MaterialApp(
       theme: () {
         switch (theme) {
-          case ThemeModel.light:
+          case AppTheme.light:
             return lightTheme;
 
-          case ThemeModel.dark:
+          // TODO: make black have its own theme.
+          case AppTheme.black:
+          case AppTheme.darkGrey:
             return darkTheme;
-
-          default:
             throw Error();
         }
       }(),

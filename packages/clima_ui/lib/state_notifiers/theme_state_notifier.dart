@@ -1,6 +1,8 @@
 import 'package:clima_core/failure.dart';
+import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/repos/theme_repo.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
@@ -12,13 +14,18 @@ abstract class ThemeState extends Equatable {
   const ThemeState();
 
   ThemeModel get theme;
+
+  DarkThemeModel get darkTheme;
 }
 
-class Empty extends ThemeState {
-  const Empty();
+class EmptyState extends ThemeState {
+  const EmptyState();
 
   @override
   ThemeModel get theme => null;
+
+  @override
+  DarkThemeModel get darkTheme => null;
 
   @override
   List<Object> get props => const [];
@@ -31,21 +38,27 @@ class Loading extends ThemeState {
   ThemeModel get theme => null;
 
   @override
+  DarkThemeModel get darkTheme => null;
+
+  @override
   List<Object> get props => const [];
 }
 
-class Loaded extends ThemeState {
-  const Loaded(this.theme);
+class LoadedState extends ThemeState {
+  const LoadedState({@required this.theme, @required this.darkTheme});
 
   @override
   final ThemeModel theme;
 
   @override
-  List<Object> get props => [theme];
+  final DarkThemeModel darkTheme;
+
+  @override
+  List<Object> get props => [theme, darkTheme];
 }
 
-class Error extends ThemeState {
-  const Error(this.failure, {this.theme});
+class ErrorState extends ThemeState {
+  const ErrorState(this.failure, {this.theme, this.darkTheme});
 
   final Failure failure;
 
@@ -53,26 +66,48 @@ class Error extends ThemeState {
   final ThemeModel theme;
 
   @override
-  List<Object> get props => [failure, theme];
+  final DarkThemeModel darkTheme;
+
+  @override
+  List<Object> get props => [failure, theme, darkTheme];
 }
 
 class ThemeStateNotifier extends StateNotifier<ThemeState> {
-  ThemeStateNotifier(this.repo) : super(const Empty());
+  ThemeStateNotifier(this.repo) : super(const EmptyState());
 
   final ThemeRepo repo;
 
   Future<void> loadTheme() async {
     state = const Loading();
-    final data = await repo.getTheme();
-    state = data.fold((failure) => Error(failure), (theme) => Loaded(theme));
+
+    final data = await Future.wait([repo.getTheme(), repo.getDarkTheme()]);
+
+    state = data[0]
+        .bind(
+          (theme) => data[1].map(
+            (darkTheme) => LoadedState(
+              theme: theme as ThemeModel,
+              darkTheme: darkTheme as DarkThemeModel,
+            ),
+          ),
+        )
+        .fold((failure) => ErrorState(failure), id);
   }
 
   Future<void> setTheme(ThemeModel theme) async {
-    (await repo.setTheme(theme)).fold((failure) {
-      state = Error(failure, theme: state.theme);
-    }, (_) {
-      state = Loaded(theme);
-    });
+    state = (await repo.setTheme(theme)).fold(
+      (failure) =>
+          ErrorState(failure, theme: state.theme, darkTheme: state.darkTheme),
+      (_) => LoadedState(theme: theme, darkTheme: state.darkTheme),
+    );
+  }
+
+  Future<void> setDarkTheme(DarkThemeModel darkTheme) async {
+    state = (await repo.setDarkTheme(darkTheme)).fold(
+      (failure) =>
+          ErrorState(failure, theme: state.theme, darkTheme: state.darkTheme),
+      (_) => LoadedState(theme: state.theme, darkTheme: darkTheme),
+    );
   }
 }
 
@@ -80,5 +115,27 @@ final themeStateNotifierProvider =
     StateNotifierProvider<ThemeStateNotifier, ThemeState>(
         (ref) => ThemeStateNotifier(ref.watch(themeRepoProvider)));
 
-final themeProvider =
-    Provider((ref) => ref.watch(themeStateNotifierProvider).theme);
+enum AppTheme { light, darkGrey, black }
+
+final themeProvider = Provider<AppTheme>((ref) {
+  final state = ref.watch(themeStateNotifierProvider);
+  if (state.theme == null || state.darkTheme == null) return AppTheme.light;
+
+  switch (state.theme) {
+    case ThemeModel.light:
+      return AppTheme.light;
+
+    case ThemeModel.dark:
+      switch (state.darkTheme) {
+        case DarkThemeModel.darkGrey:
+          return AppTheme.darkGrey;
+
+        case DarkThemeModel.black:
+          return AppTheme.black;
+      }
+      throw Error();
+
+    default:
+      throw Error();
+  }
+});

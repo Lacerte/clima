@@ -109,7 +109,7 @@ class LocationScreen extends HookWidget {
         ),
         hint: 'Enter city name',
         color:
-            theme != ThemeModel.light ? Colors.black : const Color(0xFFF2F2F2),
+            theme != t.AppTheme.light ? Colors.black : const Color(0xFFF2F2F2),
         transitionCurve: Curves.easeInOut,
         leadingActions: [
           FloatingSearchBarAction(
