@@ -1,4 +1,3 @@
-import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
