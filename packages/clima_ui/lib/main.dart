@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _themeState = watch(themeStateNotifier);
-
+    print(MediaQuery.of(context).size.aspectRatio);
     return Sizer(
       builder: (context, orientation, screenType) => MaterialApp(
         locale: DevicePreview.locale(context),

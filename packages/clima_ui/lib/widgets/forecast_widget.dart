@@ -34,38 +34,38 @@ class ForecastHorizontal extends HookWidget {
       separatorBuilder: (context, index) => const Divider(
         color: Colors.white,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       itemBuilder: (context, index) {
         final forecast = forecasts.forecasts[index];
         return Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: () {
-                // It's bounded between 9/16 and 9/14 to account for MediaQuery's margin of error.
-                if (MediaQuery.of(context).size.aspectRatio >= 9 / 16 &&
-                    MediaQuery.of(context).size.aspectRatio <= 9 / 14) {
-                  return 4.0;
-                }
-                return 8.0;
-              }()),
+          padding: EdgeInsets.symmetric(vertical: () {
+            // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
+            if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
+                MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
+              return 00.0;
+            }
+            return 6.0;
+          }()),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text(
-                DateFormat('E, h a').format(
-                  forecast.date.toUtc().add(forecast.timeZoneOffset),
-                ),
-                style: TextStyle(
-                  fontSize: 11.sp,
-                  color: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .color
-                      .withAlpha(130),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  DateFormat('E, h a').format(
+                    forecast.date.toUtc().add(forecast.timeZoneOffset),
+                  ),
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    color: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        .color
+                        .withAlpha(130),
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+              Expanded(
                 child: Icon(
                   getIconData(forecast.iconCode),
                   color: Theme.of(context).textTheme.subtitle1.color,
@@ -77,9 +77,9 @@ class ForecastHorizontal extends HookWidget {
                       case '04n':
                       case '01n':
                       case '01d':
-                        return 24.0;
+                        return 20.0.sp;
                       default:
-                        return 20.0;
+                        return 17.0.sp;
                     }
                   }(),
                 ),
@@ -91,6 +91,7 @@ class ForecastHorizontal extends HookWidget {
                   color: Theme.of(context).textTheme.subtitle1.color,
                 ),
               ),
+              // const Spacer(),
             ],
           ),
         );
