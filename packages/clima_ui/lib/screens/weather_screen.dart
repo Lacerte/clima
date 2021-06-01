@@ -6,8 +6,10 @@ import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
+import 'package:clima_ui/widgets/bottom_row.dart';
+import 'package:clima_ui/widgets/current_conditions_widgets.dart';
+import 'package:clima_ui/widgets/forecast_widget.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
-import 'package:clima_ui/widgets/weather_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -198,7 +200,29 @@ class LocationScreen extends HookWidget {
             showIfClosed: false,
           )
         ],
-        body: const WeatherWidget(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Flexible(
+              flex: 10,
+              child: CurrentConditions(),
+            ),
+            Divider(
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+            ),
+            Flexible(
+              flex: 2,
+              child: ForecastHorizontal(),
+            ),
+            Divider(
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+            ),
+            Flexible(
+              flex: 2,
+              child: BottomRow(),
+            ),
+          ],
+        ),
       ),
     );
   }
