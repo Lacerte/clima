@@ -83,7 +83,6 @@ class MyApp extends HookWidget {
           case AppTheme.black:
           case AppTheme.darkGrey:
             return darkTheme;
-            throw Error();
         }
       }(),
       home: const LoadingScreen(),
