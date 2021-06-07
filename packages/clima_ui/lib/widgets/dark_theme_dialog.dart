@@ -1,24 +1,24 @@
+import 'package:clima_data/models/dark_theme_model.dart';
+import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-enum DarkThemeType { darkGrey, black }
-
-final darkThemeProvider = StateProvider((ref) => DarkThemeType.darkGrey);
-
-class DarkThemeDialog extends ConsumerWidget {
+class DarkThemeDialog extends HookWidget {
   static const _dialogOptions = {
-    'Default': DarkThemeType.darkGrey,
-    'Black': DarkThemeType.black,
+    'Default': DarkThemeModel.darkGrey,
+    'Black': DarkThemeModel.black,
   };
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final darkTheme = watch(darkThemeProvider);
+  Widget build(BuildContext context) {
+    final themeStateNotifier = useProvider(themeStateNotifierProvider.notifier);
+    final darkTheme = useProvider(
+        themeStateNotifierProvider.select((state) => state.darkTheme));
 
     final radios = [
       for (final entry in _dialogOptions.entries)
-        RadioListTile<DarkThemeType>(
+        RadioListTile<DarkThemeModel>(
           title: Text(
             entry.key.toString(),
             style: TextStyle(
@@ -26,9 +26,9 @@ class DarkThemeDialog extends ConsumerWidget {
             ),
           ),
           value: entry.value,
-          groupValue: darkTheme.state,
+          groupValue: darkTheme,
           onChanged: (newValue) {
-            darkTheme.state = newValue;
+            themeStateNotifier.setDarkTheme(newValue);
             Navigator.pop(context);
           },
         )
