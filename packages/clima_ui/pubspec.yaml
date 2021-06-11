@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: 2.0.5
   font_awesome_flutter: 9.0.0
   device_preview: 0.7.3
+  sizer: 2.0.13
+  flutter_screenutil: 5.0.0+2
 
 dev_dependencies:
   lint: 1.5.3
