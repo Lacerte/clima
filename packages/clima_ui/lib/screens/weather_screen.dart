@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum Menu { settings, help }
 
@@ -174,18 +175,24 @@ class LocationScreen extends HookWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SettingsTile(
+                              title: 'Submit issue',
                               leading: Icon(
                                 Icons.bug_report_outlined,
                                 color: Theme.of(context).iconTheme.color,
                               ),
-                              title: 'Submit issue',
+                              onTap: () => launch(
+                                'https://github.com/CentaurusApps/clima/issues/new',
+                              ),
                             ),
                             SettingsTile(
+                              title: 'Contact developer',
                               leading: Icon(
                                 Icons.email_outlined,
                                 color: Theme.of(context).iconTheme.color,
                               ),
-                              title: 'Contact developer',
+                              onTap: () => launch(
+                                'mailto:apps_centaurus@protonmail.com',
+                              ),
                             ),
                           ],
                         ),

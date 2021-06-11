@@ -2,6 +2,7 @@ import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
@@ -9,15 +10,15 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Text(
+          'About Clima',
+          style: Theme.of(context).appBarTheme.textTheme.subtitle1,
+        ),
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             }),
-        title: Text(
-          'About Clima',
-          style: Theme.of(context).appBarTheme.textTheme.subtitle1,
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -32,6 +33,9 @@ class AboutScreen extends StatelessWidget {
               leading: Icon(
                 Icons.new_releases_outlined,
                 color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () => launch(
+                'https://github.com/CentaurusApps/clima/tree/master/fastlane/metadata/android/en-US/changelogs',
               ),
             ),
             SettingsTile(
@@ -66,18 +70,24 @@ class AboutScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SettingsTile(
+                        title: 'Submit issue',
                         leading: Icon(
                           Icons.bug_report_outlined,
                           color: Theme.of(context).iconTheme.color,
                         ),
-                        title: 'Submit issue',
+                        onTap: () => launch(
+                          'https://github.com/CentaurusApps/clima/issues/new',
+                        ),
                       ),
                       SettingsTile(
+                        title: 'Contact developer',
                         leading: Icon(
                           Icons.email_outlined,
                           color: Theme.of(context).iconTheme.color,
                         ),
-                        title: 'Contact developer',
+                        onTap: () => launch(
+                          'mailto:apps_centaurus@protonmail.com',
+                        ),
                       ),
                     ],
                   ),
@@ -87,11 +97,14 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Source code',
               subtitle: 'Clima is free software licensed under the GPLv3',
+              isThreeLine: true,
               leading: Icon(
                 FontAwesomeIcons.github,
                 color: Theme.of(context).iconTheme.color,
               ),
-              isThreeLine: true,
+              onTap: () => launch(
+                'https://github.com/CentaurusApps/clima',
+              ),
             ),
             const SettingsDivider(),
           ],
