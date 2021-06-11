@@ -2,7 +2,7 @@ import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/widgets/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/theme_dialog.dart';
-import 'package:clima_ui/widgets/unit_dialog.dart';
+// import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const SettingsHeader(
+            /*const SettingsHeader(
               title: 'General',
             ),
             SettingsTile(
@@ -38,6 +38,7 @@ class SettingScreen extends StatelessWidget {
               ),
             ),
             const SettingsDivider(),
+	    */
             const SettingsHeader(
               title: 'Interface',
             ),
