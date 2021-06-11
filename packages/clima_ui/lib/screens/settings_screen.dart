@@ -1,7 +1,7 @@
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
-import 'package:clima_ui/widgets/dark_theme_dialog.dart';
+//import 'package:clima_ui/widgets/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/theme_dialog.dart';
 import 'package:clima_ui/widgets/unit_dialog.dart';
