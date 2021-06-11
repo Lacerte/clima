@@ -1,1 +1,0 @@
-Updated the API key. Previous versions of Clima (1.2 and below) are no longer working, because they are using a depreciated API key. Please use v1.2.1 or above instead.
