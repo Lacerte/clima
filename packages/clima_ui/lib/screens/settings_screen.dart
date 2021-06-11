@@ -1,13 +1,20 @@
+import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
+import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:clima_ui/widgets/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/theme_dialog.dart';
 import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final theme =
+        useProvider(themeStateNotifierProvider.select((state) => state.theme));
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -43,14 +50,25 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: 'Theme',
-              subtitle: 'System default',
+              subtitle: () {
+                switch (theme) {
+                  case ThemeModel.light:
+                    return 'Light';
+
+                  case ThemeModel.dark:
+                    return 'Dark';
+
+                  default:
+                    throw Error();
+                }
+              }(),
               padding: 80.0,
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => ThemeDialog(),
               ),
             ),
-            SettingsTile(
+            /*SettingsTile(
               title: 'Dark theme',
               subtitle: 'Default',
               padding: 80.0,
@@ -58,7 +76,7 @@ class SettingScreen extends StatelessWidget {
                 context: context,
                 builder: (context) => DarkThemeDialog(),
               ),
-            ),
+            ),*/
             const SettingsDivider(),
             const SettingsHeader(
               title: 'About',
