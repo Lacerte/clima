@@ -2,23 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
+  iconTheme: const IconThemeData(color: Color(0xFFB3B3B3)),
   snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFFE6E6E6)),
-  inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Color(0xFF171717),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(8.0),
-      ),
-      borderSide: BorderSide(color: Colors.grey),
-    ),
-  ),
-  floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: Color(0xFF80D8FE),
-  ),
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF202125)),
   dialogBackgroundColor: const Color(0xFF202125),
-  toggleableActiveColor: const Color(0xFF80D8FE),
-  accentColor: const Color(0xFF80D8FE),
+  toggleableActiveColor: const Color(0xFF89B4F8),
+  accentColor: const Color(0xFF89B4F8),
   primaryColor: const Color(0xFF000000),
   scaffoldBackgroundColor: const Color(0xFF000000),
   textTheme: const TextTheme(

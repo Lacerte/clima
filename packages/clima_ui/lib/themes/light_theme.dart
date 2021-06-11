@@ -4,17 +4,8 @@ import 'package:flutter/services.dart';
 ThemeData lightTheme = ThemeData.light().copyWith(
   iconTheme: const IconThemeData(color: Color(0xFF757575)),
   snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFF6F6F6F)),
-  inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Color(0xFFFAFAFA),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(8.0),
-      ),
-      borderSide: BorderSide(color: Colors.grey),
-    ),
-  ),
-  toggleableActiveColor: const Color(0xFF2396F1),
-  accentColor: const Color(0xFF2396F1),
+  toggleableActiveColor: const Color(0xFF1A73E9),
+  accentColor: const Color(0xFF1A73E9),
   primaryColor: const Color(0xFFFFFFFF),
   scaffoldBackgroundColor: const Color(0xFFFFFFFF),
   textTheme: const TextTheme(
