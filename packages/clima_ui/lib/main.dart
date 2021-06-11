@@ -8,6 +8,7 @@ import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
     show themeStateNotifierProvider, themeProvider, AppTheme;
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -28,7 +29,9 @@ void main() {
         forecastsRepoProvider.overrideWithProvider(
             Provider((ref) => ref.watch(forecastsRepoImplProvider))),
       ],
-      child: MyApp(),
+      child: DevicePreview(
+        builder: (context) => MyApp(),
+      ),
     ),
   );
 }
@@ -85,6 +88,8 @@ class MyApp extends HookWidget {
             return darkTheme;
         }
       }(),
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       home: const LoadingScreen(),
     );
   }
