@@ -7,7 +7,7 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-const String apiKey = '4bef3adf2fcb90307c2bf5feac75a2ba';
+const String apiKey = '0cca00b6155fcac417cc140a5deba9a4';
 
 abstract class WeatherRemoteDataSource {
   Future<Either<Failure, WeatherModel>> getWeather(City city);
