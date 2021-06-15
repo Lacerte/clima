@@ -175,6 +175,10 @@ class LocationScreen extends HookWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SettingsTile(
+                              leading: Icon(
+                                Icons.bug_report_outlined,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                               title: 'Submit issue',
                               leading: Icon(
                                 Icons.bug_report_outlined,
@@ -185,6 +189,11 @@ class LocationScreen extends HookWidget {
                               ),
                             ),
                             SettingsTile(
+
+                              leading: Icon(
+                                Icons.email_outlined,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                               title: 'Contact developer',
                               leading: Icon(
                                 Icons.email_outlined,

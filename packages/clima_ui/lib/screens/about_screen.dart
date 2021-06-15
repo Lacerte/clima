@@ -37,6 +37,7 @@ class AboutScreen extends StatelessWidget {
               onTap: () => launch(
                 'https://github.com/CentaurusApps/clima/tree/master/fastlane/metadata/android/en-US/changelogs',
               ),
+
             ),
             SettingsTile(
               title: 'Libraries',
@@ -70,6 +71,10 @@ class AboutScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SettingsTile(
+                        leading: Icon(
+                          Icons.bug_report_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                         title: 'Submit issue',
                         leading: Icon(
                           Icons.bug_report_outlined,
@@ -80,6 +85,10 @@ class AboutScreen extends StatelessWidget {
                         ),
                       ),
                       SettingsTile(
+                        leading: Icon(
+                          Icons.email_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                         title: 'Contact developer',
                         leading: Icon(
                           Icons.email_outlined,
@@ -97,6 +106,10 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Source code',
               subtitle: 'Clima is free software licensed under the GPLv3',
+              leading: Icon(
+                FontAwesomeIcons.github,
+                color: Theme.of(context).iconTheme.color,
+              ),
               isThreeLine: true,
               leading: Icon(
                 FontAwesomeIcons.github,
