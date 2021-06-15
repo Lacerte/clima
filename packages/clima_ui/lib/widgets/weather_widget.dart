@@ -32,9 +32,9 @@ class WeatherWidget extends HookWidget {
                 child: Text(
                   weather.cityName.toUpperCase(),
                   style: TextStyle(
+                    color: Theme.of(context).textTheme.subtitle1.color,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 5,
-                    color: Theme.of(context).textTheme.subtitle1.color,
                     fontSize: 25,
                   ),
                 ),
@@ -42,10 +42,10 @@ class WeatherWidget extends HookWidget {
               Text(
                 weather.description.toUpperCase(),
                 style: TextStyle(
+                  color: Theme.of(context).textTheme.subtitle1.color,
                   fontWeight: FontWeight.w100,
                   letterSpacing: 5,
                   fontSize: 15,
-                  color: Theme.of(context).textTheme.subtitle1.color,
                 ),
               ),
               const CurrentConditions(),

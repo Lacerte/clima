@@ -56,8 +56,8 @@ class MyApp extends HookWidget {
           SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
             systemNavigationBarIconBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.light,
-            systemNavigationBarColor: Colors.black,
-            statusBarColor: Colors.black,
+            systemNavigationBarColor: Color(0xFF000000),
+            statusBarColor: Color(0xFF000000),
           ));
           break;
 
@@ -65,8 +65,8 @@ class MyApp extends HookWidget {
           SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Color(0xFFF2F2F2),
-            statusBarColor: Color(0xFFF2F2F2),
+            systemNavigationBarColor: Color(0xFFFFFFFF),
+            statusBarColor: Color(0xFFFFFFFF),
           ));
           break;
       }

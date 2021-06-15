@@ -38,7 +38,10 @@ class SettingScreen extends HookWidget {
             SettingsTile(
               title: 'Unit',
               subtitle: 'Metric',
-              leading: const Icon(Icons.straighten_outlined),
+              leading: Icon(
+                Icons.straighten_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => UnitDialog(),
@@ -84,7 +87,10 @@ class SettingScreen extends HookWidget {
             ),
             SettingsTile(
               title: 'About Clima',
-              leading: const Icon(Icons.info_outline),
+              leading: Icon(
+                Icons.info_outline,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(

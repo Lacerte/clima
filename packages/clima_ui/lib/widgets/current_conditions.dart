@@ -36,9 +36,9 @@ class CurrentConditions extends HookWidget {
           child: Text(
             '${weather.temperature.round()}°',
             style: TextStyle(
+              color: Theme.of(context).textTheme.subtitle1.color,
               fontSize: 100,
               fontWeight: FontWeight.w100,
-              color: Theme.of(context).textTheme.subtitle1.color,
             ),
           ),
         ),
