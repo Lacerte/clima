@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,28 +15,32 @@ class ValueTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: AutoSizeText(
-            label,
-            maxLines: 1,
-            style: TextStyle(
-              fontSize: 11.sp,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
+    return LayoutBuilder(builder: (context, constraints) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: AutoSizeText(
+              label,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize:
+                    constraints.maxWidth < kTabletBreakpoint ? 11.sp : 8.sp,
+                color:
+                    Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
+              ),
             ),
           ),
-        ),
-        AutoSizeText(
-          value,
-          style: TextStyle(
-            fontSize: 11.sp,
-            color: Theme.of(context).textTheme.subtitle1.color,
+          AutoSizeText(
+            value,
+            style: TextStyle(
+              fontSize: constraints.maxWidth < kTabletBreakpoint ? 11.sp : 8.sp,
+              color: Theme.of(context).textTheme.subtitle1.color,
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 }
