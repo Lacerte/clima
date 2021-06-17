@@ -53,7 +53,13 @@ class ForecastHorizontal extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: () {
+                  if (MediaQuery.of(context).size.shortestSide <
+                      kTabletBreakpoint) {
+                    return 8.0;
+                  }
+                  return 12.0;
+                }()),
                 child: Text(
                   DateFormat('E, h a').format(
                     forecast.date.toUtc().add(forecast.timeZoneOffset),
