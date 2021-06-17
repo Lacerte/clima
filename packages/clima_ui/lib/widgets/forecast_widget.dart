@@ -40,25 +40,31 @@ class ForecastHorizontal extends HookWidget {
         itemBuilder: (context, index) {
           final forecast = forecasts.forecasts[index];
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: () {
-              // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
-              if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
-                  MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
-                return 0.0;
-              }
-              return 6.0;
-            }()),
+            padding: EdgeInsets.symmetric(
+              vertical: () {
+                // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
+                if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
+                    MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
+                  return 0.0;
+                }
+                return 6.0;
+              }(),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  DateFormat('E, h a').format(
-                    forecast.date.toUtc().add(forecast.timeZoneOffset),
-                  ),
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.subtitle2.color,
-                    fontSize:
-                        constraints.maxWidth < kTabletBreakpoint ? 11.sp : 8.sp,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    DateFormat('E, h a').format(
+                      forecast.date.toUtc().add(forecast.timeZoneOffset),
+                    ),
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.subtitle2.color,
+                      fontSize: constraints.maxWidth < kTabletBreakpoint
+                          ? 11.sp
+                          : 8.sp,
+                    ),
                   ),
                 ),
                 Expanded(
