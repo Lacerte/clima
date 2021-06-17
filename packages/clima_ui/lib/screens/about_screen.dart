@@ -10,6 +10,7 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'About Clima',
           style: Theme.of(context).appBarTheme.textTheme.subtitle1,
