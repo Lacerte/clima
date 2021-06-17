@@ -40,7 +40,6 @@ dependencies:
   device_preview: 0.7.3
   url_launcher: 6.0.6
   sizer: 2.0.13
-  flutter_screenutil: 5.0.0+2
 
 dev_dependencies:
   lint: 1.5.3
