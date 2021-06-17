@@ -28,81 +28,84 @@ class ForecastHorizontal extends HookWidget {
     } else {
       return const SizedBox.shrink();
     }
-    return LayoutBuilder(
-      builder: (context, constraints) => ListView.separated(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: forecasts.forecasts.length,
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.white,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        itemBuilder: (context, index) {
-          final forecast = forecasts.forecasts[index];
-          return Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: () {
-                // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
-                if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
-                    MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
-                  return 0.0;
-                }
-                return 6.0;
-              }(),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    DateFormat('E, h a').format(
-                      forecast.date.toUtc().add(forecast.timeZoneOffset),
-                    ),
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.subtitle2.color,
-                      fontSize: constraints.maxWidth < kTabletBreakpoint
-                          ? 11.sp
-                          : 8.sp,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Icon(
-                    getIconData(forecast.iconCode),
-                    color: Theme.of(context).textTheme.subtitle1.color,
-                    size: () {
-                      switch (forecast.iconCode) {
-                        case '03d':
-                        case '04d':
-                        case '03n':
-                        case '04n':
-                        case '01n':
-                        case '01d':
-                          return constraints.maxWidth < kTabletBreakpoint
-                              ? 20.sp
-                              : 15.sp;
-                        default:
-                          return constraints.maxWidth < kTabletBreakpoint
-                              ? 17.sp
-                              : 13.sp;
-                      }
-                    }(),
-                  ),
-                ),
-                Text(
-                  '${forecast.temperature.round()}°',
-                  style: TextStyle(
-                    fontSize:
-                        constraints.maxWidth < kTabletBreakpoint ? 11.sp : 8.sp,
-                    color: Theme.of(context).textTheme.subtitle1.color,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemCount: forecasts.forecasts.length,
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.white,
       ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      itemBuilder: (context, index) {
+        final forecast = forecasts.forecasts[index];
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: () {
+              // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
+              if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
+                  MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
+                return 0.0;
+              }
+              return 6.0;
+            }(),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  DateFormat('E, h a').format(
+                    forecast.date.toUtc().add(forecast.timeZoneOffset),
+                  ),
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.subtitle2.color,
+                    fontSize: MediaQuery.of(context).size.shortestSide <
+                            kTabletBreakpoint
+                        ? 11.sp
+                        : 8.sp,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Icon(
+                  getIconData(forecast.iconCode),
+                  color: Theme.of(context).textTheme.subtitle1.color,
+                  size: () {
+                    switch (forecast.iconCode) {
+                      case '03d':
+                      case '04d':
+                      case '03n':
+                      case '04n':
+                      case '01n':
+                      case '01d':
+                        return MediaQuery.of(context).size.shortestSide <
+                                kTabletBreakpoint
+                            ? 20.sp
+                            : 15.sp;
+                      default:
+                        return MediaQuery.of(context).size.shortestSide <
+                                kTabletBreakpoint
+                            ? 17.sp
+                            : 13.sp;
+                    }
+                  }(),
+                ),
+              ),
+              Text(
+                '${forecast.temperature.round()}°',
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint
+                      ? 11.sp
+                      : 8.sp,
+                  color: Theme.of(context).textTheme.subtitle1.color,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

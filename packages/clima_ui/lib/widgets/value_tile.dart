@@ -15,32 +15,34 @@ class ValueTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: AutoSizeText(
-              label,
-              maxLines: 1,
-              style: TextStyle(
-                fontSize:
-                    constraints.maxWidth < kTabletBreakpoint ? 11.sp : 8.sp,
-                color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
-              ),
-            ),
-          ),
-          AutoSizeText(
-            value,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: AutoSizeText(
+            label,
+            maxLines: 1,
             style: TextStyle(
-              fontSize: constraints.maxWidth < kTabletBreakpoint ? 11.sp : 8.sp,
-              color: Theme.of(context).textTheme.subtitle1.color,
+              fontSize:
+                  MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                      ? 11.sp
+                      : 8.sp,
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
             ),
           ),
-        ],
-      ),
+        ),
+        AutoSizeText(
+          value,
+          style: TextStyle(
+            fontSize:
+                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                    ? 11.sp
+                    : 8.sp,
+            color: Theme.of(context).textTheme.subtitle1.color,
+          ),
+        ),
+      ],
     );
   }
 }
