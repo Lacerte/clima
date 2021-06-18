@@ -15,6 +15,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:sizer/sizer.dart';
 
 import 'screens/loading_screen.dart';
 
@@ -76,21 +77,25 @@ class MyApp extends HookWidget {
 
     if (theme == null) return const SizedBox.shrink();
 
-    return MaterialApp(
-      theme: () {
-        switch (theme) {
-          case AppTheme.light:
-            return lightTheme;
+    return Sizer(
+      builder: (context, orientation, screenType) {
+        return MaterialApp(
+          theme: () {
+            switch (theme) {
+              case AppTheme.light:
+                return lightTheme;
 
-          // TODO: make black have its own theme.
-          case AppTheme.black:
-          case AppTheme.darkGrey:
-            return darkTheme;
-        }
-      }(),
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      home: const LoadingScreen(),
+              // TODO: make black have its own theme.
+              case AppTheme.black:
+              case AppTheme.darkGrey:
+                return darkTheme;
+            }
+          }(),
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          home: const LoadingScreen(),
+        );
+      },
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
+import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/weather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 
 /// Renders a horizontal scrolling list of weather conditions
 /// Used to show forecast
@@ -38,28 +40,40 @@ class ForecastHorizontal extends HookWidget {
         final forecast = forecasts.forecasts[index];
         return Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: () {
-                // It's bounded between 9/16 and 9/14 to account for MediaQuery's margin of error.
-                if (MediaQuery.of(context).size.aspectRatio >= 9 / 16 &&
-                    MediaQuery.of(context).size.aspectRatio <= 9 / 14) {
-                  return 4.0;
-                }
-                return 8.0;
-              }()),
+            vertical: () {
+              // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
+              if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
+                  MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
+                return 0.0;
+              }
+              return 6.0;
+            }(),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                DateFormat('E, h a').format(
-                  forecast.date.toUtc().add(forecast.timeZoneOffset),
-                ),
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2.color,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: () {
+                  if (MediaQuery.of(context).size.shortestSide <
+                      kTabletBreakpoint) {
+                    return 8.0;
+                  }
+                  return 12.0;
+                }()),
+                child: Text(
+                  DateFormat('E, h a').format(
+                    forecast.date.toUtc().add(forecast.timeZoneOffset),
+                  ),
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.subtitle2.color,
+                    fontSize: MediaQuery.of(context).size.shortestSide <
+                            kTabletBreakpoint
+                        ? 11.sp
+                        : 8.sp,
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+              Expanded(
                 child: Icon(
                   getIconData(forecast.iconCode),
                   color: Theme.of(context).textTheme.subtitle1.color,
@@ -71,9 +85,15 @@ class ForecastHorizontal extends HookWidget {
                       case '04n':
                       case '01n':
                       case '01d':
-                        return 24.0;
+                        return MediaQuery.of(context).size.shortestSide <
+                                kTabletBreakpoint
+                            ? 20.sp
+                            : 15.sp;
                       default:
-                        return 20.0;
+                        return MediaQuery.of(context).size.shortestSide <
+                                kTabletBreakpoint
+                            ? 17.sp
+                            : 13.sp;
                     }
                   }(),
                 ),
@@ -81,6 +101,10 @@ class ForecastHorizontal extends HookWidget {
               Text(
                 '${forecast.temperature.round()}°',
                 style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint
+                      ? 11.sp
+                      : 8.sp,
                   color: Theme.of(context).textTheme.subtitle1.color,
                 ),
               ),
