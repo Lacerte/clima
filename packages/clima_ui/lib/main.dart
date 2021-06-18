@@ -88,21 +88,19 @@ class MyApp extends HookWidget {
     return Sizer(
       builder: (context, orientation, screenType) {
         return MaterialApp(
-          
           locale: DevicePreview.locale(context),
           builder: DevicePreview.appBuilder,
           home: const LoadingScreen(),
           theme: () {
-        switch (theme) {
-          case AppTheme.light:
-            return lightTheme;
-          case AppTheme.black:
-            return blackTheme;
-          case AppTheme.darkGrey:
-            return darkTheme;
-        }
-      }(),
-     
+            switch (theme) {
+              case AppTheme.light:
+                return lightTheme;
+              case AppTheme.black:
+                return blackTheme;
+              case AppTheme.darkGrey:
+                return darkTheme;
+            }
+          }(),
         );
       },
     );
