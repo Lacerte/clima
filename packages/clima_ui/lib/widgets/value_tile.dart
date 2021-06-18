@@ -1,4 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 /// General utility widget used to render a cell divided into three rows
 /// First row displays [label]
@@ -17,16 +20,25 @@ class ValueTile extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
-          child: Text(
+          child: AutoSizeText(
             label,
+            maxLines: 1,
             style: TextStyle(
-              color: Theme.of(context).textTheme.subtitle2.color,
+              fontSize:
+                  MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                      ? 11.sp
+                      : 8.sp,
+              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
             ),
           ),
         ),
-        Text(
+        AutoSizeText(
           value,
           style: TextStyle(
+            fontSize:
+                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                    ? 11.sp
+                    : 8.sp,
             color: Theme.of(context).textTheme.subtitle1.color,
           ),
         ),
