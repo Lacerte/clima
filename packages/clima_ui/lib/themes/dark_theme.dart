@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
-  iconTheme: const IconThemeData(color: Color(0xFFB3B3B3)),
+  iconTheme: const IconThemeData(color: Color(0xFF9BA0A6)),
   snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFF2D2E30)),
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF202125)),
   dialogBackgroundColor: const Color(0xFF202125),
@@ -11,13 +11,13 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   primaryColor: const Color(0xFF000000),
   scaffoldBackgroundColor: const Color(0xFF000000),
   textTheme: const TextTheme(
-    subtitle1: TextStyle(color: Color(0xFFFFFFFF)),
-    subtitle2: TextStyle(color: Color(0xFFB3B3B3)),
+    subtitle1: TextStyle(color: Color(0xFFE9EAEE)),
+    subtitle2: TextStyle(color: Color(0xFF9BA0A6)),
   ),
   appBarTheme: const AppBarTheme(
-    iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
+    iconTheme: IconThemeData(color: Color(0xFF9BA0A6)),
     textTheme: TextTheme(subtitle1: TextStyle(color: Color(0xFFFFFFFF))),
-    actionsIconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
+    actionsIconTheme: IconThemeData(color: Color(0xFF9BA0A6)),
     color: Color(0xFF000000),
     brightness: Brightness.dark,
   ),
