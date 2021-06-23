@@ -1,7 +1,8 @@
+import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
-//import 'package:clima_ui/widgets/dark_theme_dialog.dart';
+import 'package:clima_ui/widgets/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/reusable_widgets.dart';
 import 'package:clima_ui/widgets/theme_dialog.dart';
 // import 'package:clima_ui/widgets/unit_dialog.dart';
@@ -14,6 +15,8 @@ class SettingScreen extends HookWidget {
   Widget build(BuildContext context) {
     final theme =
         useProvider(themeStateNotifierProvider.select((state) => state.theme));
+    final darkTheme = useProvider(
+        themeStateNotifierProvider.select((state) => state.darkTheme));
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -72,15 +75,26 @@ class SettingScreen extends HookWidget {
                 builder: (context) => ThemeDialog(),
               ),
             ),
-            /*SettingsTile(
+            SettingsTile(
               title: 'Dark theme',
-              subtitle: 'Default',
+              subtitle: () {
+                switch (darkTheme) {
+                  case DarkThemeModel.darkGrey:
+                    return 'Default';
+
+                  case DarkThemeModel.black:
+                    return 'Black';
+
+                  default:
+                    throw Error();
+                }
+              }(),
               padding: 80.0,
               onTap: () => showDialog(
                 context: context,
                 builder: (context) => DarkThemeDialog(),
               ),
-            ),*/
+            ),
             const SettingsDivider(),
             const SettingsHeader(
               title: 'About',
