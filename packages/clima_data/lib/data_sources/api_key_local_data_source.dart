@@ -26,7 +26,6 @@ class ApiKeyLocalDataSource {
     switch (response.statusCode) {
       case 400:
         final prefs = await SharedPreferences.getInstance();
-
         prefs.setString(_apiKeyPrefsKey, apiKey);
 
         return const Right(null);
