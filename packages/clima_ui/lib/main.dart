@@ -6,6 +6,7 @@ import 'package:clima_domain/repos/forecasts_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
     show themeStateNotifierProvider, themeProvider, AppTheme;
+import 'package:clima_ui/themes/black_theme.dart';
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
 import 'package:device_preview/device_preview.dart';
@@ -53,6 +54,14 @@ class MyApp extends HookWidget {
     useEffect(() {
       switch (theme) {
         case AppTheme.darkGrey:
+          SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+            systemNavigationBarIconBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Color(0xFF202125),
+            statusBarColor: Color(0xFF202125),
+          ));
+          break;
+
         case AppTheme.black:
           SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
             systemNavigationBarIconBrightness: Brightness.light,
@@ -80,20 +89,21 @@ class MyApp extends HookWidget {
     return Sizer(
       builder: (context, orientation, screenType) {
         return MaterialApp(
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          home: const LoadingScreen(),
           theme: () {
             switch (theme) {
               case AppTheme.light:
                 return lightTheme;
 
-              // TODO: make black have its own theme.
               case AppTheme.black:
+                return blackTheme;
+
               case AppTheme.darkGrey:
                 return darkTheme;
             }
           }(),
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
-          home: const LoadingScreen(),
         );
       },
     );
