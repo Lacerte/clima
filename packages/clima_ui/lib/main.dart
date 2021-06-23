@@ -61,6 +61,7 @@ class MyApp extends HookWidget {
             statusBarColor: Color(0xFF202125),
           ));
           break;
+              
         case AppTheme.black:
           SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
             systemNavigationBarIconBrightness: Brightness.light,
