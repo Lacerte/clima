@@ -35,3 +35,10 @@ class InvalidCityName extends Failure {
   @override
   List<Object?> get props => [cityName];
 }
+
+class InvalidApiKey extends Failure {
+  const InvalidApiKey();
+
+  @override
+  List<Object?> get props => const [];
+}

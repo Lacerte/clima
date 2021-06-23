@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:clima_core/failure.dart';
-import 'package:clima_data/constants.dart';
 import 'package:clima_data/models/weather_model.dart';
+import 'package:clima_data/repos/api_key_repo.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +13,14 @@ abstract class WeatherRemoteDataSource {
 }
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
+  WeatherRemoteDataSourceImpl(this.apiKeyRepo);
+
+  final ApiKeyRepo apiKeyRepo;
+
   @override
   Future<Either<Failure, WeatherModel>> getWeather(City city) async {
+    final apiKey = (await apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+
     // TODO: create a client as the docs recommend creating a client when
     // making multiple requests to the same server.
     final response = await http.get(
@@ -48,5 +54,5 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   }
 }
 
-final weatherRemoteDataSourceProvider =
-    Provider<WeatherRemoteDataSource>((ref) => WeatherRemoteDataSourceImpl());
+final weatherRemoteDataSourceProvider = Provider<WeatherRemoteDataSource>(
+    (ref) => WeatherRemoteDataSourceImpl(ref.watch(apiKeyRepoProvider)));
