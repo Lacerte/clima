@@ -96,8 +96,10 @@ class MyApp extends HookWidget {
             switch (theme) {
               case AppTheme.light:
                 return lightTheme;
+                    
               case AppTheme.black:
                 return blackTheme;
+                    
               case AppTheme.darkGrey:
                 return darkTheme;
             }
