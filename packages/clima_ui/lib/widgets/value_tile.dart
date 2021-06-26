@@ -28,7 +28,7 @@ class ValueTile extends StatelessWidget {
                   MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
                       ? 11.sp
                       : 8.sp,
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(130),
+              color: Theme.of(context).textTheme.subtitle2.color,
             ),
           ),
         ),
