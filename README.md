@@ -4,6 +4,8 @@ Beautiful, minimal, and fast weather app. (Requires Android 6.0 or later)
 
 <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" height="400" width="200">
 
+## Features
+
 - :white_check_mark: Beautiful minimal UI
 - :white_check_mark: Dark and Light themes
 - :white_check_mark: 5 day forecast
