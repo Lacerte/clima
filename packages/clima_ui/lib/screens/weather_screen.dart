@@ -147,7 +147,7 @@ class LocationScreen extends HookWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              offset: const Offset(24.0, -24.0),
+              offset: const Offset(512.0, -512.0),
               icon: Icon(
                 Icons.more_vert,
                 color: Theme.of(context).appBarTheme.iconTheme.color,
