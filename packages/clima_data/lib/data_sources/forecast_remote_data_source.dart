@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:clima_core/failure.dart';
-import 'package:clima_data/constants.dart';
 import 'package:clima_data/models/forecasts_model.dart';
+import 'package:clima_data/repos/api_key_repo.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +13,14 @@ abstract class ForecastsRemoteDataSource {
 }
 
 class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
+  ForecastsRemoteDataSourceImpl(this.apiKeyRepo);
+
+  final ApiKeyRepo apiKeyRepo;
+
   @override
   Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
+    final apiKey = (await apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+
     final response = await http.get(
       Uri(
         scheme: 'https',
@@ -27,6 +33,7 @@ class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
         },
       ),
     );
+
     if (response.statusCode >= 200 && response.statusCode <= 226) {
       try {
         return Right(ForecastsModel.fromJson(
@@ -46,4 +53,4 @@ class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
 }
 
 final forecastRemoteDataSourceProvider = Provider<ForecastsRemoteDataSource>(
-    (ref) => ForecastsRemoteDataSourceImpl());
+    (ref) => ForecastsRemoteDataSourceImpl(ref.watch(apiKeyRepoProvider)));
