@@ -38,8 +38,8 @@ class ForecastsRepoImpl implements ForecastsRepo {
           .map((model) => model.forecasts);
 
       await forecasts
-          .map(memoizedDataSource.setForecasts)
-          .getOrElse(() => throw Error());
+          .map<Future<void>>(memoizedDataSource.setForecasts)
+          .getOrElse(() async {});
 
       return forecasts;
     }
