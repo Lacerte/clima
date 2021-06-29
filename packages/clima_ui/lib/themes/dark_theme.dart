@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
   iconTheme: const IconThemeData(color: Color(0xFF9BA0A6)),
-  snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFFE6E6E6)),
+  snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFFFFFFFF)),
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF36373B)),
   dialogBackgroundColor: const Color(0xFF202125),
   toggleableActiveColor: const Color(0xFF89B4F8),

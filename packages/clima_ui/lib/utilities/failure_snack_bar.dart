@@ -10,7 +10,7 @@ void showFailureSnackBar(
   VoidCallback onRetry,
   int duration,
 }) {
-  final theme = useProvider(themeProvider);
+  final theme = context.read(themeProvider);
 
   final text = () {
     if (failure is NoConnection) {
@@ -37,13 +37,13 @@ void showFailureSnackBar(
           color: () {
             switch (theme) {
               case AppTheme.light:
-                return const Color(0xFFDBDCE0);
+                return const Color(0xFFE9EAEE);
 
               case AppTheme.black:
-                return const Color(0xFFDBDCE0);
+                return const Color(0xFFE9EAEE);
 
               case AppTheme.darkGrey:
-                return const Color(0xFF1F1F1F);
+                return const Color(0xFF3C4043);
             }
           }(),
         ),

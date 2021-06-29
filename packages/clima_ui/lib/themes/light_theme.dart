@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData.light().copyWith(
   iconTheme: const IconThemeData(color: Color(0xFF5F6267)),
-  snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFF2D2E30)),
+  snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFF202125)),
   toggleableActiveColor: const Color(0xFF1A73E9),
   accentColor: const Color(0xFF1A73E9),
   primaryColor: const Color(0xFFFFFFFF),
