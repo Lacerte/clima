@@ -38,8 +38,8 @@ class WeatherRepoImpl implements WeatherRepo {
           .map((model) => model.weather);
 
       await weather
-          .map(memoizedDataSource.setWeather)
-          .getOrElse(() async => throw Error());
+          .map<Future<void>>(memoizedDataSource.setWeather)
+          .getOrElse(() async {});
 
       return weather;
     }

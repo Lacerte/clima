@@ -48,12 +48,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-
-
-
-  fonts:
-  - family: Spartan MB
-    fonts:
-      - asset: fonts/SpartanMB-Black.otf
-        weight: 900   
