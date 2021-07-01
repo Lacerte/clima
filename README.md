@@ -19,7 +19,7 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 
 ## Credits
 
-* The logo's icon is designed by Alessio Atzeni and made freely at http://www.alessioatzeni.com/meteocons/
+* The logo's icon is designed by [Paolo Spot Valzania](https://linktr.e/paolospotvalzania), licensed under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), and made available free of charge on [IconFinder](https://www.iconfinder.com/iconsets/tiny-weather-1)
 * The App design is heavily inspired by https://github.com/LonelyCpp/flutter_weather
 * All the packages in `packages` except for `clima_ui` were created from templates made available by Stagehand under a BSD-style [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
 
