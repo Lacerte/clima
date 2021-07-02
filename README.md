@@ -16,7 +16,7 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">
 
-## Donation
+## Donations
 
 * LiberaPay
 > <noscript><a href="https://liberapay.com/CentaurusApps/donate"> <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a> </noscript><img src="https://img.shields.io/liberapay/receives/CentaurusApps.svg?logo=liberapay"> <img src="https://img.shields.io/liberapay/goal/CentaurusApps.svg?logo=liberapay">
