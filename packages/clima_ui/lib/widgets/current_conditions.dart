@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sizer/sizer.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 import 'value_tile.dart';
 
@@ -65,12 +66,28 @@ class CurrentConditions extends HookWidget {
         ),
         Expanded(
           flex: 4,
-          child: Icon(
+          child: BoxedIcon(
             getIconData(weather.iconCode),
             color: Theme.of(context).textTheme.subtitle1.color,
-            size: MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                ? 60.sp
-                : 45.sp,
+            size: () {
+              switch (weather.iconCode) {
+                case '03d':
+                case '04d':
+                case '03n':
+                case '04n':
+                case '01n':
+                case '01d':
+                  return MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint
+                      ? 69.sp
+                      : 51.75.sp;
+                default:
+                  return MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint
+                      ? 60.sp
+                      : 45.sp;
+              }
+            }(),
           ),
         ),
         Expanded(

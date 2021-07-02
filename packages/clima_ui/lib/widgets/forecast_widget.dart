@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 /// Renders a horizontal scrolling list of weather conditions
 /// Used to show forecast
@@ -74,7 +75,7 @@ class ForecastHorizontal extends HookWidget {
                 ),
               ),
               Expanded(
-                child: Icon(
+                child: BoxedIcon(
                   getIconData(forecast.iconCode),
                   color: Theme.of(context).textTheme.subtitle1.color,
                   size: () {
