@@ -10,6 +10,7 @@ import 'package:clima_ui/themes/black_theme.dart';
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,21 +22,25 @@ import 'package:sizer/sizer.dart';
 import 'screens/loading_screen.dart';
 
 void main() {
-  runApp(
-    ProviderScope(
-      overrides: [
-        cityRepoProvider.overrideWithProvider(
-            Provider((ref) => ref.watch(cityRepoImplProvider))),
-        weatherRepoProvider.overrideWithProvider(
-            Provider((ref) => ref.watch(weatherRepoImplProvider))),
-        forecastsRepoProvider.overrideWithProvider(
-            Provider((ref) => ref.watch(forecastsRepoImplProvider))),
-      ],
-      child: DevicePreview(
-        builder: (context) => MyApp(),
-      ),
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  GestureBinding.instance.resamplingEnabled = true;
+  Future.delayed(const Duration(milliseconds: 300)).then((value) => {
+        runApp(
+          ProviderScope(
+            overrides: [
+              cityRepoProvider.overrideWithProvider(
+                  Provider((ref) => ref.watch(cityRepoImplProvider))),
+              weatherRepoProvider.overrideWithProvider(
+                  Provider((ref) => ref.watch(weatherRepoImplProvider))),
+              forecastsRepoProvider.overrideWithProvider(
+                  Provider((ref) => ref.watch(forecastsRepoImplProvider))),
+            ],
+            child: DevicePreview(
+              builder: (context) => MyApp(),
+            ),
+          ),
+        ),
+      });
 }
 
 class MyApp extends HookWidget {
