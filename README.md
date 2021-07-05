@@ -6,10 +6,10 @@ Beautiful, minimal, and fast weather app. (Requires Android 6.0 or later)
 
 ## Features
 
-- :white_check_mark: Beautiful minimal UI!
-- :white_check_mark: 5 day forecast!
-- :white_check_mark: Dark Theme for Night Owls!
-- :white_check_mark: Black Theme for OLEDs!
+- :white_check_mark: Beautiful Minimal UI!
+- :white_check_mark: 5-day Forecast!
+- :white_check_mark: Dark and Light Themes!
+- :white_check_mark: No Ads or Trackers!
 
 ## Download
 
