@@ -1,6 +1,7 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/forecast_remote_data_source.dart';
 import 'package:clima_data/data_sources/forecasts_memoized_data_source.dart';
+import 'package:clima_data/providers.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_domain/repos/forecasts_repo.dart';
@@ -50,6 +51,6 @@ final forecastsRepoImplProvider = Provider(
   (ref) => ForecastsRepoImpl(
     remoteDataSource: ref.watch(forecastRemoteDataSourceProvider),
     memoizedDataSource: ref.watch(forecastsMemoizedDataSourceProvider),
-    connectivity: Connectivity(),
+    connectivity: ref.watch(connectivityProvider),
   ),
 );

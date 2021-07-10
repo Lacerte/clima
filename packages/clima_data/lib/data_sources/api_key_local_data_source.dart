@@ -1,17 +1,19 @@
 import 'package:clima_core/failure.dart';
+import 'package:clima_data/providers.dart';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dartz/dartz.dart';
 
 const _apiKeyPrefsKey = 'openWeatherMapApiKey';
 
 class ApiKeyLocalDataSource {
-  Future<Either<Failure, String?>> getApiKey() async {
-    final prefs = await SharedPreferences.getInstance();
+  ApiKeyLocalDataSource(this._prefs);
 
-    return Right(prefs.getString(_apiKeyPrefsKey));
-  }
+  final SharedPreferences _prefs;
+
+  Future<Either<Failure, String?>> getApiKey() async =>
+      Right(_prefs.getString(_apiKeyPrefsKey));
 
   Future<Either<Failure, void>> setApiKey(String apiKey) async {
     final response = await http.get(
@@ -25,8 +27,7 @@ class ApiKeyLocalDataSource {
 
     switch (response.statusCode) {
       case 400:
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString(_apiKeyPrefsKey, apiKey);
+        _prefs.setString(_apiKeyPrefsKey, apiKey);
 
         return const Right(null);
 
@@ -42,5 +43,5 @@ class ApiKeyLocalDataSource {
   }
 }
 
-final apiKeyLocalDataSourceProvider =
-    Provider((ref) => ApiKeyLocalDataSource());
+final apiKeyLocalDataSourceProvider = Provider(
+    (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)));
