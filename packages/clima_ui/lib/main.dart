@@ -1,3 +1,4 @@
+import 'package:clima_data/providers.dart';
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/forecasts_repo_impl.dart';
 import 'package:clima_data/repos/weather_repo_impl.dart';
@@ -17,12 +18,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
+Future<void> main() async {
+  // Unless you do this, using method channels (like `SharedPreferences` does)
+  // before running `runApp` throws an error.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+
   runApp(
     ProviderScope(
       overrides: [
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         cityRepoProvider.overrideWithProvider(
             Provider((ref) => ref.watch(cityRepoImplProvider))),
         weatherRepoProvider.overrideWithProvider(

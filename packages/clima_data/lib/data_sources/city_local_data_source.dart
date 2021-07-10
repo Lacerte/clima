@@ -1,5 +1,6 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/city_model.dart';
+import 'package:clima_data/providers.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
@@ -12,11 +13,14 @@ abstract class CityLocalDataSource {
 }
 
 class CityLocalDataSourceImpl implements CityLocalDataSource {
+  CityLocalDataSourceImpl(this._prefs);
+
+  final SharedPreferences _prefs;
+
   @override
   Future<Either<Failure, CityModel?>> getCity() async {
-    final prefs = await SharedPreferences.getInstance();
+    final cityName = _prefs.getString('name');
 
-    final cityName = prefs.getString('name');
     if (cityName == null) return const Right(null);
 
     return Right(CityModel(City(name: cityName)));
@@ -24,13 +28,11 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
 
   @override
   Future<Either<Failure, void>> setCity(City city) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString('name', city.name);
+    await _prefs.setString('name', city.name);
 
     return const Right(null);
   }
 }
 
-final cityLocalDataSourceProvider =
-    Provider<CityLocalDataSource>((ref) => CityLocalDataSourceImpl());
+final cityLocalDataSourceProvider = Provider<CityLocalDataSource>(
+    (ref) => CityLocalDataSourceImpl(ref.watch(sharedPreferencesProvider)));
