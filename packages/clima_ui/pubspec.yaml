@@ -12,10 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  auto_size_text: 2.1.0
-  charts_flutter: 0.10.0
-  flutter_swiper: 1.1.6
-
   clima_core:
     path: ../clima_core
   clima_domain:
@@ -23,6 +19,7 @@ dependencies:
   clima_data:
     path: ../clima_data
 
+  auto_size_text: 2.1.0
   connectivity: 3.0.3
   dartz: 0.10.0-nullsafety.1
   equatable: 2.0.0

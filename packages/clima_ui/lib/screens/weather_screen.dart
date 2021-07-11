@@ -21,8 +21,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 enum Menu { settings, help }
 
-class LocationScreen extends HookWidget {
-  const LocationScreen({Key key}) : super(key: key);
+class WeatherScreen extends HookWidget {
+  const WeatherScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,11 @@
+import 'package:clima_data/providers.dart';
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/forecasts_repo_impl.dart';
 import 'package:clima_data/repos/weather_repo_impl.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/forecasts_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
+import 'package:clima_ui/screens/loading_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
     show themeStateNotifierProvider, themeProvider, AppTheme;
 import 'package:clima_ui/themes/black_theme.dart';
@@ -16,14 +18,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-import 'screens/loading_screen.dart';
+Future<void> main() async {
+  // Unless you do this, using method channels (like `SharedPreferences` does)
+  // before running `runApp` throws an error.
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
+  final sharedPreferences = await SharedPreferences.getInstance();
+
   runApp(
     ProviderScope(
       overrides: [
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         cityRepoProvider.overrideWithProvider(
             Provider((ref) => ref.watch(cityRepoImplProvider))),
         weatherRepoProvider.overrideWithProvider(
