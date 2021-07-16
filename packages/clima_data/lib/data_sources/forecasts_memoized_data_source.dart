@@ -5,20 +5,13 @@ import 'package:clima_domain/entities/forecasts.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
-abstract class ForecastsMemoizedDataSource {
-  Future<Either<Failure, void>> setForecasts(Forecasts forecasts);
-
-  Future<Either<Failure, Forecasts?>> getMemoizedForecasts();
-}
-
-class ForecastsMemoizedDataSourceImpl implements ForecastsMemoizedDataSource {
+class ForecastsMemoizedDataSource {
   Forecasts? _forecasts;
 
   DateTime? _fetchingTime;
 
   static const _invalidationDuration = Duration(minutes: 1);
 
-  @override
   Future<Either<Failure, Forecasts?>> getMemoizedForecasts() async {
     if (_forecasts == null) return const Right(null);
 
@@ -39,7 +32,6 @@ class ForecastsMemoizedDataSourceImpl implements ForecastsMemoizedDataSource {
     return Right(_forecasts);
   }
 
-  @override
   Future<Either<Failure, void>> setForecasts(Forecasts forecasts) async {
     _fetchingTime = DateTime.now();
     _forecasts = forecasts;
@@ -48,6 +40,4 @@ class ForecastsMemoizedDataSourceImpl implements ForecastsMemoizedDataSource {
 }
 
 final forecastsMemoizedDataSourceProvider =
-    Provider<ForecastsMemoizedDataSource>(
-  (ref) => ForecastsMemoizedDataSourceImpl(),
-);
+    Provider((ref) => ForecastsMemoizedDataSource());

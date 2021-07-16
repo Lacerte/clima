@@ -10,22 +10,11 @@ const String _themeKey = 'app_theme';
 
 const String _darkThemeKey = 'app_dark_theme';
 
-abstract class ThemeLocalDataSource {
-  Future<Either<Failure, ThemeModel?>> getTheme();
-
-  Future<Either<Failure, void>> setTheme(ThemeModel theme);
-
-  Future<Either<Failure, DarkThemeModel?>> getDarkTheme();
-
-  Future<Either<Failure, void>> setDarkTheme(DarkThemeModel theme);
-}
-
-class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
-  ThemeLocalDataSourceImpl(this._prefs);
+class ThemeLocalDataSource {
+  ThemeLocalDataSource(this._prefs);
 
   final SharedPreferences _prefs;
 
-  @override
   Future<Either<Failure, ThemeModel?>> getTheme() async {
     final string = _prefs.getString(_themeKey);
 
@@ -37,14 +26,12 @@ class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
     return Right(ThemeModel.parse(string));
   }
 
-  @override
   Future<Either<Failure, void>> setTheme(ThemeModel theme) async {
     await _prefs.setString(_themeKey, theme.toString());
 
     return const Right(null);
   }
 
-  @override
   Future<Either<Failure, DarkThemeModel?>> getDarkTheme() async {
     final string = _prefs.getString(_darkThemeKey);
 
@@ -56,7 +43,6 @@ class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
     return Right(DarkThemeModel.parse(string));
   }
 
-  @override
   Future<Either<Failure, void>> setDarkTheme(DarkThemeModel theme) async {
     await _prefs.setString(_darkThemeKey, theme.toString());
 
@@ -64,5 +50,5 @@ class ThemeLocalDataSourceImpl implements ThemeLocalDataSource {
   }
 }
 
-final themeLocalDataSourceProvider = Provider<ThemeLocalDataSource>(
-    (ref) => ThemeLocalDataSourceImpl(ref.watch(sharedPreferencesProvider)));
+final themeLocalDataSourceProvider = Provider(
+    (ref) => ThemeLocalDataSource(ref.watch(sharedPreferencesProvider)));

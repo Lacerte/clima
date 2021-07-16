@@ -5,20 +5,13 @@ import 'package:clima_domain/entities/weather.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
-abstract class WeatherMemoizedDataSource {
-  Future<Either<Failure, void>> setWeather(Weather weather);
-
-  Future<Either<Failure, Weather?>> getMemoizedWeather();
-}
-
-class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
+class WeatherMemoizedDataSource {
   Weather? _weather;
 
   DateTime? _fetchingTime;
 
   static const _invalidationDuration = Duration(minutes: 1);
 
-  @override
   Future<Either<Failure, Weather?>> getMemoizedWeather() async {
     if (_weather == null) return const Right(null);
 
@@ -39,7 +32,6 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
     return Right(_weather);
   }
 
-  @override
   Future<Either<Failure, void>> setWeather(Weather weather) async {
     _fetchingTime = DateTime.now();
     _weather = weather;
@@ -47,6 +39,5 @@ class WeatherMemoizedDataSourceImpl implements WeatherMemoizedDataSource {
   }
 }
 
-final weatherMemoizedDataSourceProvider = Provider<WeatherMemoizedDataSource>(
-  (ref) => WeatherMemoizedDataSourceImpl(),
-);
+final weatherMemoizedDataSourceProvider =
+    Provider((ref) => WeatherMemoizedDataSource());

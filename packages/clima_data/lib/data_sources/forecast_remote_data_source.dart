@@ -8,18 +8,13 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-abstract class ForecastsRemoteDataSource {
-  Future<Either<Failure, ForecastsModel>> getForecasts(City city);
-}
+class ForecastsRemoteDataSource {
+  ForecastsRemoteDataSource(this._apiKeyRepo);
 
-class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
-  ForecastsRemoteDataSourceImpl(this.apiKeyRepo);
+  final ApiKeyRepo _apiKeyRepo;
 
-  final ApiKeyRepo apiKeyRepo;
-
-  @override
   Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
-    final apiKey = (await apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+    final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     final response = await http.get(
       Uri(
@@ -52,5 +47,5 @@ class ForecastsRemoteDataSourceImpl implements ForecastsRemoteDataSource {
   }
 }
 
-final forecastRemoteDataSourceProvider = Provider<ForecastsRemoteDataSource>(
-    (ref) => ForecastsRemoteDataSourceImpl(ref.watch(apiKeyRepoProvider)));
+final forecastRemoteDataSourceProvider =
+    Provider((ref) => ForecastsRemoteDataSource(ref.watch(apiKeyRepoProvider)));

@@ -6,10 +6,6 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
-abstract class CityRandomDataSource {
-  Future<Either<Failure, CityModel>> getCity();
-}
-
 const _randomCityNames = [
   'Amsterdam',
   'London',
@@ -28,8 +24,7 @@ const _randomCityNames = [
   'Sydney',
 ];
 
-class CityRandomDataSourceImpl implements CityRandomDataSource {
-  @override
+class CityRandomDataSource {
   Future<Either<Failure, CityModel>> getCity() async => Right(
         CityModel(
           City(
@@ -39,5 +34,4 @@ class CityRandomDataSourceImpl implements CityRandomDataSource {
       );
 }
 
-final cityRandomDataSourceProvider =
-    Provider<CityRandomDataSource>((ref) => CityRandomDataSourceImpl());
+final cityRandomDataSourceProvider = Provider((ref) => CityRandomDataSource());

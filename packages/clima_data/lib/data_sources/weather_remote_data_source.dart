@@ -8,18 +8,13 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-abstract class WeatherRemoteDataSource {
-  Future<Either<Failure, WeatherModel>> getWeather(City city);
-}
+class WeatherRemoteDataSource {
+  WeatherRemoteDataSource(this._apiKeyRepo);
 
-class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
-  WeatherRemoteDataSourceImpl(this.apiKeyRepo);
+  final ApiKeyRepo _apiKeyRepo;
 
-  final ApiKeyRepo apiKeyRepo;
-
-  @override
   Future<Either<Failure, WeatherModel>> getWeather(City city) async {
-    final apiKey = (await apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+    final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     // TODO: create a client as the docs recommend creating a client when
     // making multiple requests to the same server.
@@ -54,5 +49,5 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   }
 }
 
-final weatherRemoteDataSourceProvider = Provider<WeatherRemoteDataSource>(
-    (ref) => WeatherRemoteDataSourceImpl(ref.watch(apiKeyRepoProvider)));
+final weatherRemoteDataSourceProvider =
+    Provider((ref) => WeatherRemoteDataSource(ref.watch(apiKeyRepoProvider)));
