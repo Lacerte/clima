@@ -26,7 +26,7 @@ Future<void> main() async {
   // before running `runApp` throws an error.
   WidgetsFlutterBinding.ensureInitialized();
 
-// Unlike Android, iOS will not automatically show the notification bar when the app loads. You have to manually add the line below!
+// Unlike Android, iOS will not automatically show the notification bar when the app loads. To show the notification bar, you have to manually add the line below:
   SystemChrome.setEnabledSystemUIOverlays(
       [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
