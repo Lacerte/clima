@@ -6,18 +6,11 @@ import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class CityLocalDataSource {
-  Future<Either<Failure, CityModel?>> getCity();
-
-  Future<Either<Failure, void>> setCity(City city);
-}
-
-class CityLocalDataSourceImpl implements CityLocalDataSource {
-  CityLocalDataSourceImpl(this._prefs);
+class CityLocalDataSource {
+  CityLocalDataSource(this._prefs);
 
   final SharedPreferences _prefs;
 
-  @override
   Future<Either<Failure, CityModel?>> getCity() async {
     final cityName = _prefs.getString('name');
 
@@ -26,7 +19,6 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
     return Right(CityModel(City(name: cityName)));
   }
 
-  @override
   Future<Either<Failure, void>> setCity(City city) async {
     await _prefs.setString('name', city.name);
 
@@ -34,5 +26,5 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
   }
 }
 
-final cityLocalDataSourceProvider = Provider<CityLocalDataSource>(
-    (ref) => CityLocalDataSourceImpl(ref.watch(sharedPreferencesProvider)));
+final cityLocalDataSourceProvider = Provider(
+    (ref) => CityLocalDataSource(ref.watch(sharedPreferencesProvider)));
