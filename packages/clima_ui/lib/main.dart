@@ -26,6 +26,11 @@ Future<void> main() async {
   // before running `runApp` throws an error.
   WidgetsFlutterBinding.ensureInitialized();
 
+  // The following line is because iOS doesn't return back
+  // the status bar and navigation bar on it's own.
+  SystemChrome.setEnabledSystemUIOverlays(
+      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+
   final sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(
