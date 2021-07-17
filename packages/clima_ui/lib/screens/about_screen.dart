@@ -40,6 +40,17 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             SettingsTile(
+              title: 'Donate',
+              subtitle: 'Support the development of Clima',
+              leading: Icon(
+                Icons.local_library_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () => launch(
+                'https://liberapay.com/CentaurusApps/donate',
+              ),
+            ),
+            SettingsTile(
               title: 'Libraries',
               subtitle: 'Open-source libraries used in the app',
               leading: Icon(
