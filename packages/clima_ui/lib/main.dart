@@ -13,7 +13,6 @@ import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,39 +57,6 @@ class MyApp extends HookWidget {
     }, [themeStateNotifier]);
 
     final theme = useProvider(themeProvider);
-
-    useEffect(() {
-      switch (theme) {
-        case AppTheme.darkGrey:
-          SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-            systemNavigationBarIconBrightness: Brightness.light,
-            statusBarIconBrightness: Brightness.light,
-            systemNavigationBarColor: Color(0xFF202125),
-            statusBarColor: Color(0xFF202125),
-          ));
-          break;
-
-        case AppTheme.black:
-          SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-            systemNavigationBarIconBrightness: Brightness.light,
-            statusBarIconBrightness: Brightness.light,
-            systemNavigationBarColor: Color(0xFF000000),
-            statusBarColor: Color(0xFF000000),
-          ));
-          break;
-
-        case AppTheme.light:
-          SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Color(0xFFFFFFFF),
-            statusBarColor: Color(0xFFFFFFFF),
-          ));
-          break;
-      }
-
-      return null;
-    }, [theme]);
 
     if (theme == null) return const SizedBox.shrink();
 

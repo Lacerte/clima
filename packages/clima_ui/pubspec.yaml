@@ -29,7 +29,10 @@ dependencies:
   weather_icons: 2.0.2
   hooks_riverpod: 0.14.0+3
   http: 0.13.2
-  material_floating_search_bar: 0.3.4
+  material_floating_search_bar:
+    git:
+      url: https://github.com/CentaurusApps/material_floating_search_bar.git
+      ref: allow-passing-system-overlay-style
   package_info: 2.0.0
   riverpod: 0.14.0+3
   shared_preferences: 2.0.5

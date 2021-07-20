@@ -19,6 +19,12 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     textTheme: TextTheme(subtitle1: TextStyle(color: Color(0xFFE9EAEE))),
     actionsIconTheme: IconThemeData(color: Color(0xFF9BA0A6)),
     color: Color(0xFF202125),
-    brightness: Brightness.dark,
+    backwardsCompatibility: false,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Color(0xFF202125),
+      statusBarColor: Color(0xFF202125),
+    ),
   ),
 );
