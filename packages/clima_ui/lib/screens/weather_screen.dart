@@ -80,6 +80,7 @@ class WeatherScreen extends HookWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
+        systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
         progress: isLoading.value,

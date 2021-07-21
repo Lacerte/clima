@@ -276,9 +276,11 @@ packages:
   material_floating_search_bar:
     dependency: "direct main"
     description:
-      name: material_floating_search_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: allow-passing-system-overlay-style
+      resolved-ref: "07b2980ad304dacaa5688e56483adcec36fb08ab"
+      url: "https://github.com/CentaurusApps/material_floating_search_bar.git"
+    source: git
     version: "0.3.4"
   meta:
     dependency: transitive
