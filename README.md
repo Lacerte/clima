@@ -1,6 +1,6 @@
 # Clima ☁
 
-Beautiful, minimal, and fast weather app. (Requires Android 6.0 or later)
+Beautiful, minimal, and fast weather app.
 
 <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S01.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S02.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S03.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S04.png" height="400" width="200">
 
