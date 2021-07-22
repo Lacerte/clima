@@ -15,6 +15,7 @@ ThemeData blackTheme = ThemeData.dark().copyWith(
     subtitle2: TextStyle(color: Color(0xFF9BA0A6)),
   ),
   appBarTheme: const AppBarTheme(
+    elevation: 0.0,
     iconTheme: IconThemeData(color: Color(0xFF9BA0A6)),
     textTheme: TextTheme(subtitle1: TextStyle(color: Color(0xFFFFFFFF))),
     actionsIconTheme: IconThemeData(color: Color(0xFF9BA0A6)),
