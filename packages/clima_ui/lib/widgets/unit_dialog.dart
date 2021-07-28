@@ -18,7 +18,7 @@ class UnitDialog extends ConsumerWidget {
           title: Text(
             entry.key.toString(),
             style: TextStyle(
-              color: Theme.of(context).textTheme.subtitle1.color,
+              color: Theme.of(context).textTheme.subtitle1!.color,
             ),
           ),
           value: entry.value,
@@ -34,7 +34,7 @@ class UnitDialog extends ConsumerWidget {
       title: Text(
         'Unit',
         style: TextStyle(
-          color: Theme.of(context).textTheme.subtitle1.color,
+          color: Theme.of(context).textTheme.subtitle1!.color,
         ),
       ),
       children: [

@@ -28,7 +28,7 @@ class BottomRow extends HookWidget {
                 width: 1,
                 height: 4.5.h,
                 color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
               ),
             ),
           ),
@@ -45,7 +45,7 @@ class BottomRow extends HookWidget {
                 width: 1,
                 height: 4.5.h,
                 color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
               ),
             ),
           ),
@@ -62,7 +62,7 @@ class BottomRow extends HookWidget {
                 width: 1,
                 height: 4.5.h,
                 color:
-                    Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
               ),
             ),
           ),

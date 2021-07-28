@@ -12,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'weather_screen.dart';
 
 class LoadingScreen extends HookWidget {
-  const LoadingScreen({Key key}) : super(key: key);
+  const LoadingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

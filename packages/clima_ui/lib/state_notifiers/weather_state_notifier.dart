@@ -15,27 +15,27 @@ import 'package:state_notifier/state_notifier.dart';
 abstract class WeatherState extends Equatable {
   const WeatherState();
 
-  Weather get weather;
+  Weather? get weather;
 }
 
 class Empty extends WeatherState {
   const Empty();
 
   @override
-  Weather get weather => null;
+  Weather? get weather => null;
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class Loading extends WeatherState {
   const Loading({this.weather});
 
   @override
-  final Weather weather;
+  final Weather? weather;
 
   @override
-  List<Object> get props => [weather];
+  List<Object?> get props => [weather];
 }
 
 class Loaded extends WeatherState {
@@ -45,19 +45,19 @@ class Loaded extends WeatherState {
   final Weather weather;
 
   @override
-  List<Object> get props => [weather];
+  List<Object?> get props => [weather];
 }
 
 class Error extends WeatherState {
-  const Error(this.failure, {@required this.weather});
+  const Error(this.failure, {required this.weather});
 
   final Failure failure;
 
   @override
-  final Weather weather;
+  final Weather? weather;
 
   @override
-  List<Object> get props => [failure, weather];
+  List<Object?> get props => [failure, weather];
 }
 
 class WeatherStateNotifier extends StateNotifier<WeatherState> {

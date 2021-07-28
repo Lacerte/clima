@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsTile extends StatelessWidget {
   const SettingsTile(
-      {@required this.title,
+      {required this.title,
       this.padding,
       this.subtitle,
       this.leading,
@@ -13,11 +13,11 @@ class SettingsTile extends StatelessWidget {
       this.onTap});
 
   final String title;
-  final String subtitle;
-  final Widget leading;
-  final VoidCallback onTap;
-  final double padding;
-  final bool isThreeLine;
+  final String? subtitle;
+  final Widget? leading;
+  final VoidCallback? onTap;
+  final double? padding;
+  final bool? isThreeLine;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,14 @@ class SettingsTile extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: Theme.of(context).textTheme.subtitle1.color,
+          color: Theme.of(context).textTheme.subtitle1!.color,
         ),
       ),
       subtitle: subtitle != null
           ? Text(
-              subtitle,
+              subtitle!,
               style: TextStyle(
-                color: Theme.of(context).textTheme.subtitle2.color,
+                color: Theme.of(context).textTheme.subtitle2!.color,
               ),
             )
           : null,
@@ -45,7 +45,7 @@ class SettingsTile extends StatelessWidget {
 }
 
 class SettingsHeader extends StatelessWidget {
-  const SettingsHeader({@required this.title});
+  const SettingsHeader({required this.title});
   final String title;
 
   @override
@@ -58,7 +58,7 @@ class SettingsHeader extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           title,
-          style: Theme.of(context).textTheme.bodyText1.copyWith(
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: Theme.of(context).accentColor,
               ),
         ),
@@ -69,20 +69,20 @@ class SettingsHeader extends StatelessWidget {
 
 class SettingsDivider extends StatelessWidget {
   const SettingsDivider({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Divider(
       height: 1,
-      color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+      color: Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
     );
   }
 }
 
 Future<void> showGeneralSheet(BuildContext context,
-    {@required Widget child, @required String title}) {
+    {required Widget child, required String title}) {
   final theme = context.read(themeProvider);
   return showModalBottomSheet(
     backgroundColor: Theme.of(context).dialogBackgroundColor,

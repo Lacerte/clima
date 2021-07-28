@@ -22,13 +22,13 @@ class ThemeDialog extends HookWidget {
           title: Text(
             entry.key.toString(),
             style: TextStyle(
-              color: Theme.of(context).textTheme.subtitle1.color,
+              color: Theme.of(context).textTheme.subtitle1!.color,
             ),
           ),
           value: entry.value,
           groupValue: theme,
           onChanged: (newValue) async {
-            await themeStateNotifier.setTheme(newValue);
+            await themeStateNotifier.setTheme(newValue!);
             Navigator.pop(context);
           },
         )
@@ -38,7 +38,7 @@ class ThemeDialog extends HookWidget {
       title: Text(
         'Theme',
         style: TextStyle(
-          color: Theme.of(context).textTheme.subtitle1.color,
+          color: Theme.of(context).textTheme.subtitle1!.color,
         ),
       ),
       children: [
