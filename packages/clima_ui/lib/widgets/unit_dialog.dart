@@ -24,7 +24,7 @@ class UnitDialog extends ConsumerWidget {
           value: entry.value,
           groupValue: unit.state,
           onChanged: (newValue) {
-            unit.state = newValue;
+            unit.state = newValue!;
             Navigator.pop(context);
           },
         )
