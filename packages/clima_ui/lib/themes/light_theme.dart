@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'clima_theme.dart';
+
 ThemeData lightTheme = ThemeData.light().copyWith(
+  // For some reason, the brightness seems to be wrong if it's not set
+  // explicitly.
+  brightness: Brightness.light,
   iconTheme: const IconThemeData(color: Color(0xFF5F6267)),
-  snackBarTheme: const SnackBarThemeData(backgroundColor: Color(0xFF202125)),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: Color(0xFF202125),
+    contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
+  ),
   toggleableActiveColor: const Color(0xFF1A73E9),
   accentColor: const Color(0xFF1A73E9),
   primaryColor: const Color(0xFFFFFFFF),
@@ -26,4 +34,9 @@ ThemeData lightTheme = ThemeData.light().copyWith(
       statusBarColor: Color(0xFFFFFFFF),
     ),
   ),
+);
+
+const lightClimaTheme = ClimaThemeData(
+  loadingIndicatorColor: Colors.black,
+  sheetPillColor: Color(0xFFDBDCE0),
 );

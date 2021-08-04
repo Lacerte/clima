@@ -114,28 +114,3 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
 final themeStateNotifierProvider =
     StateNotifierProvider<ThemeStateNotifier, ThemeState>(
         (ref) => ThemeStateNotifier(ref.watch(themeRepoProvider)));
-
-enum AppTheme { light, darkGrey, black }
-
-final themeProvider = Provider<AppTheme>((ref) {
-  final state = ref.watch(themeStateNotifierProvider);
-  if (state.theme == null || state.darkTheme == null) return AppTheme.light;
-
-  switch (state.theme) {
-    case ThemeModel.light:
-      return AppTheme.light;
-
-    case ThemeModel.dark:
-      switch (state.darkTheme) {
-        case DarkThemeModel.darkGrey:
-          return AppTheme.darkGrey;
-
-        case DarkThemeModel.black:
-          return AppTheme.black;
-      }
-      throw Error();
-
-    default:
-      throw Error();
-  }
-});

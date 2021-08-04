@@ -12,7 +12,7 @@ class ThemeRepo {
 
   Future<Either<Failure, ThemeModel>> getTheme() async =>
       (await localDataSource.getTheme())
-          .map((theme) => theme ?? ThemeModel.light);
+          .map((theme) => theme ?? ThemeModel.systemDefault);
 
   Future<Either<Failure, void>> setTheme(ThemeModel theme) =>
       localDataSource.setTheme(theme);
