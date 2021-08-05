@@ -70,7 +70,6 @@ class LoadingScreen extends HookWidget {
       },
       [weatherStateNotifier, forecastsStateNotifier],
     );
-      print(ClimaTheme.of(context).loadingIndicatorColor);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
