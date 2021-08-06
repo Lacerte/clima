@@ -71,8 +71,27 @@ class MyApp extends HookWidget {
       builder: (context, orientation, screenType) {
         return MaterialApp(
           locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
-          home: const _Home(),
+          builder: (context, child) {
+            ClimaThemeData climaTheme;
+
+            switch (Theme.of(context).brightness) {
+              case Brightness.light:
+                climaTheme = lightClimaTheme;
+                break;
+
+              case Brightness.dark:
+                climaTheme = {
+                  DarkThemeModel.black: blackClimaTheme,
+                  DarkThemeModel.darkGrey: darkGreyClimaTheme,
+                }[themeState.darkTheme];
+            }
+
+            return DevicePreview.appBuilder(
+              context,
+              ClimaTheme(data: climaTheme, child: child),
+            );
+          },
+          home: const LoadingScreen(),
           theme: lightTheme,
           darkTheme: {
             DarkThemeModel.black: blackTheme,
@@ -85,32 +104,6 @@ class MyApp extends HookWidget {
           }[themeState.theme],
         );
       },
-    );
-  }
-}
-
-class _Home extends HookWidget {
-  const _Home({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final darkTheme = useProvider(
-        themeStateNotifierProvider.select((state) => state.darkTheme));
-
-    return ClimaTheme(
-      data: () {
-        switch (Theme.of(context).brightness) {
-          case Brightness.light:
-            return lightClimaTheme;
-
-          case Brightness.dark:
-            return const {
-              DarkThemeModel.black: blackClimaTheme,
-              DarkThemeModel.darkGrey: darkGreyClimaTheme,
-            }[darkTheme];
-        }
-      }(),
-      child: const LoadingScreen(),
     );
   }
 }
