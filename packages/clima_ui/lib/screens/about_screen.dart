@@ -1,4 +1,5 @@
 import 'package:clima_ui/widgets/reusable_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
@@ -7,11 +8,13 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          'About Clima',
+          appLocalizations.aboutClima,
           style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
         ),
         leading: IconButton(
@@ -24,11 +27,11 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const SettingsHeader(
-              title: 'Information',
+            SettingsHeader(
+              title: appLocalizations.information,
             ),
             SettingsTile(
-              title: 'Changelog',
+              title: appLocalizations.changelog,
               subtitle: 'Version 2.0',
               leading: Icon(
                 Icons.new_releases_outlined,
@@ -39,8 +42,8 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             SettingsTile(
-              title: 'Donate',
-              subtitle: 'Support the development of Clima',
+              title: appLocalizations.donate,
+              subtitle: appLocalizations.donateTileSubtitle,
               leading: Icon(
                 Icons.local_library_outlined,
                 color: Theme.of(context).iconTheme.color,
@@ -50,8 +53,8 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             SettingsTile(
-              title: 'Libraries',
-              subtitle: 'Open-source libraries used in the app',
+              title: appLocalizations.libraries,
+              subtitle: appLocalizations.librariesTileSubtitle,
               leading: Icon(
                 Icons.source_outlined,
                 color: Theme.of(context).iconTheme.color,
@@ -67,8 +70,8 @@ class AboutScreen extends StatelessWidget {
               },
             ),
             SettingsTile(
-              title: 'Feedback',
-              subtitle: 'Bugs and feature requests',
+              title: appLocalizations.feedback,
+              subtitle: appLocalizations.feedbackTileSubtitle,
               leading: Icon(
                 Icons.help_outline,
                 color: Theme.of(context).iconTheme.color,
@@ -76,12 +79,12 @@ class AboutScreen extends StatelessWidget {
               onTap: () {
                 showGeneralSheet(
                   context,
-                  title: 'Feedback',
+                  title: appLocalizations.feedback,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SettingsTile(
-                        title: 'Submit issue',
+                        title: appLocalizations.submitIssue,
                         leading: Icon(
                           Icons.bug_report_outlined,
                           color: Theme.of(context).iconTheme.color,
@@ -91,7 +94,7 @@ class AboutScreen extends StatelessWidget {
                         ),
                       ),
                       SettingsTile(
-                        title: 'Contact developer',
+                        title: appLocalizations.contactDeveloper,
                         leading: Icon(
                           Icons.email_outlined,
                           color: Theme.of(context).iconTheme.color,
@@ -106,9 +109,8 @@ class AboutScreen extends StatelessWidget {
               },
             ),
             SettingsTile(
-              title: 'Source code',
-              subtitle:
-                  'Clima is free software licensed under the 3-clause BSD license',
+              title: appLocalizations.sourceCode,
+              subtitle: appLocalizations.sourceCodeTileSubtitle,
               isThreeLine: true,
               leading: Icon(
                 FontAwesomeIcons.github,

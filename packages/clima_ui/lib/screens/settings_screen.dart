@@ -9,10 +9,13 @@ import 'package:clima_ui/widgets/theme_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
     final theme =
         useProvider(themeStateNotifierProvider.select((state) => state.theme));
     final darkTheme = useProvider(
@@ -27,7 +30,7 @@ class SettingScreen extends HookWidget {
               Navigator.of(context).pop();
             }),
         title: Text(
-          'Settings',
+          appLocalizations.settings,
           style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
         ),
       ),
@@ -52,18 +55,18 @@ class SettingScreen extends HookWidget {
             ),
             const SettingsDivider(),
 	    */
-            const SettingsHeader(
-              title: 'Interface',
+            SettingsHeader(
+              title: appLocalizations.interface,
             ),
             SettingsTile(
-              title: 'Theme',
+              title: appLocalizations.theme,
               subtitle: () {
                 switch (theme) {
                   case ThemeModel.light:
-                    return 'Light';
+                    return appLocalizations.light;
 
                   case ThemeModel.dark:
-                    return 'Dark';
+                    return appLocalizations.dark;
 
                   default:
                     throw Error();
@@ -76,14 +79,14 @@ class SettingScreen extends HookWidget {
               ),
             ),
             SettingsTile(
-              title: 'Dark theme',
+              title: appLocalizations.darkTheme,
               subtitle: () {
                 switch (darkTheme) {
                   case DarkThemeModel.darkGrey:
-                    return 'Default';
+                    return appLocalizations.defaultTheme;
 
                   case DarkThemeModel.black:
-                    return 'Black';
+                    return appLocalizations.black;
 
                   default:
                     throw Error();
@@ -96,11 +99,11 @@ class SettingScreen extends HookWidget {
               ),
             ),
             const SettingsDivider(),
-            const SettingsHeader(
-              title: 'About',
+            SettingsHeader(
+              title: appLocalizations.about,
             ),
             SettingsTile(
-              title: 'About Clima',
+              title: appLocalizations.aboutClima,
               leading: Icon(
                 Icons.info_outline,
                 color: Theme.of(context).iconTheme.color,

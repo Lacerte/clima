@@ -13,6 +13,7 @@ import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -62,6 +63,8 @@ class MyApp extends HookWidget {
       builder: (context, orientation, screenType) {
         return MaterialApp(
           locale: DevicePreview.locale(context),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           builder: DevicePreview.appBuilder,
           home: const LoadingScreen(),
           theme: () {
