@@ -12,7 +12,7 @@ import 'value_tile.dart';
 
 /// Renders Weather Icon, current, min and max temperatures
 class CurrentConditions extends HookWidget {
-  const CurrentConditions({Key key}) : super(key: key);
+  const CurrentConditions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class CurrentConditions extends HookWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   letterSpacing: 5,
-                  color: Theme.of(context).textTheme.subtitle1.color,
+                  color: Theme.of(context).textTheme.subtitle1!.color,
                   fontSize: MediaQuery.of(context).size.shortestSide <
                           kTabletBreakpoint
                       ? 20.sp
@@ -59,7 +59,7 @@ class CurrentConditions extends HookWidget {
                     MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
                         ? 12.sp
                         : 9.sp,
-                color: Theme.of(context).textTheme.subtitle1.color,
+                color: Theme.of(context).textTheme.subtitle1!.color,
               ),
             ),
           ),
@@ -68,7 +68,7 @@ class CurrentConditions extends HookWidget {
           flex: 4,
           child: BoxedIcon(
             getIconData(weather.iconCode),
-            color: Theme.of(context).textTheme.subtitle1.color,
+            color: Theme.of(context).textTheme.subtitle1!.color,
             size: () {
               switch (weather.iconCode) {
                 case '03d':
@@ -98,7 +98,7 @@ class CurrentConditions extends HookWidget {
             style: TextStyle(
               fontSize: 1000,
               fontWeight: FontWeight.w100,
-              color: Theme.of(context).textTheme.subtitle1.color,
+              color: Theme.of(context).textTheme.subtitle1!.color,
             ),
           ),
         ),
@@ -116,8 +116,8 @@ class CurrentConditions extends HookWidget {
                     height: 4.5.h,
                     color: Theme.of(context)
                         .textTheme
-                        .subtitle1
-                        .color
+                        .subtitle1!
+                        .color!
                         .withAlpha(65),
                   ),
                 ),

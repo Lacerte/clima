@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 void showFailureSnackBar(
   BuildContext context, {
-  @required Failure failure,
-  VoidCallback onRetry,
-  int duration,
+  required Failure failure,
+  VoidCallback? onRetry,
+  int? duration,
 }) {
   final text = () {
     if (failure is NoConnection) {
