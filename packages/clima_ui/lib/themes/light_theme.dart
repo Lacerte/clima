@@ -18,6 +18,12 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     color: Color(0xFFFFFFFF),
     actionsIconTheme: IconThemeData(color: Color(0xFF5F6267)),
     iconTheme: IconThemeData(color: Color(0xFF5F6267)),
-    brightness: Brightness.light,
+    backwardsCompatibility: false,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Color(0xFFFFFFFF),
+      statusBarColor: Color(0xFFFFFFFF),
+    ),
   ),
 );

@@ -8,7 +8,7 @@ import 'package:sizer/sizer.dart';
 /// second row displays [iconData]
 /// third row displays [value]
 class ValueTile extends StatelessWidget {
-  const ValueTile(this.label, this.value, {Key key}) : super(key: key);
+  const ValueTile(this.label, this.value, {Key? key}) : super(key: key);
 
   final String label;
   final String value;
@@ -28,7 +28,7 @@ class ValueTile extends StatelessWidget {
                   MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
                       ? 11.sp
                       : 8.sp,
-              color: Theme.of(context).textTheme.subtitle2.color,
+              color: Theme.of(context).textTheme.subtitle2!.color,
             ),
           ),
         ),
@@ -39,7 +39,7 @@ class ValueTile extends StatelessWidget {
                 MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
                     ? 11.sp
                     : 8.sp,
-            color: Theme.of(context).textTheme.subtitle1.color,
+            color: Theme.of(context).textTheme.subtitle1!.color,
           ),
         ),
       ],

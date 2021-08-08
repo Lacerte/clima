@@ -1,6 +1,14 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - 'fastlane/**'
+  pull_request:
+    paths-ignore:
+      - README.md
+      - 'fastlane/**'
 
 jobs:
   check-code-style-and-run-tests:

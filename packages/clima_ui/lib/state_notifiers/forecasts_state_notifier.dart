@@ -15,27 +15,27 @@ import 'package:state_notifier/state_notifier.dart';
 abstract class ForecastsState extends Equatable {
   const ForecastsState();
 
-  Forecasts get forecasts;
+  Forecasts? get forecasts;
 }
 
 class Empty extends ForecastsState {
   const Empty();
 
   @override
-  Forecasts get forecasts => null;
+  Forecasts? get forecasts => null;
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class Loading extends ForecastsState {
   const Loading({this.forecasts});
 
   @override
-  final Forecasts forecasts;
+  final Forecasts? forecasts;
 
   @override
-  List<Object> get props => [forecasts];
+  List<Object?> get props => [forecasts];
 }
 
 class Loaded extends ForecastsState {
@@ -45,19 +45,19 @@ class Loaded extends ForecastsState {
   final Forecasts forecasts;
 
   @override
-  List<Object> get props => [forecasts];
+  List<Object?> get props => [forecasts];
 }
 
 class Error extends ForecastsState {
-  const Error(this.failure, {@required this.forecasts});
+  const Error(this.failure, {required this.forecasts});
 
   final Failure failure;
 
   @override
-  final Forecasts forecasts;
+  final Forecasts? forecasts;
 
   @override
-  List<Object> get props => [failure, forecasts];
+  List<Object?> get props => [failure, forecasts];
 }
 
 class ForecastsStateNotifier extends StateNotifier<ForecastsState> {

@@ -10,10 +10,9 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        elevation: 0,
         title: Text(
           'About Clima',
-          style: Theme.of(context).appBarTheme.textTheme.subtitle1,
+          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
         ),
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -108,7 +107,8 @@ class AboutScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: 'Source code',
-              subtitle: 'Clima is free software licensed under the GPLv3',
+              subtitle:
+                  'Clima is free software licensed under the 3-clause BSD license',
               isThreeLine: true,
               leading: Icon(
                 FontAwesomeIcons.github,

@@ -6,9 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void showFailureSnackBar(
   BuildContext context, {
-  @required Failure failure,
-  VoidCallback onRetry,
-  int duration,
+  required Failure failure,
+  VoidCallback? onRetry,
+  int? duration,
 }) {
   final theme = context.read(themeProvider);
 

@@ -21,7 +21,6 @@ class SettingScreen extends HookWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        elevation: 0,
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -29,7 +28,7 @@ class SettingScreen extends HookWidget {
             }),
         title: Text(
           'Settings',
-          style: Theme.of(context).appBarTheme.textTheme.subtitle1,
+          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
         ),
       ),
       body: SingleChildScrollView(
