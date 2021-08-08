@@ -8,14 +8,14 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   // explicitly.
   brightness: Brightness.light,
   iconTheme: const IconThemeData(color: Color(0xFF5F6267)),
-  snackBarTheme: const SnackBarThemeData(
-    backgroundColor: Color(0xFF202125),
-    contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
-  ),
   toggleableActiveColor: const Color(0xFF1A73E9),
   accentColor: const Color(0xFF1A73E9),
   primaryColor: const Color(0xFFFFFFFF),
   scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: Color(0xFF202125),
+    contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
+  ),
   textTheme: const TextTheme(
     subtitle1: TextStyle(color: Color(0xFF3C4043)),
     subtitle2: TextStyle(color: Color(0xFF5F6267)),
