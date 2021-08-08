@@ -23,9 +23,9 @@ class ForecastHorizontal extends HookWidget {
       forecasts = forecastsState.forecasts;
     } else if (forecastsState is f.Loading &&
         forecastsState.forecasts != null) {
-      forecasts = forecastsState.forecasts;
+      forecasts = forecastsState.forecasts!;
     } else if (forecastsState is f.Error && forecastsState.forecasts != null) {
-      forecasts = forecastsState.forecasts;
+      forecasts = forecastsState.forecasts!;
     } else {
       return const SizedBox.shrink();
     }
@@ -66,7 +66,7 @@ class ForecastHorizontal extends HookWidget {
                     forecast.date.toUtc().add(forecast.timeZoneOffset),
                   ),
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.subtitle2.color,
+                    color: Theme.of(context).textTheme.subtitle2!.color,
                     fontSize: MediaQuery.of(context).size.shortestSide <
                             kTabletBreakpoint
                         ? 11.sp
@@ -77,7 +77,7 @@ class ForecastHorizontal extends HookWidget {
               Expanded(
                 child: BoxedIcon(
                   getIconData(forecast.iconCode),
-                  color: Theme.of(context).textTheme.subtitle1.color,
+                  color: Theme.of(context).textTheme.subtitle1!.color,
                   size: () {
                     switch (forecast.iconCode) {
                       case '03d':
@@ -106,7 +106,7 @@ class ForecastHorizontal extends HookWidget {
                           kTabletBreakpoint
                       ? 11.sp
                       : 8.sp,
-                  color: Theme.of(context).textTheme.subtitle1.color,
+                  color: Theme.of(context).textTheme.subtitle1!.color,
                 ),
               ),
             ],

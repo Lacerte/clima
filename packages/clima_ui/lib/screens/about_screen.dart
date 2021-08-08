@@ -12,7 +12,7 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'About Clima',
-          style: Theme.of(context).appBarTheme.textTheme.subtitle1,
+          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
         ),
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),

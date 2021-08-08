@@ -18,14 +18,14 @@ class Empty extends CityState {
   const Empty();
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class Loading extends CityState {
   const Loading();
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class Loaded extends CityState {
@@ -34,7 +34,7 @@ class Loaded extends CityState {
   final City city;
 
   @override
-  List<Object> get props => [city];
+  List<Object?> get props => [city];
 }
 
 class Error extends CityState {
@@ -42,10 +42,10 @@ class Error extends CityState {
 
   final Failure failure;
 
-  final City city;
+  final City? city;
 
   @override
-  List<Object> get props => [failure, city];
+  List<Object?> get props => [failure, city];
 }
 
 class CityStateNotifier extends StateNotifier<CityState> {
@@ -55,7 +55,7 @@ class CityStateNotifier extends StateNotifier<CityState> {
 
   final SetCity setCityUseCase;
 
-  City get _currentCity {
+  City? get _currentCity {
     final state = this.state;
     if (state is Loaded) {
       return state.city;

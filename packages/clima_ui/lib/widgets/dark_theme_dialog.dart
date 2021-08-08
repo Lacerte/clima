@@ -22,13 +22,13 @@ class DarkThemeDialog extends HookWidget {
           title: Text(
             entry.key.toString(),
             style: TextStyle(
-              color: Theme.of(context).textTheme.subtitle1.color,
+              color: Theme.of(context).textTheme.subtitle1!.color,
             ),
           ),
           value: entry.value,
           groupValue: darkTheme,
           onChanged: (newValue) {
-            themeStateNotifier.setDarkTheme(newValue);
+            themeStateNotifier.setDarkTheme(newValue!);
             Navigator.pop(context);
           },
         )
@@ -38,7 +38,7 @@ class DarkThemeDialog extends HookWidget {
       title: Text(
         'Dark theme',
         style: TextStyle(
-          color: Theme.of(context).textTheme.subtitle1.color,
+          color: Theme.of(context).textTheme.subtitle1!.color,
         ),
       ),
       children: [

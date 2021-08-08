@@ -13,48 +13,48 @@ import 'package:state_notifier/state_notifier.dart';
 abstract class ThemeState extends Equatable {
   const ThemeState();
 
-  ThemeModel get theme;
+  ThemeModel? get theme;
 
-  DarkThemeModel get darkTheme;
+  DarkThemeModel? get darkTheme;
 }
 
 class EmptyState extends ThemeState {
   const EmptyState();
 
   @override
-  ThemeModel get theme => null;
+  ThemeModel? get theme => null;
 
   @override
-  DarkThemeModel get darkTheme => null;
+  DarkThemeModel? get darkTheme => null;
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class Loading extends ThemeState {
   const Loading();
 
   @override
-  ThemeModel get theme => null;
+  ThemeModel? get theme => null;
 
   @override
-  DarkThemeModel get darkTheme => null;
+  DarkThemeModel? get darkTheme => null;
 
   @override
-  List<Object> get props => const [];
+  List<Object?> get props => const [];
 }
 
 class LoadedState extends ThemeState {
-  const LoadedState({@required this.theme, @required this.darkTheme});
+  const LoadedState({required this.theme, required this.darkTheme});
 
   @override
-  final ThemeModel theme;
+  final ThemeModel? theme;
 
   @override
-  final DarkThemeModel darkTheme;
+  final DarkThemeModel? darkTheme;
 
   @override
-  List<Object> get props => [theme, darkTheme];
+  List<Object?> get props => [theme, darkTheme];
 }
 
 class ErrorState extends ThemeState {
@@ -63,13 +63,13 @@ class ErrorState extends ThemeState {
   final Failure failure;
 
   @override
-  final ThemeModel theme;
+  final ThemeModel? theme;
 
   @override
-  final DarkThemeModel darkTheme;
+  final DarkThemeModel? darkTheme;
 
   @override
-  List<Object> get props => [failure, theme, darkTheme];
+  List<Object?> get props => [failure, theme, darkTheme];
 }
 
 class ThemeStateNotifier extends StateNotifier<ThemeState> {

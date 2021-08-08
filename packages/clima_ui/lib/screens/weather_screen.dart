@@ -22,7 +22,7 @@ import 'package:url_launcher/url_launcher.dart';
 enum Menu { settings, help }
 
 class WeatherScreen extends HookWidget {
-  const WeatherScreen({Key key}) : super(key: key);
+  const WeatherScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class WeatherScreen extends HookWidget {
         title: Text(
           DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
           style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle2.color,
+            color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:
                 MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
                     ? 11.sp
@@ -120,14 +120,14 @@ class WeatherScreen extends HookWidget {
             child: CircularButton(
               icon: Icon(
                 Icons.refresh,
-                color: Theme.of(context).appBarTheme.iconTheme.color,
+                color: Theme.of(context).appBarTheme.iconTheme!.color,
               ),
               tooltip: 'Refresh',
               onPressed: load,
             ),
           ),
           FloatingSearchBarAction.back(
-            color: Theme.of(context).appBarTheme.iconTheme.color,
+            color: Theme.of(context).appBarTheme.iconTheme!.color,
           ),
         ],
         actions: [
@@ -135,7 +135,7 @@ class WeatherScreen extends HookWidget {
             child: CircularButton(
               icon: Icon(
                 Icons.search,
-                color: Theme.of(context).appBarTheme.iconTheme.color,
+                color: Theme.of(context).appBarTheme.iconTheme!.color,
               ),
               tooltip: 'Search',
               onPressed: () {
@@ -151,7 +151,7 @@ class WeatherScreen extends HookWidget {
               offset: const Offset(512.0, -512.0),
               icon: Icon(
                 Icons.more_vert,
-                color: Theme.of(context).appBarTheme.iconTheme.color,
+                color: Theme.of(context).appBarTheme.iconTheme!.color,
               ),
               tooltip: 'More options',
               itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
@@ -212,7 +212,7 @@ class WeatherScreen extends HookWidget {
             ),
           ),
           FloatingSearchBarAction.searchToClear(
-            color: Theme.of(context).appBarTheme.iconTheme.color,
+            color: Theme.of(context).appBarTheme.iconTheme!.color,
             showIfClosed: false,
           )
         ],
@@ -224,14 +224,16 @@ class WeatherScreen extends HookWidget {
               child: CurrentConditions(),
             ),
             Divider(
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+              color:
+                  Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
             ),
             Flexible(
               flex: 2,
               child: ForecastHorizontal(),
             ),
             Divider(
-              color: Theme.of(context).textTheme.subtitle1.color.withAlpha(65),
+              color:
+                  Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
             ),
             Flexible(
               flex: 2,

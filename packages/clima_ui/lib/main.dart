@@ -58,8 +58,6 @@ class MyApp extends HookWidget {
 
     final theme = useProvider(themeProvider);
 
-    if (theme == null) return const SizedBox.shrink();
-
     return Sizer(
       builder: (context, orientation, screenType) {
         return MaterialApp(
