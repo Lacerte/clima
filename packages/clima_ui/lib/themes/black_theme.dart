@@ -8,16 +8,16 @@ ThemeData blackTheme = ThemeData.dark().copyWith(
   // explicitly.
   brightness: Brightness.dark,
   iconTheme: const IconThemeData(color: Color(0xFF9BA0A6)),
-  snackBarTheme: const SnackBarThemeData(
-    backgroundColor: Color(0xFF202125),
-    contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
-  ),
   popupMenuTheme: const PopupMenuThemeData(color: Color(0xFF202125)),
   dialogBackgroundColor: const Color(0xFF202125),
   toggleableActiveColor: const Color(0xFF89B4F8),
   accentColor: const Color(0xFF89B4F8),
   primaryColor: const Color(0xFF000000),
   scaffoldBackgroundColor: const Color(0xFF000000),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: Color(0xFF202125),
+    contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
+  ),
   textTheme: const TextTheme(
     subtitle1: TextStyle(color: Color(0xFFE9EAEE)),
     subtitle2: TextStyle(color: Color(0xFF9BA0A6)),
