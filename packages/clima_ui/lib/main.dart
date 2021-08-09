@@ -72,7 +72,7 @@ class MyApp extends HookWidget {
         return MaterialApp(
           locale: DevicePreview.locale(context),
           builder: (context, child) {
-            ClimaThemeData climaTheme;
+            final ClimaThemeData climaTheme;
 
             switch (Theme.of(context).brightness) {
               case Brightness.light:
@@ -83,12 +83,12 @@ class MyApp extends HookWidget {
                 climaTheme = {
                   DarkThemeModel.black: blackClimaTheme,
                   DarkThemeModel.darkGrey: darkGreyClimaTheme,
-                }[themeState.darkTheme];
+                }[themeState.darkTheme]!;
             }
 
             return DevicePreview.appBuilder(
               context,
-              ClimaTheme(data: climaTheme, child: child),
+              ClimaTheme(data: climaTheme, child: child!),
             );
           },
           home: const LoadingScreen(),

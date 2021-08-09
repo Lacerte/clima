@@ -80,7 +80,7 @@ class SettingsDivider extends StatelessWidget {
 }
 
 Future<void> showGeneralSheet(BuildContext context,
-    {@required Widget child, @required String title}) {
+    {required Widget child, required String title}) {
   return showModalBottomSheet(
     backgroundColor: Theme.of(context).dialogBackgroundColor,
     useRootNavigator: true,
