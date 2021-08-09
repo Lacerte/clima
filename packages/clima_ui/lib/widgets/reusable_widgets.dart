@@ -1,7 +1,5 @@
-import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
-    show themeProvider, AppTheme;
+import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsTile extends StatelessWidget {
   const SettingsTile(
@@ -83,7 +81,6 @@ class SettingsDivider extends StatelessWidget {
 
 Future<void> showGeneralSheet(BuildContext context,
     {required Widget child, required String title}) {
-  final theme = context.read(themeProvider);
   return showModalBottomSheet(
     backgroundColor: Theme.of(context).dialogBackgroundColor,
     useRootNavigator: true,
@@ -106,18 +103,7 @@ Future<void> showGeneralSheet(BuildContext context,
             margin: const EdgeInsets.only(top: 8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.0),
-              color: () {
-                switch (theme) {
-                  case AppTheme.light:
-                    return const Color(0xFFDBDCE0);
-
-                  case AppTheme.black:
-                    return const Color(0xFF5F6267);
-
-                  case AppTheme.darkGrey:
-                    return const Color(0xFF5F6267);
-                }
-              }(),
+              color: ClimaTheme.of(context).sheetPillColor,
             ),
           ),
           Padding(

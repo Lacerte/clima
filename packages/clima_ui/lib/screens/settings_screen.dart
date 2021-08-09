@@ -65,6 +65,9 @@ class SettingScreen extends HookWidget {
                   case ThemeModel.dark:
                     return 'Dark';
 
+                  case ThemeModel.systemDefault:
+                    return 'System default';
+
                   default:
                     throw Error();
                 }

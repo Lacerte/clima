@@ -1,3 +1,5 @@
+import 'package:clima_data/models/dark_theme_model.dart';
+import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/providers.dart';
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/forecasts_repo_impl.dart';
@@ -6,8 +8,9 @@ import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/forecasts_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
 import 'package:clima_ui/screens/loading_screen.dart';
+import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
-    show themeStateNotifierProvider, themeProvider, AppTheme;
+    show themeStateNotifierProvider;
 import 'package:clima_ui/themes/black_theme.dart';
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
@@ -19,6 +22,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+
+import 'themes/clima_theme.dart';
 
 Future<void> main() async {
   // Unless you do this, using method channels (like `SharedPreferences` does)
@@ -56,26 +61,47 @@ class MyApp extends HookWidget {
       return null;
     }, [themeStateNotifier]);
 
-    final theme = useProvider(themeProvider);
+    final themeState = useProvider(themeStateNotifierProvider);
+
+    if (themeState is t.EmptyState || themeState is t.Loading) {
+      return const SizedBox.shrink();
+    }
 
     return Sizer(
       builder: (context, orientation, screenType) {
         return MaterialApp(
           locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
-          home: const LoadingScreen(),
-          theme: () {
-            switch (theme) {
-              case AppTheme.light:
-                return lightTheme;
+          builder: (context, child) {
+            final ClimaThemeData climaTheme;
 
-              case AppTheme.black:
-                return blackTheme;
+            switch (Theme.of(context).brightness) {
+              case Brightness.light:
+                climaTheme = lightClimaTheme;
+                break;
 
-              case AppTheme.darkGrey:
-                return darkTheme;
+              case Brightness.dark:
+                climaTheme = {
+                  DarkThemeModel.black: blackClimaTheme,
+                  DarkThemeModel.darkGrey: darkGreyClimaTheme,
+                }[themeState.darkTheme]!;
             }
-          }(),
+
+            return DevicePreview.appBuilder(
+              context,
+              ClimaTheme(data: climaTheme, child: child!),
+            );
+          },
+          home: const LoadingScreen(),
+          theme: lightTheme,
+          darkTheme: {
+            DarkThemeModel.black: blackTheme,
+            DarkThemeModel.darkGrey: darkGreyTheme,
+          }[themeState.darkTheme],
+          themeMode: const {
+            ThemeModel.systemDefault: ThemeMode.system,
+            ThemeModel.light: ThemeMode.light,
+            ThemeModel.dark: ThemeMode.dark,
+          }[themeState.theme],
         );
       },
     );

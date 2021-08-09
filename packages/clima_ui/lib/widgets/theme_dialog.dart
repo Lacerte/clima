@@ -6,8 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ThemeDialog extends HookWidget {
   static const _dialogOptions = {
-    'Dark': ThemeModel.dark,
     'Light': ThemeModel.light,
+    'Dark': ThemeModel.dark,
+    'System default': ThemeModel.systemDefault,
   };
 
   @override

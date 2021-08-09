@@ -5,11 +5,13 @@ class ThemeModel {
 
   final String string;
 
+  static const systemDefault = ThemeModel._('systemDefault');
+
   static const light = ThemeModel._('light');
 
   static const dark = ThemeModel._('dark');
 
-  static const values = [light, dark];
+  static const values = [systemDefault, light, dark];
 
   static ThemeModel parse(String string) {
     final theme = values.firstWhereOrNull((theme) => theme.string == string);
