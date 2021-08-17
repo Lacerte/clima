@@ -1,6 +1,7 @@
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,6 +16,8 @@ class ThemeDialog extends HookWidget {
     final themeStateNotifier = useProvider(themeStateNotifierProvider.notifier);
     final theme =
         useProvider(themeStateNotifierProvider.select((state) => state.theme));
+
+    final localizations = AppLocalizations.of(context)!;
 
     final radios = [
       for (final entry in _dialogOptions.entries)
@@ -36,7 +39,7 @@ class ThemeDialog extends HookWidget {
 
     return SimpleDialog(
       title: Text(
-        'Theme',
+        localizations.theme,
         style: TextStyle(
           color: Theme.of(context).textTheme.subtitle1!.color,
         ),

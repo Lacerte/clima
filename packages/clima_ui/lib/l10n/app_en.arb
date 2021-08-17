@@ -34,5 +34,10 @@
     "defaultTheme": "Default",
     "black": "Black",
 
-    "about": "About"
+    "about": "About",
+
+    "windSpeedLowercase": "wind speed",
+    "sunriseLowercase": "sunrise",
+    "sunsetLowercase": "sunset",
+    "humidityLowercase": "humdity"
 }

@@ -1,6 +1,7 @@
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,6 +16,8 @@ class DarkThemeDialog extends HookWidget {
     final themeStateNotifier = useProvider(themeStateNotifierProvider.notifier);
     final darkTheme = useProvider(
         themeStateNotifierProvider.select((state) => state.darkTheme));
+
+    final localizations = AppLocalizations.of(context)!;
 
     final radios = [
       for (final entry in _dialogOptions.entries)
@@ -36,7 +39,7 @@ class DarkThemeDialog extends HookWidget {
 
     return SimpleDialog(
       title: Text(
-        'Dark theme',
+        localizations.darkTheme,
         style: TextStyle(
           color: Theme.of(context).textTheme.subtitle1!.color,
         ),
