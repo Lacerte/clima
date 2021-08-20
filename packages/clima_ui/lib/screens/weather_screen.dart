@@ -103,7 +103,7 @@ class WeatherScreen extends HookWidget {
           isLoading.value = false;
         },
         title: Text(
-          DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
+          'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
           style: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:

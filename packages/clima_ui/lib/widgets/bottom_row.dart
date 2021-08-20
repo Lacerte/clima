@@ -34,7 +34,7 @@ class BottomRow extends HookWidget {
           ),
           ValueTile(
             'sunrise',
-            DateFormat('h:mm a').format(
+            DateFormat.jm().format(
               weather.sunrise.toUtc().add(weather.timeZoneOffset),
             ),
           ),
@@ -51,7 +51,7 @@ class BottomRow extends HookWidget {
           ),
           ValueTile(
             'sunset',
-            DateFormat('h:mm a').format(
+            DateFormat.jm().format(
               weather.sunset.toUtc().add(weather.timeZoneOffset),
             ),
           ),

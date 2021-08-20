@@ -62,9 +62,9 @@ class ForecastHorizontal extends HookWidget {
                   return 12.0;
                 }()),
                 child: Text(
-                  DateFormat('E, h a').format(
-                    forecast.date.toUtc().add(forecast.timeZoneOffset),
-                  ),
+                  DateFormat.E().add_jm().format(
+                        forecast.date.toUtc().add(forecast.timeZoneOffset),
+                      ),
                   style: TextStyle(
                     color: Theme.of(context).textTheme.subtitle2!.color,
                     fontSize: MediaQuery.of(context).size.shortestSide <
