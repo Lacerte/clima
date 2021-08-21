@@ -35,7 +35,7 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => launch(
-                'https://github.com/CentaurusApps/clima/tree/master/fastlane/metadata/android/en-US/changelogs',
+                'https://github.com/lacerte/clima/tree/master/fastlane/metadata/android/en-US/changelogs',
               ),
             ),
             SettingsTile(
@@ -46,7 +46,7 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => launch(
-                'https://liberapay.com/CentaurusApps/donate',
+                'https://liberapay.com/lacerte/donate',
               ),
             ),
             SettingsTile(
@@ -87,7 +87,7 @@ class AboutScreen extends StatelessWidget {
                           color: Theme.of(context).iconTheme.color,
                         ),
                         onTap: () => launch(
-                          'https://github.com/CentaurusApps/clima/issues/new',
+                          'https://github.com/lacerte/clima/issues/new',
                         ),
                       ),
                       SettingsTile(
@@ -115,7 +115,7 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => launch(
-                'https://github.com/CentaurusApps/clima',
+                'https://github.com/lacerte/clima',
               ),
             ),
             const SettingsDivider(),

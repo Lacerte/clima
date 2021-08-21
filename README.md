@@ -19,7 +19,7 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 
 ## Donations
 
-<noscript><a href="https://liberapay.com/Lacerte/donate"> <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a> </noscript><img src="https://img.shields.io/liberapay/receives/Lacerte.svg?logo=liberapay"> <img src="https://img.shields.io/liberapay/goal/Lacerte.svg?logo=liberapay">
+<noscript><a href="https://liberapay.com/lacerte/donate"> <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a> </noscript><img src="https://img.shields.io/liberapay/receives/lacerte.svg?logo=liberapay"> <img src="https://img.shields.io/liberapay/goal/lacerte.svg?logo=liberapay">
 
 ## Credits
 
