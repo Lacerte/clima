@@ -1,5 +1,7 @@
 import 'package:clima_ui/themes/clima_theme.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsTile extends StatelessWidget {
   const SettingsTile(
@@ -77,6 +79,18 @@ class SettingsDivider extends StatelessWidget {
       color: Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
     );
   }
+}
+
+class LinkTextSpan extends TextSpan {
+  LinkTextSpan({
+    required String text,
+    required String url,
+    TextStyle style = const TextStyle(color: Colors.blue),
+  }) : super(
+          text: text,
+          style: style,
+          recognizer: TapGestureRecognizer()..onTap = () => launch(url),
+        );
 }
 
 Future<void> showGeneralSheet(BuildContext context,

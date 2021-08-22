@@ -9,7 +9,7 @@ import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/widgets/bottom_row.dart';
 import 'package:clima_ui/widgets/current_conditions.dart';
 import 'package:clima_ui/widgets/forecast_widget.dart';
-import 'package:clima_ui/widgets/reusable_widgets.dart';
+import 'package:clima_ui/widgets/reusable_settings_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
