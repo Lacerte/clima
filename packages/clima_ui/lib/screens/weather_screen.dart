@@ -199,7 +199,7 @@ class WeatherScreen extends HookWidget {
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               onTap: () => launch(
-                                'mailto:apps_centaurus@protonmail.com',
+                                'mailto:lacerte@protonmail.com',
                               ),
                             ),
                           ],
