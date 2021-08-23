@@ -44,6 +44,7 @@ Future<void> main() async {
             Provider((ref) => ref.watch(forecastsRepoImplProvider))),
       ],
       child: DevicePreview(
+        enabled: false,
         builder: (context) => MyApp(),
       ),
     ),
