@@ -5,13 +5,13 @@ import 'package:clima_domain/repos/city_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
-class GetCity implements UseCase<City, NoParams> {
+class GetCity implements UseCase<ApiKey, NoParams> {
   final CityRepo repo;
 
   const GetCity(this.repo);
 
   @override
-  Future<Either<Failure, City>> call(NoParams params) => repo.getCity();
+  Future<Either<Failure, ApiKey>> call(NoParams params) => repo.getCity();
 }
 
 final getCityProvider = Provider((ref) => GetCity(ref.watch(cityRepoProvider)));

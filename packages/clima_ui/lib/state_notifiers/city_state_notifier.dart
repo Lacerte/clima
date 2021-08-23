@@ -31,7 +31,7 @@ class Loading extends CityState {
 class Loaded extends CityState {
   const Loaded(this.city);
 
-  final City city;
+  final ApiKey city;
 
   @override
   List<Object?> get props => [city];
@@ -42,7 +42,7 @@ class Error extends CityState {
 
   final Failure failure;
 
-  final City? city;
+  final ApiKey? city;
 
   @override
   List<Object?> get props => [failure, city];
@@ -55,7 +55,7 @@ class CityStateNotifier extends StateNotifier<CityState> {
 
   final SetCity setCityUseCase;
 
-  City? get _currentCity {
+  ApiKey? get _currentCity {
     final state = this.state;
     if (state is Loaded) {
       return state.city;
@@ -72,7 +72,7 @@ class CityStateNotifier extends StateNotifier<CityState> {
     state = data.fold((failure) => Error(failure), (city) => Loaded(city));
   }
 
-  Future<void> setCity(City city) async {
+  Future<void> setCity(ApiKey city) async {
     (await setCityUseCase(SetCityParams(city))).fold((failure) {
       state = Error(failure, city: _currentCity);
     }, (_) {

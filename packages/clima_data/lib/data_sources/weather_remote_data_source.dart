@@ -13,7 +13,7 @@ class WeatherRemoteDataSource {
 
   final ApiKeyRepo _apiKeyRepo;
 
-  Future<Either<Failure, WeatherModel>> getWeather(City city) async {
+  Future<Either<Failure, WeatherModel>> getWeather(ApiKey city) async {
     final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     // TODO: create a client as the docs recommend creating a client when

@@ -19,7 +19,8 @@ class SettingScreen extends HookWidget {
         useProvider(themeStateNotifierProvider.select((state) => state.theme));
     final darkTheme = useProvider(
         themeStateNotifierProvider.select((state) => state.darkTheme));
-    final TextEditingController _textFieldController = TextEditingController();
+    final TextEditingController _textFieldController =
+        useTextEditingController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -237,7 +238,8 @@ class SettingScreen extends HookWidget {
                                         ),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () => launch(
-                                              'https://openweathermap.org/price'),
+                                                'https://openweathermap.org/price',
+                                              ),
                                       ),
                                       TextSpan(
                                         text:

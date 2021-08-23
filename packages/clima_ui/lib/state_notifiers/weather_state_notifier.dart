@@ -71,10 +71,10 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
     final cityEither = await getCity(const NoParams());
 
     if (cityEither.isLeft()) {
-      return Left((cityEither as Left<Failure, City>).value);
+      return Left((cityEither as Left<Failure, ApiKey>).value);
     }
 
-    final city = (cityEither as Right<Failure, City>).value;
+    final city = (cityEither as Right<Failure, ApiKey>).value;
 
     return getWeather(GetWeatherParams(city: city));
   }

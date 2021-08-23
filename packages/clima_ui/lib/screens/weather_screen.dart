@@ -4,8 +4,8 @@ import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
-import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
+import 'package:clima_ui/utilities/reusable_snack_bars.dart';
 import 'package:clima_ui/widgets/bottom_row.dart';
 import 'package:clima_ui/widgets/current_conditions.dart';
 import 'package:clima_ui/widgets/forecast_widget.dart';
@@ -93,7 +93,7 @@ class WeatherScreen extends HookWidget {
           }
 
           isLoading.value = true;
-          await cityStateNotifier.setCity(City(name: trimmedCityName));
+          await cityStateNotifier.setCity(ApiKey(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider) is! c.Error) {
             await Future.wait([
               weatherStateNotifier.loadWeather(),

@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 abstract class CityRepo {
-  Future<Either<Failure, City>> getCity();
+  Future<Either<Failure, ApiKey>> getCity();
 
-  Future<Either<Failure, void>> setCity(City city);
+  Future<Either<Failure, void>> setCity(ApiKey city);
 }
 
 final cityRepoProvider =

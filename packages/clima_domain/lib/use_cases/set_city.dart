@@ -19,7 +19,7 @@ class SetCity implements UseCase<void, SetCityParams> {
 class SetCityParams extends Equatable {
   const SetCityParams(this.city);
 
-  final City city;
+  final ApiKey city;
 
   @override
   List<Object?> get props => [city];

@@ -13,7 +13,7 @@ class ForecastsRemoteDataSource {
 
   final ApiKeyRepo _apiKeyRepo;
 
-  Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
+  Future<Either<Failure, ForecastsModel>> getForecasts(ApiKey city) async {
     final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     final response = await http.get(

@@ -39,3 +39,29 @@ void showFailureSnackBar(
     ),
   );
 }
+
+void showSnackBar(
+  BuildContext context, {
+  required String text,
+  String? actionText,
+  VoidCallback? onPressed,
+  int? duration,
+}) {
+  final messenger = ScaffoldMessenger.of(context);
+  messenger.removeCurrentSnackBar();
+  messenger.showSnackBar(
+    SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      content: Text(text),
+      duration: Duration(seconds: duration ?? 86400),
+      action: onPressed != null
+          ? SnackBarAction(
+              label: actionText!,
+              textColor: Theme.of(context).accentColor,
+              onPressed: onPressed,
+            )
+          : null,
+    ),
+  );
+}

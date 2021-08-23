@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:http/http.dart' as http;
 
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/api_key_local_data_source.dart';
 import 'package:dartz/dartz.dart';
+import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 const _defaultApiKey = '0cca00b6155fcac417cc140a5deba9a4';
@@ -16,7 +16,10 @@ class ApiKeyRepo {
   Future<Either<Failure, String>> getApiKey() async =>
       (await localDataSource.getApiKey()).map((key) => key ?? _defaultApiKey);
 
-  Future<Either<Failure, void>> setApiKey(String apiKey) async {
+  Future<Either<Failure, void>> setApiKey(String? apiKey) async {
+    if (apiKey == null) {
+      return localDataSource.setApiKey(apiKey);
+    }
     final response = await http.get(
       Uri(
         scheme: 'https',

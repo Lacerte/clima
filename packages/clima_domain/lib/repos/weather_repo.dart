@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 abstract class WeatherRepo {
-  Future<Either<Failure, Weather>> getWeather(City city);
+  Future<Either<Failure, Weather>> getWeather(ApiKey city);
 }
 
 final weatherRepoProvider =
