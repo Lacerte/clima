@@ -93,7 +93,7 @@ class WeatherScreen extends HookWidget {
           }
 
           isLoading.value = true;
-          await cityStateNotifier.setCity(ApiKey(name: trimmedCityName));
+          await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider) is! c.Error) {
             await Future.wait([
               weatherStateNotifier.loadWeather(),

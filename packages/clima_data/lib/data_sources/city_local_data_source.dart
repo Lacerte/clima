@@ -16,10 +16,10 @@ class CityLocalDataSource {
 
     if (cityName == null) return const Right(null);
 
-    return Right(CityModel(ApiKey(name: cityName)));
+    return Right(CityModel(City(name: cityName)));
   }
 
-  Future<Either<Failure, void>> setCity(ApiKey city) async {
+  Future<Either<Failure, void>> setCity(City city) async {
     await _prefs.setString('name', city.name);
 
     return const Right(null);

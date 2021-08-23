@@ -23,7 +23,7 @@ class ForecastsRepoImpl implements ForecastsRepo {
   });
 
   @override
-  Future<Either<Failure, Forecasts>> getForecasts(ApiKey city) async {
+  Future<Either<Failure, Forecasts>> getForecasts(City city) async {
     if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
       return const Left(NoConnection());
     } else {

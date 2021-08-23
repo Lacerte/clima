@@ -72,10 +72,10 @@ class ForecastsStateNotifier extends StateNotifier<ForecastsState> {
     final cityEither = await getCity(const NoParams());
 
     if (cityEither.isLeft()) {
-      return Left((cityEither as Left<Failure, ApiKey>).value);
+      return Left((cityEither as Left<Failure, City>).value);
     }
 
-    final city = (cityEither as Right<Failure, ApiKey>).value;
+    final city = (cityEither as Right<Failure, City>).value;
 
     return getForecasts(GetForecastsParams(city: city));
   }

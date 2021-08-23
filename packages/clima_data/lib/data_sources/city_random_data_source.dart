@@ -27,7 +27,7 @@ const _randomCityNames = [
 class CityRandomDataSource {
   Future<Either<Failure, CityModel>> getCity() async => Right(
         CityModel(
-          ApiKey(
+          City(
             name: _randomCityNames[Random().nextInt(_randomCityNames.length)],
           ),
         ),

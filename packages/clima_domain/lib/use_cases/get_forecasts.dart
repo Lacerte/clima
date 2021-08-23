@@ -20,7 +20,7 @@ class GetForecasts implements UseCase<Forecasts, GetForecastsParams> {
 class GetForecastsParams extends Equatable {
   const GetForecastsParams({required this.city});
 
-  final ApiKey city;
+  final City city;
 
   @override
   List<Object?> get props => [city];

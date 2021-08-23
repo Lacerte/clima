@@ -20,7 +20,7 @@ class GetWeather implements UseCase<Weather, GetWeatherParams> {
 class GetWeatherParams extends Equatable {
   const GetWeatherParams({required this.city});
 
-  final ApiKey city;
+  final City city;
 
   @override
   List<Object?> get props => [city];

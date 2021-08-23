@@ -22,7 +22,7 @@ class CityRepoImpl implements CityRepo {
   });
 
   @override
-  Future<Either<Failure, ApiKey>> getCity() async {
+  Future<Either<Failure, City>> getCity() async {
     final cityEither = await localDataSource.getCity();
 
     if (cityEither.isLeft()) {
@@ -39,12 +39,12 @@ class CityRepoImpl implements CityRepo {
   }
 
   @override
-  Future<Either<Failure, void>> setCity(ApiKey city) async {
+  Future<Either<Failure, void>> setCity(City city) async {
     final weather = await weatherRepo.getWeather(city);
 
     return weather.fold(
       (failure) async => Left(failure),
-      (weather) => localDataSource.setCity(ApiKey(name: weather.cityName)),
+      (weather) => localDataSource.setCity(City(name: weather.cityName)),
     );
   }
 }

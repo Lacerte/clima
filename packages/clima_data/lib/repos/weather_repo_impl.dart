@@ -23,7 +23,7 @@ class WeatherRepoImpl implements WeatherRepo {
   });
 
   @override
-  Future<Either<Failure, Weather>> getWeather(ApiKey city) async {
+  Future<Either<Failure, Weather>> getWeather(City city) async {
     if (await connectivity.checkConnectivity() == ConnectivityResult.none) {
       return const Left(NoConnection());
     } else {
