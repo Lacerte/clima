@@ -7,11 +7,11 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  dartz: 0.10.0-nullsafety.2
+  dartz: 0.10.0
   riverpod: 0.14.0+3
   clima_core:
     path: ../clima_core
 
 dev_dependencies:
   test: 1.17.10
-  lint: 1.5.3
+  lint: 1.6.0
