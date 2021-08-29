@@ -49,7 +49,7 @@ void main() {
           Weather(
             cityName: 'London',
             condition: 803,
-            timeZoneOffset: const Duration(),
+            timeZoneOffset: Duration.zero,
             maxTemperature: 8.89,
             description: 'broken clouds',
             minTemperature: 7.78,
