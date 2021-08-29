@@ -23,7 +23,7 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 
 ## Special Thanks
 
-Special thanks to Mohammed Anas (@mhmdanas), without whom Clima would never be what it is today.
+Special thanks to [Mohammed Anas](https://github.com/mhmdanas), without whom Clima would never be what it is today.
 
 ## Credits
 
