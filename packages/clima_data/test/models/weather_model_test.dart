@@ -1,3 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
 import 'package:clima_data/models/weather_model.dart';
 import 'package:clima_data/utils/date_time.dart' as date_time_utils;
 import 'package:clima_domain/entities/weather.dart';
