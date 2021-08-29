@@ -81,16 +81,18 @@ class SettingsDivider extends StatelessWidget {
   }
 }
 
-class LinkTextSpan extends TextSpan {
-  LinkTextSpan({
-    required String text,
-    required String url,
-    TextStyle style = const TextStyle(color: Colors.blue),
-  }) : super(
-          text: text,
-          style: style,
-          recognizer: TapGestureRecognizer()..onTap = () => launch(url),
-        );
+InlineSpan linkTextSpan({
+  required String text,
+  required String url,
+  required BuildContext context,
+}) {
+  return TextSpan(
+    text: text,
+    style: TextStyle(
+      color: Theme.of(context).accentColor,
+    ),
+    recognizer: TapGestureRecognizer()..onTap = () => launch(url),
+  );
 }
 
 Future<void> showGeneralSheet(BuildContext context,

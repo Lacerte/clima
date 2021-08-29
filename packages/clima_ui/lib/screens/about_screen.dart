@@ -1,4 +1,5 @@
-import 'package:clima_ui/widgets/reusable_settings_widgets.dart';
+import 'package:clima_ui/widgets/credits_statement.dart';
+import 'package:clima_ui/widgets/settings_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
@@ -128,87 +129,11 @@ class AboutScreen extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      final textSpanStyle = TextStyle(
-                        color: Theme.of(context).textTheme.subtitle1!.color,
-                      );
-                      return SimpleDialog(
+                      return const SimpleDialog(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              //mainAxisSize: MainAxisSize.min,
-                              children: [
-                                RichText(
-                                  text: TextSpan(
-                                    text: "The app logo's ",
-                                    style: textSpanStyle,
-                                    children: [
-                                      LinkTextSpan(
-                                        text: 'icon',
-                                        url:
-                                            'https://www.iconfinder.com/iconsets/tiny-weather-1',
-                                      ),
-                                      TextSpan(
-                                        text: ' is designed by ',
-                                        style: textSpanStyle,
-                                      ),
-                                      LinkTextSpan(
-                                        text: 'Paolo Spot Valzania',
-                                        url:
-                                            'https://linktr.e/paolospotvalzania',
-                                      ),
-                                      TextSpan(
-                                        text: ', licensed under the ',
-                                        style: textSpanStyle,
-                                      ),
-                                      LinkTextSpan(
-                                        text: 'CC BY 3.0',
-                                        url:
-                                            'https://creativecommons.org/licenses/by/3.0/',
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            ' / Placed on top of a light blue background.',
-                                        style: textSpanStyle,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1!
-                                      .color!
-                                      .withAlpha(65),
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    text:
-                                        'The app design is heavily inspired by ',
-                                    style: textSpanStyle,
-                                    children: [
-                                      TextSpan(
-                                        text: "LonelyCpp's ",
-                                        style: textSpanStyle,
-                                      ),
-                                      LinkTextSpan(
-                                        text: 'design',
-                                        url:
-                                            'https://github.com/LonelyCpp/flutter_weather',
-                                      ),
-                                      TextSpan(
-                                        text: ', which is licensed under the ',
-                                        style: textSpanStyle,
-                                      ),
-                                      LinkTextSpan(
-                                        text: 'Expat License.',
-                                        url: 'https://mit-license.org/',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                            padding: EdgeInsets.all(16.0),
+                            child: CreditsStatement(),
                           ),
                         ],
                       );
