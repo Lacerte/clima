@@ -189,7 +189,7 @@ class WeatherScreen extends HookWidget {
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               onTap: () => launch(
-                                'https://github.com/CentaurusApps/clima/issues/new',
+                                'https://github.com/lacerte/clima/issues/new',
                               ),
                             ),
                             SettingsTile(
@@ -199,7 +199,7 @@ class WeatherScreen extends HookWidget {
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               onTap: () => launch(
-                                'mailto:apps_centaurus@protonmail.com',
+                                'mailto:lacerte@protonmail.com',
                               ),
                             ),
                           ],

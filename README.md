@@ -19,10 +19,10 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 
 ## Donations
 
-<noscript><a href="https://liberapay.com/Lacerte/donate"> <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a> </noscript><img src="https://img.shields.io/liberapay/receives/Lacerte.svg?logo=liberapay"> <img src="https://img.shields.io/liberapay/goal/Lacerte.svg?logo=liberapay">
+<noscript><a href="https://liberapay.com/lacerte/donate"> <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a> </noscript><img src="https://img.shields.io/liberapay/receives/lacerte.svg?logo=liberapay"> <img src="https://img.shields.io/liberapay/goal/lacerte.svg?logo=liberapay">
 
 ## Credits
 
 * The app logo's [icon](https://www.iconfinder.com/iconsets/tiny-weather-1) is designed by [Paolo Spot Valzania](https://linktr.e/paolospotvalzania), licensed under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) / Placed on top of a light blue background.
-* The App design is heavily inspired by https://github.com/LonelyCpp/flutter_weather
+* The app design is heavily inspired by LonelyCpp's [design](https://github.com/LonelyCpp/flutter_weather), which is licensed under the [Expat License](https://mit-license.org/).
 * All the packages in `packages` except for `clima_ui` were created from templates made available by Stagehand under a BSD-style [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
