@@ -12,7 +12,6 @@ ThemeData darkGreyTheme = ThemeData.dark().copyWith(
   dialogBackgroundColor: const Color(0xFF202125),
   toggleableActiveColor: const Color(0xFF89B4F8),
   accentColor: const Color(0xFF89B4F8),
-  colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xFF89B4F8)),
   primaryColor: const Color(0xFF202125),
   scaffoldBackgroundColor: const Color(0xFF202125),
   snackBarTheme: const SnackBarThemeData(
