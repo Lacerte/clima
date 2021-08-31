@@ -5,6 +5,25 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+## Quicklinks
+
+* [Code of Conduct](#code-of-conduct)
+* [Getting Started](#getting-started)
+    * [Issues](#issues)
+    * [Pull Requests](#pull-requests)
+* [Getting Help](#getting-help)
+
+## Code of Conduct
+
+We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct]().
+
+## Getting Started
+
+Contributions are made to this repo via Issues and Pull Requests (PRs). A few general guidelines that cover both:
+
+- Search for existing Issues and PRs before creating your own.
+- We work hard to makes sure issues are handled in a timely manner but, depending on the impact, it could take a while to investigate the root cause. A friendly ping in the comment thread to the submitter or a contributor can help draw attention if your issue is blocking.
+
 ### Issues
 
 Issues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. When you create a new Issue, a template will be loaded that will guide you through collecting and providing the information we need to investigate.
