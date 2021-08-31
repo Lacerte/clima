@@ -2,7 +2,7 @@
 
 Beautiful, minimal, and fast weather app. (Requires Android 6.0 or later)
 
-<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S01.png" alt="Screenshot 1" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S02.png" alt="Screenshot 2" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S03.png" alt="Screenshot 3" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S04.png" alt="Screenshot 4" height="400" width="200">
+<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S01.png" alt="Beautiful, minimal UI" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S02.png" alt="5-day forecast" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S03.png" alt="Dark and light themes" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S04.png" alt="No ads or trackers" height="400" width="200">
 
 ## Features
 
