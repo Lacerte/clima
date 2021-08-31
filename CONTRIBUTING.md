@@ -26,13 +26,13 @@ Contributions are made to this repo via Issues and Pull Requests (PRs). A few ge
 
 ### Issues
 
-Issues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. When you create a new Issue, a template will be loaded that will guide you through collecting and providing the information we need to investigate.
+Issues should be used to report problems with our repositories, request a new feature, or to discuss potential changes before a PR is created. When you create a new Issue, a template will be loaded that will guide you through collecting and providing the information we need to investigate.
 
 If you find an Issue that addresses the problem you're having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a [reaction](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.
 
 ### Pull Requests
 
-PRs to our libraries are always welcome and can be a quick way to get your fix or improvement slated for the next release. In general, PRs should:
+PRs to our repositories are always welcome and can be a quick way to get your fix or improvement slated for the next release. In general, PRs should:
 
 - Only fix/add the functionality in question **OR** address wide-spread whitespace/style issues, not both.
 - Add unit or integration tests for fixed or changed functionality (if a test suite already exists).
