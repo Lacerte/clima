@@ -79,7 +79,7 @@ class CurrentConditions extends HookWidget {
                 case '01d':
                   return MediaQuery.of(context).size.shortestSide <
                           kTabletBreakpoint
-                      ? 69.sp
+                      ? 68.75.sp
                       : 51.75.sp;
                 default:
                   return MediaQuery.of(context).size.shortestSide <
