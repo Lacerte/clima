@@ -5,6 +5,21 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+
+## Advice for new contributors
+
+Start small. The PRs most likely to be merged are the ones that make small,
+easily reviewed changes with clear and specific intentions. See below for more
+[guidelines on pull requests](#pull-requests).
+
+It's a good idea to gauge interest in your intended work by finding the current issue
+for it or creating a new one yourself. You can use also that issue as a place to signal
+your intentions and get feedback from the users most likely to appreciate your changes.
+
+Once you've spent a little bit of time planning your solution, it's a good idea to go
+back to the issue and talk about your approach. We'd be happy to provide feedback. [An
+ounce of prevention, as they say!](https://www.goodreads.com/quotes/247269-an-ounce-of-prevention-is-worth-a-pound-of-cure)
+
 ## Quicklinks
 
 * [Code of Conduct](#code-of-conduct)
