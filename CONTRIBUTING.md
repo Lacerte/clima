@@ -69,3 +69,8 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 ## Getting Help
 
 Join #lacerte on Libera Chat and post your question there.
+
+## Attribution
+
+This Contributing Guideline is adapted from [auth0](https://github.com/auth0), available at
+https://github.com/auth0/open-source-template/blob/master/CONTRIBUTING.md.
