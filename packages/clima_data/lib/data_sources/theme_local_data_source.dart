@@ -1,8 +1,8 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/providers.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
