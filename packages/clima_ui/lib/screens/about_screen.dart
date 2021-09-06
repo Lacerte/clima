@@ -1,4 +1,7 @@
-import 'package:clima_ui/widgets/reusable_widgets.dart';
+import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
+import 'package:clima_ui/widgets/settings/settings_divider.dart';
+import 'package:clima_ui/widgets/settings/settings_header.dart';
+import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';

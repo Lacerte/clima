@@ -6,10 +6,11 @@ import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/widgets/bottom_row.dart';
-import 'package:clima_ui/widgets/current_conditions.dart';
-import 'package:clima_ui/widgets/forecast_widget.dart';
-import 'package:clima_ui/widgets/reusable_widgets.dart';
+import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
+import 'package:clima_ui/widgets/settings/settings_tile.dart';
+import 'package:clima_ui/widgets/weather/day_tile.dart';
+import 'package:clima_ui/widgets/weather/hour_cell.dart';
+import 'package:clima_ui/widgets/weather/main_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -109,7 +110,7 @@ class WeatherScreen extends HookWidget {
             fontSize:
                 MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
                     ? 11.sp
-                    : 8.sp,
+                    : 6.sp,
           ),
         ),
         hint: 'Enter city name',
@@ -216,30 +217,32 @@ class WeatherScreen extends HookWidget {
             showIfClosed: false,
           )
         ],
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Flexible(
-              flex: 10,
-              child: CurrentConditions(),
-            ),
-            Divider(
-              color:
-                  Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
-            ),
-            Flexible(
-              flex: 2,
-              child: ForecastHorizontal(),
-            ),
-            Divider(
-              color:
-                  Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
-            ),
-            Flexible(
-              flex: 2,
-              child: BottomRow(),
-            ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const MainInfo(),
+              Divider(
+                color:
+                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
+              ),
+              SizedBox(
+                //TODO: Adjust height size on small screen sizes
+                height: 20.h,
+                child: HourCell(),
+              ),
+              Divider(
+                color:
+                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
+              ),
+              DayTile(),
+              DayTile(),
+              DayTile(),
+              DayTile(),
+              DayTile(),
+              DayTile(),
+              DayTile(),
+            ],
+          ),
         ),
       ),
     );

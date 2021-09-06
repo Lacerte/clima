@@ -9,10 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-/// Renders a horizontal scrolling list of weather conditions
-/// Used to show forecast
-/// Shows DateTime, Weather Condition icon and Temperature
-class ForecastHorizontal extends HookWidget {
+class HourCell extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final forecastsState = useProvider(f.forecastsStateNotifierProvider);
@@ -30,58 +27,34 @@ class ForecastHorizontal extends HookWidget {
       return const SizedBox.shrink();
     }
     return ListView.separated(
+      physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemCount: forecasts.forecasts.length,
       separatorBuilder: (context, index) => const Divider(
         color: Colors.white,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
       itemBuilder: (context, index) {
         final forecast = forecasts.forecasts[index];
         return Padding(
           padding: EdgeInsets.symmetric(
-            vertical: () {
-              // It's bounded between 9/16.5 and 9/14.5 to account for MediaQuery's margin of error.
-              if (MediaQuery.of(context).size.aspectRatio >= 9 / 16.5 &&
-                  MediaQuery.of(context).size.aspectRatio <= 9 / 14.5) {
-                return 0.0;
-              }
-              return 6.0;
-            }(),
+            horizontal: 5.w,
+            vertical: 3.5.h,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: () {
-                  if (MediaQuery.of(context).size.shortestSide <
-                      kTabletBreakpoint) {
-                    return 8.0;
-                  }
-                  return 12.0;
-                }()),
-                child: Text(
-                  DateFormat.E().add_jm().format(
-                        forecast.date.toUtc().add(forecast.timeZoneOffset),
-                      ),
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.subtitle2!.color,
-                    fontSize: MediaQuery.of(context).size.shortestSide <
-                            kTabletBreakpoint
-                        ? 11.sp
-                        : 8.sp,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: FaIcon(
-                  getIconData(forecast.iconCode),
-                  color: Colors.orangeAccent,
-                  size: MediaQuery.of(context).size.shortestSide <
+            children: [
+              //TODO: Only display the hour in the forecast
+              Text(
+                DateFormat.E().add_jm().format(
+                      forecast.date.toUtc().add(forecast.timeZoneOffset),
+                    ),
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.subtitle2!.color,
+                  fontSize: MediaQuery.of(context).size.shortestSide <
                           kTabletBreakpoint
-                      ? 17.sp
-                      : 13.sp,
+                      ? 11.sp
+                      : 8.sp,
                 ),
               ),
               Text(
@@ -92,6 +65,25 @@ class ForecastHorizontal extends HookWidget {
                       ? 11.sp
                       : 8.sp,
                   color: Theme.of(context).textTheme.subtitle1!.color,
+                ),
+              ),
+              FaIcon(
+                getIconData(forecast.iconCode),
+                color: Theme.of(context).iconTheme.color,
+                size:
+                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                        ? 17.sp
+                        : 13.sp,
+              ),
+              //TODO: Add Humidity Icon
+              Text(
+                '${forecast.humidity} %',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.subtitle2!.color,
+                  fontSize: MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint
+                      ? 11.sp
+                      : 8.sp,
                 ),
               ),
             ],
