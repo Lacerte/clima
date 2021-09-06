@@ -34,6 +34,5 @@ By submitting a PR to this repository, you agree to the terms within our [Code o
 
 ### Checklist
 
-- [ ] I have added documentation for new/changed functionality in this PR or in auth0.com/docs
 - [ ] All active GitHub checks for tests, formatting, and security are passing
 - [ ] The correct base branch is being used, if not `master`
