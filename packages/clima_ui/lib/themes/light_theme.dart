@@ -10,6 +10,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   iconTheme: const IconThemeData(color: Color(0xFF5F6267)),
   toggleableActiveColor: const Color(0xFF1A73E9),
   accentColor: const Color(0xFF1A73E9),
+  colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xFF1A73E9)),
   primaryColor: const Color(0xFFFFFFFF),
   scaffoldBackgroundColor: const Color(0xFFFFFFFF),
   snackBarTheme: const SnackBarThemeData(
