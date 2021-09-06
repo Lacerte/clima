@@ -112,7 +112,7 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Source code',
               subtitle:
-                  'Clima is free software licensed under the 3-clause BSD license',
+                  'Clima is free software licensed under the MPLv2',
               isThreeLine: true,
               leading: Icon(
                 FontAwesomeIcons.github,
