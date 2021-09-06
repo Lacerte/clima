@@ -1,3 +1,5 @@
+<--! Template adapted from [auth0](https://github.com/auth0/open-source-template/blob/master/.github/PULL_REQUEST_TEMPLATE.md) -->
+
 By submitting a PR to this repository, you agree to the terms within our [Code of Conduct](https://github.com/lacerte/blob/master/CODE-OF-CONDUCT.md). Please see the [contributing guidelines](https://github.com/lacerte/blob/master/CONTRIBUTING.md) for how to create and submit a high-quality PR for this repo.
 
 ### Description
@@ -14,7 +16,6 @@ By submitting a PR to this repository, you agree to the terms within our [Code o
 > Include any links supporting this change such as a:
 >
 > - GitHub Issue/PR number addressed or fixed
-> - Auth0 Community post
 > - StackOverflow post
 > - Support forum thread
 > - Related pull requests/issues from other repos
@@ -23,11 +24,11 @@ By submitting a PR to this repository, you agree to the terms within our [Code o
 
 ### Testing
 
-> Describe how this can be tested by reviewers. Be specific about anything not tested and reasons why. If this library has unit and/or integration testing, tests should be added for new functionality and existing tests should complete without errors.
+> Describe how this can be tested by reviewers. Be specific about anything not tested and reasons why. If this repository has unit and/or integration testing, tests should be added for new functionality and existing tests should complete without errors.
 >
-> Please include any manual steps for testing end-to-end or functionality not covered by unit/integration tests.
+> Please include any manual steps for testing any functionality not covered by unit/integration tests.
 >
-> Also include details of the environment this PR was developed in (language/platform/browser version).
+> Also include details of the environment this PR was developed in (device/platform/version).
 
 - [ ] This change adds test coverage for new/changed/fixed functionality
 
