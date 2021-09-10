@@ -30,7 +30,6 @@ dependencies:
     git:
       url: https://github.com/CentaurusApps/material_floating_search_bar.git
       ref: allow-passing-system-overlay-style
-  font_awesome_flutter: 9.1.0
   package_info: 2.0.2
   riverpod: 0.14.0+3
   shared_preferences: 2.0.6
