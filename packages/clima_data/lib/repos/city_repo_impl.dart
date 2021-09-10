@@ -1,3 +1,4 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/city_local_data_source.dart';
 import 'package:clima_data/data_sources/city_random_data_source.dart';
@@ -5,7 +6,6 @@ import 'package:clima_data/models/city_model.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 class CityRepoImpl implements CityRepo {
@@ -25,7 +25,7 @@ class CityRepoImpl implements CityRepo {
   Future<Either<Failure, City>> getCity() async {
     final cityEither = await localDataSource.getCity();
 
-    if (cityEither.isLeft()) {
+    if (cityEither is Left) {
       return cityEither.map((model) => model!.city);
     }
 

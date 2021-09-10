@@ -1,3 +1,4 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/forecast_remote_data_source.dart';
 import 'package:clima_data/data_sources/forecasts_memoized_data_source.dart';
@@ -6,7 +7,6 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_domain/repos/forecasts_repo.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 class ForecastsRepoImpl implements ForecastsRepo {
@@ -29,7 +29,7 @@ class ForecastsRepoImpl implements ForecastsRepo {
     } else {
       final memoizedForecasts = await memoizedDataSource.getMemoizedForecasts();
 
-      if (memoizedForecasts.isLeft() ||
+      if (memoizedForecasts is Left ||
           memoizedForecasts.all((forecasts) =>
               forecasts != null && forecasts.cityName == city.name)) {
         return memoizedForecasts.map((forecasts) => forecasts!);
