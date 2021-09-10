@@ -19,7 +19,6 @@ dependencies:
   clima_data:
     path: ../clima_data
 
-  auto_size_text: 3.0.0-nullsafety.0
   dartz: 0.10.0-nullsafety.2
   equatable: 2.0.3
   flutter_hooks: 0.17.0
