@@ -3,19 +3,17 @@ import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
-import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:clima_ui/widgets/weather/day_tile.dart';
-import 'package:clima_ui/widgets/weather/hour_cell.dart';
+import 'package:clima_ui/widgets/weather/hourly_forecast.dart';
 import 'package:clima_ui/widgets/weather/main_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -103,16 +101,7 @@ class WeatherScreen extends HookWidget {
           }
           isLoading.value = false;
         },
-        title: Text(
-          'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
-          style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle2!.color,
-            fontSize:
-                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                    ? 11.sp
-                    : 6.sp,
-          ),
-        ),
+        title: const Text(''),
         hint: 'Enter city name',
         color: Theme.of(context).appBarTheme.color,
         transitionCurve: Curves.easeInOut,
@@ -226,20 +215,13 @@ class WeatherScreen extends HookWidget {
                     Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
               ),
               SizedBox(
-                //TODO: Adjust height size on small screen sizes
-                height: 20.h,
-                child: HourCell(),
+                height: 16.h,
+                child: HourlyForecast(),
               ),
               Divider(
                 color:
                     Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
               ),
-              DayTile(),
-              DayTile(),
-              DayTile(),
-              DayTile(),
-              DayTile(),
-              DayTile(),
               DayTile(),
             ],
           ),
