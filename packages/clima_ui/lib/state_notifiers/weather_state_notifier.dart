@@ -1,10 +1,10 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_core/use_case.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_domain/use_cases/get_city.dart';
 import 'package:clima_domain/use_cases/get_weather.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
@@ -70,7 +70,7 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
   Future<Either<Failure, Weather>> _loadWeather() async {
     final cityEither = await getCity(const NoParams());
 
-    if (cityEither.isLeft()) {
+    if (cityEither is Left) {
       return Left((cityEither as Left<Failure, City>).value);
     }
 

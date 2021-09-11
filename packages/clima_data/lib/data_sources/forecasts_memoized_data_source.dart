@@ -1,8 +1,8 @@
 import 'dart:math';
 
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_domain/entities/forecasts.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 class ForecastsMemoizedDataSource {

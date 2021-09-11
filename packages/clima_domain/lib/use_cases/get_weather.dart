@@ -1,10 +1,10 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
-import 'package:clima_domain/entities/city.dart';
-import 'package:equatable/equatable.dart';
 import 'package:clima_core/use_case.dart';
+import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:clima_domain/repos/weather_repo.dart';
-import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:riverpod/riverpod.dart';
 
 class GetWeather implements UseCase<Weather, GetWeatherParams> {
