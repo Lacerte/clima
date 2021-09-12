@@ -8,29 +8,39 @@ import 'package:sizer/sizer.dart';
 //TODO: Add humidity and play around with flex and padding values
 
 class DayTile extends HookWidget {
+  const DayTile({
+    required this.maxTemperature,
+    required this.minTemperature,
+    required this.day,
+    required this.weatherIcon,
+    required this.precipitation,
+    Key? key,
+  }) : super(key: key);
+
+  final int maxTemperature;
+  final int minTemperature;
+  final String day;
+  final String weatherIcon;
+  final int precipitation;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ///TODO: Add day
           Text(
-            '',
-            style: TextStyle(
-              fontSize:
-                  MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                      ? 15.sp
-                      : 10.sp,
-              color: Theme.of(context).textTheme.subtitle1!.color,
+            day,
+            style: kSubtitle1TextStyle(context).copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
 
           ///TODO: Add weather icon
           SvgPicture.asset(
-            '',
+            weatherIcon,
             height: 6.h,
           ),
           Row(
@@ -38,22 +48,13 @@ class DayTile extends HookWidget {
               Icon(
                 Icons.invert_colors,
                 color: Theme.of(context).textTheme.subtitle2!.color,
-                size:
-                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                        ? 15.sp
-                        : 10.sp,
+                size: kIconSize(context),
               ),
 
               ///TODO: Add rain chance
               Text(
-                '',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.shortestSide <
-                          kTabletBreakpoint
-                      ? 15.sp
-                      : 10.sp,
-                  color: Theme.of(context).textTheme.subtitle2!.color,
-                ),
+                '$precipitation %',
+                style: kSubtitle2TextStyle(context),
               ),
             ],
           ),
@@ -64,27 +65,15 @@ class DayTile extends HookWidget {
 
                 ///TODO: Add max temp
                 child: Text(
-                  '',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.shortestSide <
-                            kTabletBreakpoint
-                        ? 15.sp
-                        : 10.sp,
-                    color: Theme.of(context).textTheme.subtitle1!.color,
-                  ),
+                  '${maxTemperature.round()}°',
+                  style: kSubtitle1TextStyle(context),
                 ),
               ),
 
               ///TODO: Add min temp
               Text(
-                '',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.shortestSide <
-                          kTabletBreakpoint
-                      ? 15.sp
-                      : 10.sp,
-                  color: Theme.of(context).textTheme.subtitle2!.color,
-                ),
+                '${minTemperature.round()}°',
+                style: kSubtitle2TextStyle(context),
               ),
             ],
           ),

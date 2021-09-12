@@ -3,17 +3,16 @@ import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
+import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
-import 'package:clima_ui/widgets/weather/day_tile.dart';
-import 'package:clima_ui/widgets/weather/hourly_forecast.dart';
-import 'package:clima_ui/widgets/weather/main_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,14 +38,12 @@ class WeatherScreen extends HookWidget {
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
     Future<void> load() async {
-      isLoading.value = true;
       await Future.wait(
         [
           weatherStateNotifier.loadWeather(),
           forecastsStateNotifier.loadForecasts(),
         ],
       );
-      isLoading.value = false;
     }
 
     useEffect(
@@ -79,6 +76,7 @@ class WeatherScreen extends HookWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
+        liftOnScrollElevation: 0.0,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
@@ -101,21 +99,20 @@ class WeatherScreen extends HookWidget {
           }
           isLoading.value = false;
         },
-        title: const Text(''),
+        title: Text(
+          'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.subtitle2!.color,
+            fontSize:
+                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                    ? 11.sp
+                    : 5.sp,
+          ),
+        ),
         hint: 'Enter city name',
         color: Theme.of(context).appBarTheme.color,
         transitionCurve: Curves.easeInOut,
         leadingActions: [
-          FloatingSearchBarAction(
-            child: CircularButton(
-              icon: Icon(
-                Icons.refresh,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
-              ),
-              tooltip: 'Refresh',
-              onPressed: load,
-            ),
-          ),
           FloatingSearchBarAction.back(
             color: Theme.of(context).appBarTheme.iconTheme!.color,
           ),
@@ -206,24 +203,52 @@ class WeatherScreen extends HookWidget {
             showIfClosed: false,
           )
         ],
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const MainInfo(),
-              Divider(
-                color:
-                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
+        body: SafeArea(
+          child: RefreshIndicator(
+            onRefresh: load,
+            color: Theme.of(context).textTheme.subtitle1!.color,
+            child: Container(
+              constraints: const BoxConstraints.expand(),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    // Main info
+                    Container(),
+                    Divider(
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .color!
+                          .withAlpha(65),
+                    ),
+
+                    // Hourly forecast
+                    SizedBox(
+                      height: 16.h,
+                      child: Container(),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .color!
+                          .withAlpha(65),
+                    ),
+
+                    // Additional info
+                    Container(),
+                    Divider(
+                      color: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .color!
+                          .withAlpha(65),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 16.h,
-                child: HourlyForecast(),
-              ),
-              Divider(
-                color:
-                    Theme.of(context).textTheme.subtitle1!.color!.withAlpha(65),
-              ),
-              DayTile(),
-            ],
+            ),
           ),
         ),
       ),
