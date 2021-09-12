@@ -2,7 +2,7 @@
 
 Beautiful, minimal, and fast weather app. (Requires Android 6.0 or later)
 
-<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S01.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S02.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S03.png" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S04.png" height="400" width="200">
+<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S01.png" alt="Beautiful, minimal UI" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S02.png" alt="5-day forecast" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S03.png" alt="Dark and light themes" height="400" width="200"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/S04.png" alt="No ads or trackers" height="400" width="200">
 
 ## Features
 
@@ -20,6 +20,10 @@ Download [here](https://github.com/PrestoSole/clima/releases) or get it on `F-dr
 ## Donations
 
 <noscript><a href="https://liberapay.com/lacerte/donate"> <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a> </noscript><img src="https://img.shields.io/liberapay/receives/lacerte.svg?logo=liberapay"> <img src="https://img.shields.io/liberapay/goal/lacerte.svg?logo=liberapay">
+
+## Special Thanks
+
+Special thanks to [Mohammed Anas](https://github.com/mhmdanas), without whom Clima would never be what it is today.
 
 ## Credits
 

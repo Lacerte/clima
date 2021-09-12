@@ -1,10 +1,10 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_core/use_case.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/forecasts.dart';
 import 'package:clima_domain/use_cases/get_city.dart';
 import 'package:clima_domain/use_cases/get_forecasts.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
@@ -71,7 +71,7 @@ class ForecastsStateNotifier extends StateNotifier<ForecastsState> {
   Future<Either<Failure, Forecasts>> _loadForecasts() async {
     final cityEither = await getCity(const NoParams());
 
-    if (cityEither.isLeft()) {
+    if (cityEither is Left) {
       return Left((cityEither as Left<Failure, City>).value);
     }
 

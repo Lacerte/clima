@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
+import 'package:clima_core/functions.dart';
 import 'package:clima_data/models/forecasts_model.dart';
 import 'package:clima_data/repos/api_key_repo.dart';
 import 'package:clima_domain/entities/city.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
