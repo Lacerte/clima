@@ -30,3 +30,15 @@ Special thanks to [Mohammed Anas](https://github.com/mhmdanas), without whom Cli
 * The app logo's [icon](https://www.iconfinder.com/iconsets/tiny-weather-1) is designed by [Paolo Spot Valzania](https://linktr.e/paolospotvalzania), licensed under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) / Placed on top of a light blue background.
 * The app design is heavily inspired by LonelyCpp's [design](https://github.com/LonelyCpp/flutter_weather), which is licensed under the [Expat License](https://mit-license.org/).
 * All the packages in `packages` except for `clima_ui` were created from templates made available by Stagehand under a BSD-style [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+
+## License
+
+Clima is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Clima is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
