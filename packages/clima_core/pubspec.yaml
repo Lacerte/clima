@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   equatable: 2.0.3
+  meta: 1.7.0
 
 dev_dependencies:
   lint: 1.7.2

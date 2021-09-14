@@ -92,7 +92,8 @@ class ForecastsStateNotifier extends StateNotifier<ForecastsState> {
 
 final forecastsStateNotifierProvider =
     StateNotifierProvider<ForecastsStateNotifier, ForecastsState>(
-        (ref) => ForecastsStateNotifier(
-              ref.watch(getForecastsProvider),
-              ref.watch(getCityProvider),
-            ));
+  (ref) => ForecastsStateNotifier(
+    ref.watch(getForecastsProvider),
+    ref.watch(getCityProvider),
+  ),
+);

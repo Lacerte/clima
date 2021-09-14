@@ -14,10 +14,11 @@ class AboutScreen extends StatelessWidget {
           style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
         ),
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

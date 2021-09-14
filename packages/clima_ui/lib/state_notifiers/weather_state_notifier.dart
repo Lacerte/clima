@@ -94,4 +94,4 @@ final weatherStateNotifierProvider =
         (ref) => WeatherStateNotifier(
               ref.watch(getWeatherProvider),
               ref.watch(getCityProvider),
-            ));
+            ),);

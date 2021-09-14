@@ -35,16 +35,22 @@ class LoadingScreen extends HookWidget {
 
           final removeListener = weatherStateNotifier.addListener((state) {
             if (state is Error) {
-              showFailureSnackBar(context,
-                  failure: state.failure, onRetry: load);
+              showFailureSnackBar(
+                context,
+                failure: state.failure,
+                onRetry: load,
+              );
             }
 
             if (state is Loaded) {
               final removeListener =
                   forecastsStateNotifier.addListener((state) {
                 if (state is f.Error) {
-                  showFailureSnackBar(context,
-                      failure: state.failure, onRetry: load);
+                  showFailureSnackBar(
+                    context,
+                    failure: state.failure,
+                    onRetry: load,
+                  );
                 }
 
                 if (state is f.Loaded) {

@@ -2,13 +2,14 @@ import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:flutter/material.dart';
 
 class SettingsTile extends StatelessWidget {
-  const SettingsTile(
-      {required this.title,
-      this.padding,
-      this.subtitle,
-      this.leading,
-      this.isThreeLine,
-      this.onTap});
+  const SettingsTile({
+    required this.title,
+    this.padding,
+    this.subtitle,
+    this.leading,
+    this.isThreeLine,
+    this.onTap,
+  });
 
   final String title;
   final String? subtitle;
@@ -79,8 +80,11 @@ class SettingsDivider extends StatelessWidget {
   }
 }
 
-Future<void> showGeneralSheet(BuildContext context,
-    {required Widget child, required String title}) {
+Future<void> showGeneralSheet(
+  BuildContext context, {
+  required Widget child,
+  required String title,
+}) {
   return showModalBottomSheet(
     backgroundColor: Theme.of(context).dialogBackgroundColor,
     useRootNavigator: true,

@@ -31,7 +31,8 @@ class WeatherRepoImpl implements WeatherRepo {
 
       if (memoizedWeather is Left ||
           memoizedWeather.all(
-              (weather) => weather != null && weather.cityName == city.name)) {
+            (weather) => weather != null && weather.cityName == city.name,
+          )) {
         return memoizedWeather.map((weather) => weather!);
       }
 

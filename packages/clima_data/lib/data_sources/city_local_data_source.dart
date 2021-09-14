@@ -27,4 +27,5 @@ class CityLocalDataSource {
 }
 
 final cityLocalDataSourceProvider = Provider(
-    (ref) => CityLocalDataSource(ref.watch(sharedPreferencesProvider)));
+  (ref) => CityLocalDataSource(ref.watch(sharedPreferencesProvider)),
+);

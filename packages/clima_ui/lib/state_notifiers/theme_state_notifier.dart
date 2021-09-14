@@ -1,5 +1,5 @@
-import 'package:clima_core/functions.dart';
 import 'package:clima_core/failure.dart';
+import 'package:clima_core/functions.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/repos/theme_repo.dart';
@@ -113,4 +113,5 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
 
 final themeStateNotifierProvider =
     StateNotifierProvider<ThemeStateNotifier, ThemeState>(
-        (ref) => ThemeStateNotifier(ref.watch(themeRepoProvider)));
+  (ref) => ThemeStateNotifier(ref.watch(themeRepoProvider)),
+);

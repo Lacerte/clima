@@ -37,11 +37,14 @@ Future<void> main() async {
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         cityRepoProvider.overrideWithProvider(
-            Provider((ref) => ref.watch(cityRepoImplProvider))),
+          Provider((ref) => ref.watch(cityRepoImplProvider)),
+        ),
         weatherRepoProvider.overrideWithProvider(
-            Provider((ref) => ref.watch(weatherRepoImplProvider))),
+          Provider((ref) => ref.watch(weatherRepoImplProvider)),
+        ),
         forecastsRepoProvider.overrideWithProvider(
-            Provider((ref) => ref.watch(forecastsRepoImplProvider))),
+          Provider((ref) => ref.watch(forecastsRepoImplProvider)),
+        ),
       ],
       child: DevicePreview(
         builder: (context) => MyApp(),
@@ -55,11 +58,14 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
     final themeStateNotifier = useProvider(themeStateNotifierProvider.notifier);
 
-    useEffect(() {
-      themeStateNotifier.loadTheme();
+    useEffect(
+      () {
+        themeStateNotifier.loadTheme();
 
-      return null;
-    }, [themeStateNotifier]);
+        return null;
+      },
+      [themeStateNotifier],
+    );
 
     final themeState = useProvider(themeStateNotifierProvider);
 
