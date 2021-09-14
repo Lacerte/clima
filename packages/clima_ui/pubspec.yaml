@@ -23,7 +23,7 @@ dependencies:
   equatable: 2.0.3
   flutter_hooks: 0.17.0
   flutter_riverpod: 0.14.0+3
-  flutter_spinkit: 5.0.0
+  flutter_spinkit: 5.1.0
   weather_icons: 3.0.0
   hooks_riverpod: 0.14.0+4
   material_floating_search_bar:
@@ -32,13 +32,17 @@ dependencies:
       ref: allow-passing-system-overlay-style
   package_info: 2.0.2
   riverpod: 0.14.0+3
-  shared_preferences: 2.0.6
+  shared_preferences: 2.0.7
+  font_awesome_flutter: 9.1.0
   device_preview: 0.7.4
-  url_launcher: 6.0.9
+  url_launcher: 6.0.10
   sizer: 2.0.13
+  intl: 0.17.0
+  meta: 1.7.0
+  state_notifier: 0.7.1
 
 dev_dependencies:
-  lint: 1.5.3
+  lint: 1.7.2
   flutter_test:
     sdk: flutter
 

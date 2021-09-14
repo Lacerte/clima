@@ -61,7 +61,7 @@ void main() {
             forecasts: [
               Weather(
                 temperature: 5.29,
-                timeZoneOffset: const Duration(),
+                timeZoneOffset: Duration.zero,
                 windSpeed: 1.37 * 3.6,
                 tempFeel: 1.94,
                 condition: 802,

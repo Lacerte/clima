@@ -51,4 +51,5 @@ class ThemeLocalDataSource {
 }
 
 final themeLocalDataSourceProvider = Provider(
-    (ref) => ThemeLocalDataSource(ref.watch(sharedPreferencesProvider)));
+  (ref) => ThemeLocalDataSource(ref.watch(sharedPreferencesProvider)),
+);
