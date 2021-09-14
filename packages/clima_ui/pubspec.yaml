@@ -35,11 +35,11 @@ dependencies:
   shared_preferences: 2.0.7
   font_awesome_flutter: 9.1.0
   device_preview: 0.7.4
-  url_launcher: 6.0.9
+  url_launcher: 6.0.10
   sizer: 2.0.13
 
 dev_dependencies:
-  lint: 1.6.0
+  lint: 1.7.2
   flutter_test:
     sdk: flutter
 

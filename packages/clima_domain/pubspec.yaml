@@ -12,5 +12,5 @@ dependencies:
     path: ../clima_core
 
 dev_dependencies:
-  test: 1.17.10
-  lint: 1.6.0
+  test: 1.17.12
+  lint: 1.7.2
