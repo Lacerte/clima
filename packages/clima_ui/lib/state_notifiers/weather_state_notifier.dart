@@ -91,7 +91,8 @@ class WeatherStateNotifier extends StateNotifier<WeatherState> {
 
 final weatherStateNotifierProvider =
     StateNotifierProvider<WeatherStateNotifier, WeatherState>(
-        (ref) => WeatherStateNotifier(
-              ref.watch(getWeatherProvider),
-              ref.watch(getCityProvider),
-            ),);
+  (ref) => WeatherStateNotifier(
+    ref.watch(getWeatherProvider),
+    ref.watch(getCityProvider),
+  ),
+);
