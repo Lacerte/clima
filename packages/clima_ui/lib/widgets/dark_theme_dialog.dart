@@ -21,7 +21,7 @@ class DarkThemeDialog extends HookWidget {
       for (final entry in _dialogOptions.entries)
         RadioListTile<DarkThemeModel>(
           title: Text(
-            entry.key.toString(),
+            entry.key,
             style: TextStyle(
               color: Theme.of(context).textTheme.subtitle1!.color,
             ),

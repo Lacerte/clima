@@ -30,7 +30,10 @@ class SettingScreen extends HookWidget {
         ),
         title: Text(
           'Settings',
-          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
+          style: TextStyle(
+            color: Theme.of(context).appBarTheme.titleTextStyle!.color,
+            fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+          ),
         ),
       ),
       body: SingleChildScrollView(
