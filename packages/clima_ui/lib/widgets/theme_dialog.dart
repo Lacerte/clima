@@ -21,7 +21,7 @@ class ThemeDialog extends HookWidget {
       for (final entry in _dialogOptions.entries)
         RadioListTile<ThemeModel>(
           title: Text(
-            entry.key.toString(),
+            entry.key,
             style: TextStyle(
               color: Theme.of(context).textTheme.subtitle1!.color,
             ),

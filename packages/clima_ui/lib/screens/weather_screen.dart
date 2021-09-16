@@ -113,7 +113,7 @@ class WeatherScreen extends HookWidget {
           ),
         ),
         hint: 'Enter city name',
-        color: Theme.of(context).appBarTheme.color,
+        color: Theme.of(context).appBarTheme.backgroundColor,
         transitionCurve: Curves.easeInOut,
         leadingActions: [
           FloatingSearchBarAction(

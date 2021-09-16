@@ -11,13 +11,17 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'About Clima',
-          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
+          style: TextStyle(
+            color: Theme.of(context).appBarTheme.titleTextStyle!.color,
+            fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+          ),
         ),
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

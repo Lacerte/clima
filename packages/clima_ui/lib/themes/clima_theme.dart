@@ -21,8 +21,10 @@ class ClimaTheme extends InheritedWidget {
 }
 
 class ClimaThemeData extends Equatable {
-  const ClimaThemeData(
-      {required this.sheetPillColor, required this.loadingIndicatorColor});
+  const ClimaThemeData({
+    required this.sheetPillColor,
+    required this.loadingIndicatorColor,
+  });
 
   final Color sheetPillColor;
 

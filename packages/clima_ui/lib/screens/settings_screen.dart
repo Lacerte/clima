@@ -16,19 +16,24 @@ class SettingScreen extends HookWidget {
     final theme =
         useProvider(themeStateNotifierProvider.select((state) => state.theme));
     final darkTheme = useProvider(
-        themeStateNotifierProvider.select((state) => state.darkTheme));
+      themeStateNotifierProvider.select((state) => state.darkTheme),
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'Settings',
-          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
+          style: TextStyle(
+            color: Theme.of(context).appBarTheme.titleTextStyle!.color,
+            fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+          ),
         ),
       ),
       body: SingleChildScrollView(

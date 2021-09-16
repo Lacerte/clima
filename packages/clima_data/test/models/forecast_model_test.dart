@@ -42,7 +42,7 @@ void main() {
         ForecastModel.fromJson(
           json,
           cityName: 'London',
-          timeZoneOffset: const Duration(),
+          timeZoneOffset: Duration.zero,
           sunrise: sunrise,
           sunset: sunset,
         ),
@@ -50,7 +50,7 @@ void main() {
           Weather(
             temperature: 5.29,
             windSpeed: 1.37 * 3.6,
-            timeZoneOffset: const Duration(),
+            timeZoneOffset: Duration.zero,
             tempFeel: 1.94,
             condition: 802,
             minTemperature: 5.29,

@@ -44,4 +44,5 @@ class ApiKeyLocalDataSource {
 }
 
 final apiKeyLocalDataSourceProvider = Provider(
-    (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)));
+  (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)),
+);
