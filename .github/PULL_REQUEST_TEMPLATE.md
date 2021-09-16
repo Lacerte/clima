@@ -1,4 +1,4 @@
-<--! Template adapted from [auth0](https://github.com/auth0/open-source-template/blob/master/.github/PULL_REQUEST_TEMPLATE.md) -->
+<!-- Template adapted from [auth0](https://github.com/auth0/open-source-template/blob/master/.github/PULL_REQUEST_TEMPLATE.md) -->
 
 By submitting a PR to this repository, you agree to the terms within our [Code of Conduct](https://github.com/lacerte/clima/blob/master/CODE-OF-CONDUCT.md). Please see the [contributing guidelines](https://github.com/lacerte/clima/blob/master/CONTRIBUTING.md) for how to create and submit a high-quality PR for this repo.
 
