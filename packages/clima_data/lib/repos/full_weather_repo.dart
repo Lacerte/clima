@@ -6,7 +6,7 @@ import 'package:clima_data/providers.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/full_weather.dart';
 import 'package:clima_domain/repos/full_weather_repo.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:riverpod/riverpod.dart';
 
 class _FullWeatherRepoImpl implements FullWeatherRepo {

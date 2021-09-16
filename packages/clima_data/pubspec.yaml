@@ -10,7 +10,7 @@ dependencies:
   clima_domain:
     path: ../clima_domain
 
-  connectivity: 3.0.6
+  connectivity_plus: 2.0.3
 
   flutter:
     sdk: flutter

@@ -5,7 +5,7 @@ import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
