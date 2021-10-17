@@ -3,19 +3,25 @@ import 'dart:convert';
 import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_core/functions.dart';
-import 'package:clima_data/models/weather_model.dart';
+import 'package:clima_data/models/full_weather_model.dart';
 import 'package:clima_data/repos/api_key_repo.dart';
+import 'package:clima_data/repos/geocoding_repo.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-class WeatherRemoteDataSource {
-  WeatherRemoteDataSource(this._apiKeyRepo);
+class FullWeatherRemoteDataSource {
+  FullWeatherRemoteDataSource(this._apiKeyRepo, this._geocodingRepo);
 
   final ApiKeyRepo _apiKeyRepo;
 
-  Future<Either<Failure, WeatherModel>> getWeather(City city) async {
+  final GeocodingRepo _geocodingRepo;
+
+  Future<Either<Failure, FullWeatherModel>> getFullWeather(City city) async {
     final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+
+    final coordinates =
+        (await _geocodingRepo.getCoordinates(city)).fold((_) => null, id)!;
 
     // TODO: create a client as the docs recommend creating a client when
     // making multiple requests to the same server.
@@ -23,9 +29,10 @@ class WeatherRemoteDataSource {
       Uri(
         scheme: 'https',
         host: 'api.openweathermap.org',
-        path: '/data/2.5/weather',
+        path: '/data/2.5/onecall',
         queryParameters: {
-          'q': city.name,
+          'lon': coordinates.long,
+          'lat': coordinates.lat,
           'appid': apiKey,
           'units': 'metric',
         },
@@ -34,8 +41,12 @@ class WeatherRemoteDataSource {
 
     if (response.statusCode >= 200 && response.statusCode <= 226) {
       try {
-        return Right(WeatherModel.fromJson(
-            jsonDecode(response.body) as Map<String, dynamic>));
+        return Right(
+          FullWeatherModel.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>,
+            city: city,
+          ),
+        );
       } on FormatException {
         return const Left(FailedToParseResponse());
       }
@@ -50,5 +61,9 @@ class WeatherRemoteDataSource {
   }
 }
 
-final weatherRemoteDataSourceProvider =
-    Provider((ref) => WeatherRemoteDataSource(ref.watch(apiKeyRepoProvider)));
+final fullWeatherRemoteDataSourceProvider = Provider(
+  (ref) => FullWeatherRemoteDataSource(
+    ref.watch(apiKeyRepoProvider),
+    ref.watch(geocodingRepoProvider),
+  ),
+);

@@ -1,27 +1,28 @@
+import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sizer/sizer.dart';
 
 class MainInfo extends HookWidget {
   const MainInfo({
-    required this.cityName,
-    required this.temperature,
-    required this.description,
-    required this.maxTemperature,
-    required this.minTemperature,
     Key? key,
   }) : super(key: key);
 
-  final String cityName;
-  final int temperature;
-  final String description;
-  final int maxTemperature;
-  final int minTemperature;
-
   @override
   Widget build(BuildContext context) {
+    final currentWeather = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.currentWeather,
+      ),
+    );
+    final cityName = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.city,
+      ),
+    );
     return Padding(
       padding: EdgeInsets.only(top: 4.h, bottom: 4.h),
       child: Column(
@@ -29,7 +30,7 @@ class MainInfo extends HookWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 1.h),
             child: Text(
-              cityName.toUpperCase(),
+              cityName.toString().toUpperCase(),
               style: kSubtitle1TextStyle(context).copyWith(
                 fontWeight: FontWeight.w900,
                 letterSpacing: 5,
@@ -43,7 +44,7 @@ class MainInfo extends HookWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 1.h),
             child: Text(
-              '${temperature.round()}°',
+              '${currentWeather.temperature.round()}°',
               maxLines: 1,
               style: kSubtitle1TextStyle(context).copyWith(
                 fontSize:
@@ -65,7 +66,7 @@ class MainInfo extends HookWidget {
                   color: Theme.of(context).textTheme.subtitle1!.color,
                 ),
                 Text(
-                  '${maxTemperature.round()}°',
+                  '${currentWeather.maxTemperature.round()}°',
                   style: kSubtitle1TextStyle(context),
                 ),
                 Padding(
@@ -77,14 +78,14 @@ class MainInfo extends HookWidget {
                   ),
                 ),
                 Text(
-                  '${minTemperature.round()}°',
+                  '${currentWeather.minTemperature.round()}°',
                   style: kSubtitle1TextStyle(context),
                 ),
               ],
             ),
           ),
           Text(
-            description.toUpperCase(),
+            currentWeather.description.toUpperCase(),
             style: kSubtitle1TextStyle(context).copyWith(
               fontWeight: FontWeight.w300,
               letterSpacing: 5,

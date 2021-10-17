@@ -16,7 +16,7 @@ class UnitDialog extends ConsumerWidget {
       for (final entry in _dialogOptions.entries)
         RadioListTile<UnitSystem>(
           title: Text(
-            entry.key.toString(),
+            entry.key,
             style: TextStyle(
               color: Theme.of(context).textTheme.subtitle1!.color,
             ),

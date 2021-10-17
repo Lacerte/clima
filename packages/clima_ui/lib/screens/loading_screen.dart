@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
-import 'package:clima_ui/state_notifiers/weather_state_notifier.dart';
+import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart';
 import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class LoadingScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final weatherStateNotifier =
-        useProvider(weatherStateNotifierProvider.notifier);
+        useProvider(fullWeatherStateNotifierProvider.notifier);
     final forecastsStateNotifier =
         useProvider(f.forecastsStateNotifierProvider.notifier);
 
@@ -27,7 +27,7 @@ class LoadingScreen extends HookWidget {
           await Future.microtask(() async {
             await Future.wait(
               [
-                weatherStateNotifier.loadWeather(),
+                weatherStateNotifier.loadFullWeather(),
                 forecastsStateNotifier.loadForecasts(),
               ],
             );
@@ -35,16 +35,22 @@ class LoadingScreen extends HookWidget {
 
           final removeListener = weatherStateNotifier.addListener((state) {
             if (state is Error) {
-              showFailureSnackBar(context,
-                  failure: state.failure, onRetry: load);
+              showFailureSnackBar(
+                context,
+                failure: state.failure,
+                onRetry: load,
+              );
             }
 
             if (state is Loaded) {
               final removeListener =
                   forecastsStateNotifier.addListener((state) {
                 if (state is f.Error) {
-                  showFailureSnackBar(context,
-                      failure: state.failure, onRetry: load);
+                  showFailureSnackBar(
+                    context,
+                    failure: state.failure,
+                    onRetry: load,
+                  );
                 }
 
                 if (state is f.Loaded) {

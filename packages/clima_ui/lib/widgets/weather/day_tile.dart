@@ -1,30 +1,29 @@
+import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sizer/sizer.dart';
-
-//TODO: Add humidity and play around with flex and padding values
 
 class DayTile extends HookWidget {
   const DayTile({
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.day,
-    required this.weatherIcon,
-    required this.precipitation,
     Key? key,
   }) : super(key: key);
 
-  final int maxTemperature;
-  final int minTemperature;
-  final String day;
-  final String weatherIcon;
-  final int precipitation;
-
   @override
   Widget build(BuildContext context) {
+    final dailyForecasts = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.dailyForecasts,
+      ),
+    );
+    final timeZoneOffset = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.timeZoneOffset,
+      ),
+    );
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Row(

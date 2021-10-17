@@ -3,44 +3,53 @@ import 'dart:convert';
 import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_core/functions.dart';
-import 'package:clima_data/models/forecasts_model.dart';
+import 'package:clima_data/models/geographic_coordinates_model.dart';
 import 'package:clima_data/repos/api_key_repo.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-class ForecastsRemoteDataSource {
-  ForecastsRemoteDataSource(this._apiKeyRepo);
+class GeocodingRemoteDataSource {
+  GeocodingRemoteDataSource(this._apiKeyRepo);
 
   final ApiKeyRepo _apiKeyRepo;
 
-  Future<Either<Failure, ForecastsModel>> getForecasts(City city) async {
+  Future<Either<Failure, GeographicCoordinatesModel>> getCoordinates(
+    City city,
+  ) async {
     final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     final response = await http.get(
       Uri(
         scheme: 'https',
         host: 'api.openweathermap.org',
-        path: '/data/2.5/forecast',
+        path: '/geo/1.0/direct',
         queryParameters: {
           'q': city.name,
           'appid': apiKey,
-          'units': 'metric',
+          'limit': 1,
         },
       ),
     );
 
-    if (response.statusCode >= 200 && response.statusCode <= 226) {
-      try {
-        return Right(ForecastsModel.fromJson(
-            jsonDecode(response.body) as Map<String, dynamic>));
-      } on FormatException {
-        return const Left(FailedToParseResponse());
-      }
-    } else if (response.statusCode == 503) {
+    if (response.statusCode == 503) {
       return const Left(ServerDown());
-    } else if (response.statusCode == 404) {
-      return Left(InvalidCityName(city.name));
+    }
+
+    dynamic body;
+
+    try {
+      body = jsonDecode(response.body);
+    } on FormatException {
+      return const Left(FailedToParseResponse());
+    }
+
+    if (body is List) {
+      if (body.isEmpty) {
+        return Left(InvalidCityName(city.name));
+      }
+
+      return Right(GeographicCoordinatesModel.fromJson(body));
     } else {
       // TODO: I don't think this failure is fit for this situation.
       return const Left(FailedToParseResponse());
@@ -48,5 +57,5 @@ class ForecastsRemoteDataSource {
   }
 }
 
-final forecastRemoteDataSourceProvider =
-    Provider((ref) => ForecastsRemoteDataSource(ref.watch(apiKeyRepoProvider)));
+final geocodingRemoteDataSourceProvider =
+    Provider((ref) => GeocodingRemoteDataSource(ref.watch(apiKeyRepoProvider)));

@@ -1,33 +1,29 @@
+import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class AdditionalInfo extends HookWidget {
   const AdditionalInfo({
-    required this.feelsLike,
-    required this.humidity,
-    required this.windSpeed,
-    required this.pressure,
-    required this.precipitation,
-    required this.uvIndex,
-    required this.sunrise,
-    required this.sunset,
     Key? key,
   }) : super(key: key);
 
-  final int feelsLike;
-  final int humidity;
-  final int windSpeed;
-  final int pressure;
-  final int precipitation;
-  final double uvIndex;
-  final DateTime sunrise;
-  final DateTime sunset;
-
   @override
   Widget build(BuildContext context) {
+    final currentWeather = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.currentWeather,
+      ),
+    );
+    final timeZoneOffset = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+            (state) => state.fullWeather!.timeZoneOffset,
+      ),
+    );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 5.w),
       child: Column(
@@ -55,13 +51,13 @@ class AdditionalInfo extends HookWidget {
             children: [
               Expanded(
                 child: Text(
-                  '$feelsLike°',
+                  '${currentWeather.tempFeel.round()}°',
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
               Expanded(
                 child: Text(
-                  '$humidity%',
+                  '${currentWeather.humidity}%',
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
@@ -94,14 +90,13 @@ class AdditionalInfo extends HookWidget {
               Expanded(
                 ///TODO: Add precipitation
                 child: Text(
-                  '$precipitation %',
+                  '${} %',
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
               Expanded(
-                ///TODO: Add pressure
                 child: Text(
-                  '$pressure mbar',
+                  '${currentWeather.pressure} mbar',
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
@@ -133,14 +128,13 @@ class AdditionalInfo extends HookWidget {
             children: [
               Expanded(
                 child: Text(
-                  '$windSpeed km/h',
+                  '${currentWeather.windSpeed.round()} km/h',
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
               Expanded(
-                ///TODO: Add UV index
                 child: Text(
-                  '$uvIndex',
+                  '${currentWeather.uvIndex}',
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
@@ -171,16 +165,16 @@ class AdditionalInfo extends HookWidget {
           Row(
             children: [
               Expanded(
-                ///TODO: Add sunrise
                 child: Text(
-                  '$sunrise',
+    DateFormat.Hm().format(
+    currentWeather.sunrise.toUtc().add(timeZoneOffset),),
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),
               Expanded(
-                ///TODO: Add sunset
                 child: Text(
-                  '$sunset',
+                  DateFormat.Hm().format(
+                    currentWeather.sunset.toUtc().add(timeZoneOffset),),
                   style: kMoreDetailsWeatherData(context),
                 ),
               ),

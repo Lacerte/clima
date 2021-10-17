@@ -2,21 +2,21 @@ import 'dart:math';
 
 import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
-import 'package:clima_domain/entities/weather.dart';
+import 'package:clima_domain/entities/full_weather.dart';
 import 'package:riverpod/riverpod.dart';
 
-class WeatherMemoizedDataSource {
-  Weather? _weather;
+class FullWeatherMemoizedDataSource {
+  FullWeather? _fullWeather;
 
   DateTime? _fetchingTime;
 
-  static const _invalidationDuration = Duration(minutes: 1);
+  static const _invalidationDuration = Duration(minutes: 10);
 
-  Future<Either<Failure, Weather?>> getMemoizedWeather() async {
-    if (_weather == null) return const Right(null);
+  Future<Either<Failure, FullWeather?>> getMemoizedFullWeather() async {
+    if (_fullWeather == null) return const Right(null);
 
     if (DateTime.now().difference(_fetchingTime!) >= _invalidationDuration) {
-      _weather = null;
+      _fullWeather = null;
       _fetchingTime = null;
       return const Right(null);
     }
@@ -29,15 +29,15 @@ class WeatherMemoizedDataSource {
       ),
     );
 
-    return Right(_weather);
+    return Right(_fullWeather);
   }
 
-  Future<Either<Failure, void>> setWeather(Weather weather) async {
+  Future<Either<Failure, void>> setFullWeather(FullWeather fullWeather) async {
     _fetchingTime = DateTime.now();
-    _weather = weather;
+    _fullWeather = fullWeather;
     return const Right(null);
   }
 }
 
-final weatherMemoizedDataSourceProvider =
-    Provider((ref) => WeatherMemoizedDataSource());
+final fullWeatherMemoizedDataSourceProvider =
+    Provider((ref) => FullWeatherMemoizedDataSource());

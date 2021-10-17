@@ -25,5 +25,6 @@ class ThemeRepo {
       localDataSource.setDarkTheme(theme);
 }
 
-final themeRepoProvider = Provider((ref) =>
-    ThemeRepo(localDataSource: ref.watch(themeLocalDataSourceProvider)));
+final themeRepoProvider = Provider(
+  (ref) => ThemeRepo(localDataSource: ref.watch(themeLocalDataSourceProvider)),
+);

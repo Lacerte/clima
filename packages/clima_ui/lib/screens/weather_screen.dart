@@ -2,12 +2,14 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
-import 'package:clima_ui/state_notifiers/weather_state_notifier.dart' as w;
+import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
+import 'package:clima_ui/widgets/weather/hourly_forecast_widget.dart';
+import 'package:clima_ui/widgets/weather/main_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,26 +26,18 @@ class WeatherScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weatherState = useProvider(w.weatherStateNotifierProvider);
+    final fullWeatherState = useProvider(w.fullWeatherStateNotifierProvider);
 
-    final forecastsStateNotifier =
-        useProvider(f.forecastsStateNotifierProvider.notifier);
-
-    final weatherStateNotifier =
-        useProvider(w.weatherStateNotifierProvider.notifier);
+    final fullWeatherStateNotifier =
+        useProvider(w.fullWeatherStateNotifierProvider.notifier);
     final controller = useFloatingSearchBarController();
 
-    final isLoading = useState(weatherState is c.Loading);
+    final isLoading = useState(fullWeatherState is c.Loading);
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
     Future<void> load() async {
-      await Future.wait(
-        [
-          weatherStateNotifier.loadWeather(),
-          forecastsStateNotifier.loadForecasts(),
-        ],
-      );
+      await fullWeatherStateNotifier.loadFullWeather();
     }
 
     useEffect(
@@ -56,21 +50,12 @@ class WeatherScreen extends HookWidget {
     );
 
     useEffect(
-      () => weatherStateNotifier.addListener((state) {
+      () => fullWeatherStateNotifier.addListener((state) {
         if (state is w.Error) {
           showFailureSnackBar(context, failure: state.failure, duration: 2);
         }
       }),
-      [weatherStateNotifier],
-    );
-
-    useEffect(
-      () => forecastsStateNotifier.addListener((state) {
-        if (state is f.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
-        }
-      }),
-      [forecastsStateNotifier],
+      [fullWeatherStateNotifier],
     );
 
     return Scaffold(
@@ -92,10 +77,7 @@ class WeatherScreen extends HookWidget {
           isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider) is! c.Error) {
-            await Future.wait([
-              weatherStateNotifier.loadWeather(),
-              forecastsStateNotifier.loadForecasts(),
-            ]);
+            await load();
           }
           isLoading.value = false;
         },
@@ -110,7 +92,7 @@ class WeatherScreen extends HookWidget {
           ),
         ),
         hint: 'Enter city name',
-        color: Theme.of(context).appBarTheme.color,
+        color: Theme.of(context).appBarTheme.backgroundColor,
         transitionCurve: Curves.easeInOut,
         leadingActions: [
           FloatingSearchBarAction.back(
@@ -214,7 +196,7 @@ class WeatherScreen extends HookWidget {
                 child: Column(
                   children: [
                     // Main info
-                    Container(),
+                    const MainInfo(),
                     Divider(
                       color: Theme.of(context)
                           .textTheme
@@ -226,7 +208,7 @@ class WeatherScreen extends HookWidget {
                     // Hourly forecast
                     SizedBox(
                       height: 16.h,
-                      child: Container(),
+                      child: const HourlyForecastWidget(),
                     ),
                     Divider(
                       color: Theme.of(context)
@@ -237,7 +219,6 @@ class WeatherScreen extends HookWidget {
                     ),
 
                     // Additional info
-                    Container(),
                     Divider(
                       color: Theme.of(context)
                           .textTheme

@@ -1,33 +1,37 @@
+import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
+import 'package:clima_ui/utilities/weather_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-class HourlyForecast extends HookWidget {
-  const HourlyForecast({
-    required this.temperature,
-    required this.weatherIcon,
-    required this.hour,
-    required this.precipitation,
-    required this.itemCount,
+class HourlyForecastWidget extends HookWidget {
+  const HourlyForecastWidget({
     Key? key,
   }) : super(key: key);
 
-  final int temperature;
-  final String weatherIcon;
-  final DateTime hour;
-  final int precipitation;
-  final int itemCount;
-
   @override
   Widget build(BuildContext context) {
+    final hourlyForecasts = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.hourlyForecasts,
+      ),
+    );
+    final timeZoneOffset = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.timeZoneOffset,
+      ),
+    );
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
-      itemCount: itemCount,
+      itemCount: hourlyForecasts.length,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
+        final hourlyForecast = hourlyForecasts[index];
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 5.w,
@@ -36,15 +40,17 @@ class HourlyForecast extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                hour.toString(),
+                DateFormat.j().format(
+                  hourlyForecast.date.toUtc().add(timeZoneOffset),
+                ),
                 style: kSubtitle2TextStyle(context),
               ),
               SvgPicture.asset(
-                weatherIcon,
+                getWeatherIcon(hourlyForecast.iconCode),
                 height: 6.h,
               ),
               Text(
-                '${temperature.round()}°',
+                '${hourlyForecast.temperature.round()}°',
                 style: kSubtitle1TextStyle(context),
               ),
               Row(
@@ -54,10 +60,8 @@ class HourlyForecast extends HookWidget {
                     color: Theme.of(context).textTheme.subtitle2!.color,
                     size: kIconSize(context),
                   ),
-
-                  ///TODO: Add rain chance
                   Text(
-                    '$precipitation %',
+                    '${(hourlyForecast.pop * 100).round()} %',
                     style: kSubtitle2TextStyle(context),
                   ),
                 ],
