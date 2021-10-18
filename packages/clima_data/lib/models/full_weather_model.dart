@@ -16,22 +16,6 @@ class FullWeatherModel extends Equatable {
     required City city,
   }) {
     final currentWeatherJson = json['current'];
-    final currentTime = currentWeatherJson['dt'] as int;
-
-    final currentDayForecast = (json['daily'] as List).reduce((a, b) {
-      final aDiffCurrent =
-          ((currentWeatherJson['dt'] as int) - (a['dt'] as int)).abs();
-      final bDiffCurrent =
-          ((currentWeatherJson['dt'] as int) - (b['dt'] as int)).abs();
-
-      if (aDiffCurrent < bDiffCurrent) {
-        return a;
-      } else if (bDiffCurrent == aDiffCurrent) {
-        throw Exception("Two daily forecasts can't have the same time");
-      } else {
-        return b;
-      }
-    });
 
     return FullWeatherModel(
       FullWeather(
@@ -39,20 +23,15 @@ class FullWeatherModel extends Equatable {
         timeZoneOffset: Duration(seconds: json['timezone_offset'] as int),
         currentWeather: Weather(
           temperature: (currentWeatherJson['temp'] as num).toDouble(),
-          maxTemperature: (currentDayForecast['temp']['max'] as num).toDouble(),
-          minTemperature: (currentDayForecast['temp']['min'] as num).toDouble(),
           tempFeel: (currentWeatherJson['feels_like'] as num).toDouble(),
           // We multiply by 3.6 to convert from m/s to km/h.
           windSpeed: (currentWeatherJson['wind_speed'] as num).toDouble() * 3.6,
           condition: currentWeatherJson['weather'][0]['id'] as int,
           description:
               currentWeatherJson['weather'][0]['description'] as String,
-          date: date_time_utils.fromUtcUnixTime(currentTime),
+          date:
+              date_time_utils.fromUtcUnixTime(currentWeatherJson['dt'] as int),
           iconCode: currentWeatherJson['weather'][0]['icon'] as String,
-          sunrise: date_time_utils
-              .fromUtcUnixTime(currentWeatherJson['sunrise'] as int),
-          sunset: date_time_utils
-              .fromUtcUnixTime(currentWeatherJson['sunset'] as int),
           humidity: currentWeatherJson['humidity'] as int,
           pressure: currentWeatherJson['pressure'] as int,
           uvIndex: (currentWeatherJson['uvi'] as num).toDouble(),
@@ -66,6 +45,10 @@ class FullWeatherModel extends Equatable {
                     date_time_utils.fromUtcUnixTime(forecastJson['dt'] as int),
                 iconCode: forecastJson['weather'][0]['icon'] as String,
                 pop: (forecastJson['pop'] as num).toDouble(),
+                sunrise: date_time_utils
+                    .fromUtcUnixTime(forecastJson['sunrise'] as int),
+                sunset: date_time_utils
+                    .fromUtcUnixTime(forecastJson['sunset'] as int),
               ),
             )
             .toList(),

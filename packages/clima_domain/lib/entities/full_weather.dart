@@ -24,6 +24,23 @@ class FullWeather extends Equatable {
 
   final List<HourlyForecast> hourlyForecasts;
 
+  DailyForecast get currentDayForecast => dailyForecasts.reduce((a, b) {
+        final aDiffCurrent = currentWeather.date.difference(a.date).abs();
+        final bDiffCurrent = currentWeather.date.difference(b.date).abs();
+
+        if (aDiffCurrent < bDiffCurrent) {
+          return a;
+        } else if (bDiffCurrent == aDiffCurrent) {
+          if (a.date.weekday == currentWeather.date.weekday) {
+            return a;
+          }
+
+          return b;
+        } else {
+          return b;
+        }
+      });
+
   @override
   List<Object> get props =>
       [city, timeZoneOffset, currentWeather, dailyForecasts, hourlyForecasts];
