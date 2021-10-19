@@ -31,8 +31,8 @@ class FullWeatherRemoteDataSource {
         host: 'api.openweathermap.org',
         path: '/data/2.5/onecall',
         queryParameters: {
-          'lon': coordinates.long,
-          'lat': coordinates.lat,
+          'lon': coordinates.long.toString(),
+          'lat': coordinates.lat.toString(),
           'appid': apiKey,
           'units': 'metric',
         },

@@ -6,8 +6,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sizer/sizer.dart';
 
-class MainInfo extends HookWidget {
-  const MainInfo({
+class MainInfoWidget extends HookWidget {
+  const MainInfoWidget({
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +18,7 @@ class MainInfo extends HookWidget {
         (state) => state.fullWeather!.currentWeather,
       ),
     );
-    final cityName = useProvider(
+    final city = useProvider(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.city,
       ),
@@ -30,7 +30,7 @@ class MainInfo extends HookWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 1.h),
             child: Text(
-              cityName.toString().toUpperCase(),
+              city.name.toUpperCase(),
               style: kSubtitle1TextStyle(context).copyWith(
                 fontWeight: FontWeight.w900,
                 letterSpacing: 5,

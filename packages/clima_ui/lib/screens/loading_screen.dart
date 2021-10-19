@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart';
 import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
@@ -16,24 +15,17 @@ class LoadingScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weatherStateNotifier =
+    final fullWeatherStateNotifier =
         useProvider(fullWeatherStateNotifierProvider.notifier);
-    final forecastsStateNotifier =
-        useProvider(f.forecastsStateNotifierProvider.notifier);
 
     useEffect(
       () {
         Future<void> load() async {
           await Future.microtask(() async {
-            await Future.wait(
-              [
-                weatherStateNotifier.loadFullWeather(),
-                forecastsStateNotifier.loadForecasts(),
-              ],
-            );
+            await fullWeatherStateNotifier.loadFullWeather();
           });
 
-          final removeListener = weatherStateNotifier.addListener((state) {
+          final removeListener = fullWeatherStateNotifier.addListener((state) {
             if (state is Error) {
               showFailureSnackBar(
                 context,
@@ -43,27 +35,12 @@ class LoadingScreen extends HookWidget {
             }
 
             if (state is Loaded) {
-              final removeListener =
-                  forecastsStateNotifier.addListener((state) {
-                if (state is f.Error) {
-                  showFailureSnackBar(
-                    context,
-                    failure: state.failure,
-                    onRetry: load,
-                  );
-                }
-
-                if (state is f.Loaded) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const WeatherScreen(),
-                    ),
-                  );
-                }
-              });
-
-              removeListener();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const WeatherScreen(),
+                ),
+              );
             }
           });
 
@@ -74,7 +51,7 @@ class LoadingScreen extends HookWidget {
 
         return null;
       },
-      [weatherStateNotifier, forecastsStateNotifier],
+      [fullWeatherStateNotifier],
     );
 
     return Scaffold(

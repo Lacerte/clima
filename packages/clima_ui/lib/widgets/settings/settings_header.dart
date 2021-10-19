@@ -15,7 +15,7 @@ class SettingsHeader extends StatelessWidget {
         child: Text(
           title,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
         ),
       ),

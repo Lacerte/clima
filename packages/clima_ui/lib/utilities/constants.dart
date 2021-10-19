@@ -27,7 +27,7 @@ double kIconSize(BuildContext context) {
       : 8.sp;
 }
 
-TextStyle kMoreDetailsWeatherTitle(BuildContext context) {
+TextStyle kAdditionalInfoTileTitle(BuildContext context) {
   return TextStyle(
     color: Theme.of(context).textTheme.subtitle2!.color,
     fontSize: MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
@@ -36,7 +36,7 @@ TextStyle kMoreDetailsWeatherTitle(BuildContext context) {
   );
 }
 
-TextStyle kMoreDetailsWeatherData(BuildContext context) {
+TextStyle kAdditionalInfoTileValue(BuildContext context) {
   return TextStyle(
     color: Theme.of(context).textTheme.subtitle1!.color,
     fontSize: MediaQuery.of(context).size.shortestSide < kTabletBreakpoint

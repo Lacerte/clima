@@ -1,15 +1,14 @@
 import 'package:clima_domain/entities/city.dart';
-import 'package:clima_ui/screens/settings_screen.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
-import 'package:clima_ui/state_notifiers/forecasts_state_notifier.dart' as f;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
-import 'package:clima_ui/widgets/settings/settings_tile.dart';
-import 'package:clima_ui/widgets/weather/hourly_forecast_widget.dart';
-import 'package:clima_ui/widgets/weather/main_info.dart';
+import 'package:clima_ui/widgets/others/overflow_menu_button.dart';
+import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
+import 'package:clima_ui/widgets/weather/daily_forecasts_widget.dart';
+import 'package:clima_ui/widgets/weather/hourly_forecasts_widget.dart';
+import 'package:clima_ui/widgets/weather/main_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,9 +16,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-enum Menu { settings, help }
 
 class WeatherScreen extends HookWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -66,6 +62,7 @@ class WeatherScreen extends HookWidget {
         automaticallyImplyBackButton: false,
         controller: controller,
         progress: isLoading.value,
+        accentColor: Theme.of(context).colorScheme.secondary,
         onSubmitted: (String newCityName) async {
           controller.close();
 
@@ -112,73 +109,8 @@ class WeatherScreen extends HookWidget {
               },
             ),
           ),
-          FloatingSearchBarAction(
-            child: PopupMenuButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              offset: const Offset(512.0, -512.0),
-              icon: Icon(
-                Icons.more_vert,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
-              ),
-              tooltip: 'More options',
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-                PopupMenuItem<Menu>(
-                  value: Menu.settings,
-                  child: ListTile(
-                    title: const Text('Settings'),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => SettingScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                PopupMenuItem<Menu>(
-                  value: Menu.help,
-                  child: ListTile(
-                    title: const Text('Help & feedback'),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      showGeneralSheet(
-                        context,
-                        title: 'Help & feedback',
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SettingsTile(
-                              title: 'Submit issue',
-                              leading: Icon(
-                                Icons.bug_report_outlined,
-                                color: Theme.of(context).iconTheme.color,
-                              ),
-                              onTap: () => launch(
-                                'https://github.com/lacerte/clima/issues/new',
-                              ),
-                            ),
-                            SettingsTile(
-                              title: 'Contact developer',
-                              leading: Icon(
-                                Icons.email_outlined,
-                                color: Theme.of(context).iconTheme.color,
-                              ),
-                              onTap: () => launch(
-                                'mailto:lacerte@protonmail.com',
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
+          const FloatingSearchBarAction(
+            child: OverflowMenuButton(),
           ),
           FloatingSearchBarAction.searchToClear(
             color: Theme.of(context).appBarTheme.iconTheme!.color,
@@ -195,8 +127,7 @@ class WeatherScreen extends HookWidget {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    // Main info
-                    const MainInfo(),
+                    const MainInfoWidget(),
                     Divider(
                       color: Theme.of(context)
                           .textTheme
@@ -204,11 +135,9 @@ class WeatherScreen extends HookWidget {
                           .color!
                           .withAlpha(65),
                     ),
-
-                    // Hourly forecast
                     SizedBox(
                       height: 16.h,
-                      child: const HourlyForecastWidget(),
+                      child: const HourlyForecastsWidget(),
                     ),
                     Divider(
                       color: Theme.of(context)
@@ -217,8 +146,7 @@ class WeatherScreen extends HookWidget {
                           .color!
                           .withAlpha(65),
                     ),
-
-                    // Additional info
+                    const DailyForecastsWidget(),
                     Divider(
                       color: Theme.of(context)
                           .textTheme
@@ -226,6 +154,7 @@ class WeatherScreen extends HookWidget {
                           .color!
                           .withAlpha(65),
                     ),
+                    const AdditionalInfoWidget(),
                   ],
                 ),
               ),

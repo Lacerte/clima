@@ -1,8 +1,11 @@
 import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:flutter/material.dart';
 
-Future<void> showGeneralSheet(BuildContext context,
-    {required Widget child, required String title}) {
+Future<void> showGeneralSheet(
+  BuildContext context, {
+  required Widget child,
+  required String title,
+}) {
   return showModalBottomSheet(
     backgroundColor: Theme.of(context).dialogBackgroundColor,
     useRootNavigator: true,

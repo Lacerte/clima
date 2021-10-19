@@ -8,8 +8,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-class HourlyForecastWidget extends HookWidget {
-  const HourlyForecastWidget({
+class HourlyForecastsWidget extends HookWidget {
+  const HourlyForecastsWidget({
     Key? key,
   }) : super(key: key);
 
@@ -61,7 +61,7 @@ class HourlyForecastWidget extends HookWidget {
                     size: kIconSize(context),
                   ),
                   Text(
-                    '${(hourlyForecast.pop * 100).round()} %',
+                    '${(hourlyForecast.pop * 100).round()}%',
                     style: kSubtitle2TextStyle(context),
                   ),
                 ],
