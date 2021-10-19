@@ -1,5 +1,6 @@
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 import 'city.dart';
@@ -24,22 +25,12 @@ class FullWeather extends Equatable {
 
   final List<HourlyForecast> hourlyForecasts;
 
-  DailyForecast get currentDayForecast => dailyForecasts.reduce((a, b) {
-        final aDiffCurrent = currentWeather.date.difference(a.date).abs();
-        final bDiffCurrent = currentWeather.date.difference(b.date).abs();
-
-        if (aDiffCurrent < bDiffCurrent) {
-          return a;
-        } else if (bDiffCurrent == aDiffCurrent) {
-          if (a.date.weekday == currentWeather.date.weekday) {
-            return a;
-          }
-
-          return b;
-        } else {
-          return b;
-        }
-      });
+  DailyForecast get currentDayForecast => minBy(
+        dailyForecasts.where(
+          (forecast) => forecast.date.weekday == currentWeather.date.weekday,
+        ),
+        (forecast) => forecast.date.difference(currentWeather.date).abs(),
+      )!;
 
   @override
   List<Object> get props =>
