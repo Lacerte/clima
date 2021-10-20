@@ -28,7 +28,7 @@ class HourlyForecastsWidget extends HookWidget {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
-      itemCount: hourlyForecasts.length,
+      itemCount: 24,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
         final hourlyForecast = hourlyForecasts[index];

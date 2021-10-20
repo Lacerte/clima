@@ -19,95 +19,96 @@ class AdditionalInfoWidget extends HookWidget {
         (state) => state.fullWeather!.currentWeather,
       ),
     );
+    final currentDayForecast = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.currentDayForecast,
+      ),
+    );
     final timeZoneOffset = useProvider(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.timeZoneOffset,
       ),
     );
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 1.h,
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 2.h, left: 5.w, right: 5.w),
-            child: Row(
-              children: [
-                AdditionalInfoTile(
-                  title: 'Feels like',
-                  value: '${currentWeather.tempFeel.round()}°',
-                ),
-                AdditionalInfoTile(
-                  title: 'Humidity',
-                  value: '${currentWeather.humidity}%',
-                ),
-                const AdditionalInfoTile(
-                  title: 'Chance of rain',
+    return Column(
+      children: [
+        Padding(
+          padding:
+              EdgeInsets.only(bottom: 2.h, top: 2.h, left: 5.w, right: 5.w),
+          child: Row(
+            children: [
+              AdditionalInfoTile(
+                title: 'Feels like',
+                value: '${currentWeather.tempFeel.round()}°',
+              ),
+              AdditionalInfoTile(
+                title: 'Humidity',
+                value: '${currentWeather.humidity}%',
+              ),
+              const AdditionalInfoTile(
+                title: 'Chance of rain',
 
-                  ///TODO: Add chance of rain value
-                  value: '',
-                ),
-              ],
-            ),
+                ///TODO: Add chance of rain value
+                value: '',
+              ),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: 2.h,
-              top: 1.h,
-              right: 5.w,
-              left: 5.w,
-            ),
-            child: Row(
-              children: [
-                AdditionalInfoTile(
-                  title: 'Wind speed',
-                  value: '${currentWeather.windSpeed.round()} km/h',
-                ),
-                AdditionalInfoTile(
-                  title: 'UV Index',
-                  value: '${currentWeather.uvIndex}',
-                ),
-                AdditionalInfoTile(
-                  title: 'Pressure',
-                  value: '${currentWeather.pressure} mbar',
-                ),
-              ],
-            ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: 2.h,
+            top: 1.h,
+            right: 5.w,
+            left: 5.w,
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: 2.h,
-              top: 1.h,
-              right: 5.w,
-              left: 5.w,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                AdditionalInfoTile(
-                  title: 'Sunrise',
-                  value: DateFormat.Hm().format(
-                    currentWeather.sunrise.toUtc().add(timeZoneOffset),
-                  ),
+          child: Row(
+            children: [
+              AdditionalInfoTile(
+                title: 'Wind speed',
+                value: '${currentWeather.windSpeed.round()} km/h',
+              ),
+              AdditionalInfoTile(
+                title: 'UV Index',
+                value: '${currentWeather.uvIndex}',
+              ),
+              AdditionalInfoTile(
+                title: 'Pressure',
+                value: '${currentWeather.pressure} mbar',
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: 3.h,
+            top: 1.h,
+            right: 5.w,
+            left: 5.w,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              AdditionalInfoTile(
+                title: 'Sunrise',
+                value: DateFormat.Hm().format(
+                  currentDayForecast.sunrise.toUtc().add(timeZoneOffset),
                 ),
-                AdditionalInfoTile(
-                  title: 'Sunset',
-                  value: DateFormat.Hm().format(
-                    currentWeather.sunset.toUtc().add(timeZoneOffset),
-                  ),
+              ),
+              AdditionalInfoTile(
+                title: 'Sunset',
+                value: DateFormat.Hm().format(
+                  currentDayForecast.sunset.toUtc().add(timeZoneOffset),
                 ),
-                const AdditionalInfoTile(
-                  title: 'Clouds',
+              ),
+              const AdditionalInfoTile(
+                title: 'Clouds',
 
-                  ///TODO: Add cloud value
-                  value: '',
-                ),
-              ],
-            ),
+                ///TODO: Add cloud value
+                value: '',
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

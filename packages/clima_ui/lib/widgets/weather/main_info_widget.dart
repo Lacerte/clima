@@ -18,6 +18,11 @@ class MainInfoWidget extends HookWidget {
         (state) => state.fullWeather!.currentWeather,
       ),
     );
+    final currentDayForecast = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.currentDayForecast,
+      ),
+    );
     final city = useProvider(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.city,
@@ -66,7 +71,7 @@ class MainInfoWidget extends HookWidget {
                   color: Theme.of(context).textTheme.subtitle1!.color,
                 ),
                 Text(
-                  '${currentWeather.maxTemperature.round()}°',
+                  '${currentDayForecast.maxTemperature.round()}°',
                   style: kSubtitle1TextStyle(context),
                 ),
                 Padding(
@@ -78,7 +83,7 @@ class MainInfoWidget extends HookWidget {
                   ),
                 ),
                 Text(
-                  '${currentWeather.minTemperature.round()}°',
+                  '${currentDayForecast.minTemperature.round()}°',
                   style: kSubtitle1TextStyle(context),
                 ),
               ],

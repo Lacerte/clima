@@ -121,41 +121,60 @@ class WeatherScreen extends HookWidget {
           child: RefreshIndicator(
             onRefresh: load,
             color: Theme.of(context).textTheme.subtitle1!.color,
-            child: Container(
-              constraints: const BoxConstraints.expand(),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    const MainInfoWidget(),
-                    Divider(
-                      color: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .color!
-                          .withAlpha(65),
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                      child: const HourlyForecastsWidget(),
-                    ),
-                    Divider(
-                      color: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .color!
-                          .withAlpha(65),
-                    ),
-                    const DailyForecastsWidget(),
-                    Divider(
-                      color: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .color!
-                          .withAlpha(65),
-                    ),
-                    const AdditionalInfoWidget(),
-                  ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: () {
+                  if (MediaQuery.of(context).orientation ==
+                          Orientation.landscape &&
+                      MediaQuery.of(context).size.shortestSide >
+                          kTabletBreakpoint) {
+                    return 10.0.w;
+                  } else if (MediaQuery.of(context).orientation ==
+                          Orientation.landscape &&
+                      MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint) {
+                    return 35.0.w;
+                  } else {
+                    return 5.0.w;
+                  }
+                }(),
+              ),
+              child: Container(
+                constraints: const BoxConstraints.expand(),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      const MainInfoWidget(),
+                      Divider(
+                        color: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .color!
+                            .withAlpha(65),
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                        child: const HourlyForecastsWidget(),
+                      ),
+                      Divider(
+                        color: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .color!
+                            .withAlpha(65),
+                      ),
+                      const DailyForecastsWidget(),
+                      Divider(
+                        color: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .color!
+                            .withAlpha(65),
+                      ),
+                      const AdditionalInfoWidget(),
+                    ],
+                  ),
                 ),
               ),
             ),

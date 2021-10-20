@@ -26,6 +26,7 @@ class DailyForecastsWidget extends HookWidget {
         (state) => state.fullWeather!.timeZoneOffset,
       ),
     );
+
     return Column(
       children: [
         for (final dailyForecast in dailyForecasts)
