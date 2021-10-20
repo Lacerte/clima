@@ -3,6 +3,10 @@ import 'package:equatable/equatable.dart';
 class DailyForecast extends Equatable {
   final DateTime date;
 
+  final DateTime sunrise;
+
+  final DateTime sunset;
+
   /// Minimum temperature at the moment. In degrees Celsius (for now).
   final double minTemperature;
 
@@ -16,6 +20,8 @@ class DailyForecast extends Equatable {
 
   const DailyForecast({
     required this.date,
+    required this.sunrise,
+    required this.sunset,
     required this.minTemperature,
     required this.maxTemperature,
     required this.pop,
@@ -24,5 +30,5 @@ class DailyForecast extends Equatable {
 
   @override
   List<Object?> get props =>
-      [date, minTemperature, maxTemperature, pop, iconCode];
+      [date, sunrise, sunset, minTemperature, maxTemperature, pop, iconCode];
 }

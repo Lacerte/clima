@@ -25,8 +25,6 @@ void main() {
         fullWeather.currentWeather,
         Weather(
           date: date_time_utils.fromUtcUnixTime(1634313115),
-          sunrise: date_time_utils.fromUtcUnixTime(1634264178),
-          sunset: date_time_utils.fromUtcUnixTime(1634307772),
           temperature: 27.16,
           tempFeel: 29.5,
           pressure: 1011,
@@ -36,8 +34,6 @@ void main() {
           condition: 800,
           iconCode: "01n",
           description: "clear sky",
-          minTemperature: 26.71,
-          maxTemperature: 27.17,
         ),
       );
 
@@ -51,16 +47,18 @@ void main() {
         ),
       );
 
-      expect(
-        fullWeather.dailyForecasts[0],
-        DailyForecast(
-          date: date_time_utils.fromUtcUnixTime(1634284800),
-          iconCode: '10d',
-          minTemperature: 26.71,
-          maxTemperature: 27.17,
-          pop: 0.24,
-        ),
+      final dailyForecast = DailyForecast(
+        date: date_time_utils.fromUtcUnixTime(1634284800),
+        sunrise: date_time_utils.fromUtcUnixTime(1634264178),
+        sunset: date_time_utils.fromUtcUnixTime(1634307772),
+        iconCode: '10d',
+        minTemperature: 26.71,
+        maxTemperature: 27.17,
+        pop: 0.24,
       );
+
+      expect(fullWeather.dailyForecasts[0], dailyForecast);
+      expect(fullWeather.currentDayForecast, dailyForecast);
     });
   });
 }
