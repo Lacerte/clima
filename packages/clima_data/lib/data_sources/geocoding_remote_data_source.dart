@@ -27,7 +27,7 @@ class GeocodingRemoteDataSource {
         queryParameters: {
           'q': city.name,
           'appid': apiKey,
-          'limit': 1,
+          'limit': '1',
         },
       ),
     );
