@@ -33,9 +33,7 @@ class HourlyForecastsWidget extends HookWidget {
       itemBuilder: (context, index) {
         final hourlyForecast = hourlyForecasts[index];
         return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 5.w,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
