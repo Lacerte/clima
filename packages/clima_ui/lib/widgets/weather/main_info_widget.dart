@@ -7,9 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sizer/sizer.dart';
 
 class MainInfoWidget extends HookWidget {
-  const MainInfoWidget({
-    Key? key,
-  }) : super(key: key);
+  const MainInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

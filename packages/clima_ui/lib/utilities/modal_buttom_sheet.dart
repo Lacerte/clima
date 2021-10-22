@@ -5,21 +5,20 @@ Future<void> showGeneralSheet(
   BuildContext context, {
   required Widget child,
   required String title,
-}) {
-  return showModalBottomSheet(
-    backgroundColor: Theme.of(context).dialogBackgroundColor,
-    useRootNavigator: true,
-    isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        topRight: Radius.circular(8.0),
+}) =>
+    showModalBottomSheet(
+      backgroundColor: Theme.of(context).dialogBackgroundColor,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
       ),
-    ),
-    elevation: 2,
-    context: context,
-    builder: (context) {
-      return Column(
+      elevation: 2,
+      context: context,
+      builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
@@ -40,8 +39,6 @@ Future<void> showGeneralSheet(
               title,
               style: Theme.of(context).textTheme.subtitle1,
               textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.clip,
             ),
           ),
           const Divider(height: 1),
@@ -49,7 +46,5 @@ Future<void> showGeneralSheet(
             child: SingleChildScrollView(child: child),
           ),
         ],
-      );
-    },
-  );
-}
+      ),
+    );
