@@ -29,6 +29,7 @@ void main() {
           tempFeel: 29.5,
           pressure: 1011,
           humidity: 74,
+          clouds: 8,
           uvIndex: 0,
           windSpeed: 7.5 * 3.6,
           condition: 800,
