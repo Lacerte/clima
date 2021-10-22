@@ -1,5 +1,4 @@
-//returns the right weather icon for the right condition.
-
+/// Returns the weather icon that corresponds to the given `iconCode`.
 String getWeatherIcon(String iconCode) {
   switch (iconCode) {
     case '01d':
