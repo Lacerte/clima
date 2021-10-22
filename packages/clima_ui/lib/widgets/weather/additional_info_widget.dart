@@ -68,7 +68,7 @@ class AdditionalInfoWidget extends HookWidget {
               ),
               AdditionalInfoTile(
                 title: 'UV Index',
-                value: '${currentWeather.uvIndex}',
+                value: currentWeather.uvIndex.toString(),
               ),
               AdditionalInfoTile(
                 title: 'Pressure',
