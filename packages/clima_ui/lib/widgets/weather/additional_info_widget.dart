@@ -68,11 +68,9 @@ class AdditionalInfoWidget extends HookWidget {
                 title: 'UV Index',
                 value: currentWeather.uvIndex.toString(),
               ),
-              const AdditionalInfoTile(
+              AdditionalInfoTile(
                 title: 'Chance of rain',
-
-                ///TODO: Add chance of rain value
-                value: '',
+                value: '${(currentDayForecast.pop * 100).round()}%',
               ),
             ],
           ),
