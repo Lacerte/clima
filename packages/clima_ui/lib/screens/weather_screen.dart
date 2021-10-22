@@ -154,7 +154,9 @@ class WeatherScreen extends HookWidget {
                             .withAlpha(65),
                       ),
                       SizedBox(
-                        height: 16.h,
+                        height: MediaQuery.of(context).size.aspectRatio == 1.0
+                            ? 24.h
+                            : 16.h,
                         child: const HourlyForecastsWidget(),
                       ),
                       Divider(
