@@ -33,6 +33,7 @@ class FullWeatherModel extends Equatable {
               date_time_utils.fromUtcUnixTime(currentWeatherJson['dt'] as int),
           iconCode: currentWeatherJson['weather'][0]['icon'] as String,
           humidity: currentWeatherJson['humidity'] as int,
+          clouds: currentWeatherJson['clouds'] as int,
           pressure: currentWeatherJson['pressure'] as int,
           uvIndex: (currentWeatherJson['uvi'] as num).toDouble(),
         ),

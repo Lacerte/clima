@@ -17,6 +17,9 @@ class Weather extends Equatable {
 
   final int humidity;
 
+  /// In percent.
+  final int clouds;
+
   /// In `hPa`.
   final int pressure;
 
@@ -34,6 +37,7 @@ class Weather extends Equatable {
     required this.tempFeel,
     required this.condition,
     required this.humidity,
+    required this.clouds,
     required this.pressure,
     required this.uvIndex,
     required this.description,
@@ -48,6 +52,7 @@ class Weather extends Equatable {
         tempFeel,
         condition,
         humidity,
+        clouds,
         pressure,
         uvIndex,
         description,
