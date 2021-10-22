@@ -35,6 +35,7 @@ class FullWeatherRemoteDataSource {
           'lat': coordinates.lat.toString(),
           'appid': apiKey,
           'units': 'metric',
+          'exclude': 'minutely,alerts',
         },
       ),
     );
