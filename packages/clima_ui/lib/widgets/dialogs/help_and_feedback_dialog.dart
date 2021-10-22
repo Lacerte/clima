@@ -29,7 +29,7 @@ class HelpAndFeedbackDialog extends HookWidget {
             ),
             SettingsTile(
               title: 'Contact developer',
-              leading: Icon(
+              leading: FaIcon(
                 Icons.email_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),

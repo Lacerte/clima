@@ -60,11 +60,9 @@ class AdditionalInfoWidget extends HookWidget {
           ),
           child: Row(
             children: [
-              const AdditionalInfoTile(
+              AdditionalInfoTile(
                 title: 'Clouds',
-
-                ///TODO: Add cloud value
-                value: '',
+                value: '${currentWeather.clouds.toString()}%',
               ),
               AdditionalInfoTile(
                 title: 'UV Index',

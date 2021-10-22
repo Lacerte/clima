@@ -3,6 +3,7 @@ import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -91,8 +92,8 @@ class AboutScreen extends StatelessWidget {
               subtitle:
                   'Clima is free software licensed under the 3-clause BSD license',
               isThreeLine: true,
-              leading: Icon(
-                Icons.code,
+              leading: FaIcon(
+                FontAwesomeIcons.github,
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => launch(
