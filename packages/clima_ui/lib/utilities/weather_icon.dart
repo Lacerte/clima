@@ -27,7 +27,7 @@ String getWeatherIcon(String iconCode) {
     case '13n':
       return 'assets/snowy.svg';
 
-    ///TODO: Add smog icon
+    // TODO: Add smog icon
     // case '50d':
     // case '50n':
     //   return FontAwesomeIcons.smog;
