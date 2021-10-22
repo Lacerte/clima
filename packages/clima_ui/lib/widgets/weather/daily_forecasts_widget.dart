@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
@@ -55,7 +56,7 @@ class DailyForecastsWidget extends HookWidget {
                         height: 6.h,
                       ),
                       Icon(
-                        Icons.invert_colors,
+                        FontAwesomeIcons.tint,
                         color: Theme.of(context).textTheme.subtitle2!.color,
                         size: kIconSize(context),
                       ),
@@ -68,14 +69,15 @@ class DailyForecastsWidget extends HookWidget {
                 ),
                 Expanded(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 4.w),
-                        child: Text(
-                          '${dailyForecast.maxTemperature.round()}°',
-                          style: kSubtitle1TextStyle(context),
-                        ),
+                      Text(
+                        '${dailyForecast.maxTemperature.round()}°',
+                        style: kSubtitle1TextStyle(context),
+                      ),
+                      Text(
+                        '/',
+                        style: kSubtitle2TextStyle(context),
                       ),
                       Text(
                         '${dailyForecast.minTemperature.round()}°',

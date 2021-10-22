@@ -27,7 +27,20 @@ class MainInfoWidget extends HookWidget {
       ),
     );
     return Padding(
-      padding: EdgeInsets.only(top: 4.h, bottom: 4.h),
+      padding: EdgeInsets.only(
+        top: () {
+          if (MediaQuery.of(context).size.shortestSide < kTabletBreakpoint) {
+            if (MediaQuery.of(context).orientation == Orientation.landscape) {
+              return 0.0;
+            } else {
+              return 4.h;
+            }
+          } else {
+            return 8.h;
+          }
+        }(),
+        bottom: 4.h,
+      ),
       child: Column(
         children: [
           Padding(

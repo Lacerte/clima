@@ -44,11 +44,9 @@ class AdditionalInfoWidget extends HookWidget {
                 title: 'Humidity',
                 value: '${currentWeather.humidity}%',
               ),
-              const AdditionalInfoTile(
-                title: 'Chance of rain',
-
-                ///TODO: Add chance of rain value
-                value: '',
+              AdditionalInfoTile(
+                title: 'Wind speed',
+                value: '${currentWeather.windSpeed.round()} km/h',
               ),
             ],
           ),
@@ -62,17 +60,21 @@ class AdditionalInfoWidget extends HookWidget {
           ),
           child: Row(
             children: [
-              AdditionalInfoTile(
-                title: 'Wind speed',
-                value: '${currentWeather.windSpeed.round()} km/h',
+              const AdditionalInfoTile(
+                title: 'Clouds',
+
+                ///TODO: Add cloud value
+                value: '',
               ),
               AdditionalInfoTile(
                 title: 'UV Index',
                 value: currentWeather.uvIndex.toString(),
               ),
-              AdditionalInfoTile(
-                title: 'Pressure',
-                value: '${currentWeather.pressure} mbar',
+              const AdditionalInfoTile(
+                title: 'Chance of rain',
+
+                ///TODO: Add chance of rain value
+                value: '',
               ),
             ],
           ),
@@ -99,11 +101,9 @@ class AdditionalInfoWidget extends HookWidget {
                   currentDayForecast.sunset.toUtc().add(timeZoneOffset),
                 ),
               ),
-              const AdditionalInfoTile(
-                title: 'Clouds',
-
-                ///TODO: Add cloud value
-                value: '',
+              AdditionalInfoTile(
+                title: 'Pressure',
+                value: '${currentWeather.pressure} mbar',
               ),
             ],
           ),

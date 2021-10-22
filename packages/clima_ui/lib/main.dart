@@ -43,7 +43,6 @@ Future<void> main() async {
       ],
       child: DevicePreview(
         builder: (context) => MyApp(),
-        enabled: false,
       ),
     ),
   );

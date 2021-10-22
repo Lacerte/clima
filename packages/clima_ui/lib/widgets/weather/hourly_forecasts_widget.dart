@@ -4,6 +4,7 @@ import 'package:clima_ui/utilities/weather_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
@@ -52,7 +53,7 @@ class HourlyForecastsWidget extends HookWidget {
               Row(
                 children: [
                   Icon(
-                    Icons.invert_colors,
+                    FontAwesomeIcons.tint,
                     color: Theme.of(context).textTheme.subtitle2!.color,
                     size: kIconSize(context),
                   ),

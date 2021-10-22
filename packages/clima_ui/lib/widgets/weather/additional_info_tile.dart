@@ -19,13 +19,11 @@ class AdditionalInfoTile extends StatelessWidget {
               child: Text(
                 title!,
                 style: kAdditionalInfoTileTitle(context),
-                maxLines: 1,
               ),
             ),
             Text(
               value!,
               style: kAdditionalInfoTileValue(context),
-              maxLines: 1,
             ),
           ],
         ),

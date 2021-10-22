@@ -1,4 +1,4 @@
-import 'package:clima_ui/utilities/modal_buttom_sheet.dart';
+import 'package:clima_ui/widgets/dialogs/help_and_feedback_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
@@ -80,34 +80,9 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () {
-                showGeneralSheet(
-                  context,
-                  title: 'Feedback',
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SettingsTile(
-                        title: 'Submit issue',
-                        leading: Icon(
-                          Icons.bug_report_outlined,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () => launch(
-                          'https://github.com/lacerte/clima/issues/new',
-                        ),
-                      ),
-                      SettingsTile(
-                        title: 'Contact developer',
-                        leading: Icon(
-                          Icons.email_outlined,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () => launch(
-                          'mailto:lacerte@protonmail.com',
-                        ),
-                      ),
-                    ],
-                  ),
+                showDialog(
+                  context: context,
+                  builder: (context) => const HelpAndFeedbackDialog(),
                 );
               },
             ),
