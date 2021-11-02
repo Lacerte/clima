@@ -58,7 +58,7 @@ class FullWeatherModel extends Equatable {
             HourlyForecast(
               date: date_time_utils.fromUtcUnixTime(forecastJson['dt'] as int),
               iconCode: forecastJson['weather'][0]['icon'] as String,
-              temperature: forecastJson['temp'] as double,
+              temperature: (forecastJson['temp'] as num).toDouble(),
               pop: (forecastJson['pop'] as num).toDouble(),
             ),
         ],
