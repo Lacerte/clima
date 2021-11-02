@@ -65,7 +65,7 @@ class AdditionalInfoWidget extends HookWidget {
                 value: '${currentWeather.clouds.toString()}%',
               ),
               AdditionalInfoTile(
-                title: 'UV Index',
+                title: 'UV index',
                 value: currentWeather.uvIndex.toString(),
               ),
               AdditionalInfoTile(
