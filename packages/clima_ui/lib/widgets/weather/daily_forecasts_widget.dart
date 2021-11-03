@@ -27,6 +27,11 @@ class DailyForecastsWidget extends HookWidget {
         (state) => state.fullWeather!.timeZoneOffset,
       ),
     );
+    final currentDayForecast = useProvider(
+      w.fullWeatherStateNotifierProvider.select(
+        (state) => state.fullWeather!.currentDayForecast,
+      ),
+    );
 
     return Column(
       children: [
@@ -39,9 +44,11 @@ class DailyForecastsWidget extends HookWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    DateFormat.EEEE().format(
-                      dailyForecast.date.toUtc().add(timeZoneOffset),
-                    ),
+                    dailyForecast == currentDayForecast
+                        ? 'Today'
+                        : DateFormat.EEEE().format(
+                            dailyForecast.date.toUtc().add(timeZoneOffset),
+                          ),
                     style: kSubtitle1TextStyle(context).copyWith(
                       fontWeight: FontWeight.bold,
                     ),
