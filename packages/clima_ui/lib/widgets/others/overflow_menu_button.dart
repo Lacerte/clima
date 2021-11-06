@@ -18,7 +18,7 @@ class OverflowMenuButton extends StatelessWidget {
           color: Theme.of(context).appBarTheme.iconTheme!.color,
         ),
         tooltip: 'More options',
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+        itemBuilder: (context) => [
           PopupMenuItem<Menu>(
             value: Menu.settings,
             child: ListTile(
