@@ -19,7 +19,7 @@ class OverflowMenuButton extends StatelessWidget {
         ),
         tooltip: 'More options',
         itemBuilder: (context) => [
-          PopupMenuItem<Menu>(
+          PopupMenuItem(
             value: Menu.settings,
             child: ListTile(
               title: const Text('Settings'),
