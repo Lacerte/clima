@@ -2,11 +2,9 @@ import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/providers.dart';
 import 'package:clima_data/repos/city_repo_impl.dart';
-import 'package:clima_data/repos/forecasts_repo_impl.dart';
-import 'package:clima_data/repos/weather_repo_impl.dart';
+import 'package:clima_data/repos/full_weather_repo.dart';
 import 'package:clima_domain/repos/city_repo.dart';
-import 'package:clima_domain/repos/forecasts_repo.dart';
-import 'package:clima_domain/repos/weather_repo.dart';
+import 'package:clima_domain/repos/full_weather_repo.dart';
 import 'package:clima_ui/screens/loading_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
@@ -39,11 +37,8 @@ Future<void> main() async {
         cityRepoProvider.overrideWithProvider(
           Provider((ref) => ref.watch(cityRepoImplProvider)),
         ),
-        weatherRepoProvider.overrideWithProvider(
-          Provider((ref) => ref.watch(weatherRepoImplProvider)),
-        ),
-        forecastsRepoProvider.overrideWithProvider(
-          Provider((ref) => ref.watch(forecastsRepoImplProvider)),
+        fullWeatherRepoProvider.overrideWithProvider(
+          Provider((ref) => ref.watch(fullWeatherRepoImplProvider)),
         ),
       ],
       child: DevicePreview(
