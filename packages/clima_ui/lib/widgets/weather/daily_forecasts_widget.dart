@@ -11,9 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class DailyForecastsWidget extends HookWidget {
-  const DailyForecastsWidget({
-    Key? key,
-  }) : super(key: key);
+  const DailyForecastsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
