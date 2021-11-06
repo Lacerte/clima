@@ -24,6 +24,7 @@ class HourlyForecastsWidget extends HookWidget {
         (state) => state.fullWeather!.timeZoneOffset,
       ),
     );
+
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
