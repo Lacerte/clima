@@ -34,7 +34,7 @@ class OverflowMenuButton extends StatelessWidget {
               },
             ),
           ),
-          PopupMenuItem<Menu>(
+          PopupMenuItem(
             value: Menu.help,
             child: ListTile(
               title: const Text('Help & feedback'),
