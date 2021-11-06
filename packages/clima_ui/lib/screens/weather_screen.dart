@@ -109,9 +109,7 @@ class WeatherScreen extends HookWidget {
               },
             ),
           ),
-          const FloatingSearchBarAction(
-            child: OverflowMenuButton(),
-          ),
+          const FloatingSearchBarAction(child: OverflowMenuButton()),
           FloatingSearchBarAction.searchToClear(
             color: Theme.of(context).appBarTheme.iconTheme!.color,
             showIfClosed: false,
