@@ -27,6 +27,7 @@ class AdditionalInfoWidget extends HookWidget {
         (state) => state.fullWeather!.timeZoneOffset,
       ),
     );
+
     return Column(
       children: [
         Padding(
