@@ -38,7 +38,7 @@ class LoadingScreen extends HookWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => const WeatherScreen(),
+                  builder: (context) => const WeatherScreen(),
                 ),
               );
             }
