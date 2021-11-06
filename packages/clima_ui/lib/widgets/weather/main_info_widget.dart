@@ -26,6 +26,7 @@ class MainInfoWidget extends HookWidget {
         (state) => state.fullWeather!.city,
       ),
     );
+
     return Padding(
       padding: EdgeInsets.only(
         top: () {
