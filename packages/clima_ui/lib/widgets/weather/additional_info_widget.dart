@@ -8,9 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class AdditionalInfoWidget extends HookWidget {
-  const AdditionalInfoWidget({
-    Key? key,
-  }) : super(key: key);
+  const AdditionalInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
