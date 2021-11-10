@@ -1,3 +1,4 @@
+import 'package:clima_ui/widgets/dialogs/credits_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/help_and_feedback_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
@@ -99,6 +100,28 @@ class AboutScreen extends StatelessWidget {
               onTap: () => launch(
                 'https://github.com/lacerte/clima',
               ),
+            ),
+            SettingsTile(
+              title: 'Credits',
+              leading: Icon(
+                Icons.attribution_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const SimpleDialog(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: CreditsDialog(),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
             const SettingsDivider(),
           ],
