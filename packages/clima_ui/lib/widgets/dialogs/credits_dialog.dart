@@ -1,4 +1,4 @@
-import 'package:clima_ui/widgets/settings/link_text_span.dart';
+import 'package:clima_ui/widgets/link_text_span.dart';
 import 'package:flutter/material.dart';
 
 class CreditsDialog extends StatelessWidget {
