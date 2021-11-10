@@ -1,8 +1,8 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/theme_local_data_source.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 class ThemeRepo {
@@ -25,5 +25,6 @@ class ThemeRepo {
       localDataSource.setDarkTheme(theme);
 }
 
-final themeRepoProvider = Provider((ref) =>
-    ThemeRepo(localDataSource: ref.watch(themeLocalDataSourceProvider)));
+final themeRepoProvider = Provider(
+  (ref) => ThemeRepo(localDataSource: ref.watch(themeLocalDataSourceProvider)),
+);

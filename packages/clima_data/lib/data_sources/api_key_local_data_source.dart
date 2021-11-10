@@ -1,6 +1,6 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/providers.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,4 +44,5 @@ class ApiKeyLocalDataSource {
 }
 
 final apiKeyLocalDataSourceProvider = Provider(
-    (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)));
+  (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)),
+);
