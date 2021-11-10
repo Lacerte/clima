@@ -1,9 +1,8 @@
+import 'package:clima_ui/widgets/settings/link_text_span.dart';
 import 'package:flutter/material.dart';
 
-import 'settings_widgets.dart';
-
-class CreditsStatement extends StatelessWidget {
-  const CreditsStatement({Key? key}) : super(key: key);
+class CreditsDialog extends StatelessWidget {
+  const CreditsDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,26 +51,32 @@ class CreditsStatement extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-            text: 'The app design is heavily inspired by ',
+            text: 'The ',
             style: textSpanStyle,
             children: [
+              linkTextSpan(
+                context: context,
+                text: 'weather icons',
+                url:
+                    'https://www.amcharts.com/free-animated-svg-weather-icons/',
+              ),
               TextSpan(
-                text: "LonelyCpp's ",
+                text: ' used inside the app are designed by ',
                 style: textSpanStyle,
               ),
               linkTextSpan(
                 context: context,
-                text: 'design',
-                url: 'https://github.com/LonelyCpp/flutter_weather',
+                text: 'amCharts',
+                url: 'https://www.amcharts.com/',
               ),
               TextSpan(
-                text: ', which is licensed under the ',
+                text: ' and licensed under the ',
                 style: textSpanStyle,
               ),
               linkTextSpan(
                 context: context,
-                text: 'Expat License.',
-                url: 'https://mit-license.org/',
+                text: 'CC BY 4.0',
+                url: 'https://creativecommons.org/licenses/by/4.0/',
               ),
             ],
           ),
