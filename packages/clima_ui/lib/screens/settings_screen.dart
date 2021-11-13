@@ -1,17 +1,16 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
-import 'package:clima_ui/widgets/dark_theme_dialog.dart';
-import 'package:clima_ui/widgets/reusable_widgets.dart';
-import 'package:clima_ui/widgets/theme_dialog.dart';
-// import 'package:clima_ui/widgets/unit_dialog.dart';
-import 'package:flutter/gestures.dart';
+import 'package:clima_ui/widgets/dialogs/api_key_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/dark_theme_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/theme_dialog.dart';
+import 'package:clima_ui/widgets/settings/settings_divider.dart';
+import 'package:clima_ui/widgets/settings/settings_header.dart';
+import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends HookWidget {
   @override
@@ -19,21 +18,25 @@ class SettingScreen extends HookWidget {
     final theme =
         useProvider(themeStateNotifierProvider.select((state) => state.theme));
     final darkTheme = useProvider(
-        themeStateNotifierProvider.select((state) => state.darkTheme));
-    final TextEditingController _textFieldController =
-        useTextEditingController();
+      themeStateNotifierProvider.select((state) => state.darkTheme),
+    );
+    final textFieldController = useTextEditingController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'Settings',
-          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
+          style: TextStyle(
+            color: Theme.of(context).appBarTheme.titleTextStyle!.color,
+            fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -116,50 +119,50 @@ class SettingScreen extends HookWidget {
               ),
               onTap: () async {
                 await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        contentPadding: const EdgeInsets.all(16.0),
-                        content: TextFormField(
-                          controller: _textFieldController,
-                          cursorColor: Theme.of(context).accentColor,
-                          autofocus: true,
-                          decoration: InputDecoration(
-                            focusColor: Theme.of(context).accentColor,
-                            hintText: 'Enter API Key',
-                            hintStyle: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.subtitle2!.color,
-                            ),
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      contentPadding: const EdgeInsets.all(16.0),
+                      content: TextFormField(
+                        controller: textFieldController,
+                        cursorColor: Theme.of(context).colorScheme.secondary,
+                        autofocus: true,
+                        decoration: InputDecoration(
+                          focusColor: Theme.of(context).colorScheme.secondary,
+                          hintText: 'Enter API Key',
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).textTheme.subtitle2!.color,
                           ),
-                          onEditingComplete: () {},
                         ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: AutoSizeText(
-                              'CANCEL',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                              ),
+                        onEditingComplete: () {},
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'CANCEL',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: AutoSizeText(
-                              'SAVE',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                              ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'SAVE',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
-                          )
-                        ],
-                      );
-                    });
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                );
               },
             ),
             SettingsTile(
@@ -170,41 +173,42 @@ class SettingScreen extends HookWidget {
               ),
               onTap: () {
                 showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: AutoSizeText(
-                          'Reset API Key?',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.subtitle1!.color,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        'Reset API Key?',
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.subtitle1!.color,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'CANCEL',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
                           ),
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: AutoSizeText(
-                              'CANCEL',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                              ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'RESET',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: AutoSizeText(
-                              'RESET',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    });
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
             SettingsTile(
@@ -215,47 +219,11 @@ class SettingScreen extends HookWidget {
               ),
               onTap: () {
                 showDialog(
-                    context: context,
-                    builder: (context) {
-                      final textSpanStyle = TextStyle(
-                        color: Theme.of(context).textTheme.subtitle1!.color,
-                      );
-                      return SimpleDialog(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                AutoSizeText.rich(
-                                  TextSpan(
-                                    text:
-                                        'Clima receives data from the free service of ',
-                                    style: textSpanStyle,
-                                    children: [
-                                      TextSpan(
-                                        text: 'OpenWeatherMap',
-                                        style: TextStyle(
-                                          color: Theme.of(context).accentColor,
-                                        ),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => launch(
-                                                'https://openweathermap.org/price',
-                                              ),
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            '. This service is limited to 1000 calls per day. You could register your own API key for free to get your own 1000 calls. Otherwise, calls are shared between all users of Clima.',
-                                        style: textSpanStyle,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      );
-                    });
+                  context: context,
+                  builder: (context) {
+                    return const ApiKeyDialog();
+                  },
+                );
               },
             ),
             const SettingsDivider(),

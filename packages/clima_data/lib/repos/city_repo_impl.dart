@@ -1,11 +1,11 @@
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/city_local_data_source.dart';
 import 'package:clima_data/data_sources/city_random_data_source.dart';
 import 'package:clima_data/models/city_model.dart';
+import 'package:clima_data/repos/geocoding_repo.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/repos/city_repo.dart';
-import 'package:clima_domain/repos/weather_repo.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 class CityRepoImpl implements CityRepo {
@@ -13,19 +13,19 @@ class CityRepoImpl implements CityRepo {
 
   final CityRandomDataSource randomDataSource;
 
-  final WeatherRepo weatherRepo;
+  final GeocodingRepo geocodingRepo;
 
   CityRepoImpl({
     required this.localDataSource,
     required this.randomDataSource,
-    required this.weatherRepo,
+    required this.geocodingRepo,
   });
 
   @override
   Future<Either<Failure, City>> getCity() async {
     final cityEither = await localDataSource.getCity();
 
-    if (cityEither.isLeft()) {
+    if (cityEither is Left) {
       return cityEither.map((model) => model!.city);
     }
 
@@ -40,11 +40,11 @@ class CityRepoImpl implements CityRepo {
 
   @override
   Future<Either<Failure, void>> setCity(City city) async {
-    final weather = await weatherRepo.getWeather(city);
+    final coordinates = await geocodingRepo.getCoordinates(city);
 
-    return weather.fold(
+    return coordinates.fold(
       (failure) async => Left(failure),
-      (weather) => localDataSource.setCity(City(name: weather.cityName)),
+      (coordinates) => localDataSource.setCity(coordinates.city),
     );
   }
 }
@@ -53,6 +53,6 @@ final cityRepoImplProvider = Provider(
   (ref) => CityRepoImpl(
     localDataSource: ref.watch(cityLocalDataSourceProvider),
     randomDataSource: ref.watch(cityRandomDataSourceProvider),
-    weatherRepo: ref.watch(weatherRepoProvider),
+    geocodingRepo: ref.watch(geocodingRepoProvider),
   ),
 );

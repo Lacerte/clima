@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/city_model.dart';
 import 'package:clima_domain/entities/city.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 const _randomCityNames = [
