@@ -30,5 +30,4 @@ Also include details of the environment this PR was developed in (device/platfor
 
 ### Checklist
 
-- [ ] All active GitHub checks for tests, formatting, and security are passing
 - [ ] The correct base branch is being used, if not `master`
