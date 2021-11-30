@@ -17,6 +17,8 @@ import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
 
+enum _LoadingState { none, initialLoad, reload, cityChanged }
+
 class WeatherScreen extends HookWidget {
   const WeatherScreen({Key? key}) : super(key: key);
 
@@ -28,13 +30,56 @@ class WeatherScreen extends HookWidget {
         useProvider(w.fullWeatherStateNotifierProvider.notifier);
     final controller = useFloatingSearchBarController();
 
-    final isLoading = useState(fullWeatherState is c.Loading);
+    final _LoadingState loadingState;
+    if (fullWeatherState is w.Loading) {
+      loadingState = fullWeatherState.fullWeather == null
+          ? _LoadingState.initialLoad
+          : _LoadingState.reload;
+    } else {
+      loadingState = _LoadingState.none;
+    }
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
     Future<void> load() async {
       await fullWeatherStateNotifier.loadFullWeather();
     }
+
+    useEffect(
+      () {
+        Future<void> load() async {
+          await Future.microtask(() async {
+            await fullWeatherStateNotifier.loadFullWeather();
+          });
+
+          final removeListener = fullWeatherStateNotifier.addListener((state) {
+            if (state is w.Error) {
+              showFailureSnackBar(
+                context,
+                failure: state.failure,
+                onRetry: load,
+              );
+            }
+
+            if (state is w.Loaded) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WeatherScreen(),
+                ),
+              );
+            }
+          });
+
+          removeListener();
+        }
+
+        load();
+
+        return null;
+      },
+      [fullWeatherStateNotifier],
+    );
 
     useEffect(
       () => cityStateNotifier.addListener((state) {
