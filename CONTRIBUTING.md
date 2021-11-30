@@ -66,10 +66,6 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 6. Push changes to your fork.
 7. Open a PR in our repository and follow the PR template so that we can efficiently review the changes.
 
-## Getting Help
-
-Join #lacerte on Libera Chat and post your question there.
-
 ## Attribution
 
 This Contributing Guideline is adapted from [auth0](https://github.com/auth0), available at
