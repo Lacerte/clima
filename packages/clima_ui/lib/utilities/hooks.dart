@@ -1,5 +1,5 @@
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 /// Creates a [FloatingSearchBarController].

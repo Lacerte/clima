@@ -9,7 +9,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   brightness: Brightness.light,
   iconTheme: const IconThemeData(color: Color(0xFF5F6267)),
   toggleableActiveColor: const Color(0xFF1A73E9),
-  accentColor: const Color(0xFF1A73E9),
+  colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xFF1A73E9)),
   primaryColor: const Color(0xFFFFFFFF),
   scaffoldBackgroundColor: const Color(0xFFFFFFFF),
   snackBarTheme: const SnackBarThemeData(
@@ -22,11 +22,10 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0.0,
-    textTheme: TextTheme(subtitle1: TextStyle(color: Color(0xFF212121))),
-    color: Color(0xFFFFFFFF),
+    titleTextStyle: TextStyle(color: Color(0xFF212121)),
+    backgroundColor: Color(0xFFFFFFFF),
     actionsIconTheme: IconThemeData(color: Color(0xFF5F6267)),
     iconTheme: IconThemeData(color: Color(0xFF5F6267)),
-    backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarIconBrightness: Brightness.dark,

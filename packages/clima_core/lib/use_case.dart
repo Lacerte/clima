@@ -1,7 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
+import 'either.dart';
 import 'failure.dart';
 
 abstract class UseCase<R, P> {
