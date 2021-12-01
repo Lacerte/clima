@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
 import 'package:collection/collection.dart';
