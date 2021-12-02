@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_ui/widgets/dialogs/credits_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/help_and_feedback_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
@@ -90,8 +96,7 @@ class AboutScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: 'Source code',
-              subtitle:
-                  'Clima is free software licensed under the 3-clause BSD license',
+              subtitle: 'Clima is free software licensed under the MPL 2.0',
               isThreeLine: true,
               leading: FaIcon(
                 FontAwesomeIcons.github,
