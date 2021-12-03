@@ -11,7 +11,7 @@ import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/full_weather_repo.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/full_weather_repo.dart';
-import 'package:clima_ui/screens/loading_screen.dart';
+import 'package:clima_ui/screens/weather_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
     show themeStateNotifierProvider;
@@ -98,7 +98,7 @@ class MyApp extends HookWidget {
               ClimaTheme(data: climaTheme, child: child!),
             );
           },
-          home: const LoadingScreen(),
+          home: const WeatherScreen(),
           theme: lightTheme,
           darkTheme: {
             DarkThemeModel.black: blackTheme,

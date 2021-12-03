@@ -30,32 +30,21 @@ class WeatherScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fullWeatherState = useProvider(w.fullWeatherStateNotifierProvider);
-
     final fullWeatherStateNotifier =
         useProvider(w.fullWeatherStateNotifierProvider.notifier);
     final controller = useFloatingSearchBarController();
 
-    final _LoadingState loadingState;
-    if (fullWeatherState is w.Loading) {
-      loadingState = fullWeatherState.fullWeather == null
-          ? _LoadingState.initialLoad
-          : _LoadingState.reload;
-    } else {
-      loadingState = _LoadingState.none;
-    }
+    final loadingState = useState<_LoadingState?>(null);
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
-
-    Future<void> load() async {
-      await fullWeatherStateNotifier.loadFullWeather();
-    }
 
     useEffect(
       () {
         Future<void> load() async {
           await Future.microtask(() async {
+            loadingState.value = _LoadingState.initialLoad;
             await fullWeatherStateNotifier.loadFullWeather();
+            loadingState.value = _LoadingState.none;
           });
 
           final removeListener = fullWeatherStateNotifier.addListener((state) {
@@ -64,15 +53,6 @@ class WeatherScreen extends HookWidget {
                 context,
                 failure: state.failure,
                 onRetry: load,
-              );
-            }
-
-            if (state is w.Loaded) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const WeatherScreen(),
-                ),
               );
             }
           });
@@ -112,7 +92,7 @@ class WeatherScreen extends HookWidget {
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
-        progress: isLoading.value,
+        progress: loadingState.value == _LoadingState.cityChanged,
         accentColor: Theme.of(context).colorScheme.secondary,
         onSubmitted: (String newCityName) async {
           controller.close();
@@ -122,12 +102,12 @@ class WeatherScreen extends HookWidget {
             return;
           }
 
-          isLoading.value = true;
+          loadingState.value = _LoadingState.cityChanged;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider) is! c.Error) {
-            await load();
+            await fullWeatherStateNotifier.loadFullWeather();
           }
-          isLoading.value = false;
+          loadingState.value = _LoadingState.none;
         },
         title: Text(
           'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
@@ -168,7 +148,11 @@ class WeatherScreen extends HookWidget {
         ],
         body: SafeArea(
           child: RefreshIndicator(
-            onRefresh: load,
+            onRefresh: () async {
+              loadingState.value = _LoadingState.reload;
+              await fullWeatherStateNotifier.loadFullWeather();
+              loadingState.value = _LoadingState.none;
+            },
             color: Theme.of(context).textTheme.subtitle1!.color,
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -188,46 +172,58 @@ class WeatherScreen extends HookWidget {
                   }
                 }(),
               ),
-              child: Container(
-                constraints: const BoxConstraints.expand(),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      const MainInfoWidget(),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
+              child: loadingState.value == _LoadingState.initialLoad ||
+                      loadingState.value == null
+                  ? Center(
+                      child: SizedBox(
+                        width: 20.w,
+                        height: 20.w,
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.aspectRatio == 1.0
-                            ? 24.h
-                            : 16.h,
-                        child: const HourlyForecastsWidget(),
+                    )
+                  : Container(
+                      constraints: const BoxConstraints.expand(),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            const MainInfoWidget(),
+                            Divider(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .color!
+                                  .withAlpha(65),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.aspectRatio == 1.0
+                                      ? 24.h
+                                      : 16.h,
+                              child: const HourlyForecastsWidget(),
+                            ),
+                            Divider(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .color!
+                                  .withAlpha(65),
+                            ),
+                            const DailyForecastsWidget(),
+                            Divider(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .color!
+                                  .withAlpha(65),
+                            ),
+                            const AdditionalInfoWidget(),
+                          ],
+                        ),
                       ),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      const DailyForecastsWidget(),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      const AdditionalInfoWidget(),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
             ),
           ),
         ),
