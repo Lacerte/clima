@@ -7,6 +7,7 @@
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
+import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
@@ -18,33 +19,37 @@ import 'package:clima_ui/widgets/weather/main_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
 
-enum _LoadingState { none, initialLoad, reload, cityChanged }
+enum _LoadingState { none, cityChanged }
 
 class WeatherScreen extends HookWidget {
   const WeatherScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final fullWeatherState = useProvider(w.fullWeatherStateNotifierProvider);
+
     final fullWeatherStateNotifier =
         useProvider(w.fullWeatherStateNotifierProvider.notifier);
+
     final controller = useFloatingSearchBarController();
 
-    final loadingState = useState<_LoadingState?>(null);
+    final loadingState = useState(_LoadingState.none);
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
+
+    final refreshIndicatorKey = useGlobalKey<RefreshIndicatorState>();
 
     useEffect(
       () {
         Future<void> load() async {
           await Future.microtask(() async {
-            loadingState.value = _LoadingState.initialLoad;
             await fullWeatherStateNotifier.loadFullWeather();
-            loadingState.value = _LoadingState.none;
           });
 
           final removeListener = fullWeatherStateNotifier.addListener((state) {
@@ -148,42 +153,37 @@ class WeatherScreen extends HookWidget {
         ],
         body: SafeArea(
           child: RefreshIndicator(
+            key: refreshIndicatorKey,
             onRefresh: () async {
-              loadingState.value = _LoadingState.reload;
               await fullWeatherStateNotifier.loadFullWeather();
-              loadingState.value = _LoadingState.none;
             },
             color: Theme.of(context).textTheme.subtitle1!.color,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: () {
-                  if (MediaQuery.of(context).orientation ==
-                          Orientation.landscape &&
-                      MediaQuery.of(context).size.shortestSide >
-                          kTabletBreakpoint) {
-                    return 10.0.w;
-                  } else if (MediaQuery.of(context).orientation ==
-                          Orientation.landscape &&
-                      MediaQuery.of(context).size.shortestSide <
-                          kTabletBreakpoint) {
-                    return 35.0.w;
-                  } else {
-                    return 5.0.w;
-                  }
-                }(),
-              ),
-              child: loadingState.value == _LoadingState.initialLoad ||
-                      loadingState.value == null
-                  ? Center(
-                      child: SizedBox(
-                        width: 20.w,
-                        height: 20.w,
-                        child: CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    )
-                  : Container(
+            child: fullWeatherState.fullWeather == null
+                ? Center(
+                    child: SpinKitDoubleBounce(
+                      color: ClimaTheme.of(context).loadingIndicatorColor,
+                      size: 100.0,
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: () {
+                        if (MediaQuery.of(context).orientation ==
+                                Orientation.landscape &&
+                            MediaQuery.of(context).size.shortestSide >
+                                kTabletBreakpoint) {
+                          return 10.0.w;
+                        } else if (MediaQuery.of(context).orientation ==
+                                Orientation.landscape &&
+                            MediaQuery.of(context).size.shortestSide <
+                                kTabletBreakpoint) {
+                          return 35.0.w;
+                        } else {
+                          return 5.0.w;
+                        }
+                      }(),
+                    ),
+                    child: Container(
                       constraints: const BoxConstraints.expand(),
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
@@ -224,7 +224,7 @@ class WeatherScreen extends HookWidget {
                         ),
                       ),
                     ),
-            ),
+                  ),
           ),
         ),
       ),
