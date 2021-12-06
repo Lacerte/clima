@@ -117,7 +117,7 @@ class WeatherScreen extends HookWidget {
           loadingState.value = _LoadingState.none;
         },
         title: Text(
-          'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+          fullWeatherState.fullWeather == null? '' : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
           style: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:
