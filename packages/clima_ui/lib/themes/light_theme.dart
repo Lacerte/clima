@@ -20,6 +20,7 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   scaffoldBackgroundColor: const Color(0xFFFFFFFF),
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: Color(0xFF202125),
+    actionTextColor: Color(0xFF89B4F8),
     contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
   ),
   textTheme: const TextTheme(
