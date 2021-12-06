@@ -20,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -160,9 +162,9 @@ class WeatherScreen extends HookWidget {
             color: Theme.of(context).textTheme.subtitle1!.color,
             child: fullWeatherState.fullWeather == null
                 ? Center(
-                    child: SpinKitDoubleBounce(
+                    child: SpinKitSpinningLines(
                       color: ClimaTheme.of(context).loadingIndicatorColor,
-                      size: 100.0,
+                      size: 100.sp,
                     ),
                   )
                 : Padding(
