@@ -73,16 +73,19 @@ class WeatherScreen extends HookWidget {
       [cityStateNotifier, fullWeatherState.fullWeather],
     );
 
-    useEffect(() {
-      if (fullWeatherState.fullWeather == null) {
-        return null;
-      }
-      return fullWeatherStateNotifier.addListener((state) {
-        if (state is w.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
+    useEffect(
+      () {
+        if (fullWeatherState.fullWeather == null) {
+          return null;
         }
-      });
-    }, [fullWeatherStateNotifier, fullWeatherState.fullWeather]);
+        return fullWeatherStateNotifier.addListener((state) {
+          if (state is w.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
+      [fullWeatherStateNotifier, fullWeatherState.fullWeather],
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
