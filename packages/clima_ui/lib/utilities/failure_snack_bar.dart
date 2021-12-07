@@ -38,7 +38,7 @@ void showFailureSnackBar(
       action: onRetry != null
           ? SnackBarAction(
               label: 'Retry',
-              textColor: Theme.of(context).colorScheme.secondary,
+              textColor: Theme.of(context).snackBarTheme.actionTextColor,
               onPressed: onRetry,
             )
           : null,

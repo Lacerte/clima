@@ -16,18 +16,15 @@ import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
 import 'package:clima_ui/widgets/weather/daily_forecasts_widget.dart';
 import 'package:clima_ui/widgets/weather/hourly_forecasts_widget.dart';
 import 'package:clima_ui/widgets/weather/main_info_widget.dart';
+import 'package:clima_ui/widgets/failure_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
-
-enum _LoadingState { none, cityChanged }
 
 class WeatherScreen extends HookWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -41,7 +38,7 @@ class WeatherScreen extends HookWidget {
 
     final controller = useFloatingSearchBarController();
 
-    final loadingState = useState(_LoadingState.none);
+    final isCityChanging = useState(false);
 
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
 
@@ -53,18 +50,6 @@ class WeatherScreen extends HookWidget {
           await Future.microtask(() async {
             await fullWeatherStateNotifier.loadFullWeather();
           });
-
-          final removeListener = fullWeatherStateNotifier.addListener((state) {
-            if (state is w.Error) {
-              showFailureSnackBar(
-                context,
-                failure: state.failure,
-                onRetry: load,
-              );
-            }
-          });
-
-          removeListener();
         }
 
         load();
@@ -75,20 +60,30 @@ class WeatherScreen extends HookWidget {
     );
 
     useEffect(
-      () => cityStateNotifier.addListener((state) {
-        if (state is c.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
+      () {
+        if (fullWeatherState.fullWeather == null) {
+          return null;
         }
-      }),
+        return cityStateNotifier.addListener((state) {
+          if (state is c.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
       [cityStateNotifier],
     );
 
     useEffect(
-      () => fullWeatherStateNotifier.addListener((state) {
-        if (state is w.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
+      () {
+        if (fullWeatherState.fullWeather == null) {
+          return null;
         }
-      }),
+        return fullWeatherStateNotifier.addListener((state) {
+          if (state is w.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
       [fullWeatherStateNotifier],
     );
 
@@ -99,7 +94,7 @@ class WeatherScreen extends HookWidget {
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
-        progress: loadingState.value == _LoadingState.cityChanged,
+        progress: isCityChanging.value,
         accentColor: Theme.of(context).colorScheme.secondary,
         onSubmitted: (String newCityName) async {
           controller.close();
@@ -109,15 +104,17 @@ class WeatherScreen extends HookWidget {
             return;
           }
 
-          loadingState.value = _LoadingState.cityChanged;
+          isCityChanging.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider) is! c.Error) {
             await fullWeatherStateNotifier.loadFullWeather();
           }
-          loadingState.value = _LoadingState.none;
+          isCityChanging.value = false;
         },
         title: Text(
-          fullWeatherState.fullWeather == null? '' : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+          fullWeatherState.fullWeather == null
+              ? ''
+              : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
           style: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:
@@ -160,73 +157,82 @@ class WeatherScreen extends HookWidget {
               await fullWeatherStateNotifier.loadFullWeather();
             },
             color: Theme.of(context).textTheme.subtitle1!.color,
-            child: fullWeatherState.fullWeather == null
-                ? Center(
-                    child: SpinKitSpinningLines(
-                      color: ClimaTheme.of(context).loadingIndicatorColor,
-                      size: 100.sp,
-                    ),
-                  )
-                : Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: () {
-                        if (MediaQuery.of(context).orientation ==
-                                Orientation.landscape &&
-                            MediaQuery.of(context).size.shortestSide >
-                                kTabletBreakpoint) {
-                          return 10.0.w;
-                        } else if (MediaQuery.of(context).orientation ==
-                                Orientation.landscape &&
-                            MediaQuery.of(context).size.shortestSide <
-                                kTabletBreakpoint) {
-                          return 35.0.w;
-                        } else {
-                          return 5.0.w;
-                        }
-                      }(),
-                    ),
-                    child: Container(
-                      constraints: const BoxConstraints.expand(),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            const MainInfoWidget(),
-                            Divider(
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .color!
-                                  .withAlpha(65),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: () {
+                  if (MediaQuery.of(context).orientation ==
+                          Orientation.landscape &&
+                      MediaQuery.of(context).size.shortestSide >
+                          kTabletBreakpoint) {
+                    return 10.0.w;
+                  } else if (MediaQuery.of(context).orientation ==
+                          Orientation.landscape &&
+                      MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint) {
+                    return 35.0.w;
+                  } else {
+                    return 5.0.w;
+                  }
+                }(),
+              ),
+              child: fullWeatherState is w.Error &&
+                      fullWeatherState.fullWeather == null
+                  ? FailureWidget(
+                      failure: fullWeatherState.failure,
+                      onRetry: () async {
+                        await fullWeatherStateNotifier.loadFullWeather();
+                      },
+                    )
+                  : fullWeatherState.fullWeather == null
+                      ? Center(
+                          child: SpinKitSpinningLines(
+                            color: ClimaTheme.of(context).loadingIndicatorColor,
+                            size: 100.sp,
+                          ),
+                        )
+                      : Container(
+                          constraints: const BoxConstraints.expand(),
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                const MainInfoWidget(),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.aspectRatio ==
+                                              1.0
+                                          ? 24.h
+                                          : 16.h,
+                                  child: const HourlyForecastsWidget(),
+                                ),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                const DailyForecastsWidget(),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                const AdditionalInfoWidget(),
+                              ],
                             ),
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.aspectRatio == 1.0
-                                      ? 24.h
-                                      : 16.h,
-                              child: const HourlyForecastsWidget(),
-                            ),
-                            Divider(
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .color!
-                                  .withAlpha(65),
-                            ),
-                            const DailyForecastsWidget(),
-                            Divider(
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .color!
-                                  .withAlpha(65),
-                            ),
-                            const AdditionalInfoWidget(),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
+            ),
           ),
         ),
       ),

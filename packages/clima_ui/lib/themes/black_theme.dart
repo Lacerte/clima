@@ -21,6 +21,7 @@ ThemeData blackTheme = ThemeData.dark().copyWith(
   primaryColor: const Color(0xFF000000),
   scaffoldBackgroundColor: const Color(0xFF000000),
   snackBarTheme: const SnackBarThemeData(
+    actionTextColor: Color(0xFF89B4F8),
     backgroundColor: Color(0xFF202125),
     contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
   ),
