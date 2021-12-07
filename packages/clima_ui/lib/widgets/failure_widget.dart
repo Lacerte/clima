@@ -43,28 +43,30 @@ class FailureWidget extends HookWidget {
           style: secondaryTextStyle,
         ),
         Text(
-          'check it and try again',
+          'check it and try again.',
           style: secondaryTextStyle,
         ),
         Padding(
           padding: EdgeInsets.only(top: 2.h),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                color: Theme.of(context).colorScheme.secondary,
+          child: TextButton(
+            onPressed: onRetry,
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100.0),
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
               ),
             ),
-            child: TextButton(
-              onPressed: onRetry,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
-                child: Text(
-                  'Try again',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: secondaryTextStyle.fontSize,
-                  ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+              child: Text(
+                'Try again',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: secondaryTextStyle.fontSize,
                 ),
               ),
             ),
