@@ -70,22 +70,19 @@ class WeatherScreen extends HookWidget {
           }
         });
       },
-      [cityStateNotifier],
+      [cityStateNotifier, fullWeatherState.fullWeather],
     );
 
-    useEffect(
-      () {
-        if (fullWeatherState.fullWeather == null) {
-          return null;
+    useEffect(() {
+      if (fullWeatherState.fullWeather == null) {
+        return null;
+      }
+      return fullWeatherStateNotifier.addListener((state) {
+        if (state is w.Error) {
+          showFailureSnackBar(context, failure: state.failure, duration: 2);
         }
-        return fullWeatherStateNotifier.addListener((state) {
-          if (state is w.Error) {
-            showFailureSnackBar(context, failure: state.failure, duration: 2);
-          }
-        });
-      },
-      [fullWeatherStateNotifier],
-    );
+      });
+    }, [fullWeatherStateNotifier, fullWeatherState.fullWeather]);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
