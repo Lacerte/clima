@@ -39,11 +39,19 @@ class FailureWidget extends HookWidget {
           child: Text('wrong.', style: mainTextStyle),
         ),
         Text(
-          'Looks like you lost your connection. Please',
-          style: secondaryTextStyle,
-        ),
-        Text(
-          'check it and try again.',
+          () {
+            if (failure is NoConnection) {
+              return 'Looks like you lost your connection. Please \ncheck it and try again.';
+            } else if (failure is FailedToParseResponse) {
+              return "Looks like we're having trouble parsing the \nresponse. Please try again.";
+            } else if (failure is ServerDown) {
+              return 'Looks like the server is down. Please \ntry again later.';
+            } else if (failure is InvalidCityName) {
+              return 'Looks like an invalid city name. Please \ncheck it and try again later.';
+            } else {
+              throw ArgumentError('Did not expect $failure');
+            }
+          }(),
           style: secondaryTextStyle,
         ),
         Padding(
