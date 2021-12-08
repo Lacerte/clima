@@ -47,7 +47,7 @@ class FailureWidget extends HookWidget {
             } else if (failure is ServerDown) {
               return 'Looks like the server is down. Please \ntry again later.';
             } else if (failure is InvalidCityName) {
-              return 'Looks like an invalid city name. Please \ncheck it and try again later.';
+              return 'Looks like an invalid city name. Please \ncheck it and try again.';
             } else {
               throw ArgumentError('Did not expect $failure');
             }
