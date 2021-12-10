@@ -104,18 +104,18 @@ class WeatherScreen extends HookWidget {
           }
           isCityChanging.value = false;
         },
-        title: fullWeatherState.fullWeather == null
-            ? null
-            : Text(
-                'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.subtitle2!.color,
-                  fontSize: MediaQuery.of(context).size.shortestSide <
-                          kTabletBreakpoint
-                      ? 11.sp
-                      : 5.sp,
-                ),
-              ),
+        title: Text(
+          fullWeatherState.fullWeather == null
+              ? ''
+              : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.subtitle2!.color,
+            fontSize:
+                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                    ? 11.sp
+                    : 5.sp,
+          ),
+        ),
         hint: 'Enter city name',
         color: Theme.of(context).appBarTheme.backgroundColor,
         transitionCurve: Curves.easeInOut,
