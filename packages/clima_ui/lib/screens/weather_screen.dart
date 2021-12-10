@@ -46,10 +46,7 @@ class WeatherScreen extends HookWidget {
 
     useEffect(
       () {
-        Future<void> load() async {
-          await Future.microtask(() async {
-            await fullWeatherStateNotifier.loadFullWeather();
-          });
+        Future.microtask(() => fullWeatherStateNotifier.loadFullWeather());
         }
 
         load();
