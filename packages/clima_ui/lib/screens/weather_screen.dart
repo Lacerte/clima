@@ -47,10 +47,6 @@ class WeatherScreen extends HookWidget {
     useEffect(
       () {
         Future.microtask(() => fullWeatherStateNotifier.loadFullWeather());
-        }
-
-        load();
-
         return null;
       },
       [fullWeatherStateNotifier],
@@ -108,18 +104,18 @@ class WeatherScreen extends HookWidget {
           }
           isCityChanging.value = false;
         },
-        title: Text(
-          fullWeatherState.fullWeather == null
-              ? ''
-              : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
-          style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle2!.color,
-            fontSize:
-                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                    ? 11.sp
-                    : 5.sp,
-          ),
-        ),
+        title: fullWeatherState.fullWeather == null
+            ? null
+            : Text(
+                'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.subtitle2!.color,
+                  fontSize: MediaQuery.of(context).size.shortestSide <
+                          kTabletBreakpoint
+                      ? 11.sp
+                      : 5.sp,
+                ),
+              ),
         hint: 'Enter city name',
         color: Theme.of(context).appBarTheme.backgroundColor,
         transitionCurve: Curves.easeInOut,
@@ -150,9 +146,7 @@ class WeatherScreen extends HookWidget {
         body: SafeArea(
           child: RefreshIndicator(
             key: refreshIndicatorKey,
-            onRefresh: () async {
-              await fullWeatherStateNotifier.loadFullWeather();
-            },
+            onRefresh: fullWeatherStateNotifier.loadFullWeather,
             color: Theme.of(context).textTheme.subtitle1!.color,
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -176,9 +170,7 @@ class WeatherScreen extends HookWidget {
                       fullWeatherState.fullWeather == null
                   ? FailureWidget(
                       failure: fullWeatherState.failure,
-                      onRetry: () async {
-                        await fullWeatherStateNotifier.loadFullWeather();
-                      },
+                      onRetry: fullWeatherStateNotifier.loadFullWeather,
                     )
                   : fullWeatherState.fullWeather == null
                       ? Center(
