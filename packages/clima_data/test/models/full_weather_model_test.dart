@@ -12,7 +12,7 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
 import 'package:clima_domain/entities/weather.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('FullWeatherModel', () {

@@ -17,26 +17,25 @@ import 'package:clima_ui/widgets/weather/hourly_forecasts_widget.dart';
 import 'package:clima_ui/widgets/weather/main_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
 
-class WeatherScreen extends HookWidget {
+class WeatherScreen extends HookConsumerWidget {
   const WeatherScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final fullWeatherState = useProvider(w.fullWeatherStateNotifierProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final fullWeatherState = ref.watch(w.fullWeatherStateNotifierProvider);
 
     final fullWeatherStateNotifier =
-        useProvider(w.fullWeatherStateNotifierProvider.notifier);
+        ref.watch(w.fullWeatherStateNotifierProvider.notifier);
     final controller = useFloatingSearchBarController();
 
     final isLoading = useState(fullWeatherState is c.Loading);
 
-    final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
+    final cityStateNotifier = ref.watch(c.cityStateNotifierProvider.notifier);
 
     Future<void> load() async {
       await fullWeatherStateNotifier.loadFullWeather();
@@ -79,7 +78,7 @@ class WeatherScreen extends HookWidget {
 
           isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
-          if (context.read(c.cityStateNotifierProvider) is! c.Error) {
+          if (ref.read(c.cityStateNotifierProvider) is! c.Error) {
             await load();
           }
           isLoading.value = false;

@@ -16,13 +16,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'weather_screen.dart';
 
-class LoadingScreen extends HookWidget {
+class LoadingScreen extends HookConsumerWidget {
   const LoadingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final fullWeatherStateNotifier =
-        useProvider(fullWeatherStateNotifierProvider.notifier);
+        ref.watch(fullWeatherStateNotifierProvider.notifier);
 
     useEffect(
       () {

@@ -12,7 +12,6 @@ import 'package:clima_domain/use_cases/set_city.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
 
 @sealed
 @immutable
