@@ -7,7 +7,6 @@
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
-import 'package:clima_ui/themes/clima_theme.dart';
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
@@ -19,8 +18,6 @@ import 'package:clima_ui/widgets/weather/hourly_forecasts_widget.dart';
 import 'package:clima_ui/widgets/weather/main_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -38,9 +35,8 @@ class WeatherScreen extends HookWidget {
 
     final controller = useFloatingSearchBarController();
 
-    final isCityChanging = useState(false);
-
     final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
+    final cityState = useProvider(c.cityStateNotifierProvider);
 
     final refreshIndicatorKey = useGlobalKey<RefreshIndicatorState>();
 
@@ -87,7 +83,7 @@ class WeatherScreen extends HookWidget {
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
-        progress: isCityChanging.value,
+        progress: fullWeatherState is w.Loading || cityState is c.Loading,
         accentColor: Theme.of(context).colorScheme.secondary,
         onSubmitted: (String newCityName) async {
           controller.close();
@@ -97,12 +93,10 @@ class WeatherScreen extends HookWidget {
             return;
           }
 
-          isCityChanging.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (context.read(c.cityStateNotifierProvider) is! c.Error) {
             await fullWeatherStateNotifier.loadFullWeather();
           }
-          isCityChanging.value = false;
         },
         title: Text(
           fullWeatherState.fullWeather == null
@@ -173,12 +167,7 @@ class WeatherScreen extends HookWidget {
                       onRetry: fullWeatherStateNotifier.loadFullWeather,
                     )
                   : fullWeatherState.fullWeather == null
-                      ? Center(
-                          child: SpinKitSpinningLines(
-                            color: ClimaTheme.of(context).loadingIndicatorColor,
-                            size: 100.sp,
-                          ),
-                        )
+                      ? null
                       : Container(
                           constraints: const BoxConstraints.expand(),
                           child: SingleChildScrollView(
