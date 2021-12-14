@@ -71,7 +71,7 @@ class FailureWidget extends HookWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
               child: Text(
-                'TRY AGAIN',
+                'Try again',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.secondary,
                   fontSize: secondaryTextStyle.fontSize,

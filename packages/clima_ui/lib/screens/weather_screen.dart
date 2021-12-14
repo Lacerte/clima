@@ -80,6 +80,7 @@ class WeatherScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
         liftOnScrollElevation: 0.0,
+        elevation: fullWeatherState.fullWeather == null ? 4.0 : 0.0,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
