@@ -10,7 +10,7 @@ import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/widgets/failure_widget.dart';
+import 'package:clima_ui/widgets/failure_banner.dart';
 import 'package:clima_ui/widgets/others/overflow_menu_button.dart';
 import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
 import 'package:clima_ui/widgets/weather/daily_forecasts_widget.dart';
@@ -80,7 +80,7 @@ class WeatherScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
         liftOnScrollElevation: 0.0,
-        elevation: fullWeatherState.fullWeather == null ? 4.0 : 0.0,
+        elevation: fullWeatherState.fullWeather == null ? 2.0 : 0.0,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
@@ -163,7 +163,7 @@ class WeatherScreen extends HookWidget {
               ),
               child: fullWeatherState is w.Error &&
                       fullWeatherState.fullWeather == null
-                  ? FailureWidget(
+                  ? FailureBanner(
                       failure: fullWeatherState.failure,
                       onRetry: fullWeatherStateNotifier.loadFullWeather,
                     )

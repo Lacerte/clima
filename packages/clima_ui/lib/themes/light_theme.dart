@@ -27,6 +27,13 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     subtitle1: TextStyle(color: Color(0xFF3C4043)),
     subtitle2: TextStyle(color: Color(0xFF5F6267)),
   ),
+  bannerTheme: const MaterialBannerThemeData(
+    backgroundColor: Color(0xFFFFFFFF),
+    contentTextStyle: TextStyle(
+      color: Color(0xFF3C4043),
+      fontWeight: FontWeight.bold,
+    ),
+  ),
   appBarTheme: const AppBarTheme(
     elevation: 0.0,
     titleTextStyle: TextStyle(color: Color(0xFF212121)),

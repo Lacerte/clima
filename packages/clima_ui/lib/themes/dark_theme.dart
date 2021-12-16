@@ -29,6 +29,13 @@ ThemeData darkGreyTheme = ThemeData.dark().copyWith(
     subtitle1: TextStyle(color: Color(0xFFE9EAEE)),
     subtitle2: TextStyle(color: Color(0xFF9BA0A6)),
   ),
+  bannerTheme: const MaterialBannerThemeData(
+    backgroundColor: Color(0xFF202125),
+    contentTextStyle: TextStyle(
+      color: Color(0xFFE9EAEE),
+      fontWeight: FontWeight.bold,
+    ),
+  ),
   appBarTheme: const AppBarTheme(
     elevation: 0.0,
     iconTheme: IconThemeData(color: Color(0xFF9BA0A6)),
