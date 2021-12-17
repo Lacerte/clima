@@ -21,12 +21,20 @@ ThemeData blackTheme = ThemeData.dark().copyWith(
   primaryColor: const Color(0xFF000000),
   scaffoldBackgroundColor: const Color(0xFF000000),
   snackBarTheme: const SnackBarThemeData(
+    actionTextColor: Color(0xFF89B4F8),
     backgroundColor: Color(0xFF202125),
     contentTextStyle: TextStyle(color: Color(0xFFE9EAEE)),
   ),
   textTheme: const TextTheme(
     subtitle1: TextStyle(color: Color(0xFFE9EAEE)),
     subtitle2: TextStyle(color: Color(0xFF9BA0A6)),
+  ),
+  bannerTheme: const MaterialBannerThemeData(
+    backgroundColor: Color(0xFF000000),
+    contentTextStyle: TextStyle(
+      color: Color(0xFFE9EAEE),
+      fontWeight: FontWeight.bold,
+    ),
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0.0,

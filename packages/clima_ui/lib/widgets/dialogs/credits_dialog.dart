@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import 'package:clima_ui/widgets/link_text_span.dart';
+import 'package:clima_ui/widgets/others/link_text_span.dart';
 import 'package:flutter/material.dart';
 
 class CreditsDialog extends StatelessWidget {

@@ -22,7 +22,6 @@ dependencies:
   equatable: 2.0.3
   flutter_hooks: 0.18.1
   flutter_riverpod: 1.0.3
-  flutter_spinkit: 5.1.0
   hooks_riverpod: 1.0.3
   material_floating_search_bar:
     git:

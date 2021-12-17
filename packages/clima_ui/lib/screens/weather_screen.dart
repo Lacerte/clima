@@ -10,6 +10,7 @@ import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
+import 'package:clima_ui/widgets/others/failure_banner.dart';
 import 'package:clima_ui/widgets/others/overflow_menu_button.dart';
 import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
 import 'package:clima_ui/widgets/weather/daily_forecasts_widget.dart';
@@ -31,42 +32,59 @@ class WeatherScreen extends HookConsumerWidget {
 
     final fullWeatherStateNotifier =
         ref.watch(w.fullWeatherStateNotifierProvider.notifier);
+
     final controller = useFloatingSearchBarController();
 
-    final isLoading = useState(fullWeatherState is c.Loading);
-
     final cityStateNotifier = ref.watch(c.cityStateNotifierProvider.notifier);
+    final cityState = ref.watch(c.cityStateNotifierProvider);
 
-    Future<void> load() async {
-      await fullWeatherStateNotifier.loadFullWeather();
-    }
+    final refreshIndicatorKey = useGlobalKey<RefreshIndicatorState>();
 
     useEffect(
-      () => cityStateNotifier.addListener((state) {
-        if (state is c.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
-        }
-      }),
-      [cityStateNotifier],
+      () {
+        Future.microtask(() => fullWeatherStateNotifier.loadFullWeather());
+        return null;
+      },
+      [fullWeatherStateNotifier],
     );
 
     useEffect(
-      () => fullWeatherStateNotifier.addListener((state) {
-        if (state is w.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
+      () {
+        if (fullWeatherState.fullWeather == null) {
+          return null;
         }
-      }),
-      [fullWeatherStateNotifier],
+        return cityStateNotifier.addListener((state) {
+          if (state is c.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
+      [cityStateNotifier, fullWeatherState.fullWeather == null],
+    );
+
+    useEffect(
+      () {
+        if (fullWeatherState.fullWeather == null) {
+          return null;
+        }
+        return fullWeatherStateNotifier.addListener((state) {
+          if (state is w.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
+      [fullWeatherStateNotifier, fullWeatherState.fullWeather],
     );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
         liftOnScrollElevation: 0.0,
+        elevation: fullWeatherState.fullWeather == null ? 2.0 : 0.0,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
-        progress: isLoading.value,
+        progress: fullWeatherState is w.Loading || cityState is c.Loading,
         accentColor: Theme.of(context).colorScheme.secondary,
         onSubmitted: (String newCityName) async {
           controller.close();
@@ -76,15 +94,15 @@ class WeatherScreen extends HookConsumerWidget {
             return;
           }
 
-          isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
           if (ref.read(c.cityStateNotifierProvider) is! c.Error) {
-            await load();
+            await fullWeatherStateNotifier.loadFullWeather();
           }
-          isLoading.value = false;
         },
         title: Text(
-          'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+          fullWeatherState.fullWeather == null
+              ? ''
+              : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
           style: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:
@@ -122,7 +140,8 @@ class WeatherScreen extends HookConsumerWidget {
         ],
         body: SafeArea(
           child: RefreshIndicator(
-            onRefresh: load,
+            key: refreshIndicatorKey,
+            onRefresh: fullWeatherStateNotifier.loadFullWeather,
             color: Theme.of(context).textTheme.subtitle1!.color,
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -142,46 +161,56 @@ class WeatherScreen extends HookConsumerWidget {
                   }
                 }(),
               ),
-              child: Container(
-                constraints: const BoxConstraints.expand(),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      const MainInfoWidget(),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.aspectRatio == 1.0
-                            ? 24.h
-                            : 16.h,
-                        child: const HourlyForecastsWidget(),
-                      ),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      const DailyForecastsWidget(),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      const AdditionalInfoWidget(),
-                    ],
-                  ),
-                ),
-              ),
+              child: fullWeatherState is w.Error &&
+                      fullWeatherState.fullWeather == null
+                  ? FailureBanner(
+                      failure: fullWeatherState.failure,
+                      onRetry: fullWeatherStateNotifier.loadFullWeather,
+                    )
+                  : fullWeatherState.fullWeather == null
+                      ? null
+                      : Container(
+                          constraints: const BoxConstraints.expand(),
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                const MainInfoWidget(),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.aspectRatio ==
+                                              1.0
+                                          ? 24.h
+                                          : 16.h,
+                                  child: const HourlyForecastsWidget(),
+                                ),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                const DailyForecastsWidget(),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                const AdditionalInfoWidget(),
+                              ],
+                            ),
+                          ),
+                        ),
             ),
           ),
         ),
