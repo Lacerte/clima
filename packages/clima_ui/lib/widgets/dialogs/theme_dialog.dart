@@ -7,10 +7,9 @@
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ThemeDialog extends HookWidget {
+class ThemeDialog extends ConsumerWidget {
   static const _dialogOptions = {
     'Light': ThemeModel.light,
     'Dark': ThemeModel.dark,
@@ -18,10 +17,10 @@ class ThemeDialog extends HookWidget {
   };
 
   @override
-  Widget build(BuildContext context) {
-    final themeStateNotifier = useProvider(themeStateNotifierProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeStateNotifier = ref.watch(themeStateNotifierProvider.notifier);
     final theme =
-        useProvider(themeStateNotifierProvider.select((state) => state.theme));
+        ref.watch(themeStateNotifierProvider.select((state) => state.theme));
 
     final radios = [
       for (final entry in _dialogOptions.entries)
