@@ -10,7 +10,7 @@ import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
-import 'package:clima_ui/widgets/failure_banner.dart';
+import 'package:clima_ui/widgets/others/failure_banner.dart';
 import 'package:clima_ui/widgets/others/overflow_menu_button.dart';
 import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
 import 'package:clima_ui/widgets/weather/daily_forecasts_widget.dart';
