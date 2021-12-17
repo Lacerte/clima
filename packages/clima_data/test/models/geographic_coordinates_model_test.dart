@@ -8,7 +8,7 @@ import 'dart:convert';
 
 import 'package:clima_data/models/geographic_coordinates_model.dart';
 import 'package:clima_domain/entities/city.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('GeographicCoordinatesModel', () {

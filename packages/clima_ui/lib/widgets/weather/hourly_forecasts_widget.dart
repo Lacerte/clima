@@ -8,24 +8,23 @@ import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/weather_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-class HourlyForecastsWidget extends HookWidget {
+class HourlyForecastsWidget extends ConsumerWidget {
   const HourlyForecastsWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final hourlyForecasts = useProvider(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hourlyForecasts = ref.watch(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.hourlyForecasts,
       ),
     );
-    final timeZoneOffset = useProvider(
+    final timeZoneOffset = ref.watch(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.timeZoneOffset,
       ),

@@ -15,8 +15,8 @@ class UnitDialog extends ConsumerWidget {
   };
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final unit = watch(unitProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final unit = ref.watch(unitProvider.state);
 
     final radios = [
       for (final entry in _dialogOptions.entries)

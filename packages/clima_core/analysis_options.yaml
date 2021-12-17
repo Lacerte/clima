@@ -1,1 +1,6 @@
 include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    # Don't find it necessary.
+    always_use_package_imports: false
