@@ -59,7 +59,7 @@ class WeatherScreen extends HookConsumerWidget {
           }
         });
       },
-      [cityStateNotifier, fullWeatherState.fullWeather],
+      [cityStateNotifier, fullWeatherState.fullWeather == null],
     );
 
     useEffect(
