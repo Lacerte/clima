@@ -13,8 +13,11 @@ import 'package:sizer/sizer.dart';
 class FailureBanner extends HookWidget {
   const FailureBanner({required this.onRetry, required this.failure, Key? key})
       : super(key: key);
+
   final void Function() onRetry;
+
   final Failure failure;
+
   @override
   Widget build(BuildContext context) {
     return MaterialBanner(
