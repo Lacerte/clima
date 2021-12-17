@@ -31,21 +31,12 @@ class WeatherScreen extends HookConsumerWidget {
     final fullWeatherState = ref.watch(w.fullWeatherStateNotifierProvider);
 
     final fullWeatherStateNotifier =
-<<<<<<< HEAD
-        useProvider(w.fullWeatherStateNotifierProvider.notifier);
-
-    final controller = useFloatingSearchBarController();
-
-    final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
-    final cityState = useProvider(c.cityStateNotifierProvider);
-=======
         ref.watch(w.fullWeatherStateNotifierProvider.notifier);
-    final controller = useFloatingSearchBarController();
 
-    final isLoading = useState(fullWeatherState is c.Loading);
+    final controller = useFloatingSearchBarController();
 
     final cityStateNotifier = ref.watch(c.cityStateNotifierProvider.notifier);
->>>>>>> 73f32f23c7cfe7ec16bde962b2d11b230a7298eb
+    final cityState = ref.watch(c.cityStateNotifierProvider);
 
     final refreshIndicatorKey = useGlobalKey<RefreshIndicatorState>();
 
@@ -104,13 +95,8 @@ class WeatherScreen extends HookConsumerWidget {
           }
 
           await cityStateNotifier.setCity(City(name: trimmedCityName));
-<<<<<<< HEAD
-          if (context.read(c.cityStateNotifierProvider) is! c.Error) {
-            await fullWeatherStateNotifier.loadFullWeather();
-=======
           if (ref.read(c.cityStateNotifierProvider) is! c.Error) {
-            await load();
->>>>>>> 73f32f23c7cfe7ec16bde962b2d11b230a7298eb
+            await fullWeatherStateNotifier.loadFullWeather();
           }
         },
         title: Text(
