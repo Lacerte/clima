@@ -18,6 +18,7 @@ class FailureBanner extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialBanner(
+      forceActionsBelow: true,
       content: Text(
         () {
           if (failure is NoConnection) {
