@@ -25,9 +25,9 @@ class FailureBanner extends HookWidget {
       content: Text(
         () {
           if (failure is NoConnection) {
-            return 'Looks like you lost your connection. Please check it and try again.';
+            return 'Looks like you have no internet connection. Please make sure you are connected then try again.';
           } else if (failure is FailedToParseResponse) {
-            return "Looks like we're having trouble parsing the response. Please try again.";
+            return "Looks like we're having trouble parsing the response. Please try again later.";
           } else if (failure is ServerDown) {
             return 'Looks like the server is down. Please try again later.';
           } else if (failure is InvalidCityName) {
