@@ -29,6 +29,7 @@ class WeatherScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final fullWeatherState = ref.watch(w.fullWeatherStateNotifierProvider);
+    final fullWeather = fullWeatherState.fullWeather;
 
     final fullWeatherStateNotifier =
         ref.watch(w.fullWeatherStateNotifierProvider.notifier);
@@ -50,37 +51,39 @@ class WeatherScreen extends HookConsumerWidget {
 
     useEffect(
       () {
-        if (fullWeatherState.fullWeather == null) {
+        if (fullWeather == null) {
           return null;
         }
+
         return cityStateNotifier.addListener((state) {
           if (state is c.Error) {
             showFailureSnackBar(context, failure: state.failure, duration: 2);
           }
         });
       },
-      [cityStateNotifier, fullWeatherState.fullWeather == null],
+      [cityStateNotifier, fullWeather == null],
     );
 
     useEffect(
       () {
-        if (fullWeatherState.fullWeather == null) {
+        if (fullWeather == null) {
           return null;
         }
+
         return fullWeatherStateNotifier.addListener((state) {
           if (state is w.Error) {
             showFailureSnackBar(context, failure: state.failure, duration: 2);
           }
         });
       },
-      [fullWeatherStateNotifier, fullWeatherState.fullWeather],
+      [fullWeatherStateNotifier, fullWeather],
     );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
         liftOnScrollElevation: 0.0,
-        elevation: fullWeatherState.fullWeather == null ? 2.0 : 0.0,
+        elevation: fullWeather == null ? 2.0 : 0.0,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
@@ -100,9 +103,9 @@ class WeatherScreen extends HookConsumerWidget {
           }
         },
         title: Text(
-          fullWeatherState.fullWeather == null
+          fullWeather == null
               ? ''
-              : 'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+              : 'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())}',
           style: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:
@@ -161,13 +164,12 @@ class WeatherScreen extends HookConsumerWidget {
                   }
                 }(),
               ),
-              child: fullWeatherState is w.Error &&
-                      fullWeatherState.fullWeather == null
+              child: fullWeatherState is w.Error && fullWeather == null
                   ? FailureBanner(
                       failure: fullWeatherState.failure,
                       onRetry: fullWeatherStateNotifier.loadFullWeather,
                     )
-                  : fullWeatherState.fullWeather == null
+                  : fullWeather == null
                       ? null
                       : Container(
                           constraints: const BoxConstraints.expand(),
