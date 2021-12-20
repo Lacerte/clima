@@ -18,7 +18,7 @@ void main() {
       ) as List;
 
       expect(
-        GeographicCoordinatesModel.fromJson(json),
+        GeographicCoordinatesModel.fromRemoteJson(json),
         const GeographicCoordinatesModel(
           city: City(name: 'Riyadh'),
           long: 46.7219,
