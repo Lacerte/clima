@@ -12,8 +12,5 @@ class City extends Equatable {
   final String name;
 
   @override
-  bool get stringify => true;
-
-  @override
   List<Object?> get props => [name];
 }

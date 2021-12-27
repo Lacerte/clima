@@ -20,9 +20,12 @@ dependencies:
   http: 0.13.4
   riverpod: 1.0.3
   shared_preferences: 2.0.11
+  meta: 1.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   lint: 1.8.1
+  mockito: 5.0.17
+  build_runner: 2.1.7

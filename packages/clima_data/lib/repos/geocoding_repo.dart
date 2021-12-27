@@ -37,8 +37,10 @@ class GeocodingRepo {
 
     await coordinates
         .map<Future<void>>(
-          (coordinates) => _geocodingCachingDataSource
-              .setCachedGeographicCoordinates(city, coordinates),
+          (coordinates) => _geocodingCachingDataSource.setCachedCoordinates(
+            city,
+            coordinates,
+          ),
         )
         .getOrElse(() async {});
 

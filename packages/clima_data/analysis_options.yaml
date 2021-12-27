@@ -1,5 +1,8 @@
 include: package:lint/analysis_options.yaml
 
+analyzer:
+  exclude: ["**.mocks.dart"]
+
 linter:
   rules:
     # Very infuriating and unnecessary

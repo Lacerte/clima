@@ -12,12 +12,14 @@ import 'package:clima_data/models/geographic_coordinates_model.dart';
 import 'package:clima_data/providers.dart';
 import 'package:clima_domain/entities/city.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _prefsKey = 'geocodingCache';
+@visibleForTesting
+const geocodingCachePrefsKey = 'geocodingCache';
 
-class _Cache extends Equatable {
+class _Cache {
   // ignore: prefer_const_constructors_in_immutables
   _Cache(this.map);
 
@@ -34,9 +36,6 @@ class _Cache extends Equatable {
 
   Map<String, dynamic> toJson() =>
       map.map((city, cacheItem) => MapEntry(city.name, cacheItem.toJson()));
-
-  @override
-  List<Object?> get props => [map];
 }
 
 class _CacheItem extends Equatable {
@@ -63,71 +62,61 @@ class _CacheItem extends Equatable {
 }
 
 class GeocodingCachingDataSource {
-  GeocodingCachingDataSource(this._prefs)
-      : _cache = _prefs.containsKey(_prefsKey)
+  GeocodingCachingDataSource._(this._prefs)
+      : _cache = _prefs.containsKey(geocodingCachePrefsKey)
             ? _Cache.fromJson(
                 // Defensive copying, in case we're not supposed to modify the map
                 // returned by `jsonDecode`.
                 Map.of(
-                  jsonDecode(_prefs.getString(_prefsKey)!)
+                  jsonDecode(_prefs.getString(geocodingCachePrefsKey)!)
                       as Map<String, dynamic>,
                 ),
               )
-            // This is not const because we need to modify the map.
-            // ignore: prefer_const_constructors, prefer_const_literals_to_create_immutables
+            // The map is not const because we need to modify it.
+            // ignore: prefer_const_literals_to_create_immutables
             : _Cache({});
 
   final SharedPreferences _prefs;
 
   final _Cache _cache;
 
-  static const _invalidationDuration = Duration(days: 7);
-
-  Future<void> _flushCache() async {
-    print("Flushing ${_cache.map} to disk...");
-    await _prefs.setString(_prefsKey, jsonEncode(_cache.toJson()));
-  }
+  Future<void> _flushCache() =>
+      _prefs.setString(geocodingCachePrefsKey, jsonEncode(_cache.toJson()));
 
   Future<Either<Failure, GeographicCoordinatesModel?>> getCachedCoordinates(
-    City city,
-  ) async {
+    City city, {
+    @visibleForTesting Duration invalidationDuration = const Duration(days: 7),
+  }) async {
     if (!_cache.map.containsKey(city)) {
-      print('Cache miss for $city');
       return const Right(null);
     }
 
-    print('Found coordinates of $city in cache');
-
     final item = _cache.map[city]!;
 
-    if (DateTime.now().difference(item.date) >= _invalidationDuration) {
-      print('Cache item of $city is too old, removing from cache...');
-      _cache.map.remove(item);
+    if (DateTime.now().toUtc().difference(item.date) >= invalidationDuration) {
+      _cache.map.remove(city);
       await _flushCache();
       return const Right(null);
     }
 
-    print('Returning cached coordinates of $city');
-
     return Right(item.coordinates);
   }
 
-  Future<Either<Failure, void>> setCachedGeographicCoordinates(
+  Future<Either<Failure, void>> setCachedCoordinates(
     City city,
     GeographicCoordinatesModel coordinates,
   ) async {
-    print("Setting cached coordinates of $city to $coordinates");
     // We assign the same coordinates to `coordinates.city` and `city` like
     // this because the city entered by the user might be e.g. "london" instead
     // of "London", so if we only assigned `coordinates.city` we'll get a cache
     // cache.
     _cache.map[coordinates.city] = _cache.map[city] =
-        _CacheItem(date: DateTime.now(), coordinates: coordinates);
+        _CacheItem(date: DateTime.now().toUtc(), coordinates: coordinates);
     await _flushCache();
     return const Right(null);
   }
 }
 
 final geocodingCachingDataSourceProvider = Provider(
-  (ref) => GeocodingCachingDataSource(ref.watch(sharedPreferencesProvider)),
+  (ref) => GeocodingCachingDataSource._(ref.watch(sharedPreferencesProvider)),
 );
