@@ -45,7 +45,7 @@ jobs:
       - name: Run code generation
         run: ${{ format('{0} pub run build_runner build', env.COMMAND) }}
         working-directory: ${{ matrix.package }}
-        if: ${{ endsWith(matrix.package, 'data')) }}
+        if: ${{ endsWith(matrix.package, 'data') }}
 
       - name: Analyze source code
         run: ${{ format('{0} analyze', env.COMMAND) }}
