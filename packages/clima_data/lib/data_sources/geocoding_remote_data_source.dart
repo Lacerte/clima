@@ -55,7 +55,7 @@ class GeocodingRemoteDataSource {
         return Left(InvalidCityName(city.name));
       }
 
-      return Right(GeographicCoordinatesModel.fromJson(body));
+      return Right(GeographicCoordinatesModel.fromRemoteJson(body));
     } else {
       // TODO: I don't think this failure is fit for this situation.
       return const Left(FailedToParseResponse());
