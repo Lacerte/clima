@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
@@ -9,15 +15,14 @@ import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingScreen extends HookWidget {
+class SettingScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme =
-        useProvider(themeStateNotifierProvider.select((state) => state.theme));
-    final darkTheme = useProvider(
+        ref.watch(themeStateNotifierProvider.select((state) => state.theme));
+    final darkTheme = ref.watch(
       themeStateNotifierProvider.select((state) => state.darkTheme),
     );
     final textFieldController = useTextEditingController();

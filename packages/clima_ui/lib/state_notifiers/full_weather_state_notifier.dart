@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_core/use_case.dart';
@@ -8,7 +14,6 @@ import 'package:clima_domain/use_cases/get_full_weather.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
 
 @sealed
 @immutable

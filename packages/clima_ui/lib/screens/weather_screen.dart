@@ -1,9 +1,16 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/hooks.dart';
 import 'package:clima_ui/utilities/snack_bars.dart';
+import 'package:clima_ui/widgets/others/failure_banner.dart';
 import 'package:clima_ui/widgets/others/overflow_menu_button.dart';
 import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
 import 'package:clima_ui/widgets/weather/daily_forecasts_widget.dart';
@@ -11,57 +18,76 @@ import 'package:clima_ui/widgets/weather/hourly_forecasts_widget.dart';
 import 'package:clima_ui/widgets/weather/main_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:sizer/sizer.dart';
 
-class WeatherScreen extends HookWidget {
+class WeatherScreen extends HookConsumerWidget {
   const WeatherScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final fullWeatherState = useProvider(w.fullWeatherStateNotifierProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final fullWeatherState = ref.watch(w.fullWeatherStateNotifierProvider);
+    final fullWeather = fullWeatherState.fullWeather;
 
     final fullWeatherStateNotifier =
-        useProvider(w.fullWeatherStateNotifierProvider.notifier);
+        ref.watch(w.fullWeatherStateNotifierProvider.notifier);
+
     final controller = useFloatingSearchBarController();
 
-    final isLoading = useState(fullWeatherState is c.Loading);
+    final cityStateNotifier = ref.watch(c.cityStateNotifierProvider.notifier);
+    final cityState = ref.watch(c.cityStateNotifierProvider);
 
-    final cityStateNotifier = useProvider(c.cityStateNotifierProvider.notifier);
-
-    Future<void> load() async {
-      await fullWeatherStateNotifier.loadFullWeather();
-    }
+    final refreshIndicatorKey = useGlobalKey<RefreshIndicatorState>();
 
     useEffect(
-      () => cityStateNotifier.addListener((state) {
-        if (state is c.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
-        }
-      }),
-      [cityStateNotifier],
+      () {
+        Future.microtask(() => fullWeatherStateNotifier.loadFullWeather());
+        return null;
+      },
+      [fullWeatherStateNotifier],
     );
 
     useEffect(
-      () => fullWeatherStateNotifier.addListener((state) {
-        if (state is w.Error) {
-          showFailureSnackBar(context, failure: state.failure, duration: 2);
+      () {
+        if (fullWeather == null) {
+          return null;
         }
-      }),
-      [fullWeatherStateNotifier],
+
+        return cityStateNotifier.addListener((state) {
+          if (state is c.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
+      [cityStateNotifier, fullWeather == null],
+    );
+
+    useEffect(
+      () {
+        if (fullWeather == null) {
+          return null;
+        }
+
+        return fullWeatherStateNotifier.addListener((state) {
+          if (state is w.Error) {
+            showFailureSnackBar(context, failure: state.failure, duration: 2);
+          }
+        });
+      },
+      [fullWeatherStateNotifier, fullWeather],
     );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FloatingSearchAppBar(
         liftOnScrollElevation: 0.0,
+        elevation: fullWeather == null ? 2.0 : 0.0,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         automaticallyImplyBackButton: false,
         controller: controller,
-        progress: isLoading.value,
+        progress: fullWeatherState is w.Loading || cityState is c.Loading,
         accentColor: Theme.of(context).colorScheme.secondary,
         onSubmitted: (String newCityName) async {
           controller.close();
@@ -71,15 +97,15 @@ class WeatherScreen extends HookWidget {
             return;
           }
 
-          isLoading.value = true;
           await cityStateNotifier.setCity(City(name: trimmedCityName));
-          if (context.read(c.cityStateNotifierProvider) is! c.Error) {
-            await load();
+          if (ref.read(c.cityStateNotifierProvider) is! c.Error) {
+            await fullWeatherStateNotifier.loadFullWeather();
           }
-          isLoading.value = false;
         },
         title: Text(
-          'Updated ${DateFormat.Md().add_jm().format(DateTime.now())}',
+          fullWeather == null
+              ? ''
+              : 'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())}',
           style: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
             fontSize:
@@ -117,7 +143,8 @@ class WeatherScreen extends HookWidget {
         ],
         body: SafeArea(
           child: RefreshIndicator(
-            onRefresh: load,
+            key: refreshIndicatorKey,
+            onRefresh: fullWeatherStateNotifier.loadFullWeather,
             color: Theme.of(context).textTheme.subtitle1!.color,
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -137,46 +164,55 @@ class WeatherScreen extends HookWidget {
                   }
                 }(),
               ),
-              child: Container(
-                constraints: const BoxConstraints.expand(),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      const MainInfoWidget(),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.aspectRatio == 1.0
-                            ? 24.h
-                            : 16.h,
-                        child: const HourlyForecastsWidget(),
-                      ),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      const DailyForecastsWidget(),
-                      Divider(
-                        color: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .color!
-                            .withAlpha(65),
-                      ),
-                      const AdditionalInfoWidget(),
-                    ],
-                  ),
-                ),
-              ),
+              child: fullWeatherState is w.Error && fullWeather == null
+                  ? FailureBanner(
+                      failure: fullWeatherState.failure,
+                      onRetry: fullWeatherStateNotifier.loadFullWeather,
+                    )
+                  : fullWeather == null
+                      ? null
+                      : Container(
+                          constraints: const BoxConstraints.expand(),
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                const MainInfoWidget(),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.aspectRatio ==
+                                              1.0
+                                          ? 24.h
+                                          : 16.h,
+                                  child: const HourlyForecastsWidget(),
+                                ),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                const DailyForecastsWidget(),
+                                Divider(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .color!
+                                      .withAlpha(65),
+                                ),
+                                const AdditionalInfoWidget(),
+                              ],
+                            ),
+                          ),
+                        ),
             ),
           ),
         ),

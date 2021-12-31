@@ -4,3 +4,9 @@ linter:
   rules:
     # Very infuriating and unnecessary
     sort_pub_dependencies: false
+
+    # Don't find it necessary.
+    always_use_package_imports: false
+
+    # Can be irritating in JSON parsing code.
+    avoid_dynamic_calls: false

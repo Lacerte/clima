@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_core/failure.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +38,6 @@ void showFailureSnackBar(
       action: onRetry != null
           ? SnackBarAction(
               label: 'Retry',
-              textColor: Theme.of(context).colorScheme.secondary,
               onPressed: onRetry,
             )
           : null,

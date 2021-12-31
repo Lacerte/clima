@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'dart:convert';
 
 import 'package:clima_data/models/full_weather_model.dart';
@@ -6,7 +12,7 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
 import 'package:clima_domain/entities/weather.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('FullWeatherModel', () {

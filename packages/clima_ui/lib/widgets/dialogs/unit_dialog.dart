@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_domain/entities/unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +15,8 @@ class UnitDialog extends ConsumerWidget {
   };
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final unit = watch(unitProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final unit = ref.watch(unitProvider.state);
 
     final radios = [
       for (final entry in _dialogOptions.entries)

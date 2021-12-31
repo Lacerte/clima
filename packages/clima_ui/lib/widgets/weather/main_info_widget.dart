@@ -1,27 +1,31 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/utilities/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sizer/sizer.dart';
 
-class MainInfoWidget extends HookWidget {
+class MainInfoWidget extends ConsumerWidget {
   const MainInfoWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final currentWeather = useProvider(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentWeather = ref.watch(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.currentWeather,
       ),
     );
-    final currentDayForecast = useProvider(
+    final currentDayForecast = ref.watch(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.currentDayForecast,
       ),
     );
-    final city = useProvider(
+    final city = ref.watch(
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.city,
       ),

@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/providers.dart';
@@ -5,7 +11,7 @@ import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/full_weather_repo.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/full_weather_repo.dart';
-import 'package:clima_ui/screens/loading_screen.dart';
+import 'package:clima_ui/screens/weather_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
     show themeStateNotifierProvider;
@@ -15,9 +21,7 @@ import 'package:clima_ui/themes/light_theme.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -48,10 +52,10 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends HookWidget {
+class MyApp extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final themeStateNotifier = useProvider(themeStateNotifierProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeStateNotifier = ref.watch(themeStateNotifierProvider.notifier);
 
     useEffect(
       () {
@@ -62,7 +66,7 @@ class MyApp extends HookWidget {
       [themeStateNotifier],
     );
 
-    final themeState = useProvider(themeStateNotifierProvider);
+    final themeState = ref.watch(themeStateNotifierProvider);
 
     if (themeState is t.EmptyState || themeState is t.Loading) {
       return const SizedBox.shrink();
@@ -92,7 +96,7 @@ class MyApp extends HookWidget {
               ClimaTheme(data: climaTheme, child: child!),
             );
           },
-          home: const LoadingScreen(),
+          home: const WeatherScreen(),
           theme: lightTheme,
           darkTheme: {
             DarkThemeModel.black: blackTheme,

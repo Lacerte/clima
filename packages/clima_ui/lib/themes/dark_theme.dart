@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,11 +22,19 @@ ThemeData darkGreyTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: const Color(0xFF202125),
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: Color(0xFFFFFFFF),
+    actionTextColor: Color(0xFF89B4F8),
     contentTextStyle: TextStyle(color: Color(0xFF3C4043)),
   ),
   textTheme: const TextTheme(
     subtitle1: TextStyle(color: Color(0xFFE9EAEE)),
     subtitle2: TextStyle(color: Color(0xFF9BA0A6)),
+  ),
+  bannerTheme: const MaterialBannerThemeData(
+    backgroundColor: Color(0xFF202125),
+    contentTextStyle: TextStyle(
+      color: Color(0xFFE9EAEE),
+      fontWeight: FontWeight.bold,
+    ),
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0.0,
