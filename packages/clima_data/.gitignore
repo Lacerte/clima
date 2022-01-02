@@ -11,3 +11,6 @@ doc/api/
 # Library dependencies should not have their lockfiles commited. See
 # https://dart.dev/tools/pub/glossary#library-package.
 pubspec.lock
+
+# Generated Dart files.
+*.mocks.dart

@@ -14,11 +14,18 @@ class GeographicCoordinatesModel extends Equatable {
     required this.lat,
   });
 
-  factory GeographicCoordinatesModel.fromJson(List json) =>
+  factory GeographicCoordinatesModel.fromRemoteJson(List json) =>
       GeographicCoordinatesModel(
         city: City(name: json[0]["name"] as String),
         long: (json[0]["lon"] as num).toDouble(),
         lat: (json[0]["lat"] as num).toDouble(),
+      );
+
+  factory GeographicCoordinatesModel.fromLocalJson(Map<String, dynamic> json) =>
+      GeographicCoordinatesModel(
+        city: City(name: json["city"] as String),
+        long: (json["long"] as num).toDouble(),
+        lat: (json["lat"] as num).toDouble(),
       );
 
   final City city;
@@ -26,6 +33,9 @@ class GeographicCoordinatesModel extends Equatable {
   final double long;
 
   final double lat;
+
+  Map<String, dynamic> toJson() =>
+      {'city': city.name, 'long': long, 'lat': lat};
 
   @override
   List<Object?> get props => [city, long, lat];
