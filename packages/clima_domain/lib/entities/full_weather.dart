@@ -6,6 +6,8 @@
 
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
+import 'package:clima_domain/entities/unit_system.dart';
+import 'package:clima_domain/utils/unit_conversion.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,6 +21,7 @@ class FullWeather extends Equatable {
     required this.currentWeather,
     required this.dailyForecasts,
     required this.hourlyForecasts,
+    required this.unitSystem,
   });
 
   final City city;
@@ -31,6 +34,8 @@ class FullWeather extends Equatable {
 
   final List<HourlyForecast> hourlyForecasts;
 
+  final UnitSystem unitSystem;
+
   DailyForecast get currentDayForecast => minBy(
         dailyForecasts.where(
           (forecast) => forecast.date.weekday == currentWeather.date.weekday,
@@ -39,6 +44,33 @@ class FullWeather extends Equatable {
       )!;
 
   @override
-  List<Object> get props =>
-      [city, timeZoneOffset, currentWeather, dailyForecasts, hourlyForecasts];
+  List<Object> get props => [
+        city,
+        timeZoneOffset,
+        currentWeather,
+        dailyForecasts,
+        hourlyForecasts,
+        unitSystem
+      ];
+
+  FullWeather changeUnitSystem(UnitSystem newUnitSystem) {
+    if (unitSystem == newUnitSystem) {
+      return this;
+    }
+
+    return FullWeather(
+      unitSystem: newUnitSystem,
+      city: city,
+      timeZoneOffset: timeZoneOffset,
+      currentWeather: currentWeather.changeUnitSystem(newUnitSystem),
+      hourlyForecasts: [
+        for (final forecast in hourlyForecasts)
+          forecast.changeUnitSystem(newUnitSystem)
+      ],
+      dailyForecasts: [
+        for (final forecast in dailyForecasts)
+          forecast.changeUnitSystem(newUnitSystem)
+      ],
+    );
+  }
 }
