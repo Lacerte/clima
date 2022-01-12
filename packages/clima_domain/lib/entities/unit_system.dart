@@ -4,8 +4,4 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import 'package:riverpod/riverpod.dart';
-
 enum UnitSystem { metric, imperial }
-
-final unitSystemProvider = StateProvider((ref) => UnitSystem.metric);
