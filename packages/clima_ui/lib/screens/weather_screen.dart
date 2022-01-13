@@ -48,9 +48,7 @@ class WeatherScreen extends HookConsumerWidget {
         ref.watch(u.unitSystemStateNotifierProvider.notifier);
 
     final unitSystem = ref.watch(
-      unitSystemStateNotifierProvider.select(
-        (state) => state.unitSystem!,
-      ),
+      unitSystemStateNotifierProvider.select((state) => state.unitSystem),
     );
 
     useEffect(
@@ -142,6 +140,9 @@ class WeatherScreen extends HookConsumerWidget {
 
                   case UnitSystem.imperial:
                     return '°F';
+
+                  case null:
+                    return '';
                 }
               }(),
               style: TextStyle(
