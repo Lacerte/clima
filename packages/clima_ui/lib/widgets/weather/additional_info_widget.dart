@@ -4,7 +4,9 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart';
 import 'package:clima_ui/widgets/weather/additional_info_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,12 @@ class AdditionalInfoWidget extends ConsumerWidget {
       ),
     );
 
+    final unitSystem = ref.watch(
+      unitSystemStateNotifierProvider.select(
+        (state) => state.unitSystem!,
+      ),
+    );
+
     return Column(
       children: [
         Padding(
@@ -50,7 +58,15 @@ class AdditionalInfoWidget extends ConsumerWidget {
               ),
               AdditionalInfoTile(
                 title: 'Wind speed',
-                value: '${currentWeather.windSpeed.round()} km/h',
+                value: '${currentWeather.windSpeed.round()} ${() {
+                  switch (unitSystem) {
+                    case UnitSystem.metric:
+                      return 'km/h';
+
+                    case UnitSystem.imperial:
+                      return 'mph';
+                  }
+                }()}',
               ),
             ],
           ),

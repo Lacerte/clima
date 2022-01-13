@@ -5,9 +5,11 @@
  */
 
 import 'package:clima_domain/entities/city.dart';
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart' as u;
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart';
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
@@ -44,6 +46,12 @@ class WeatherScreen extends HookConsumerWidget {
 
     final unitSystemStateNotifier =
         ref.watch(u.unitSystemStateNotifierProvider.notifier);
+
+    final unitSystem = ref.watch(
+      unitSystemStateNotifierProvider.select(
+        (state) => state.unitSystem!,
+      ),
+    );
 
     useEffect(
       () {
@@ -112,17 +120,39 @@ class WeatherScreen extends HookConsumerWidget {
             await fullWeatherStateNotifier.loadFullWeather();
           }
         },
-        title: Text(
-          fullWeather == null
-              ? ''
-              : 'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())}',
-          style: TextStyle(
-            color: Theme.of(context).textTheme.subtitle2!.color,
-            fontSize:
-                MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                    ? 11.sp
-                    : 5.sp,
-          ),
+        title: Row(
+          children: [
+            Text(
+              fullWeather == null
+                  ? ''
+                  : 'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())} · ',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.subtitle2!.color,
+                fontSize:
+                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                        ? 11.sp
+                        : 5.sp,
+              ),
+            ),
+            Text(
+              () {
+                switch (unitSystem) {
+                  case UnitSystem.metric:
+                    return 'C°';
+
+                  case UnitSystem.imperial:
+                    return 'F°';
+                }
+              }(),
+              style: TextStyle(
+                color: Theme.of(context).textTheme.subtitle1!.color,
+                fontSize:
+                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                        ? 11.sp
+                        : 5.sp,
+              ),
+            ),
+          ],
         ),
         hint: 'Enter city name',
         color: Theme.of(context).appBarTheme.backgroundColor,
