@@ -138,10 +138,10 @@ class WeatherScreen extends HookConsumerWidget {
               () {
                 switch (unitSystem) {
                   case UnitSystem.metric:
-                    return 'C°';
+                    return '°C';
 
                   case UnitSystem.imperial:
-                    return 'F°';
+                    return '°F';
                 }
               }(),
               style: TextStyle(
