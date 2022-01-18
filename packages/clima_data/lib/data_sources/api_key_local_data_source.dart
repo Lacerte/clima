@@ -6,6 +6,7 @@
 
 import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
+import 'package:clima_data/models/api_key_model.dart';
 import 'package:clima_data/providers.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,15 +18,16 @@ class ApiKeyLocalDataSource {
 
   final SharedPreferences _prefs;
 
-  Future<Either<Failure, String?>> getApiKey() async =>
-      Right(_prefs.getString(_apiKeyPrefsKey));
+  Future<Either<Failure, ApiKeyModel>> getApiKey() async =>
+      Right(ApiKeyModel.parse(_prefs.getString(_apiKeyPrefsKey)));
 
-  Future<Either<Failure, void>> setApiKey(String? apiKey) async {
-    if (apiKey == null) {
-      await _prefs.remove(_apiKeyPrefsKey);
+  Future<Either<Failure, void>> setApiKey(ApiKeyModel model) async {
+    if (model.isCustom) {
+      await _prefs.setString(_apiKeyPrefsKey, model.apiKey);
     } else {
-      await _prefs.setString(_apiKeyPrefsKey, apiKey);
+      await _prefs.remove(_apiKeyPrefsKey);
     }
+
     return const Right(null);
   }
 }
