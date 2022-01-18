@@ -11,7 +11,7 @@ import 'package:clima_data/providers.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _apiKeyPrefsKey = 'openWeatherMapApiKey';
+const _apiKeyPrefsKey = 'open_weather_map_api_key';
 
 class ApiKeyLocalDataSource {
   ApiKeyLocalDataSource(this._prefs);
