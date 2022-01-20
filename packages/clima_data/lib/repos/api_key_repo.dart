@@ -21,9 +21,9 @@ class ApiKeyRepo {
   Future<Either<Failure, ApiKeyModel>> getApiKey() =>
       localDataSource.getApiKey();
 
-  Future<Either<Failure, void>> setApiKey(ApiKeyModel model) async {
-    if (!model.isCustom) {
-      return localDataSource.setApiKey(model);
+  Future<Either<Failure, void>> setApiKey(ApiKeyModel apiKeyModel) async {
+    if (!apiKeyModel.isCustom) {
+      return localDataSource.setApiKey(apiKeyModel);
     }
 
     final response = await http.get(
@@ -31,13 +31,13 @@ class ApiKeyRepo {
         scheme: 'https',
         host: 'api.openweathermap.org',
         path: '/data/2.5/weather',
-        queryParameters: {'appid': model.apiKey},
+        queryParameters: {'appid': apiKeyModel.apiKey},
       ),
     );
 
     switch (response.statusCode) {
       case 400:
-        return localDataSource.setApiKey(model);
+        return localDataSource.setApiKey(apiKeyModel);
 
       case 404:
         return const Left(InvalidApiKey());
