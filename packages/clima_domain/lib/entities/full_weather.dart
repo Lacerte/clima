@@ -7,7 +7,6 @@
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
 import 'package:clima_domain/entities/unit_system.dart';
-import 'package:clima_domain/utils/unit_conversion.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 

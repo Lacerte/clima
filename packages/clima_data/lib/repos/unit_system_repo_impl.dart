@@ -20,7 +20,7 @@ class UnitSystemRepoImpl implements UnitSystemRepo {
   @override
   Future<Either<Failure, UnitSystem>> getUnitSystem() async =>
       (await _localDataSource.getUnitSystem())
-          .map((model) => (model?.unitSystem) ?? UnitSystem.metric);
+          .map((model) => model?.unitSystem ?? UnitSystem.metric);
 
   @override
   Future<Either<Failure, void>> setUnitSystem(UnitSystem unitSystem) =>
