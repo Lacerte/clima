@@ -1,8 +1,8 @@
 import 'package:clima_ui/widgets/others/link_text_span.dart';
 import 'package:flutter/material.dart';
 
-class ApiKeyDialog extends StatelessWidget {
-  const ApiKeyDialog({Key? key}) : super(key: key);
+class ApiKeyInfoDialog extends StatelessWidget {
+  const ApiKeyInfoDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +17,27 @@ class ApiKeyDialog extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  text: 'Clima receives data from the free service of ',
+                  text: "Clima receives data from ",
                   style: textSpanStyle,
                   children: [
                     linkTextSpan(
                       context: context,
-                      text: 'OpenWeatherMap',
+                      text: "OpenWeatherMap",
                       url: 'https://openweathermap.org',
                     ),
                     TextSpan(
                       text:
-                          ', which is limited to 1000 calls per day. You could register your own API key for free ',
+                          "'s free service, which is limited to only 1000 calls per day. You could receive your own 1000 calls by registering your API key for free ",
                       style: textSpanStyle,
                     ),
                     linkTextSpan(
                       context: context,
-                      text: 'here ',
+                      text: 'here',
                       url: 'https://openweathermap.org/price',
                     ),
                     TextSpan(
                       text:
-                          'to get your own 1000 calls. Otherwise, calls are shared between all users of Clima.',
+                          '. Otherwise, calls are shared between all Clima users.',
                       style: textSpanStyle,
                     ),
                   ],

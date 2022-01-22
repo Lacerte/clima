@@ -8,7 +8,9 @@ import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
-import 'package:clima_ui/widgets/dialogs/api_key_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/api_key/api_key_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/api_key/api_key_info_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/api_key/api_key_reset_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/theme_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
@@ -127,45 +129,8 @@ class SettingScreen extends HookConsumerWidget {
                 await showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      contentPadding: const EdgeInsets.all(16.0),
-                      content: TextFormField(
-                        controller: textFieldController,
-                        cursorColor: Theme.of(context).colorScheme.secondary,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).colorScheme.secondary,
-                          hintText: 'Enter API Key',
-                          hintStyle: TextStyle(
-                            color: Theme.of(context).textTheme.subtitle2!.color,
-                          ),
-                        ),
-                        onEditingComplete: () {},
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'CANCEL',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'SAVE',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                        )
-                      ],
+                    return ApiKeyDialog(
+                      textFieldController: textFieldController,
                     );
                   },
                 );
@@ -181,44 +146,13 @@ class SettingScreen extends HookConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: Text(
-                        'Reset API Key?',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.subtitle1!.color,
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'CANCEL',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'RESET',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
+                    return const ApiKeyResetDialog();
                   },
                 );
               },
             ),
             SettingsTile(
-              title: 'Learn More',
+              title: 'Learn more',
               leading: Icon(
                 Icons.launch_outlined,
                 color: Theme.of(context).iconTheme.color,
@@ -227,7 +161,7 @@ class SettingScreen extends HookConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return const ApiKeyDialog();
+                    return const ApiKeyInfoDialog();
                   },
                 );
               },
