@@ -8,7 +8,6 @@ class ApiKeyDialog extends ConsumerWidget {
   final TextEditingController textFieldController;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return AlertDialog(
       contentPadding: const EdgeInsets.all(16.0),
       content: TextFormField(
