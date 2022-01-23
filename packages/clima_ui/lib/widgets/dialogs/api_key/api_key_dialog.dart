@@ -1,5 +1,3 @@
-import 'package:clima_data/repos/api_key_repo.dart';
-import 'package:clima_ui/widgets/others/link_text_span.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
