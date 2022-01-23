@@ -6,14 +6,17 @@
 
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart'
+    hide Error;
 import 'package:clima_ui/widgets/dialogs/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/theme_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/unit_system_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
-// import 'package:clima_ui/widgets/unit_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +27,10 @@ class SettingScreen extends ConsumerWidget {
         ref.watch(themeStateNotifierProvider.select((state) => state.theme));
     final darkTheme = ref.watch(
       themeStateNotifierProvider.select((state) => state.darkTheme),
+    );
+
+    final unitSystem = ref.watch(
+      unitSystemStateNotifierProvider.select((state) => state.unitSystem!),
     );
 
     return Scaffold(
@@ -47,23 +54,30 @@ class SettingScreen extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            /*const SettingsHeader(
+            const SettingsHeader(
               title: 'General',
             ),
             SettingsTile(
-              title: 'Unit',
-              subtitle: 'Metric',
+              title: 'Unit system',
+              subtitle: () {
+                switch (unitSystem) {
+                  case UnitSystem.metric:
+                    return 'Metric';
+
+                  case UnitSystem.imperial:
+                    return 'Imperial';
+                }
+              }(),
               leading: Icon(
                 Icons.straighten_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => showDialog(
                 context: context,
-                builder: (context) => UnitDialog(),
+                builder: (context) => UnitSystemDialog(),
               ),
             ),
             const SettingsDivider(),
-	    */
             const SettingsHeader(
               title: 'Interface',
             ),

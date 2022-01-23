@@ -11,6 +11,7 @@ import 'package:clima_data/utils/date_time.dart' as date_time_utils;
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -30,6 +31,7 @@ void main() {
       expect(
         fullWeather.currentWeather,
         Weather(
+          unitSystem: UnitSystem.metric,
           date: date_time_utils.fromUtcUnixTime(1634313115),
           temperature: 27.16,
           tempFeel: 29.5,
@@ -47,6 +49,7 @@ void main() {
       expect(
         fullWeather.hourlyForecasts[0],
         HourlyForecast(
+          unitSystem: UnitSystem.metric,
           temperature: 27.16,
           iconCode: "01n",
           date: date_time_utils.fromUtcUnixTime(1634310000),
@@ -55,6 +58,7 @@ void main() {
       );
 
       final dailyForecast = DailyForecast(
+        unitSystem: UnitSystem.metric,
         date: date_time_utils.fromUtcUnixTime(1634284800),
         sunrise: date_time_utils.fromUtcUnixTime(1634264178),
         sunset: date_time_utils.fromUtcUnixTime(1634307772),
