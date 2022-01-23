@@ -17,12 +17,12 @@ class ApiKeyInfoDialog extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  text: "Clima receives data from ",
+                  text: 'Clima receives data from ',
                   style: textSpanStyle,
                   children: [
                     linkTextSpan(
                       context: context,
-                      text: "OpenWeatherMap",
+                      text: 'OpenWeatherMap',
                       url: 'https://openweathermap.org',
                     ),
                     TextSpan(
