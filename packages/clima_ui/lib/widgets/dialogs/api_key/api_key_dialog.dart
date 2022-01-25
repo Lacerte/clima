@@ -1,17 +1,37 @@
+import 'package:clima_data/models/api_key_model.dart';
+import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ApiKeyDialog extends ConsumerWidget {
-  const ApiKeyDialog({required this.textFieldController, Key? key})
-      : super(key: key);
+class ApiKeyDialog extends HookConsumerWidget {
+  const ApiKeyDialog({Key? key}) : super(key: key);
 
-  final TextEditingController textFieldController;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final apiKeyStateNotifier = ref.watch(apiKeyStateNotifierProvider.notifier);
+    final apiKey =
+        ref.watch(apiKeyStateNotifierProvider.select((state) => state.apiKey!));
+
+    final textController =
+        useTextEditingController(text: apiKey.isCustom ? apiKey.apiKey : null);
+
+    Future<void> submit() async {
+      Navigator.pop(context);
+
+      final newApiKeyString = textController.text;
+
+      return apiKeyStateNotifier.setApiKey(
+        newApiKeyString.isEmpty
+            ? const ApiKeyModel.default_()
+            : ApiKeyModel.custom(newApiKeyString),
+      );
+    }
+
     return AlertDialog(
       contentPadding: const EdgeInsets.all(16.0),
-      content: TextFormField(
-        controller: textFieldController,
+      content: TextField(
+        controller: textController,
         cursorColor: Theme.of(context).colorScheme.secondary,
         autofocus: true,
         decoration: InputDecoration(
@@ -21,7 +41,7 @@ class ApiKeyDialog extends ConsumerWidget {
             color: Theme.of(context).textTheme.subtitle2!.color,
           ),
         ),
-        onEditingComplete: () {},
+        onEditingComplete: submit,
       ),
       actions: <Widget>[
         TextButton(
@@ -36,9 +56,7 @@ class ApiKeyDialog extends ConsumerWidget {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: submit,
           child: Text(
             'SAVE',
             style: TextStyle(

@@ -17,10 +17,9 @@ import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SettingScreen extends HookConsumerWidget {
+class SettingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme =
@@ -28,7 +27,6 @@ class SettingScreen extends HookConsumerWidget {
     final darkTheme = ref.watch(
       themeStateNotifierProvider.select((state) => state.darkTheme),
     );
-    final textFieldController = useTextEditingController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -128,11 +126,7 @@ class SettingScreen extends HookConsumerWidget {
               onTap: () async {
                 await showDialog(
                   context: context,
-                  builder: (context) {
-                    return ApiKeyDialog(
-                      textFieldController: textFieldController,
-                    );
-                  },
+                  builder: (context) => const ApiKeyDialog(),
                 );
               },
             ),
