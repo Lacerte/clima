@@ -39,7 +39,7 @@ class ApiKeyRepo {
       case 400:
         return localDataSource.setApiKey(apiKeyModel);
 
-      case 404:
+      case 401:
         return const Left(InvalidApiKey());
 
       case 503:
