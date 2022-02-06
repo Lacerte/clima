@@ -7,6 +7,7 @@
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_ui/screens/about_screen.dart';
+import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart' as a;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
 import 'package:clima_ui/widgets/dialogs/api_key/api_key_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/api_key/api_key_info_dialog.dart';
@@ -27,6 +28,10 @@ class SettingScreen extends ConsumerWidget {
     final darkTheme = ref.watch(
       themeStateNotifierProvider.select((state) => state.darkTheme),
     );
+    final apiKeyStateNotifier =
+        ref.watch(a.apiKeyStateNotifierProvider.notifier);
+    final apiKey = ref
+        .watch(a.apiKeyStateNotifierProvider.select((state) => state.apiKey!));
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -114,11 +119,13 @@ class SettingScreen extends ConsumerWidget {
             ),
             const SettingsDivider(),
             const SettingsHeader(
-              title: 'API Key',
+              title: 'API key',
             ),
             SettingsTile(
-              title: 'Enter API Key',
-              subtitle: 'No API Key provided',
+              title: 'API key',
+              subtitle: apiKey.isCustom
+                  ? 'Currently using custom API key'
+                  : 'Currently using default API key (not recommended)',
               leading: Icon(
                 Icons.keyboard_outlined,
                 color: Theme.of(context).iconTheme.color,
@@ -131,7 +138,7 @@ class SettingScreen extends ConsumerWidget {
               },
             ),
             SettingsTile(
-              title: 'Reset API Key',
+              title: 'Reset API key',
               leading: Icon(
                 Icons.restore_outlined,
                 color: Theme.of(context).iconTheme.color,

@@ -36,7 +36,7 @@ class ApiKeyDialog extends HookConsumerWidget {
         autofocus: true,
         decoration: InputDecoration(
           focusColor: Theme.of(context).colorScheme.secondary,
-          hintText: 'Enter API Key',
+          hintText: 'Enter API key',
           hintStyle: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
           ),
