@@ -32,6 +32,8 @@ class FailureBanner extends HookWidget {
             return 'Looks like the server is down. Please try again later.';
           } else if (failure is InvalidCityName) {
             return 'Looks like an invalid city name. Please check it and try again.';
+          } else if (failure is InvalidApiKey) {
+            return "Looks like the API key being used isn't valid, probably because it expired. Please fix the issue and try again.";
           } else {
             throw ArgumentError('Did not expect $failure');
           }

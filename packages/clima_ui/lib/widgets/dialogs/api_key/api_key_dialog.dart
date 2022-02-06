@@ -1,3 +1,4 @@
+import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/api_key_model.dart';
 import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,28 @@ class ApiKeyDialog extends HookConsumerWidget {
     final apiKey =
         ref.watch(apiKeyStateNotifierProvider.select((state) => state.apiKey!));
 
+    final failure = useState<Failure?>(null);
+
+    ref.listen<Failure?>(
+      apiKeyStateNotifierProvider
+          .select((state) => state is Error ? state.failure : null),
+      (prev, next) {
+        if (next != null) {
+          failure.value = next;
+        }
+      },
+    );
+
+    ref.listen<ApiKeyState>(apiKeyStateNotifierProvider, (prev, next) {
+      if (next is Loaded) {
+        Navigator.pop(context);
+      }
+    });
+
     final textController =
         useTextEditingController(text: apiKey.isCustom ? apiKey.apiKey : null);
 
     Future<void> submit() async {
-      Navigator.pop(context);
-
       final newApiKeyString = textController.text;
 
       return apiKeyStateNotifier.setApiKey(
@@ -40,6 +57,11 @@ class ApiKeyDialog extends HookConsumerWidget {
           hintStyle: TextStyle(
             color: Theme.of(context).textTheme.subtitle2!.color,
           ),
+          errorText: () {
+            if (failure.value is InvalidApiKey) {
+              return "Looks like this is an invalid API key. Please check that it's correct and try again.";
+            }
+          }(),
         ),
         onEditingComplete: submit,
       ),
@@ -63,7 +85,7 @@ class ApiKeyDialog extends HookConsumerWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
-        )
+        ),
       ],
     );
   }
