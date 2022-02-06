@@ -70,6 +70,7 @@ class ApiKeyDialog extends HookConsumerWidget {
           }(),
         ),
         onEditingComplete: submit,
+        errorMaxLines: 3,
       ),
       actions: <Widget>[
         TextButton(
