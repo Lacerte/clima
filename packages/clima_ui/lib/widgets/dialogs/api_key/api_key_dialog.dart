@@ -1,6 +1,7 @@
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/api_key_model.dart';
 import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart';
+import 'package:clima_ui/utilities/snack_bars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,6 +30,11 @@ class ApiKeyDialog extends HookConsumerWidget {
     ref.listen<ApiKeyState>(apiKeyStateNotifierProvider, (prev, next) {
       if (next is Loaded) {
         Navigator.pop(context);
+        showSnackBar(
+          context,
+          text: 'API key updated successfully.',
+          duration: 4,
+        );
       }
     });
 
