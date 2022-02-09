@@ -29,19 +29,11 @@ void showFailureSnackBar(
 
   final messenger = ScaffoldMessenger.of(context);
   messenger.removeCurrentSnackBar();
-  messenger.showSnackBar(
-    SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      content: Text(text),
-      duration: Duration(seconds: duration ?? 86400),
-      action: onRetry != null
-          ? SnackBarAction(
-              label: 'Retry',
-              onPressed: onRetry,
-            )
-          : null,
-    ),
+  showSnackBar(
+    context,
+    text: text,
+    actionText: 'Retry',
+    onPressed: onRetry,
   );
 }
 
