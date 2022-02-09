@@ -146,9 +146,7 @@ class SettingScreen extends ConsumerWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (context) {
-                    return const ApiKeyResetDialog();
-                  },
+                  builder: (context) => const ApiKeyResetDialog(),
                 );
               },
             ),
@@ -161,9 +159,7 @@ class SettingScreen extends ConsumerWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (context) {
-                    return const ApiKeyInfoDialog();
-                  },
+                  builder: (context) => const ApiKeyInfoDialog(),
                 );
               },
             ),
