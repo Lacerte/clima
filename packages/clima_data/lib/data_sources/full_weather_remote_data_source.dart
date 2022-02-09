@@ -24,7 +24,7 @@ class FullWeatherRemoteDataSource {
   final GeocodingRepo _geocodingRepo;
 
   Future<Either<Failure, FullWeatherModel>> getFullWeather(City city) async {
-    final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+    final apiKeyModel = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     final coordinates =
         (await _geocodingRepo.getCoordinates(city)).fold((_) => null, id)!;
@@ -39,7 +39,7 @@ class FullWeatherRemoteDataSource {
         queryParameters: {
           'lon': coordinates.long.toString(),
           'lat': coordinates.lat.toString(),
-          'appid': apiKey,
+          'appid': apiKeyModel.apiKey,
           'units': 'metric',
           'exclude': 'minutely,alerts',
         },

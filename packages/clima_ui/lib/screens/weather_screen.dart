@@ -6,12 +6,13 @@
 
 import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/unit_system.dart';
+import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart' as a;
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart' as u;
 import 'package:clima_ui/utilities/constants.dart';
-import 'package:clima_ui/utilities/failure_snack_bar.dart';
 import 'package:clima_ui/utilities/hooks.dart';
+import 'package:clima_ui/utilities/snack_bars.dart';
 import 'package:clima_ui/widgets/others/failure_banner.dart';
 import 'package:clima_ui/widgets/others/overflow_menu_button.dart';
 import 'package:clima_ui/widgets/weather/additional_info_widget.dart';
@@ -36,6 +37,9 @@ class WeatherScreen extends HookConsumerWidget {
     final fullWeatherStateNotifier =
         ref.watch(w.fullWeatherStateNotifierProvider.notifier);
 
+    final apiKeyStateNotifier =
+        ref.watch(a.apiKeyStateNotifierProvider.notifier);
+
     final controller = useFloatingSearchBarController();
 
     final cityStateNotifier = ref.watch(c.cityStateNotifierProvider.notifier);
@@ -54,6 +58,7 @@ class WeatherScreen extends HookConsumerWidget {
       () {
         Future.microtask(
           () => Future.wait([
+            apiKeyStateNotifier.loadApiKey(),
             unitSystemStateNotifier.loadUnitSystem(),
             fullWeatherStateNotifier.loadFullWeather(),
           ]),
@@ -61,7 +66,7 @@ class WeatherScreen extends HookConsumerWidget {
 
         return null;
       },
-      [fullWeatherStateNotifier, unitSystemStateNotifier],
+      [fullWeatherStateNotifier, unitSystemStateNotifier, apiKeyStateNotifier],
     );
 
     useEffect(

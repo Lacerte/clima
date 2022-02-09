@@ -23,7 +23,7 @@ class GeocodingRemoteDataSource {
   Future<Either<Failure, GeographicCoordinatesModel>> getCoordinates(
     City city,
   ) async {
-    final apiKey = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
+    final apiKeyModel = (await _apiKeyRepo.getApiKey()).fold((_) => null, id)!;
 
     final response = await http.get(
       Uri(
@@ -32,7 +32,7 @@ class GeocodingRemoteDataSource {
         path: '/geo/1.0/direct',
         queryParameters: {
           'q': city.name,
-          'appid': apiKey,
+          'appid': apiKeyModel.apiKey,
           'limit': '1',
         },
       ),
