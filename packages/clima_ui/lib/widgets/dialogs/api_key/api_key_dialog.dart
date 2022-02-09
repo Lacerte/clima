@@ -58,6 +58,7 @@ class ApiKeyDialog extends HookConsumerWidget {
         cursorColor: Theme.of(context).colorScheme.secondary,
         autofocus: true,
         decoration: InputDecoration(
+          errorMaxLines: 3,
           focusColor: Theme.of(context).colorScheme.secondary,
           hintText: 'Enter API key',
           hintStyle: TextStyle(
@@ -70,7 +71,6 @@ class ApiKeyDialog extends HookConsumerWidget {
           }(),
         ),
         onEditingComplete: submit,
-        errorMaxLines: 3,
       ),
       actions: <Widget>[
         TextButton(
