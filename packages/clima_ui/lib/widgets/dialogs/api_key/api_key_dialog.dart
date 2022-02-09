@@ -15,6 +15,14 @@ class ApiKeyDialog extends HookConsumerWidget {
     final apiKey =
         ref.watch(apiKeyStateNotifierProvider.select((state) => state.apiKey!));
 
+    // Why not just access the failure from the state directly? Well, because
+    // if the user opened the dialog before and they entered an invalid API
+    // key, closed the dialog, then opened it again, the same error would be
+    // shown in the just-opened dialog. That is of course not the correct
+    // behavior.
+    //
+    // TODO(mhmdanas): this is ugly and feels like a hack, we should figure out
+    // a cleaner way.
     final failure = useState<Failure?>(null);
 
     ref.listen<Failure?>(
