@@ -63,6 +63,7 @@ class WeatherScreen extends HookConsumerWidget {
             fullWeatherStateNotifier.loadFullWeather(),
           ]),
         );
+
         return null;
       },
       [fullWeatherStateNotifier, unitSystemStateNotifier, apiKeyStateNotifier],
