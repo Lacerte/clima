@@ -5,8 +5,8 @@
  */
 
 import 'package:clima_domain/entities/city.dart';
-import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart' as a;
 import 'package:clima_domain/entities/unit_system.dart';
+import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart' as a;
 import 'package:clima_ui/state_notifiers/city_state_notifier.dart' as c;
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart' as u;

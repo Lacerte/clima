@@ -10,11 +10,11 @@ import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_ui/screens/about_screen.dart';
 import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart' as a;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart'
+    hide Error;
 import 'package:clima_ui/widgets/dialogs/api_key/api_key_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/api_key/api_key_info_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/api_key/api_key_reset_dialog.dart';
-import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart'
-    hide Error;
 import 'package:clima_ui/widgets/dialogs/dark_theme_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/theme_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/unit_system_dialog.dart';
