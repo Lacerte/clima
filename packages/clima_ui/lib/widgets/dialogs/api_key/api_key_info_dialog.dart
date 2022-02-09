@@ -37,7 +37,7 @@ class ApiKeyInfoDialog extends StatelessWidget {
                     ),
                     TextSpan(
                       text:
-                          '. Otherwise, calls are shared between all Clima users.',
+                          '. Otherwise, calls are shared between all Clima users who use the default API key.',
                       style: textSpanStyle,
                     ),
                   ],
