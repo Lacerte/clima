@@ -28,8 +28,6 @@ class SettingScreen extends ConsumerWidget {
     final darkTheme = ref.watch(
       themeStateNotifierProvider.select((state) => state.darkTheme),
     );
-    final apiKeyStateNotifier =
-        ref.watch(a.apiKeyStateNotifierProvider.notifier);
     final apiKey = ref
         .watch(a.apiKeyStateNotifierProvider.select((state) => state.apiKey!));
 
