@@ -4,11 +4,12 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import 'package:clima_domain/entities/unit.dart';
+import 'package:clima_domain/entities/unit_system.dart';
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UnitDialog extends ConsumerWidget {
+class UnitSystemDialog extends ConsumerWidget {
   static const _dialogOptions = {
     'Metric': UnitSystem.metric,
     'Imperial': UnitSystem.imperial,
@@ -16,7 +17,9 @@ class UnitDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final unit = ref.watch(unitProvider.state);
+    final unitSystemState = ref.watch(unitSystemStateNotifierProvider);
+    final unitSystemStateNotifier =
+        ref.watch(unitSystemStateNotifierProvider.notifier);
 
     final radios = [
       for (final entry in _dialogOptions.entries)
@@ -28,9 +31,9 @@ class UnitDialog extends ConsumerWidget {
             ),
           ),
           value: entry.value,
-          groupValue: unit.state,
+          groupValue: unitSystemState.unitSystem,
           onChanged: (newValue) {
-            unit.state = newValue!;
+            unitSystemStateNotifier.setUnitSystem(newValue!);
             Navigator.pop(context);
           },
         )
@@ -38,17 +41,12 @@ class UnitDialog extends ConsumerWidget {
 
     return SimpleDialog(
       title: Text(
-        'Unit',
+        'Unit system',
         style: TextStyle(
           color: Theme.of(context).textTheme.subtitle1!.color,
         ),
       ),
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: radios,
-        ),
-      ],
+      children: [Column(mainAxisSize: MainAxisSize.min, children: radios)],
     );
   }
 }

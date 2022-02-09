@@ -9,8 +9,10 @@ import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/providers.dart';
 import 'package:clima_data/repos/city_repo_impl.dart';
 import 'package:clima_data/repos/full_weather_repo.dart';
+import 'package:clima_data/repos/unit_system_repo_impl.dart';
 import 'package:clima_domain/repos/city_repo.dart';
 import 'package:clima_domain/repos/full_weather_repo.dart';
+import 'package:clima_domain/repos/unit_system_repo.dart';
 import 'package:clima_ui/screens/weather_screen.dart';
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart' as t;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
@@ -40,6 +42,9 @@ Future<void> main() async {
         sharedPreferencesProvider.overrideWithValue(sharedPreferences),
         cityRepoProvider.overrideWithProvider(
           Provider((ref) => ref.watch(cityRepoImplProvider)),
+        ),
+        unitSystemRepoProvider.overrideWithProvider(
+          Provider((ref) => ref.watch(unitSystemRepoImplProvider)),
         ),
         fullWeatherRepoProvider.overrideWithProvider(
           Provider((ref) => ref.watch(fullWeatherRepoImplProvider)),

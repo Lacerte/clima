@@ -9,6 +9,7 @@ import 'package:clima_domain/entities/city.dart';
 import 'package:clima_domain/entities/daily_forecast.dart';
 import 'package:clima_domain/entities/full_weather.dart';
 import 'package:clima_domain/entities/hourly_forecast.dart';
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_domain/entities/weather.dart';
 import 'package:equatable/equatable.dart';
 
@@ -26,8 +27,10 @@ class FullWeatherModel extends Equatable {
     return FullWeatherModel(
       FullWeather(
         city: city,
+        unitSystem: UnitSystem.metric,
         timeZoneOffset: Duration(seconds: json['timezone_offset'] as int),
         currentWeather: Weather(
+          unitSystem: UnitSystem.metric,
           temperature: (currentWeatherJson['temp'] as num).toDouble(),
           tempFeel: (currentWeatherJson['feels_like'] as num).toDouble(),
           // We multiply by 3.6 to convert from m/s to km/h.
@@ -46,6 +49,7 @@ class FullWeatherModel extends Equatable {
         dailyForecasts: (json['daily'] as List)
             .map(
               (forecastJson) => DailyForecast(
+                unitSystem: UnitSystem.metric,
                 maxTemperature: (forecastJson['temp']['max'] as num).toDouble(),
                 minTemperature: (forecastJson['temp']['min'] as num).toDouble(),
                 date:
@@ -62,6 +66,7 @@ class FullWeatherModel extends Equatable {
         hourlyForecasts: [
           for (final forecastJson in json['hourly'] as List)
             HourlyForecast(
+              unitSystem: UnitSystem.metric,
               date: date_time_utils.fromUtcUnixTime(forecastJson['dt'] as int),
               iconCode: forecastJson['weather'][0]['icon'] as String,
               temperature: (forecastJson['temp'] as num).toDouble(),

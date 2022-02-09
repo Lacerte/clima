@@ -4,12 +4,13 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:clima_domain/entities/unit_system.dart';
+import 'package:clima_domain/utils/unit_conversion.dart';
 import 'package:equatable/equatable.dart';
 
 class HourlyForecast extends Equatable {
   final DateTime date;
 
-  /// In degrees Celsius (for now).
   final double temperature;
 
   /// Probability of precipitation.
@@ -17,13 +18,41 @@ class HourlyForecast extends Equatable {
 
   final String iconCode;
 
+  final UnitSystem unitSystem;
+
   const HourlyForecast({
     required this.date,
     required this.temperature,
     required this.pop,
     required this.iconCode,
+    required this.unitSystem,
   });
 
   @override
-  List<Object?> get props => [date, temperature, pop, iconCode];
+  List<Object?> get props => [date, temperature, pop, iconCode, unitSystem];
+
+  HourlyForecast changeUnitSystem(UnitSystem newUnitSystem) {
+    if (unitSystem == newUnitSystem) {
+      return this;
+    }
+
+    final double newTemperature;
+
+    switch (unitSystem) {
+      case UnitSystem.imperial:
+        newTemperature = convertFahrenheitToCelsius(temperature);
+        break;
+
+      case UnitSystem.metric:
+        newTemperature = convertCelsiusToFahrenheit(temperature);
+    }
+
+    return HourlyForecast(
+      pop: pop,
+      date: date,
+      temperature: newTemperature,
+      iconCode: iconCode,
+      unitSystem: newUnitSystem,
+    );
+  }
 }
