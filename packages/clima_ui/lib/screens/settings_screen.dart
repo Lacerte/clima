@@ -118,9 +118,7 @@ class SettingScreen extends ConsumerWidget {
               ),
             ),
             const SettingsDivider(),
-            const SettingsHeader(
-              title: 'API key',
-            ),
+            const SettingsHeader(title: 'API key'),
             SettingsTile(
               title: 'API key',
               subtitle: apiKey.isCustom

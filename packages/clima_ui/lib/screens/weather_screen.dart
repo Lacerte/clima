@@ -50,7 +50,7 @@ class WeatherScreen extends HookConsumerWidget {
         Future.microtask(
           () => Future.wait([
             apiKeyStateNotifier.loadApiKey(),
-            fullWeatherStateNotifier.loadFullWeather()
+            fullWeatherStateNotifier.loadFullWeather(),
           ]),
         );
         return null;
