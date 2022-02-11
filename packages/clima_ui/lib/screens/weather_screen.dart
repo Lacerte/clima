@@ -122,43 +122,45 @@ class WeatherScreen extends HookConsumerWidget {
             await fullWeatherStateNotifier.loadFullWeather();
           }
         },
-        title: Row(
-          children: [
-            Text(
-              fullWeather == null
-                  ? ''
-                  : 'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())} · ',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.subtitle2!.color,
-                fontSize:
-                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                        ? 11.sp
-                        : 5.sp,
-              ),
-            ),
-            Text(
-              () {
-                switch (unitSystem) {
-                  case UnitSystem.metric:
-                    return '°C';
+        title: fullWeather == null
+            // If we use `null` here, it would show the hint. We want it to
+            // show nothing.
+            ? const SizedBox.shrink()
+            : Row(
+                children: [
+                  Text(
+                    'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())} · ',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.subtitle2!.color,
+                      fontSize: MediaQuery.of(context).size.shortestSide <
+                              kTabletBreakpoint
+                          ? 11.sp
+                          : 5.sp,
+                    ),
+                  ),
+                  Text(
+                    () {
+                      switch (unitSystem) {
+                        case UnitSystem.metric:
+                          return '°C';
 
-                  case UnitSystem.imperial:
-                    return '°F';
+                        case UnitSystem.imperial:
+                          return '°F';
 
-                  case null:
-                    return '';
-                }
-              }(),
-              style: TextStyle(
-                color: Theme.of(context).textTheme.subtitle1!.color,
-                fontSize:
-                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                        ? 11.sp
-                        : 5.sp,
+                        case null:
+                          return '';
+                      }
+                    }(),
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.subtitle1!.color,
+                      fontSize: MediaQuery.of(context).size.shortestSide <
+                              kTabletBreakpoint
+                          ? 11.sp
+                          : 5.sp,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
         hint: 'Enter city name',
         color: Theme.of(context).appBarTheme.backgroundColor,
         transitionCurve: Curves.easeInOut,
