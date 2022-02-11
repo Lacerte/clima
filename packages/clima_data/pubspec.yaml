@@ -10,7 +10,7 @@ dependencies:
   clima_domain:
     path: ../clima_domain
 
-  connectivity_plus: 2.1.0
+  connectivity_plus: 2.2.0
 
   flutter:
     sdk: flutter
@@ -19,13 +19,13 @@ dependencies:
   equatable: 2.0.3
   http: 0.13.4
   riverpod: 1.0.3
-  shared_preferences: 2.0.11
+  shared_preferences: 2.0.13
   meta: 1.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  lint: 1.8.1
+  lint: 1.8.2
   mockito: 5.0.17
   build_runner: 2.1.7
