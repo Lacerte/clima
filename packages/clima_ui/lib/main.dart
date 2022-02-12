@@ -20,7 +20,6 @@ import 'package:clima_ui/state_notifiers/theme_state_notifier.dart'
 import 'package:clima_ui/themes/black_theme.dart';
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,35 +28,43 @@ import 'package:sizer/sizer.dart';
 
 import 'themes/clima_theme.dart';
 
-Future<void> main() async {
+Future<void> main({
+  TransitionBuilder? builder,
+  Widget Function(Widget widget)? topLevelBuilder,
+  Locale? Function(BuildContext)? getLocale,
+}) async {
   // Unless you do this, using method channels (like `SharedPreferences` does)
   // before running `runApp` throws an error.
   WidgetsFlutterBinding.ensureInitialized();
 
   final sharedPreferences = await SharedPreferences.getInstance();
 
-  runApp(
-    ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
-        cityRepoProvider.overrideWithProvider(
-          Provider((ref) => ref.watch(cityRepoImplProvider)),
-        ),
-        unitSystemRepoProvider.overrideWithProvider(
-          Provider((ref) => ref.watch(unitSystemRepoImplProvider)),
-        ),
-        fullWeatherRepoProvider.overrideWithProvider(
-          Provider((ref) => ref.watch(fullWeatherRepoImplProvider)),
-        ),
-      ],
-      child: DevicePreview(
-        builder: (context) => MyApp(),
+  final widget = ProviderScope(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      cityRepoProvider.overrideWithProvider(
+        Provider((ref) => ref.watch(cityRepoImplProvider)),
       ),
-    ),
+      unitSystemRepoProvider.overrideWithProvider(
+        Provider((ref) => ref.watch(unitSystemRepoImplProvider)),
+      ),
+      fullWeatherRepoProvider.overrideWithProvider(
+        Provider((ref) => ref.watch(fullWeatherRepoImplProvider)),
+      ),
+    ],
+    child: _App(builder: builder, getLocale: getLocale),
   );
+
+  runApp(topLevelBuilder?.call(widget) ?? widget);
 }
 
-class MyApp extends HookConsumerWidget {
+class _App extends HookConsumerWidget {
+  const _App({this.builder, this.getLocale});
+
+  final TransitionBuilder? builder;
+
+  final Locale? Function(BuildContext)? getLocale;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeStateNotifier = ref.watch(themeStateNotifierProvider.notifier);
@@ -80,7 +87,7 @@ class MyApp extends HookConsumerWidget {
     return Sizer(
       builder: (context, orientation, screenType) {
         return MaterialApp(
-          locale: DevicePreview.locale(context),
+          locale: getLocale?.call(context),
           builder: (context, child) {
             final ClimaThemeData climaTheme;
 
@@ -96,10 +103,9 @@ class MyApp extends HookConsumerWidget {
                 }[themeState.darkTheme]!;
             }
 
-            return DevicePreview.appBuilder(
-              context,
-              ClimaTheme(data: climaTheme, child: child!),
-            );
+            child = ClimaTheme(data: climaTheme, child: child!);
+
+            return builder?.call(context, child) ?? child;
           },
           home: const WeatherScreen(),
           theme: lightTheme,
