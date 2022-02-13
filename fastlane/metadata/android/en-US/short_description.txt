@@ -1,1 +1,1 @@
-A simple and fast weather app
+Beautiful, minimal, and fast weather app.
