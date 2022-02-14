@@ -29,8 +29,6 @@ void showFailureSnackBar(
     }
   }();
 
-  final messenger = ScaffoldMessenger.of(context);
-  messenger.removeCurrentSnackBar();
   showSnackBar(
     context,
     text: text,
