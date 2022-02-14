@@ -48,3 +48,10 @@ class InvalidApiKey extends Failure {
   @override
   List<Object?> get props => const [];
 }
+
+class CallLimitExceeded extends Failure {
+  const CallLimitExceeded();
+
+  @override
+  List<Object?> get props => const [];
+}
