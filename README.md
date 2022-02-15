@@ -8,6 +8,7 @@ Beautiful, minimal, and fast weather app. (Requires Android 6.0 or later)
 
 - :white_check_mark: Beautiful, minimal UI
 - :white_check_mark: 8-day forecast
+- :white_check_mark: Imperial units support
 - :white_check_mark: Dark and light themes
 - :white_check_mark: No ads or trackers
 
