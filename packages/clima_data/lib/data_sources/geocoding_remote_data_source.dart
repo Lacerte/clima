@@ -38,8 +38,12 @@ class GeocodingRemoteDataSource {
       ),
     );
 
-    if (response.statusCode == 503) {
-      return const Left(ServerDown());
+    switch (response.statusCode) {
+      case 503:
+        return const Left(ServerDown());
+
+      case 429:
+        return const Left(CallLimitExceeded());
     }
 
     dynamic body;

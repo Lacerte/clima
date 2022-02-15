@@ -61,6 +61,8 @@ class FullWeatherRemoteDataSource {
       return const Left(ServerDown());
     } else if (response.statusCode == 404) {
       return Left(InvalidCityName(city.name));
+    } else if (response.statusCode == 429) {
+      return const Left(CallLimitExceeded());
     } else {
       // TODO: I don't think this failure is fit for this situation.
       return const Left(FailedToParseResponse());

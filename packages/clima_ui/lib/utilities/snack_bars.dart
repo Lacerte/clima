@@ -22,13 +22,13 @@ void showFailureSnackBar(
       return "Can't connect to server";
     } else if (failure is InvalidCityName) {
       return 'Invalid city name';
+    } else if (failure is CallLimitExceeded) {
+      return 'API key call limit reached';
     } else {
       throw ArgumentError('Did not expect $failure');
     }
   }();
 
-  final messenger = ScaffoldMessenger.of(context);
-  messenger.removeCurrentSnackBar();
   showSnackBar(
     context,
     text: text,
