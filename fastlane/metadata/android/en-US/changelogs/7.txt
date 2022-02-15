@@ -5,5 +5,5 @@ Clima has a new identity!
 * System default theme support
 * Imperial units support
 * Custom API key support
-* New 8-day daily forecast and new 24-hour hourly forecast
+* New 8-day daily forecast and 24-hour hourly forecast
 * New weather information (e.g. humidity and UV index)
