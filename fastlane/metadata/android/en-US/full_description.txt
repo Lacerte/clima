@@ -2,5 +2,6 @@ Beautiful, minimal, and fast weather app that uses the OpenWeatherMap API. (Requ
 
 * Beautiful, minimal UI
 * 8-day forecast
+* Imperial units support
 * Dark and light themes
 * No ads or trackers
