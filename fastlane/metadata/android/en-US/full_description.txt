@@ -1,7 +1,5 @@
 Beautiful, minimal, and fast weather app that uses the OpenWeatherMap API. (Requires Android 6.0 or later)
 
-## Features
-
 * Beautiful, minimal UI
 * 8-day forecast
 * Dark and light themes
