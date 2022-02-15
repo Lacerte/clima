@@ -1,1 +1,11 @@
-..
+Clima has a fresh look
+
+The new visual refresh is modern and new, designed to make for a simple, intuitive, and seamless experience.
+
+* New material dark and system-default theme options
+* New 8-day forecast and weather tiles
+* New settings and about pages
+* Updated weather icons
+* Custom API key support
+* Imperial unit system support
+* Split-screen and landscape support
