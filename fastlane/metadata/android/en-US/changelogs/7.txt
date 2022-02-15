@@ -1,7 +1,9 @@
 Clima has a new identity!
 
-* Fresh new app design and enhanced user experience, with new material dark and system-default theme options
-* New 8-day forecast, along with new weather tiles and icons
+* Fresh new app design and massively enhanced user experience, with split screen and landscape support, and much-MUCH more
+* New dark gray theme
+* System default theme support
+* Imperial units support
 * Custom API key support
-* Imperial unit system support
-* Split-screen and landscape support
+* New 8-day daily forecast and new 24-hour hourly forecast
+* New weather information (e.g. humidity and UV index)
