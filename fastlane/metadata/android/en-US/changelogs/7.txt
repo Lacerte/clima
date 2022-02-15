@@ -1,6 +1,6 @@
 Clima has a new identity!
 
-* Fresh new app design and massively enhanced user experience, with split screen and landscape support, and much-MUCH more
+* Fresh new app design and massively enhanced user experience, with split screen and landscape support, and much, MUCH more
 * New dark gray theme
 * System default theme support
 * Imperial units support
