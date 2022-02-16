@@ -43,7 +43,7 @@ class AboutScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: 'Changelog',
-              subtitle: 'Version 2.0',
+              subtitle: 'Version 2.0.0',
               leading: Icon(
                 Icons.new_releases_outlined,
                 color: Theme.of(context).iconTheme.color,
