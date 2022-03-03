@@ -32,6 +32,7 @@ class HourlyForecastsWidget extends ConsumerWidget {
 
     return ListView.separated(
       scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       itemCount: 24,
       separatorBuilder: (context, index) => const Divider(),
