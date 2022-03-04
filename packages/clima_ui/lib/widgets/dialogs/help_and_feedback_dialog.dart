@@ -34,10 +34,7 @@ class HelpAndFeedbackDialog extends StatelessWidget {
             ),
             SettingsTile(
               title: 'Contact developer',
-              leading: FaIcon(
-                Icons.email_outlined,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              leading: const FaIcon(Icons.email_outlined),
               onTap: () => launchUrl(
                 Uri.parse('mailto:lacerte@protonmail.com'),
               ),

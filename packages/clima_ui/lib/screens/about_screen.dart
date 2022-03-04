@@ -45,10 +45,7 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Changelog',
               subtitle: 'Version 2.0.1',
-              leading: Icon(
-                Icons.new_releases_outlined,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              leading: const Icon(Icons.new_releases_outlined),
               onTap: () => launchUrl(
                 Uri.parse(
                   'https://github.com/lacerte/clima/releases/tag/v2.0.1',
@@ -61,10 +58,7 @@ class AboutScreen extends StatelessWidget {
               SettingsTile(
                 title: 'Donate',
                 subtitle: 'Support the development of Clima',
-                leading: Icon(
-                  Icons.local_library_outlined,
-                  color: Theme.of(context).iconTheme.color,
-                ),
+                leading: const Icon(Icons.local_library_outlined),
                 onTap: () => launchUrl(
                   Uri.parse('https://liberapay.com/lacerte/donate'),
                 ),
@@ -72,10 +66,7 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Libraries',
               subtitle: 'Open-source libraries used in the app',
-              leading: Icon(
-                Icons.source_outlined,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              leading: const Icon(Icons.source_outlined),
               onTap: () async {
                 final PackageInfo packageInfo =
                     await PackageInfo.fromPlatform();
@@ -89,10 +80,7 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Feedback',
               subtitle: 'Bugs and feature requests',
-              leading: Icon(
-                Icons.help_outline,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              leading: const Icon(Icons.help_outline),
               onTap: () {
                 showDialog<void>(
                   context: context,
@@ -104,20 +92,14 @@ class AboutScreen extends StatelessWidget {
               title: 'Source code',
               subtitle: 'Clima is free software licensed under the MPL 2.0',
               isThreeLine: true,
-              leading: FaIcon(
-                FontAwesomeIcons.github,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              leading: const FaIcon(FontAwesomeIcons.github),
               onTap: () => launchUrl(
                 Uri.parse('https://github.com/lacerte/clima'),
               ),
             ),
             SettingsTile(
               title: 'Credits',
-              leading: Icon(
-                Icons.attribution_outlined,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              leading: const Icon(Icons.attribution_outlined),
               onTap: () {
                 showDialog<void>(
                   context: context,
