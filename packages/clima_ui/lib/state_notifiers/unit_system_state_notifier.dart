@@ -65,10 +65,7 @@ class UnitSystemStateNotifier extends StateNotifier<UnitSystemState> {
   Future<void> loadUnitSystem() async {
     state = const Loading();
     final data = await _getUnitSystem(const NoParams());
-    state = data.fold(
-      (failure) => Error(failure),
-      (unitSystem) => Loaded(unitSystem),
-    );
+    state = data.fold(Error.new, Loaded.new);
   }
 
   Future<void> setUnitSystem(UnitSystem unitSystem) async {
