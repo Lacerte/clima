@@ -30,11 +30,11 @@ ThemeData lightTheme = ThemeData.light().copyWith(
     caption: TextStyle(color: Color(0xFF6D7174)),
     headline5: TextStyle(color: Color(0xFF212121)),
   ),
-    primaryTextTheme: const TextTheme(
-      titleSmall: TextStyle(color: Color(0xFF212121)),
-      titleMedium: TextStyle(color: Color(0xFF212121)),
-      titleLarge: TextStyle(color: Color(0xFF212121)),
-    ),
+  primaryTextTheme: const TextTheme(
+    titleSmall: TextStyle(color: Color(0xFF212121)),
+    titleMedium: TextStyle(color: Color(0xFF212121)),
+    titleLarge: TextStyle(color: Color(0xFF212121)),
+  ),
   bannerTheme: const MaterialBannerThemeData(
     backgroundColor: Color(0xFFFFFFFF),
     contentTextStyle: TextStyle(
