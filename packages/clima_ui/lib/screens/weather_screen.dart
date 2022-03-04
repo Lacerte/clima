@@ -109,7 +109,7 @@ class WeatherScreen extends HookConsumerWidget {
         controller: controller,
         progress: fullWeatherState is w.Loading || cityState is c.Loading,
         accentColor: Theme.of(context).colorScheme.secondary,
-        onSubmitted: (String newCityName) async {
+        onSubmitted: (newCityName) async {
           controller.close();
 
           final trimmedCityName = newCityName.trim();

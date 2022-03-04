@@ -49,7 +49,7 @@ class FailureBanner extends HookWidget {
                     : 7.sp,
           ),
         ),
-        actions: <Widget>[
+        actions: [
           TextButton(
             onPressed: onRetry,
             child: Text(

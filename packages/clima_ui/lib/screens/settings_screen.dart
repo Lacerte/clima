@@ -59,7 +59,7 @@ class SettingScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             const SettingsHeader(
               title: 'General',
             ),
@@ -172,7 +172,7 @@ class SettingScreen extends ConsumerWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => AboutScreen(),
+                  builder: (context) => AboutScreen(),
                 ),
               ),
             ),

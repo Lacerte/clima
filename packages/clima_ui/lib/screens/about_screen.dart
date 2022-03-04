@@ -37,7 +37,7 @@ class AboutScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: [
               const SettingsHeader(
                 title: 'Information',
               ),

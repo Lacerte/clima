@@ -31,7 +31,7 @@ class OverflowMenuButton extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) => SettingScreen(),
+                    builder: (context) => SettingScreen(),
                   ),
                 );
               },
