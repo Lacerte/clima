@@ -26,7 +26,7 @@ dependencies:
   material_floating_search_bar:
     git:
       url: https://github.com/CentaurusApps/material_floating_search_bar.git
-      ref: allow-passing-system-overlay-style
+      ref: 07b2980ad304dacaa5688e56483adcec36fb08ab
   package_info_plus: 1.3.0
   riverpod: 1.0.3
   shared_preferences: 2.0.13
