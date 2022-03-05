@@ -96,7 +96,7 @@ class WeatherScreen extends HookConsumerWidget {
           }
         });
       },
-      [fullWeatherStateNotifier, fullWeather],
+      [fullWeatherStateNotifier, fullWeather == null],
     );
 
     return Scaffold(
