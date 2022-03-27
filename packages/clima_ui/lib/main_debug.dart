@@ -6,9 +6,9 @@
 
 import 'package:device_preview/device_preview.dart';
 
-import 'main.dart' as m;
+import 'main_common.dart' as m;
 
-Future<void> main() => m.main(
+Future<void> main() => m.mainCommon(
       builder: DevicePreview.appBuilder,
       topLevelBuilder: (widget) => DevicePreview(builder: (_) => widget),
       getLocale: DevicePreview.locale,

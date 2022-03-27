@@ -26,17 +26,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import 'flavor_config.dart';
 import 'themes/clima_theme.dart';
 
-Future<void> main({
+var flavorConfigProvider;
+
+Future<void> mainCommon({
   TransitionBuilder? builder,
   Widget Function(Widget widget)? topLevelBuilder,
   Locale? Function(BuildContext)? getLocale,
+  FlavorConfig? config,
 }) async {
   // Unless you do this, using method channels (like `SharedPreferences` does)
   // before running `runApp` throws an error.
   WidgetsFlutterBinding.ensureInitialized();
 
+  flavorConfigProvider = StateProvider((ref) => config);
   final sharedPreferences = await SharedPreferences.getInstance();
 
   final widget = ProviderScope(

@@ -52,6 +52,31 @@ android {
 
     }
 
+        flavorDimensions "app"
+    productFlavors {
+ 
+        googleplaystore {
+            dimension "app"
+            applicationId "co.prestosole.clima.googleplaystore"
+            versionCode 7
+            versionName "2.0.0"
+        }
+ 
+        appstore {
+            dimension "app"
+            applicationId "co.prestosole.clima.appstore"
+            versionCode 7
+            versionName "2.0.0"
+        }
+
+        f-droid {
+            dimension "app"
+            applicationId "co.prestosole.clima.fdroid"
+            versionCode 7
+            versionName "2.0.0"
+        }
+    }
+
 
     buildTypes {
         release {

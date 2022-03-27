@@ -4,19 +4,21 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:clima_ui/main_common.dart';
 import 'package:clima_ui/widgets/dialogs/credits_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/help_and_feedback_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -55,6 +57,7 @@ class AboutScreen extends StatelessWidget {
             SettingsTile(
               title: 'Donate',
               subtitle: 'Support the development of Clima',
+              isShown: ref.watch(flavorConfigProvider),
               leading: Icon(
                 Icons.local_library_outlined,
                 color: Theme.of(context).iconTheme.color,

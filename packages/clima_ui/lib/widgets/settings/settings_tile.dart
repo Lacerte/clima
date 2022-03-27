@@ -14,6 +14,7 @@ class SettingsTile extends StatelessWidget {
     this.leading,
     this.isThreeLine,
     this.onTap,
+    this.isShown,
   });
 
   final String title;
@@ -22,6 +23,7 @@ class SettingsTile extends StatelessWidget {
   final VoidCallback? onTap;
   final double? padding;
   final bool? isThreeLine;
+  final bool? isShown;
 
   @override
   Widget build(BuildContext context) => ListTile(
