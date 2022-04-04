@@ -36,6 +36,7 @@ lib/generated_plugin_registrant.dart
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
 
 # iOS/XCode related
 **/ios/Flutter/flutter_export_environment.sh
