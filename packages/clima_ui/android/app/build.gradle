@@ -72,7 +72,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-
 }
 
 flutter {
@@ -80,4 +79,5 @@ flutter {
 }
 
 dependencies {
+
 }
