@@ -4,6 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:clima_ui/build_flavor.dart';
 import 'package:clima_ui/widgets/dialogs/credits_dialog.dart';
 import 'package:clima_ui/widgets/dialogs/help_and_feedback_dialog.dart';
 import 'package:clima_ui/widgets/settings/settings_divider.dart';
@@ -52,17 +53,20 @@ class AboutScreen extends StatelessWidget {
                 'https://github.com/lacerte/clima/releases/tag/v2.0.0',
               ),
             ),
-            SettingsTile(
-              title: 'Donate',
-              subtitle: 'Support the development of Clima',
-              leading: Icon(
-                Icons.local_library_outlined,
-                color: Theme.of(context).iconTheme.color,
+            // Google doesn't like donate buttons apparently. Stupid, I know.
+            // Example: https://github.com/streetcomplete/StreetComplete/issues/3768
+            if (buildFlavor != BuildFlavor.googlePlay)
+              SettingsTile(
+                title: 'Donate',
+                subtitle: 'Support the development of Clima',
+                leading: Icon(
+                  Icons.local_library_outlined,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                onTap: () => launch(
+                  'https://liberapay.com/lacerte/donate',
+                ),
               ),
-              onTap: () => launch(
-                'https://liberapay.com/lacerte/donate',
-              ),
-            ),
             SettingsTile(
               title: 'Libraries',
               subtitle: 'Open-source libraries used in the app',

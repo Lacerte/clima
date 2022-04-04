@@ -26,6 +26,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import 'build_flavor.dart';
 import 'themes/clima_theme.dart';
 
 Future<void> main({
@@ -67,6 +68,8 @@ class _App extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    validateBuildFlavor();
+
     final themeStateNotifier = ref.watch(themeStateNotifierProvider.notifier);
 
     useEffect(
