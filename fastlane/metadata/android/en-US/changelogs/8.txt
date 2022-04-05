@@ -1,4 +1,4 @@
 * Add bouncing physics to hourly forecast, for more consistency with the rest of the weather page
 * Fix invisible text on license screen in light theme
 
-Both fixes were done by @Adaoh2 (https://github.com/Lacerte/Adaoh2). Thanks!
+Both changes were done by @Adaoh2 (https://github.com/Lacerte/Adaoh2). Thanks!
