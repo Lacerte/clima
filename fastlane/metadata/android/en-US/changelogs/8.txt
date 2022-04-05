@@ -1,2 +1,2 @@
-* Added bouncing physics to hourly forecast for more consistency with the rest of the weather page
+* Add bouncing physics to hourly forecast for more consistency with the rest of the weather page
 * Fix invisible text on license screen in light theme
