@@ -44,13 +44,13 @@ class AboutScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: 'Changelog',
-              subtitle: 'Version 2.0.0',
+              subtitle: 'Version 2.0.1',
               leading: Icon(
                 Icons.new_releases_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => launch(
-                'https://github.com/lacerte/clima/releases/tag/v2.0.0',
+                'https://github.com/lacerte/clima/releases/tag/v2.0.1',
               ),
             ),
             // Google doesn't like donate buttons apparently. Stupid, I know.
