@@ -1,0 +1,43 @@
+# Copied and adapted from https://git.sr.ht/~emersion/goguma/tree/master/item/.builds/android.yml
+# See https://git.sr.ht/~emersion/goguma/tree/master/item/LICENSE
+
+image: archlinux
+packages:
+  - android-platform
+  - android-sdk
+  - android-sdk-build-tools
+  - android-sdk-cmdline-tools-latest
+  - android-sdk-platform-tools
+  - flutter
+  - jdk11-openjdk
+  - curl
+  - unzip
+sources:
+  - https://git.sr.ht/~whynothugo/clima
+# secrets:
+#   - XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX # keystore.jks
+#   - XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX # keystore.properties
+artifacts:
+  - clima/packages/clima_ui/build/app/outputs/flutter-apk/app-release.apk
+tasks:
+  - setup-tools: |
+      sudo chown -R $USER /opt/flutter /opt/android-sdk
+      source /etc/profile
+      flutter precache --linux
+      yes | flutter doctor --android-licenses >/dev/null
+      flutter doctor -v
+  # - configure: |
+  #     cd clima/packages/clima_ui/
+  #     ln -s ~/keystore.properties android/keystore.properties
+  #     ln -s ~/keystore.jks android/keystore.jks
+  - patch: |
+      cd clima
+      curl -LO https://github.com/Lacerte/clima/files/8626116/patch.zip
+      unzip patch.zip
+      git apply 0001-Use-debug-signing-keys.patch
+  - build: |
+      cd clima/packages/clima_ui/
+      flutter build apk --build-number="$(git rev-list --first-parent --count HEAD)"
+ # - analyze: |
+ #     cd clima
+ #     flutter analyze --no-fatal-infos
