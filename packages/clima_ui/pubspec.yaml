@@ -20,19 +20,19 @@ dependencies:
     path: ../clima_data
 
   equatable: 2.0.3
-  flutter_hooks: 0.18.2+1
-  flutter_riverpod: 1.0.3
-  hooks_riverpod: 1.0.3
+  flutter_hooks: 0.18.4
+  flutter_riverpod: 1.0.4
+  hooks_riverpod: 1.0.4
   material_floating_search_bar:
     git:
       url: https://github.com/CentaurusApps/material_floating_search_bar.git
       ref: 07b2980ad304dacaa5688e56483adcec36fb08ab
-  package_info_plus: 1.3.0
+  package_info_plus: 1.4.2
   riverpod: 1.0.3
-  shared_preferences: 2.0.13
-  font_awesome_flutter: 9.2.0
-  device_preview: 1.0.0
-  url_launcher: 6.0.18
+  shared_preferences: 2.0.15
+  font_awesome_flutter: 10.1.0
+  device_preview: 1.1.0
+  url_launcher: 6.1.2
   sizer: 2.0.15
   flutter_svg: 1.0.3
   intl: 0.17.0

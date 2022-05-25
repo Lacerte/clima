@@ -60,7 +60,7 @@ class HourlyForecastsWidget extends ConsumerWidget {
               Row(
                 children: [
                   Icon(
-                    FontAwesomeIcons.tint,
+                    FontAwesomeIcons.droplet,
                     color: Theme.of(context).textTheme.subtitle2!.color,
                     size: kIconSize(context),
                   ),
