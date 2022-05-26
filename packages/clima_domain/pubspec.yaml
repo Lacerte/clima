@@ -9,10 +9,10 @@ environment:
 dependencies:
   riverpod: 1.0.3
   equatable: 2.0.3
-  collection: 1.15.0
+  collection: 1.16.0
   clima_core:
     path: ../clima_core
 
 dev_dependencies:
-  test: 1.20.1
+  test: 1.21.1
   lint: 1.8.2

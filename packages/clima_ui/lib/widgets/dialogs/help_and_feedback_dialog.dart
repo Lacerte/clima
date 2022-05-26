@@ -28,8 +28,8 @@ class HelpAndFeedbackDialog extends StatelessWidget {
             SettingsTile(
               title: 'Submit request',
               leading: const Icon(FontAwesomeIcons.github),
-              onTap: () => launch(
-                'https://github.com/lacerte/clima/issues/new',
+              onTap: () => launchUrl(
+                Uri.parse('https://github.com/lacerte/clima/issues/new'),
               ),
             ),
             SettingsTile(
@@ -38,8 +38,8 @@ class HelpAndFeedbackDialog extends StatelessWidget {
                 Icons.email_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onTap: () => launch(
-                'mailto:lacerte@protonmail.com',
+              onTap: () => launchUrl(
+                Uri.parse('mailto:lacerte@protonmail.com'),
               ),
             ),
           ],

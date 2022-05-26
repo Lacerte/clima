@@ -49,8 +49,10 @@ class AboutScreen extends StatelessWidget {
                 Icons.new_releases_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onTap: () => launch(
-                'https://github.com/lacerte/clima/releases/tag/v2.0.1',
+              onTap: () => launchUrl(
+                Uri.parse(
+                  'https://github.com/lacerte/clima/releases/tag/v2.0.1',
+                ),
               ),
             ),
             // Google doesn't like donate buttons apparently. Stupid, I know.
@@ -63,8 +65,8 @@ class AboutScreen extends StatelessWidget {
                   Icons.local_library_outlined,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onTap: () => launch(
-                  'https://liberapay.com/lacerte/donate',
+                onTap: () => launchUrl(
+                  Uri.parse('https://liberapay.com/lacerte/donate'),
                 ),
               ),
             SettingsTile(
@@ -106,8 +108,8 @@ class AboutScreen extends StatelessWidget {
                 FontAwesomeIcons.github,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onTap: () => launch(
-                'https://github.com/lacerte/clima',
+              onTap: () => launchUrl(
+                Uri.parse('https://github.com/lacerte/clima'),
               ),
             ),
             SettingsTile(

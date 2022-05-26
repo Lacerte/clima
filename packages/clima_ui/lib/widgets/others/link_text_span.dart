@@ -18,6 +18,6 @@ InlineSpan linkTextSpan({
     style: TextStyle(
       color: Theme.of(context).colorScheme.secondary,
     ),
-    recognizer: TapGestureRecognizer()..onTap = () => launch(url),
+    recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(url)),
   );
 }
