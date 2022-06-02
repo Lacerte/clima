@@ -71,6 +71,7 @@ class MainInfoWidget extends ConsumerWidget {
             padding: EdgeInsets.only(bottom: 1.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Text(
                   '${currentWeather.temperature.round()}°',
