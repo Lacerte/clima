@@ -99,8 +99,8 @@ class MainInfoWidget extends ConsumerWidget {
                   style: kSubtitle1TextStyle(context).copyWith(
                     fontSize:
                         MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                            ? 40.sp
-                            : 30.sp,
+                            ? 30.sp
+                            : 25.sp,
                     fontWeight: FontWeight.w100,
                   ),
                 ),
