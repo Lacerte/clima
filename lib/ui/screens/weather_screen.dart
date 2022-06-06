@@ -129,7 +129,7 @@ class WeatherScreen extends HookConsumerWidget {
             : Row(
                 children: [
                   Text(
-                    'Updated ${DateFormat.Md().add_jm().format(fullWeather.currentWeather.date.toLocal())} · ',
+                    'Updated ${DateFormat.Md().addPattern(MediaQuery.of(context).alwaysUse24HourFormat ? 'Hm' : 'jm').format(fullWeather.currentWeather.date.toLocal())} · ',
                     style: TextStyle(
                       color: Theme.of(context).textTheme.subtitle2!.color,
                       fontSize: MediaQuery.of(context).size.shortestSide <

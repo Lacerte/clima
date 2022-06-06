@@ -41,6 +41,10 @@ class AdditionalInfoWidget extends ConsumerWidget {
       ),
     );
 
+    final timeFormat = MediaQuery.of(context).alwaysUse24HourFormat
+        ? DateFormat.Hm()
+        : DateFormat.jm();
+
     return Column(
       children: [
         Padding(
@@ -107,13 +111,13 @@ class AdditionalInfoWidget extends ConsumerWidget {
             children: [
               AdditionalInfoTile(
                 title: 'Sunrise',
-                value: DateFormat.Hm().format(
+                value: timeFormat.format(
                   currentDayForecast.sunrise.toUtc().add(timeZoneOffset),
                 ),
               ),
               AdditionalInfoTile(
                 title: 'Sunset',
-                value: DateFormat.Hm().format(
+                value: timeFormat.format(
                   currentDayForecast.sunset.toUtc().add(timeZoneOffset),
                 ),
               ),
