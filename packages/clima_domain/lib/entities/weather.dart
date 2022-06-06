@@ -1,10 +1,18 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import 'package:clima_domain/entities/unit_system.dart';
+import 'package:clima_domain/utils/unit_conversion.dart';
 import 'package:equatable/equatable.dart';
 
 class Weather extends Equatable {
-  /// In degrees Celsius (for now).
+  final DateTime date;
+
   final double temperature;
 
-  /// In kilometers per hour (for now).
   final double windSpeed;
 
   /// The perceived temperature. Same unit as [temperature].
@@ -13,56 +21,88 @@ class Weather extends Equatable {
   /// Current weather condition (e.g. snow, thunderstorm).
   final int condition;
 
-  /// Maximum temperature at the moment. Same unit as [temperature].
-  final double maxTemperature;
+  final int humidity;
 
-  /// Minimum temperature at the moment. Same unit as [temperature].
-  final double minTemperature;
+  /// In percent.
+  final int clouds;
 
-  final String cityName;
+  /// In `hPa`.
+  final int pressure;
 
-  /// String describing the current weather condition (e.g. clear sky).
+  final double uvIndex;
+
   final String description;
+
   final String iconCode;
 
-  final DateTime date;
-  final DateTime sunrise;
-  final DateTime sunset;
-  final int humidity;
-  final Duration timeZoneOffset;
+  final UnitSystem unitSystem;
 
   const Weather({
+    required this.date,
     required this.temperature,
     required this.windSpeed,
     required this.tempFeel,
     required this.condition,
-    required this.minTemperature,
-    required this.maxTemperature,
-    required this.cityName,
+    required this.humidity,
+    required this.clouds,
+    required this.pressure,
+    required this.uvIndex,
     required this.description,
     required this.iconCode,
-    required this.date,
-    required this.sunrise,
-    required this.sunset,
-    required this.humidity,
-    required this.timeZoneOffset,
+    required this.unitSystem,
   });
 
   @override
   List<Object?> get props => [
+        date,
         temperature,
         windSpeed,
         tempFeel,
         condition,
-        minTemperature,
-        maxTemperature,
-        cityName,
+        humidity,
+        clouds,
+        pressure,
+        uvIndex,
         description,
         iconCode,
-        date,
-        sunrise,
-        sunset,
-        humidity,
-        timeZoneOffset,
+        unitSystem,
       ];
+
+  Weather changeUnitSystem(UnitSystem newUnitSystem) {
+    if (unitSystem == newUnitSystem) {
+      return this;
+    }
+
+    final double newTemperature;
+    final double newTempFeel;
+    final double newWindSpeed;
+
+    switch (unitSystem) {
+      case UnitSystem.imperial:
+        newTemperature = convertFahrenheitToCelsius(temperature);
+        newTempFeel = convertFahrenheitToCelsius(tempFeel);
+        newWindSpeed = convertMilesPerHourToKilometersPerHour(windSpeed);
+        break;
+
+      case UnitSystem.metric:
+        newTemperature = convertCelsiusToFahrenheit(temperature);
+        newTempFeel = convertCelsiusToFahrenheit(tempFeel);
+        newWindSpeed = convertKilometersPerHourToMilesPerHour(windSpeed);
+    }
+
+    return Weather(
+      date: date,
+      temperature: newTemperature,
+      windSpeed: newWindSpeed,
+      tempFeel: newTempFeel,
+      condition: condition,
+      humidity: humidity,
+      clouds: clouds,
+      pressure: pressure,
+      uvIndex: uvIndex,
+      description: description,
+      iconCode: iconCode,
+      unitSystem: newUnitSystem,
+    );
+  }
 }

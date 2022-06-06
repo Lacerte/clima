@@ -1,60 +1,91 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_ui/screens/about_screen.dart';
+import 'package:clima_ui/state_notifiers/api_key_state_notifier.dart' as a;
 import 'package:clima_ui/state_notifiers/theme_state_notifier.dart';
-import 'package:clima_ui/widgets/dark_theme_dialog.dart';
-import 'package:clima_ui/widgets/reusable_widgets.dart';
-import 'package:clima_ui/widgets/theme_dialog.dart';
-// import 'package:clima_ui/widgets/unit_dialog.dart';
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart'
+    hide Error;
+import 'package:clima_ui/widgets/dialogs/api_key/api_key_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/api_key/api_key_info_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/api_key/api_key_reset_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/dark_theme_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/theme_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/unit_system_dialog.dart';
+import 'package:clima_ui/widgets/settings/settings_divider.dart';
+import 'package:clima_ui/widgets/settings/settings_header.dart';
+import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SettingScreen extends HookWidget {
+class SettingScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final appLocalizations = AppLocalizations.of(context)!;
-
     final theme =
-        useProvider(themeStateNotifierProvider.select((state) => state.theme));
-    final darkTheme = useProvider(
-        themeStateNotifierProvider.select((state) => state.darkTheme));
+        ref.watch(themeStateNotifierProvider.select((state) => state.theme));
+    final darkTheme = ref.watch(
+      themeStateNotifierProvider.select((state) => state.darkTheme),
+    );
+    final apiKey = ref
+        .watch(a.apiKeyStateNotifierProvider.select((state) => state.apiKey!));
+
+    final unitSystem = ref.watch(
+      unitSystemStateNotifierProvider.select((state) => state.unitSystem!),
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           appLocalizations.settings,
-          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
+          style: TextStyle(
+            color: Theme.of(context).appBarTheme.titleTextStyle!.color,
+            fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+          ),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            /*const SettingsHeader(
+            const SettingsHeader(
               title: 'General',
             ),
             SettingsTile(
-              title: 'Unit',
-              subtitle: 'Metric',
+              title: 'Unit system',
+              subtitle: () {
+                switch (unitSystem) {
+                  case UnitSystem.metric:
+                    return 'Metric';
+
+                  case UnitSystem.imperial:
+                    return 'Imperial';
+                }
+              }(),
               leading: Icon(
                 Icons.straighten_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () => showDialog(
                 context: context,
-                builder: (context) => UnitDialog(),
+                builder: (context) => UnitSystemDialog(),
               ),
             ),
             const SettingsDivider(),
-	    */
             SettingsHeader(
               title: appLocalizations.interface,
             ),
@@ -67,6 +98,9 @@ class SettingScreen extends HookWidget {
 
                   case ThemeModel.dark:
                     return appLocalizations.dark;
+
+                  case ThemeModel.systemDefault:
+                    return 'System default';
 
                   default:
                     throw Error();
@@ -97,6 +131,50 @@ class SettingScreen extends HookWidget {
                 context: context,
                 builder: (context) => DarkThemeDialog(),
               ),
+            ),
+            const SettingsDivider(),
+            const SettingsHeader(title: 'API key'),
+            SettingsTile(
+              title: 'API key',
+              subtitle: apiKey.isCustom
+                  ? 'Currently using custom API key'
+                  : 'Currently using default API key (not recommended)',
+              leading: Icon(
+                Icons.keyboard_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => const ApiKeyDialog(),
+                );
+              },
+            ),
+            SettingsTile(
+              title: 'Reset API key',
+              leading: Icon(
+                Icons.restore_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const ApiKeyResetDialog(),
+                );
+              },
+            ),
+            SettingsTile(
+              title: 'Learn more',
+              leading: Icon(
+                Icons.launch_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const ApiKeyInfoDialog(),
+                );
+              },
             ),
             const SettingsDivider(),
             SettingsHeader(

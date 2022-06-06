@@ -21,32 +21,55 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 29
+    packagingOptions {
+        jniLibs {
+            // Enable native library compression. Disabling it can decrease
+            // installation size on disk, but not when the code for all
+            // architectures is in one APK. When we start splitting APKs,
+            // we should absolutely remove this line.
+            // Recommended reading: https://stackoverflow.com/questions/62440105/apk-size-increased-35mb-when-bumping-min-sdk-from-21-to-24/63417612#63417612
+            useLegacyPackaging true
+        }
+    }
+
+    compileSdk 31
 
     lintOptions {
         disable 'InvalidPackage'
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "co.prestosole.clima"
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdk 23
+        targetSdk 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
     }
 
 
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }

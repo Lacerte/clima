@@ -1,47 +1,37 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
+import 'package:clima_data/models/api_key_model.dart';
 import 'package:clima_data/providers.dart';
-import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _apiKeyPrefsKey = 'openWeatherMapApiKey';
+const _apiKeyPrefsKey = 'open_weather_map_api_key';
 
 class ApiKeyLocalDataSource {
   ApiKeyLocalDataSource(this._prefs);
 
   final SharedPreferences _prefs;
 
-  Future<Either<Failure, String?>> getApiKey() async =>
-      Right(_prefs.getString(_apiKeyPrefsKey));
+  Future<Either<Failure, ApiKeyModel>> getApiKey() async =>
+      Right(ApiKeyModel.parse(_prefs.getString(_apiKeyPrefsKey)));
 
-  Future<Either<Failure, void>> setApiKey(String apiKey) async {
-    final response = await http.get(
-      Uri(
-        scheme: 'https',
-        host: 'api.openweathermap.org',
-        path: '/data/2.5/weather',
-        queryParameters: {'appid': apiKey},
-      ),
-    );
-
-    switch (response.statusCode) {
-      case 400:
-        _prefs.setString(_apiKeyPrefsKey, apiKey);
-
-        return const Right(null);
-
-      case 404:
-        return const Left(InvalidApiKey());
-
-      case 503:
-        return const Left(ServerDown());
-
-      default:
-        return const Left(FailedToParseResponse());
+  Future<Either<Failure, void>> setApiKey(ApiKeyModel model) async {
+    if (model.isCustom) {
+      await _prefs.setString(_apiKeyPrefsKey, model.apiKey);
+    } else {
+      await _prefs.remove(_apiKeyPrefsKey);
     }
+
+    return const Right(null);
   }
 }
 
 final apiKeyLocalDataSourceProvider = Provider(
-    (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)));
+  (ref) => ApiKeyLocalDataSource(ref.watch(sharedPreferencesProvider)),
+);

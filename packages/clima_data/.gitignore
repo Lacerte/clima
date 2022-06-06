@@ -1,13 +1,6 @@
-# Files and directories created by pub
-.dart_tool/
-.packages
-
-# Conventional directory for build outputs
-build/
-
-# Directory created by dartdoc
-doc/api/
-
 # Library dependencies should not have their lockfiles commited. See
 # https://dart.dev/tools/pub/glossary#library-package.
 pubspec.lock
+
+# Generated Dart files.
+*.mocks.dart

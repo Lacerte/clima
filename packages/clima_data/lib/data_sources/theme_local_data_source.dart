@@ -1,8 +1,14 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/providers.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,4 +57,5 @@ class ThemeLocalDataSource {
 }
 
 final themeLocalDataSourceProvider = Provider(
-    (ref) => ThemeLocalDataSource(ref.watch(sharedPreferencesProvider)));
+  (ref) => ThemeLocalDataSource(ref.watch(sharedPreferencesProvider)),
+);

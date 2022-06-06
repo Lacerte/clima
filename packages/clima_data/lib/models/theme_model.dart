@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:collection/collection.dart';
 
 class ThemeModel {
@@ -5,11 +11,13 @@ class ThemeModel {
 
   final String string;
 
+  static const systemDefault = ThemeModel._('systemDefault');
+
   static const light = ThemeModel._('light');
 
   static const dark = ThemeModel._('dark');
 
-  static const values = [light, dark];
+  static const values = [systemDefault, light, dark];
 
   static ThemeModel parse(String string) {
     final theme = values.firstWhereOrNull((theme) => theme.string == string);

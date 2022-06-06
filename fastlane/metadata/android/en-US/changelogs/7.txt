@@ -1,0 +1,9 @@
+Clima has a new identity!
+
+* Fresh new app design and massively enhanced user experience, with split screen and landscape support, and much, MUCH more
+* New dark gray theme
+* System default theme support
+* Imperial units support
+* Custom API key support
+* New 8-day daily forecast and 24-hour hourly forecast
+* New weather information (e.g. humidity and UV index)

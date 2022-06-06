@@ -1,36 +1,45 @@
-import 'dart:async';
-import 'package:http/http.dart' as http;
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 
+import 'dart:async';
+
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/api_key_local_data_source.dart';
-import 'package:dartz/dartz.dart';
+import 'package:clima_data/models/api_key_model.dart';
+import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
-
-const _defaultApiKey = '0cca00b6155fcac417cc140a5deba9a4';
 
 class ApiKeyRepo {
   ApiKeyRepo(this.localDataSource);
 
   final ApiKeyLocalDataSource localDataSource;
 
-  Future<Either<Failure, String>> getApiKey() async =>
-      (await localDataSource.getApiKey()).map((key) => key ?? _defaultApiKey);
+  Future<Either<Failure, ApiKeyModel>> getApiKey() =>
+      localDataSource.getApiKey();
 
-  Future<Either<Failure, void>> setApiKey(String apiKey) async {
+  Future<Either<Failure, void>> setApiKey(ApiKeyModel apiKeyModel) async {
+    if (!apiKeyModel.isCustom) {
+      return localDataSource.setApiKey(apiKeyModel);
+    }
+
     final response = await http.get(
       Uri(
         scheme: 'https',
         host: 'api.openweathermap.org',
         path: '/data/2.5/weather',
-        queryParameters: {'appid': apiKey},
+        queryParameters: {'appid': apiKeyModel.apiKey},
       ),
     );
 
     switch (response.statusCode) {
       case 400:
-        return localDataSource.setApiKey(apiKey);
+        return localDataSource.setApiKey(apiKeyModel);
 
-      case 404:
+      case 401:
         return const Left(InvalidApiKey());
 
       case 503:

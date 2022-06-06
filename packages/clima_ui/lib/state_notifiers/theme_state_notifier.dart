@@ -1,12 +1,17 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import 'package:clima_core/failure.dart';
+import 'package:clima_core/functions.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
 import 'package:clima_data/repos/theme_repo.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
 
 @sealed
 @immutable
@@ -113,29 +118,5 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
 
 final themeStateNotifierProvider =
     StateNotifierProvider<ThemeStateNotifier, ThemeState>(
-        (ref) => ThemeStateNotifier(ref.watch(themeRepoProvider)));
-
-enum AppTheme { light, darkGrey, black }
-
-final themeProvider = Provider<AppTheme>((ref) {
-  final state = ref.watch(themeStateNotifierProvider);
-  if (state.theme == null || state.darkTheme == null) return AppTheme.light;
-
-  switch (state.theme) {
-    case ThemeModel.light:
-      return AppTheme.light;
-
-    case ThemeModel.dark:
-      switch (state.darkTheme) {
-        case DarkThemeModel.darkGrey:
-          return AppTheme.darkGrey;
-
-        case DarkThemeModel.black:
-          return AppTheme.black;
-      }
-      throw Error();
-
-    default:
-      throw Error();
-  }
-});
+  (ref) => ThemeStateNotifier(ref.watch(themeRepoProvider)),
+);

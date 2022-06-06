@@ -1,9 +1,20 @@
-import 'package:clima_ui/widgets/reusable_widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import 'package:clima_ui/build_flavor.dart';
+import 'package:clima_ui/widgets/dialogs/credits_dialog.dart';
+import 'package:clima_ui/widgets/dialogs/help_and_feedback_dialog.dart';
+import 'package:clima_ui/widgets/settings/settings_divider.dart';
+import 'package:clima_ui/widgets/settings/settings_header.dart';
+import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
@@ -15,13 +26,17 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           appLocalizations.aboutClima,
-          style: Theme.of(context).appBarTheme.textTheme!.subtitle1,
+          style: TextStyle(
+            color: Theme.of(context).appBarTheme.titleTextStyle!.color,
+            fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+          ),
         ),
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -32,26 +47,31 @@ class AboutScreen extends StatelessWidget {
             ),
             SettingsTile(
               title: appLocalizations.changelog,
-              subtitle: 'Version 2.0',
+              subtitle: 'Version 2.0.1',
               leading: Icon(
                 Icons.new_releases_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onTap: () => launch(
-                'https://github.com/CentaurusApps/clima/tree/master/fastlane/metadata/android/en-US/changelogs',
+              onTap: () => launchUrl(
+                Uri.parse(
+                  'https://github.com/lacerte/clima/releases/tag/v2.0.1',
+                ),
               ),
             ),
-            SettingsTile(
-              title: appLocalizations.donate,
-              subtitle: appLocalizations.donateTileSubtitle,
-              leading: Icon(
-                Icons.local_library_outlined,
-                color: Theme.of(context).iconTheme.color,
+            // Google doesn't like donate buttons apparently. Stupid, I know.
+            // Example: https://github.com/streetcomplete/StreetComplete/issues/3768
+            if (buildFlavor != BuildFlavor.googlePlay)
+              SettingsTile(
+                title: appLocalizations.donate,
+                subtitle: appLocalizations.donateTileSubtitle,
+                leading: Icon(
+                  Icons.local_library_outlined,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                onTap: () => launchUrl(
+                  Uri.parse('https://liberapay.com/lacerte/donate'),
+                ),
               ),
-              onTap: () => launch(
-                'https://liberapay.com/CentaurusApps/donate',
-              ),
-            ),
             SettingsTile(
               title: appLocalizations.libraries,
               subtitle: appLocalizations.librariesTileSubtitle,
@@ -77,34 +97,9 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () {
-                showGeneralSheet(
-                  context,
-                  title: appLocalizations.feedback,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SettingsTile(
-                        title: appLocalizations.submitIssue,
-                        leading: Icon(
-                          Icons.bug_report_outlined,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () => launch(
-                          'https://github.com/CentaurusApps/clima/issues/new',
-                        ),
-                      ),
-                      SettingsTile(
-                        title: appLocalizations.contactDeveloper,
-                        leading: Icon(
-                          Icons.email_outlined,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () => launch(
-                          'mailto:apps_centaurus@protonmail.com',
-                        ),
-                      ),
-                    ],
-                  ),
+                showDialog(
+                  context: context,
+                  builder: (context) => const HelpAndFeedbackDialog(),
                 );
               },
             ),
@@ -112,13 +107,35 @@ class AboutScreen extends StatelessWidget {
               title: appLocalizations.sourceCode,
               subtitle: appLocalizations.sourceCodeTileSubtitle,
               isThreeLine: true,
-              leading: Icon(
+              leading: FaIcon(
                 FontAwesomeIcons.github,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onTap: () => launch(
-                'https://github.com/CentaurusApps/clima',
+              onTap: () => launchUrl(
+                Uri.parse('https://github.com/lacerte/clima'),
               ),
+            ),
+            SettingsTile(
+              title: 'Credits',
+              leading: Icon(
+                Icons.attribution_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const SimpleDialog(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: CreditsDialog(),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
             const SettingsDivider(),
           ],

@@ -3,11 +3,15 @@ name: CI
 on:
   push:
     paths-ignore:
-      - README.md
+      - '*.md'
+      - '.github/ISSUE_TEMPLATE/**'
+      - .github/PULL_REQUEST_TEMPLATE.md
       - 'fastlane/**'
   pull_request:
     paths-ignore:
-      - README.md
+      - '*.md'
+      - '.github/ISSUE_TEMPLATE/**'
+      - .github/PULL_REQUEST_TEMPLATE.md
       - 'fastlane/**'
 
 jobs:
@@ -26,13 +30,14 @@ jobs:
       COMMAND: ${{ (endsWith(matrix.package, 'core') || endsWith(matrix.package, 'domain')) && 'dart' || 'flutter' }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: '2.x'
+          flutter-version: '3.0.x'
+          cache: true
 
       - name: Check formatting
         run: flutter format --set-exit-if-changed --dry-run .
@@ -41,6 +46,11 @@ jobs:
       - name: Get packages
         run: ${{ format('{0} pub get', env.COMMAND) }}
         working-directory: ${{ matrix.package }}
+
+      - name: Run code generation
+        run: ${{ format('{0} pub run build_runner build', env.COMMAND) }}
+        working-directory: ${{ matrix.package }}
+        if: ${{ endsWith(matrix.package, 'data') }}
 
       - name: Analyze source code
         run: ${{ format('{0} analyze', env.COMMAND) }}

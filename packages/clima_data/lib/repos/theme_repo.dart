@@ -1,8 +1,14 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import 'package:clima_core/either.dart';
 import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/theme_local_data_source.dart';
 import 'package:clima_data/models/dark_theme_model.dart';
 import 'package:clima_data/models/theme_model.dart';
-import 'package:dartz/dartz.dart';
 import 'package:riverpod/riverpod.dart';
 
 class ThemeRepo {
@@ -12,7 +18,7 @@ class ThemeRepo {
 
   Future<Either<Failure, ThemeModel>> getTheme() async =>
       (await localDataSource.getTheme())
-          .map((theme) => theme ?? ThemeModel.light);
+          .map((theme) => theme ?? ThemeModel.systemDefault);
 
   Future<Either<Failure, void>> setTheme(ThemeModel theme) =>
       localDataSource.setTheme(theme);
@@ -25,5 +31,6 @@ class ThemeRepo {
       localDataSource.setDarkTheme(theme);
 }
 
-final themeRepoProvider = Provider((ref) =>
-    ThemeRepo(localDataSource: ref.watch(themeLocalDataSourceProvider)));
+final themeRepoProvider = Provider(
+  (ref) => ThemeRepo(localDataSource: ref.watch(themeLocalDataSourceProvider)),
+);

@@ -38,3 +38,9 @@ linter:
 
     # Very infuriating and unnecessary
     sort_pub_dependencies: false
+
+    # Still in beta as of Flutter 2.5
+    use_build_context_synchronously: false
+
+    # Don't find it necessary.
+    always_use_package_imports: false

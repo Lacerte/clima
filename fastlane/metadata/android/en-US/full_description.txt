@@ -1,5 +1,7 @@
-A simple and fast weather app that uses the OpenWeatherMap API.
+Beautiful, minimal, and fast weather app that uses the OpenWeatherMap API. (Requires Android 6.0 or later)
 
-* Simple design
-* Works with any city in the world
-* Dark mode support
+* Beautiful, minimal UI
+* 8-day forecast
+* Imperial units support
+* Dark and light themes
+* No ads or trackers

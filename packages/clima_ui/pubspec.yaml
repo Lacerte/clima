@@ -1,7 +1,7 @@
 name: clima_ui
 description: A new Flutter application.
 
-version: 1.2+5
+version: 2.0.1+8
 
 publish_to: none
 
@@ -22,32 +22,31 @@ dependencies:
   clima_data:
     path: ../clima_data
 
-  auto_size_text: 3.0.0-nullsafety.0
-  dartz: 0.10.0-nullsafety.2
   equatable: 2.0.3
-  flutter_hooks: 0.17.0
-  flutter_riverpod: 0.14.0+3
-  flutter_spinkit: 5.0.0
-  weather_icons: 3.0.0
-  hooks_riverpod: 0.14.0+4
+  flutter_hooks: 0.18.4
+  flutter_riverpod: 1.0.4
+  hooks_riverpod: 1.0.4
   material_floating_search_bar:
     git:
       url: https://github.com/CentaurusApps/material_floating_search_bar.git
-      ref: allow-passing-system-overlay-style
-  package_info: 2.0.2
-  riverpod: 0.14.0+3
-  shared_preferences: 2.0.6
-  font_awesome_flutter: 9.1.0
-  device_preview: 0.7.4
-  url_launcher: 6.0.9
-  sizer: 2.0.13
-  intl: ^0.17.0
+      ref: 07b2980ad304dacaa5688e56483adcec36fb08ab
+  package_info_plus: 1.4.2
+  riverpod: 1.0.3
+  shared_preferences: 2.0.15
+  font_awesome_flutter: 10.1.0
+  device_preview: 1.1.0
+  url_launcher: 6.1.2
+  sizer: 2.0.15
+  flutter_svg: 1.0.3
+  intl: 0.17.0
+  meta: 1.7.0
+  state_notifier: 0.7.2+1
 
 dev_dependencies:
-  lint: 1.5.3
-  flutter_test:
-    sdk: flutter
+  lint: 1.8.2
 
 flutter:
+  assets:
+    - assets/
   uses-material-design: true
   generate: true
