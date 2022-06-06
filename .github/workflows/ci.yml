@@ -27,7 +27,7 @@ jobs:
           - packages/clima_ui
 
     env:
-      COMMAND: ${{ (endsWith(matrix.package, 'core') || endsWith(matrix.package, 'domain')) && 'dart' || 'flutter' }}
+      command: ${{ (endsWith(matrix.package, 'core') || endsWith(matrix.package, 'domain')) && 'dart' || 'flutter' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -44,22 +44,22 @@ jobs:
         working-directory: ${{ matrix.package }}
 
       - name: Get packages
-        run: ${{ format('{0} pub get', env.COMMAND) }}
+        run: "$command" pub get
         working-directory: ${{ matrix.package }}
 
       - name: Run code generation
-        run: ${{ format('{0} pub run build_runner build', env.COMMAND) }}
+        run: "$command" pub run build_runner build
         working-directory: ${{ matrix.package }}
         if: ${{ endsWith(matrix.package, 'data') }}
 
       - name: Analyze source code
-        run: ${{ format('{0} analyze', env.COMMAND) }}
+        run: "$command" analyze
         working-directory: ${{ matrix.package }}
 
       - name: Run tests
         run: |
           if [ -d "test" ]; then
-            ${{ format('{0} test', env.COMMAND) }}
+            "$command" test
           else
             echo "test directory is empty"
           fi
