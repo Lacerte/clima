@@ -33,7 +33,7 @@ class OverflowMenuButton extends StatelessWidget {
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  MaterialPageRoute<void>(
                     builder: (BuildContext context) => SettingScreen(),
                   ),
                 );
@@ -46,7 +46,7 @@ class OverflowMenuButton extends StatelessWidget {
               title: const Text('Help & feedback'),
               onTap: () {
                 Navigator.of(context).pop();
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) => const HelpAndFeedbackDialog(),
                 );
