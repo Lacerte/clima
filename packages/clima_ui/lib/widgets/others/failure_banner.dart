@@ -11,8 +11,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sizer/sizer.dart';
 
 class FailureBanner extends HookWidget {
-  const FailureBanner({required this.onRetry, required this.failure, Key? key})
-      : super(key: key);
+  const FailureBanner({
+    required this.onRetry,
+    required this.failure,
+    super.key,
+  });
 
   final void Function() onRetry;
 

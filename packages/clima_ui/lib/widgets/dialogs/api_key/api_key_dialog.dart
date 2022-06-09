@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ApiKeyDialog extends HookConsumerWidget {
-  const ApiKeyDialog({Key? key}) : super(key: key);
+  const ApiKeyDialog({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

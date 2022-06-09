@@ -9,8 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class AdditionalInfoTile extends StatelessWidget {
-  const AdditionalInfoTile({this.title, this.value, Key? key})
-      : super(key: key);
+  const AdditionalInfoTile({this.title, this.value, super.key});
 
   final String? title;
   final String? value;

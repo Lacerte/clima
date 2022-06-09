@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpAndFeedbackDialog extends StatelessWidget {
-  const HelpAndFeedbackDialog({Key? key}) : super(key: key);
+  const HelpAndFeedbackDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
