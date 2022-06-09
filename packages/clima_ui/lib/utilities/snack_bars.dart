@@ -34,6 +34,7 @@ void showFailureSnackBar(
     text: text,
     actionText: 'Retry',
     onPressed: onRetry,
+    duration: duration,
   );
 }
 
@@ -51,7 +52,7 @@ void showSnackBar(
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       content: Text(text),
-      duration: Duration(seconds: duration ?? 86400),
+      duration: Duration(seconds: duration ?? 4),
       action: onPressed != null
           ? SnackBarAction(
               label: actionText!,

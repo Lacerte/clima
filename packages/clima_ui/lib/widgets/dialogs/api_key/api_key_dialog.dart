@@ -38,11 +38,7 @@ class ApiKeyDialog extends HookConsumerWidget {
     ref.listen<ApiKeyState>(apiKeyStateNotifierProvider, (prev, next) {
       if (next is Loaded) {
         Navigator.pop(context);
-        showSnackBar(
-          context,
-          text: 'API key updated successfully.',
-          duration: 4,
-        );
+        showSnackBar(context, text: 'API key updated successfully.');
       }
     });
 
