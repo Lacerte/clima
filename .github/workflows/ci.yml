@@ -44,16 +44,16 @@ jobs:
         working-directory: ${{ matrix.package }}
 
       - name: Get packages
-        run: "$command" pub get
+        run: '"$command" pub get'
         working-directory: ${{ matrix.package }}
 
       - name: Run code generation
-        run: "$command" pub run build_runner build
+        run: '"$command" pub run build_runner build'
         working-directory: ${{ matrix.package }}
         if: ${{ endsWith(matrix.package, 'data') }}
 
       - name: Analyze source code
-        run: "$command" analyze
+        run: '"$command" analyze'
         working-directory: ${{ matrix.package }}
 
       - name: Run tests
