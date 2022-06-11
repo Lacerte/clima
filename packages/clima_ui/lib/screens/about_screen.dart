@@ -94,7 +94,7 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () {
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) => const HelpAndFeedbackDialog(),
                 );
@@ -119,7 +119,7 @@ class AboutScreen extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () {
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) {
                     return const SimpleDialog(

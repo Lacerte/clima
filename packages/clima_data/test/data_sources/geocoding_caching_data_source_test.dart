@@ -148,7 +148,7 @@ void main() {
 
       const delay = Duration(milliseconds: 500);
 
-      await Future.delayed(delay);
+      await Future<void>.delayed(delay);
 
       final oldCacheString = cacheString;
 

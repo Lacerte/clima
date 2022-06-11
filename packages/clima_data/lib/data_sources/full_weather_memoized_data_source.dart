@@ -29,7 +29,7 @@ class FullWeatherMemoizedDataSource {
 
     // Minor delay so that users won't think the fetching is broken or
     // something.
-    await Future.delayed(
+    await Future<void>.delayed(
       Duration(
         milliseconds: 200 + Random().nextInt(800 - 200),
       ),

@@ -14,7 +14,7 @@ class GeographicCoordinatesModel extends Equatable {
     required this.lat,
   });
 
-  factory GeographicCoordinatesModel.fromRemoteJson(List json) =>
+  factory GeographicCoordinatesModel.fromRemoteJson(List<dynamic> json) =>
       GeographicCoordinatesModel(
         city: City(name: json[0]["name"] as String),
         long: (json[0]["lon"] as num).toDouble(),

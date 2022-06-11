@@ -78,7 +78,7 @@ class SettingScreen extends ConsumerWidget {
                 Icons.straighten_outlined,
                 color: Theme.of(context).iconTheme.color,
               ),
-              onTap: () => showDialog(
+              onTap: () => showDialog<void>(
                 context: context,
                 builder: (context) => UnitSystemDialog(),
               ),
@@ -105,7 +105,7 @@ class SettingScreen extends ConsumerWidget {
                 }
               }(),
               padding: 80.0,
-              onTap: () => showDialog(
+              onTap: () => showDialog<void>(
                 context: context,
                 builder: (context) => ThemeDialog(),
               ),
@@ -125,7 +125,7 @@ class SettingScreen extends ConsumerWidget {
                 }
               }(),
               padding: 80.0,
-              onTap: () => showDialog(
+              onTap: () => showDialog<void>(
                 context: context,
                 builder: (context) => DarkThemeDialog(),
               ),
@@ -142,7 +142,7 @@ class SettingScreen extends ConsumerWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () async {
-                await showDialog(
+                await showDialog<void>(
                   context: context,
                   builder: (context) => const ApiKeyDialog(),
                 );
@@ -155,7 +155,7 @@ class SettingScreen extends ConsumerWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () {
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) => const ApiKeyResetDialog(),
                 );
@@ -168,7 +168,7 @@ class SettingScreen extends ConsumerWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onTap: () {
-                showDialog(
+                showDialog<void>(
                   context: context,
                   builder: (context) => const ApiKeyInfoDialog(),
                 );
@@ -186,7 +186,7 @@ class SettingScreen extends ConsumerWidget {
               ),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (BuildContext context) => AboutScreen(),
                 ),
               ),
