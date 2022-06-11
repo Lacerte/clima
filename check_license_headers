@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -euf
+
+license_header="/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */"
+
+# It has to be done like this because a while loop in a pipe is run inside a
+# subshell, and as a result it can't change variables outside of the subshell.
+git ls-files "*.dart" | {
+    found=0
+    while IFS="
+" read -r file; do
+        if [ "$(head -n5 "$file")" != "$license_header" ]; then
+            if [ "$found" = 0 ]; then
+                echo "Found the following files which don't have a license header or have an invalid one:"
+                found=1
+            fi
+            printf "%s\n" "$file"
+        fi
+    done
+    [ "$found" = 0 ] || exit 1
+}
+
+echo "All Dart files in current working directory have a valid license header. Good job! :D"
