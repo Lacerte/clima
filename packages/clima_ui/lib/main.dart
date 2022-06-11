@@ -21,6 +21,7 @@ import 'package:clima_ui/themes/black_theme.dart';
 import 'package:clima_ui/themes/dark_theme.dart';
 import 'package:clima_ui/themes/light_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,6 +92,8 @@ class _App extends HookConsumerWidget {
       builder: (context, orientation, screenType) {
         return MaterialApp(
           locale: getLocale?.call(context),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           builder: (context, child) {
             final ClimaThemeData climaTheme;
 

@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
+
   clima_core:
     path: ../clima_core
   clima_domain:
@@ -46,3 +49,4 @@ flutter:
   assets:
     - assets/
   uses-material-design: true
+  generate: true

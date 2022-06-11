@@ -22,11 +22,13 @@ import 'package:clima_ui/widgets/settings/settings_divider.dart';
 import 'package:clima_ui/widgets/settings/settings_header.dart';
 import 'package:clima_ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final theme =
         ref.watch(themeStateNotifierProvider.select((state) => state.theme));
     final darkTheme = ref.watch(
@@ -49,7 +51,7 @@ class SettingScreen extends ConsumerWidget {
           },
         ),
         title: Text(
-          'Settings',
+          appLocalizations.settings,
           style: TextStyle(
             color: Theme.of(context).appBarTheme.titleTextStyle!.color,
             fontSize: Theme.of(context).textTheme.headline6!.fontSize,
@@ -84,18 +86,18 @@ class SettingScreen extends ConsumerWidget {
               ),
             ),
             const SettingsDivider(),
-            const SettingsHeader(
-              title: 'Interface',
+            SettingsHeader(
+              title: appLocalizations.interface,
             ),
             SettingsTile(
-              title: 'Theme',
+              title: appLocalizations.theme,
               subtitle: () {
                 switch (theme) {
                   case ThemeModel.light:
-                    return 'Light';
+                    return appLocalizations.light;
 
                   case ThemeModel.dark:
-                    return 'Dark';
+                    return appLocalizations.dark;
 
                   case ThemeModel.systemDefault:
                     return 'System default';
@@ -111,14 +113,14 @@ class SettingScreen extends ConsumerWidget {
               ),
             ),
             SettingsTile(
-              title: 'Dark theme',
+              title: appLocalizations.darkTheme,
               subtitle: () {
                 switch (darkTheme) {
                   case DarkThemeModel.darkGrey:
-                    return 'Default';
+                    return appLocalizations.defaultTheme;
 
                   case DarkThemeModel.black:
-                    return 'Black';
+                    return appLocalizations.black;
 
                   default:
                     throw Error();
@@ -175,11 +177,11 @@ class SettingScreen extends ConsumerWidget {
               },
             ),
             const SettingsDivider(),
-            const SettingsHeader(
-              title: 'About',
+            SettingsHeader(
+              title: appLocalizations.about,
             ),
             SettingsTile(
-              title: 'About Clima',
+              title: appLocalizations.aboutClima,
               leading: Icon(
                 Icons.info_outline,
                 color: Theme.of(context).iconTheme.color,

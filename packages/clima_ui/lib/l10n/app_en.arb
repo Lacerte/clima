@@ -1,0 +1,43 @@
+{
+    "aboutClima": "About Clima",
+
+    "information": "Information",
+
+    "changelog": "Changelog",
+
+    "donate": "Donate",
+
+    "donateTileSubtitle": "Support the development of Clima",
+
+    "libraries": "Libraries",
+    "librariesTileSubtitle": "Open-source libraries used in the app",
+
+    "feedback": "Feedback",
+    "feedbackTileSubtitle": "Bugs and feature requests",
+
+    "submitIssue": "Submit issue",
+
+    "contactDeveloper": "Contact developer",
+
+    "sourceCode": "Source code",
+    "sourceCodeTileSubtitle": "Clima is free software licensed under the MPL 2.0",
+
+    "settings": "Settings",
+
+    "interface": "Interface",
+
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+
+    "darkTheme": "Dark theme",
+    "defaultTheme": "Default",
+    "black": "Black",
+
+    "about": "About",
+
+    "windSpeedLowercase": "wind speed",
+    "sunriseLowercase": "sunrise",
+    "sunsetLowercase": "sunset",
+    "humidityLowercase": "humdity"
+}
