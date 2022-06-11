@@ -32,11 +32,7 @@ class ApiKeyResetDialog extends ConsumerWidget {
               await ref
                   .read(apiKeyStateNotifierProvider.notifier)
                   .setApiKey(const ApiKeyModel.default_());
-              showSnackBar(
-                context,
-                text: 'API key reset successfully.',
-                duration: 4,
-              );
+              showSnackBar(context, text: 'API key reset successfully.');
               Navigator.pop(context);
             },
             child: Text(
