@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 enum Menu { settings, help }
 
 class OverflowMenuButton extends StatelessWidget {
-  const OverflowMenuButton({Key? key}) : super(key: key);
+  const OverflowMenuButton({super.key});
 
   @override
   Widget build(BuildContext context) => PopupMenuButton(

@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 
 class ClimaTheme extends InheritedWidget {
   const ClimaTheme({
-    required Widget child,
+    required super.child,
     required this.data,
-    Key? key,
-  }) : super(key: key, child: child);
+    super.key,
+  });
 
   final ClimaThemeData data;
 

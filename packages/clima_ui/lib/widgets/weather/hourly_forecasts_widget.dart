@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class HourlyForecastsWidget extends ConsumerWidget {
-  const HourlyForecastsWidget({Key? key}) : super(key: key);
+  const HourlyForecastsWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

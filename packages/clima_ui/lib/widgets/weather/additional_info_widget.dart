@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class AdditionalInfoWidget extends ConsumerWidget {
-  const AdditionalInfoWidget({Key? key}) : super(key: key);
+  const AdditionalInfoWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
