@@ -12,4 +12,4 @@ Future<void> main() => m.main(
       builder: DevicePreview.appBuilder,
       topLevelBuilder: (widget) => DevicePreview(builder: (_) => widget),
       getLocale: DevicePreview.locale,
-    );
+    
