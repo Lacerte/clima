@@ -13,38 +13,33 @@ class HelpAndFeedbackDialog extends StatelessWidget {
   const HelpAndFeedbackDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: Text(
-        'Help & Feedback',
-        style: TextStyle(
-          color: Theme.of(context).textTheme.subtitle1!.color,
+  Widget build(BuildContext context) => SimpleDialog(
+        title: Text(
+          'Help & Feedback',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.subtitle1!.color,
+          ),
         ),
-      ),
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SettingsTile(
-              title: 'Submit request',
-              leading: const Icon(FontAwesomeIcons.github),
-              onTap: () => launchUrl(
-                Uri.parse('https://github.com/lacerte/clima/issues/new'),
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SettingsTile(
+                title: 'Submit request',
+                leading: const Icon(FontAwesomeIcons.github),
+                onTap: () => launchUrl(
+                  Uri.parse('https://github.com/lacerte/clima/issues/new'),
+                ),
               ),
-            ),
-            SettingsTile(
-              title: 'Contact developer',
-              leading: FaIcon(
-                Icons.email_outlined,
-                color: Theme.of(context).iconTheme.color,
+              SettingsTile(
+                title: 'Contact developer',
+                leading: const FaIcon(Icons.email_outlined),
+                onTap: () => launchUrl(
+                  Uri.parse('mailto:lacerte@protonmail.com'),
+                ),
               ),
-              onTap: () => launchUrl(
-                Uri.parse('mailto:lacerte@protonmail.com'),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+            ],
+          ),
+        ],
+      );
 }

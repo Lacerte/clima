@@ -82,7 +82,7 @@ class ApiKeyDialog extends HookConsumerWidget {
         ),
         onEditingComplete: submit,
       ),
-      actions: <Widget>[
+      actions: [
         TextButton(
           onPressed: () {
             Navigator.pop(context);

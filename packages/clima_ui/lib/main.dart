@@ -88,41 +88,39 @@ class _App extends HookConsumerWidget {
     }
 
     return Sizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp(
-          locale: getLocale?.call(context),
-          builder: (context, child) {
-            final ClimaThemeData climaTheme;
+      builder: (context, orientation, screenType) => MaterialApp(
+        locale: getLocale?.call(context),
+        builder: (context, child) {
+          final ClimaThemeData climaTheme;
 
-            switch (Theme.of(context).brightness) {
-              case Brightness.light:
-                climaTheme = lightClimaTheme;
-                break;
+          switch (Theme.of(context).brightness) {
+            case Brightness.light:
+              climaTheme = lightClimaTheme;
+              break;
 
-              case Brightness.dark:
-                climaTheme = {
-                  DarkThemeModel.black: blackClimaTheme,
-                  DarkThemeModel.darkGrey: darkGreyClimaTheme,
-                }[themeState.darkTheme]!;
-            }
+            case Brightness.dark:
+              climaTheme = {
+                DarkThemeModel.black: blackClimaTheme,
+                DarkThemeModel.darkGrey: darkGreyClimaTheme,
+              }[themeState.darkTheme]!;
+          }
 
-            child = ClimaTheme(data: climaTheme, child: child!);
+          child = ClimaTheme(data: climaTheme, child: child!);
 
-            return builder?.call(context, child) ?? child;
-          },
-          home: const WeatherScreen(),
-          theme: lightTheme,
-          darkTheme: {
-            DarkThemeModel.black: blackTheme,
-            DarkThemeModel.darkGrey: darkGreyTheme,
-          }[themeState.darkTheme],
-          themeMode: const {
-            ThemeModel.systemDefault: ThemeMode.system,
-            ThemeModel.light: ThemeMode.light,
-            ThemeModel.dark: ThemeMode.dark,
-          }[themeState.theme],
-        );
-      },
+          return builder?.call(context, child) ?? child;
+        },
+        home: const WeatherScreen(),
+        theme: lightTheme,
+        darkTheme: {
+          DarkThemeModel.black: blackTheme,
+          DarkThemeModel.darkGrey: darkGreyTheme,
+        }[themeState.darkTheme],
+        themeMode: const {
+          ThemeModel.systemDefault: ThemeMode.system,
+          ThemeModel.light: ThemeMode.light,
+          ThemeModel.dark: ThemeMode.dark,
+        }[themeState.theme],
+      ),
     );
   }
 }

@@ -12,12 +12,12 @@ InlineSpan linkTextSpan({
   required String text,
   required String url,
   required BuildContext context,
-}) {
-  return TextSpan(
-    text: text,
-    style: TextStyle(
-      color: Theme.of(context).colorScheme.secondary,
-    ),
-    recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(url)),
-  );
-}
+}) =>
+    TextSpan(
+      text: text,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.secondary,
+      ),
+      recognizer: TapGestureRecognizer()
+        ..onTap = () => launchUrl(Uri.parse(url)),
+    );
