@@ -19,7 +19,10 @@ class OverflowMenuButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         offset: const Offset(512.0, -512.0),
-        icon: const Icon(Icons.more_vert),
+        icon: Icon(
+          Icons.more_vert,
+          color: Theme.of(context).appBarTheme.iconTheme!.color,
+        ),
         tooltip: 'More options',
         itemBuilder: (context) => [
           PopupMenuItem(
@@ -31,7 +34,7 @@ class OverflowMenuButton extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (context) => SettingScreen(),
+                    builder: (BuildContext context) => SettingScreen(),
                   ),
                 );
               },

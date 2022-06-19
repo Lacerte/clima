@@ -60,7 +60,7 @@ class ApiKeyStateNotifier extends StateNotifier<ApiKeyState> {
   Future<void> loadApiKey() async {
     state = const Loading();
     final data = await _apiKeyRepo.getApiKey();
-    state = data.fold(Error.new, Loaded.new);
+    state = data.fold((failure) => Error(failure), (city) => Loaded(city));
   }
 
   Future<void> setApiKey(ApiKeyModel apiKey) async {

@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 
 import 'clima_theme.dart';
 
-final lightTheme = ThemeData.light().copyWith(
+ThemeData lightTheme = ThemeData.light().copyWith(
   // For some reason, the brightness seems to be wrong if it's not set
   // explicitly.
   brightness: Brightness.light,

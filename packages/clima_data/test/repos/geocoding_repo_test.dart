@@ -5,6 +5,7 @@
  */
 
 import 'package:clima_core/either.dart';
+import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/geocoding_caching_data_source.dart';
 import 'package:clima_data/data_sources/geocoding_remote_data_source.dart';
 import 'package:clima_data/models/geographic_coordinates_model.dart';
@@ -56,7 +57,7 @@ void main() {
 
       expect(
         await repo.getCoordinates(_city),
-        const Right<GeographicCoordinatesModel>(_fakeCoordinates),
+        const Right<Failure, GeographicCoordinatesModel>(_fakeCoordinates),
       );
 
       verify(mockCachingDataSource.getCachedCoordinates(_city)).called(1);
@@ -76,7 +77,7 @@ void main() {
 
       expect(
         await repo.getCoordinates(_city),
-        const Right<GeographicCoordinatesModel>(_fakeCoordinates),
+        const Right<Failure, GeographicCoordinatesModel>(_fakeCoordinates),
       );
 
       verify(mockCachingDataSource.getCachedCoordinates(_city)).called(1);

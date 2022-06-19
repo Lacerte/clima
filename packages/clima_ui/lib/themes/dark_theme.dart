@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 
 import 'clima_theme.dart';
 
-final darkGreyTheme = ThemeData.dark().copyWith(
+ThemeData darkGreyTheme = ThemeData.dark().copyWith(
   // For some reason, the brightness seems to be wrong if it's not set
   // explicitly.
   brightness: Brightness.dark,

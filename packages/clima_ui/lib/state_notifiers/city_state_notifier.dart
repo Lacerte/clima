@@ -74,7 +74,7 @@ class CityStateNotifier extends StateNotifier<CityState> {
   Future<void> loadCity() async {
     state = const Loading();
     final data = await getCity(const NoParams());
-    state = data.fold(Error.new, Loaded.new);
+    state = data.fold((failure) => Error(failure), (city) => Loaded(city));
   }
 
   Future<void> setCity(City city) async {

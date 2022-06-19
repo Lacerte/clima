@@ -59,7 +59,7 @@ class SettingScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             const SettingsHeader(
               title: 'General',
             ),
@@ -74,7 +74,10 @@ class SettingScreen extends ConsumerWidget {
                     return 'Imperial';
                 }
               }(),
-              leading: const Icon(Icons.straighten_outlined),
+              leading: Icon(
+                Icons.straighten_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () => showDialog<void>(
                 context: context,
                 builder: (context) => UnitSystemDialog(),
@@ -134,7 +137,10 @@ class SettingScreen extends ConsumerWidget {
               subtitle: apiKey.isCustom
                   ? 'Currently using custom API key'
                   : 'Currently using default API key (not recommended)',
-              leading: const Icon(Icons.keyboard_outlined),
+              leading: Icon(
+                Icons.keyboard_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () async {
                 await showDialog<void>(
                   context: context,
@@ -144,7 +150,10 @@ class SettingScreen extends ConsumerWidget {
             ),
             SettingsTile(
               title: 'Reset API key',
-              leading: const Icon(Icons.restore_outlined),
+              leading: Icon(
+                Icons.restore_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () {
                 showDialog<void>(
                   context: context,
@@ -154,7 +163,10 @@ class SettingScreen extends ConsumerWidget {
             ),
             SettingsTile(
               title: 'Learn more',
-              leading: const Icon(Icons.launch_outlined),
+              leading: Icon(
+                Icons.launch_outlined,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () {
                 showDialog<void>(
                   context: context,
@@ -168,11 +180,14 @@ class SettingScreen extends ConsumerWidget {
             ),
             SettingsTile(
               title: 'About Clima',
-              leading: const Icon(Icons.info_outline),
+              leading: Icon(
+                Icons.info_outline,
+                color: Theme.of(context).iconTheme.color,
+              ),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (context) => AboutScreen(),
+                  builder: (BuildContext context) => AboutScreen(),
                 ),
               ),
             ),
