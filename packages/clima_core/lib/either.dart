@@ -30,7 +30,7 @@ abstract class Either<L, R> extends Equatable {
   bool get stringify => true;
 }
 
-class Left<L, R> extends Either<L, R> {
+class Left<L> extends Either<L, Never> {
   const Left(this.value) : super._();
 
   final L value;
@@ -42,7 +42,7 @@ class Left<L, R> extends Either<L, R> {
   List<Object?> get props => [value];
 }
 
-class Right<L, R> extends Either<L, R> {
+class Right<R> extends Either<Never, R> {
   const Right(this.value) : super._();
 
   final R value;

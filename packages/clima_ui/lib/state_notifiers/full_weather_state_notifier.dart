@@ -86,28 +86,27 @@ class FullWeatherStateNotifier extends StateNotifier<FullWeatherState> {
     final cityEither = await getCity(const NoParams());
 
     if (cityEither is Left) {
-      return Left((cityEither as Left<Failure, City>).value);
+      return cityEither as Left<Failure>;
     }
 
-    final city = (cityEither as Right<Failure, City>).value;
+    final city = (cityEither as Right<City>).value;
 
     final fullWeatherEither =
         await getFullWeather(GetFullWeatherParams(city: city));
 
     if (fullWeatherEither is Left) {
-      return Left((fullWeatherEither as Left<Failure, FullWeather>).value);
+      return fullWeatherEither;
     }
 
-    final fullWeather =
-        (fullWeatherEither as Right<Failure, FullWeather>).value;
+    final fullWeather = (fullWeatherEither as Right<FullWeather>).value;
 
     final unitSystemEither = await getUnitSystem(const NoParams());
 
     if (unitSystemEither is Left) {
-      return Left((unitSystemEither as Left<Failure, UnitSystem>).value);
+      return Left((unitSystemEither as Left<Failure>).value);
     }
 
-    final unitSystem = (unitSystemEither as Right<Failure, UnitSystem>).value;
+    final unitSystem = (unitSystemEither as Right<UnitSystem>).value;
 
     return Right(fullWeather.changeUnitSystem(unitSystem));
   }
