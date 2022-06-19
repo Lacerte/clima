@@ -5,6 +5,7 @@
  */
 
 import 'package:clima_core/either.dart';
+import 'package:clima_core/failure.dart';
 import 'package:clima_data/data_sources/geocoding_caching_data_source.dart';
 import 'package:clima_data/models/geographic_coordinates_model.dart';
 import 'package:clima_data/providers.dart';
@@ -59,7 +60,7 @@ void main() {
     test('adds item to empty cache correctly', () async {
       expect(
         await dataSource.setCachedCoordinates(_city, _fakeCoordinates),
-        const Right<void>(null),
+        const Right<Failure, void>(null),
       );
 
       verify(
@@ -71,7 +72,7 @@ void main() {
 
       expect(
         await dataSource.getCachedCoordinates(_city),
-        const Right<GeographicCoordinatesModel?>(_fakeCoordinates),
+        const Right<Failure, GeographicCoordinatesModel?>(_fakeCoordinates),
       );
     });
 
@@ -79,7 +80,7 @@ void main() {
       // Just pre-filling the cache.
       expect(
         await dataSource.setCachedCoordinates(_city, _fakeCoordinates),
-        const Right<void>(null),
+        const Right<Failure, void>(null),
       );
 
       verify(
@@ -101,7 +102,7 @@ void main() {
 
       expect(
         await dataSource.setCachedCoordinates(otherCity, otherFakeCoordinates),
-        const Right<void>(null),
+        const Right<Failure, void>(null),
       );
 
       verify(
@@ -114,14 +115,14 @@ void main() {
 
       expect(
         await dataSource.getCachedCoordinates(otherCity),
-        const Right<GeographicCoordinatesModel?>(otherFakeCoordinates),
+        const Right<Failure, GeographicCoordinatesModel?>(otherFakeCoordinates),
       );
     });
 
     test('Removes item if its age exceeds invalidation age', () async {
       expect(
         await dataSource.setCachedCoordinates(_city, _fakeCoordinates),
-        const Right<void>(null),
+        const Right<Failure, void>(null),
       );
 
       verify(
@@ -138,7 +139,7 @@ void main() {
           // we won't hit it in testing.
           invalidationDuration: const Duration(days: 10),
         ),
-        const Right<GeographicCoordinatesModel?>(_fakeCoordinates),
+        const Right<Failure, GeographicCoordinatesModel?>(_fakeCoordinates),
       );
 
       verifyNever(
@@ -156,7 +157,7 @@ void main() {
           _city,
           invalidationDuration: delay,
         ),
-        const Right<GeographicCoordinatesModel?>(null),
+        const Right<Failure, GeographicCoordinatesModel?>(null),
       );
 
       verify(

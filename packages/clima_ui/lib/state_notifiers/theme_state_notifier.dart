@@ -96,7 +96,7 @@ class ThemeStateNotifier extends StateNotifier<ThemeState> {
             ),
           ),
         )
-        .fold(ErrorState.new, id);
+        .fold((failure) => ErrorState(failure), id);
   }
 
   Future<void> setTheme(ThemeModel theme) async {

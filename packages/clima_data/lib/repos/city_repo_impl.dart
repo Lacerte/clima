@@ -32,10 +32,10 @@ class CityRepoImpl implements CityRepo {
     final cityEither = await localDataSource.getCity();
 
     if (cityEither is Left) {
-      return cityEither as Left<Failure>;
+      return cityEither.map((model) => model!.city);
     }
 
-    final cityModel = (cityEither as Right<CityModel?>).value;
+    final cityModel = (cityEither as Right<Failure, CityModel?>).value;
 
     if (cityModel == null) {
       return (await randomDataSource.getCity()).map((model) => model.city);

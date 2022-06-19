@@ -16,7 +16,7 @@ abstract class Either<L, R> extends Equatable {
   T fold<T>(T Function(L) left, T Function(R) right);
 
   Either<L, R2> map<R2>(R2 Function(R) f) => fold(
-        Left.new,
+        (left) => Left(left),
         (right) => Right(f(right)),
       );
 
@@ -24,13 +24,14 @@ abstract class Either<L, R> extends Equatable {
 
   R getOrElse(R Function() orElse) => fold((left) => orElse(), id);
 
-  Either<L, R2> bind<R2>(Either<L, R2> Function(R) f) => fold(Left.new, f);
+  Either<L, R2> bind<R2>(Either<L, R2> Function(R) f) =>
+      fold((left) => Left(left), f);
 
   @override
   bool get stringify => true;
 }
 
-class Left<L> extends Either<L, Never> {
+class Left<L, R> extends Either<L, R> {
   const Left(this.value) : super._();
 
   final L value;
@@ -42,7 +43,7 @@ class Left<L> extends Either<L, Never> {
   List<Object?> get props => [value];
 }
 
-class Right<R> extends Either<Never, R> {
+class Right<L, R> extends Either<L, R> {
   const Right(this.value) : super._();
 
   final R value;

@@ -86,27 +86,28 @@ class FullWeatherStateNotifier extends StateNotifier<FullWeatherState> {
     final cityEither = await getCity(const NoParams());
 
     if (cityEither is Left) {
-      return cityEither as Left<Failure>;
+      return Left((cityEither as Left<Failure, City>).value);
     }
 
-    final city = (cityEither as Right<City>).value;
+    final city = (cityEither as Right<Failure, City>).value;
 
     final fullWeatherEither =
         await getFullWeather(GetFullWeatherParams(city: city));
 
     if (fullWeatherEither is Left) {
-      return fullWeatherEither;
+      return Left((fullWeatherEither as Left<Failure, FullWeather>).value);
     }
 
-    final fullWeather = (fullWeatherEither as Right<FullWeather>).value;
+    final fullWeather =
+        (fullWeatherEither as Right<Failure, FullWeather>).value;
 
     final unitSystemEither = await getUnitSystem(const NoParams());
 
     if (unitSystemEither is Left) {
-      return Left((unitSystemEither as Left<Failure>).value);
+      return Left((unitSystemEither as Left<Failure, UnitSystem>).value);
     }
 
-    final unitSystem = (unitSystemEither as Right<UnitSystem>).value;
+    final unitSystem = (unitSystemEither as Right<Failure, UnitSystem>).value;
 
     return Right(fullWeather.changeUnitSystem(unitSystem));
   }
@@ -116,7 +117,7 @@ class FullWeatherStateNotifier extends StateNotifier<FullWeatherState> {
 
     state = (await _loadWeather()).fold(
       (failure) => Error(failure, fullWeather: state.fullWeather),
-      Loaded.new,
+      (fullWeather) => Loaded(fullWeather),
     );
   }
 

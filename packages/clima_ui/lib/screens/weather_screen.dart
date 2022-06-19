@@ -96,7 +96,7 @@ class WeatherScreen extends HookConsumerWidget {
           }
         });
       },
-      [fullWeatherStateNotifier, fullWeather == null],
+      [fullWeatherStateNotifier, fullWeather],
     );
 
     return Scaffold(
@@ -109,7 +109,7 @@ class WeatherScreen extends HookConsumerWidget {
         controller: controller,
         progress: fullWeatherState is w.Loading || cityState is c.Loading,
         accentColor: Theme.of(context).colorScheme.secondary,
-        onSubmitted: (newCityName) async {
+        onSubmitted: (String newCityName) async {
           controller.close();
 
           final trimmedCityName = newCityName.trim();
