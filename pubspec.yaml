@@ -1,0 +1,49 @@
+name: clima
+description: A new Flutter application.
+
+version: 2.0.1+8
+
+publish_to: none
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  equatable: 2.0.3
+  flutter_hooks: 0.18.4
+  flutter_riverpod: 1.0.4
+  hooks_riverpod: 1.0.4
+  material_floating_search_bar:
+    git:
+      url: https://github.com/CentaurusApps/material_floating_search_bar.git
+      ref: 07b2980ad304dacaa5688e56483adcec36fb08ab
+  package_info_plus: 1.4.2
+  riverpod: 1.0.3
+  shared_preferences: 2.0.15
+  font_awesome_flutter: 10.1.0
+  device_preview: 1.1.0
+  url_launcher: 6.1.2
+  sizer: 2.0.15
+  flutter_svg: 1.0.3
+  intl: 0.17.0
+  meta: 1.7.0
+  state_notifier: 0.7.2+1
+  connectivity_plus: 2.3.0
+  collection: 1.16.0
+  http: 0.13.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: 1.8.2
+  mockito: 5.2.0
+  build_runner: 2.1.11
+  test: 1.21.1
+
+flutter:
+  assets:
+    - assets/
+  uses-material-design: true

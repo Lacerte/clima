@@ -18,23 +18,11 @@ jobs:
   check-code-style-and-run-tests:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        package:
-          - packages/clima_core
-          - packages/clima_domain
-          - packages/clima_data
-          - packages/clima_ui
-
-    env:
-      command: ${{ (endsWith(matrix.package, 'core') || endsWith(matrix.package, 'domain')) && 'dart' || 'flutter' }}
-
     steps:
       - uses: actions/checkout@v3
 
       - name: Check license headers
-        run: ../../check_license_headers
-        working-directory: ${{ matrix.package }}
+        run: ./check_license_headers
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -45,26 +33,15 @@ jobs:
 
       - name: Check formatting
         run: flutter format --set-exit-if-changed --dry-run .
-        working-directory: ${{ matrix.package }}
 
       - name: Get packages
-        run: '"$command" pub get'
-        working-directory: ${{ matrix.package }}
+        run: flutter pub get
 
       - name: Run code generation
-        run: '"$command" pub run build_runner build'
-        working-directory: ${{ matrix.package }}
-        if: ${{ endsWith(matrix.package, 'data') }}
+        run: flutter pub run build_runner build
 
       - name: Analyze source code
-        run: '"$command" analyze'
-        working-directory: ${{ matrix.package }}
+        run: flutter analyze
 
       - name: Run tests
-        run: |
-          if [ -d "test" ]; then
-            "$command" test
-          else
-            echo "test directory is empty"
-          fi
-        working-directory: ${{ matrix.package }}
+        run: flutter test
