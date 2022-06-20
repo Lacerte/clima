@@ -4,7 +4,9 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:clima_domain/entities/unit_system.dart';
 import 'package:clima_ui/state_notifiers/full_weather_state_notifier.dart' as w;
+import 'package:clima_ui/state_notifiers/unit_system_state_notifier.dart' as u;
 import 'package:clima_ui/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,6 +31,9 @@ class MainInfoWidget extends ConsumerWidget {
       w.fullWeatherStateNotifierProvider.select(
         (state) => state.fullWeather!.city,
       ),
+    );
+    final unitSystem = ref.watch(
+      u.unitSystemStateNotifierProvider.select((state) => state.unitSystem),
     );
 
     return Padding(
@@ -64,16 +69,43 @@ class MainInfoWidget extends ConsumerWidget {
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 1.h),
-            child: Text(
-              '${currentWeather.temperature.round()}°',
-              maxLines: 1,
-              style: kSubtitle1TextStyle(context).copyWith(
-                fontSize:
-                    MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
-                        ? 40.sp
-                        : 30.sp,
-                fontWeight: FontWeight.w100,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              children: [
+                Text(
+                  '${currentWeather.temperature.round()}°',
+                  maxLines: 1,
+                  style: kSubtitle1TextStyle(context).copyWith(
+                    fontSize:
+                        MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                            ? 50.sp
+                            : 40.sp,
+                    fontWeight: FontWeight.w100,
+                  ),
+                ),
+                Text(
+                  () {
+                    switch (unitSystem) {
+                      case UnitSystem.metric:
+                        return 'C';
+
+                      case UnitSystem.imperial:
+                        return 'F';
+
+                      case null:
+                        return '';
+                    }
+                  }(),
+                  style: kSubtitle1TextStyle(context).copyWith(
+                    fontSize:
+                        MediaQuery.of(context).size.shortestSide < kTabletBreakpoint
+                            ? 30.sp
+                            : 25.sp,
+                    fontWeight: FontWeight.w100,
+                  ),
+                ),
+              ]
             ),
           ),
           Padding(
