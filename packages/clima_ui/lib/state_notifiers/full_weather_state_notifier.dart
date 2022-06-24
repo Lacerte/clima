@@ -117,7 +117,7 @@ class FullWeatherStateNotifier extends StateNotifier<FullWeatherState> {
 
     state = (await _loadWeather()).fold(
       (failure) => Error(failure, fullWeather: state.fullWeather),
-      (fullWeather) => Loaded(fullWeather),
+      Loaded.new,
     );
   }
 
