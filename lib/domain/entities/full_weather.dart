@@ -37,7 +37,9 @@ class FullWeather extends Equatable {
 
   DailyForecast get currentDayForecast => minBy(
         dailyForecasts.where(
-          (forecast) => forecast.date.weekday == currentWeather.date.weekday,
+          (forecast) =>
+              forecast.date.add(timeZoneOffset).weekday ==
+              currentWeather.date.add(timeZoneOffset).weekday,
         ),
         (forecast) => forecast.date.difference(currentWeather.date).abs(),
       )!;
