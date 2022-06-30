@@ -14,6 +14,9 @@ on:
       - .github/PULL_REQUEST_TEMPLATE.md
       - 'fastlane/**'
 
+permissions:
+  contents: read
+
 jobs:
   check-code-style-and-run-tests:
     runs-on: ubuntu-latest
