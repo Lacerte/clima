@@ -120,14 +120,7 @@ class AboutScreen extends StatelessWidget {
                 onTap: () {
                   showDialog<void>(
                     context: context,
-                    builder: (context) => const SimpleDialog(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: CreditsDialog(),
-                        ),
-                      ],
-                    ),
+                    builder: (context) => const CreditsDialog(),
                   );
                 },
               ),
