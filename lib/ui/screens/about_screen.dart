@@ -4,6 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import 'package:clima/constants.dart';
 import 'package:clima/ui/build_flavor.dart';
 import 'package:clima/ui/widgets/dialogs/credits_dialog.dart';
 import 'package:clima/ui/widgets/dialogs/help_and_feedback_dialog.dart';
@@ -12,7 +13,6 @@ import 'package:clima/ui/widgets/settings/settings_header.dart';
 import 'package:clima/ui/widgets/settings/settings_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -43,14 +43,14 @@ class AboutScreen extends StatelessWidget {
               ),
               SettingsTile(
                 title: 'Changelog',
-                subtitle: 'Version 2.0.1',
+                subtitle: 'Version $appVersion',
                 leading: Icon(
                   Icons.new_releases_outlined,
                   color: Theme.of(context).iconTheme.color,
                 ),
                 onTap: () => launchUrl(
                   Uri.parse(
-                    'https://github.com/lacerte/clima/releases/tag/v2.0.1',
+                    'https://github.com/lacerte/clima/releases/tag/v$appVersion',
                   ),
                 ),
               ),
@@ -75,13 +75,11 @@ class AboutScreen extends StatelessWidget {
                   Icons.source_outlined,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onTap: () async {
-                  final PackageInfo packageInfo =
-                      await PackageInfo.fromPlatform();
+                onTap: () {
                   showLicensePage(
                     context: context,
-                    applicationName: packageInfo.appName,
-                    applicationVersion: packageInfo.version,
+                    applicationName: 'Clima',
+                    applicationVersion: appVersion,
                   );
                 },
               ),
