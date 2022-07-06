@@ -419,7 +419,7 @@ packages:
       path: "."
       ref: "07b2980ad304dacaa5688e56483adcec36fb08ab"
       resolved-ref: "07b2980ad304dacaa5688e56483adcec36fb08ab"
-      url: "https://github.com/CentaurusApps/material_floating_search_bar.git"
+      url: "https://github.com/Lacerte/material_floating_search_bar.git"
     source: git
     version: "0.3.4"
   meta:
