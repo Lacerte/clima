@@ -18,7 +18,7 @@ dependencies:
   hooks_riverpod: 1.0.4
   material_floating_search_bar:
     git:
-      url: https://github.com/CentaurusApps/material_floating_search_bar.git
+      url: https://github.com/Lacerte/material_floating_search_bar.git
       ref: 07b2980ad304dacaa5688e56483adcec36fb08ab
   riverpod: 1.0.3
   shared_preferences: 2.0.15
