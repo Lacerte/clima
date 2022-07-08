@@ -11,8 +11,7 @@
     <application
 
         android:label="Clima"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round">
+        android:icon="@mipmap/ic_launcher">
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
