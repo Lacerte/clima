@@ -21,6 +21,13 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = null
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -49,6 +56,23 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
+    }
+
+    if (keystoreProperties != null) {
+        signingConfigs {
+            release {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile']
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig keystoreProperties == null ? signingConfigs.debug : keystoreProperties.release
+        }
     }
 }
 
