@@ -41,6 +41,7 @@ void main() {
           clouds: 8,
           uvIndex: 0,
           windSpeed: 7.5 * 3.6,
+          windDirection: 178,
           condition: 800,
           iconCode: '01n',
           description: 'clear sky',

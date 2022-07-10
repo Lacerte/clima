@@ -13,6 +13,7 @@ class Weather extends Equatable {
     required this.date,
     required this.temperature,
     required this.windSpeed,
+    required this.windDirection,
     required this.tempFeel,
     required this.condition,
     required this.humidity,
@@ -29,6 +30,8 @@ class Weather extends Equatable {
   final double temperature;
 
   final double windSpeed;
+
+  final double windDirection;
 
   /// The perceived temperature. Same unit as [temperature].
   final double tempFeel;
@@ -57,6 +60,7 @@ class Weather extends Equatable {
         date,
         temperature,
         windSpeed,
+        windDirection,
         tempFeel,
         condition,
         humidity,
@@ -94,6 +98,7 @@ class Weather extends Equatable {
       date: date,
       temperature: newTemperature,
       windSpeed: newWindSpeed,
+      windDirection: windDirection,
       tempFeel: newTempFeel,
       condition: condition,
       humidity: humidity,
