@@ -7,6 +7,7 @@
 import 'package:clima/domain/entities/unit_system.dart';
 import 'package:clima/ui/state_notifiers/full_weather_state_notifier.dart' as w;
 import 'package:clima/ui/state_notifiers/unit_system_state_notifier.dart';
+import 'package:clima/ui/utilities/wind_direction.dart';
 import 'package:clima/ui/widgets/weather/additional_info_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,10 +62,10 @@ class AdditionalInfoWidget extends ConsumerWidget {
                 value: '${currentWeather.windSpeed.round()} ${() {
                   switch (unitSystem) {
                     case UnitSystem.metric:
-                      return 'km/h';
+                      return 'km/h ${getWeatherDirection(currentWeather.windDirection)}';
 
                     case UnitSystem.imperial:
-                      return 'mph';
+                      return 'mph ${getWeatherDirection(currentWeather.windDirection)}';
                   }
                 }()}',
               ),
