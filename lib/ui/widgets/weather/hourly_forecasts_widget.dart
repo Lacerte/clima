@@ -44,7 +44,10 @@ class HourlyForecastsWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                DateFormat.j().format(
+                (MediaQuery.of(context).alwaysUse24HourFormat
+                        ? DateFormat.Hm()
+                        : DateFormat.jm())
+                    .format(
                   hourlyForecast.date.toUtc().add(timeZoneOffset),
                 ),
                 style: kSubtitle2TextStyle(context),

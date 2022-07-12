@@ -23,6 +23,8 @@ import 'package:clima/ui/themes/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl_standalone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -34,6 +36,9 @@ Future<void> main({
   Widget Function(Widget widget)? topLevelBuilder,
   Locale? Function(BuildContext)? getLocale,
 }) async {
+  await findSystemLocale();
+  await initializeDateFormatting();
+
   // Unless you do this, using method channels (like `SharedPreferences` does)
   // before running `runApp` throws an error.
   WidgetsFlutterBinding.ensureInitialized();
