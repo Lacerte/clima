@@ -35,6 +35,7 @@ class FullWeatherModel extends Equatable {
           tempFeel: (currentWeatherJson['feels_like'] as num).toDouble(),
           // We multiply by 3.6 to convert from m/s to km/h.
           windSpeed: (currentWeatherJson['wind_speed'] as num).toDouble() * 3.6,
+          windDirection: (currentWeatherJson['wind_deg'] as num).toDouble(),
           condition: currentWeatherJson['weather'][0]['id'] as int,
           description:
               currentWeatherJson['weather'][0]['description'] as String,

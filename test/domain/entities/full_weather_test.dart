@@ -70,6 +70,7 @@ void main() {
               temperature: 32,
               uvIndex: 0.5,
               windSpeed: windSpeed,
+              windDirection: 20,
             ),
             dailyForecasts: [
               DailyForecast(
@@ -114,6 +115,7 @@ void main() {
           temperature: 89.6,
           uvIndex: 0.5,
           windSpeed: 0.621371,
+          windDirection: 20,
         ),
         dailyForecasts: [
           DailyForecast(
